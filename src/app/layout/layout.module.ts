@@ -3,7 +3,6 @@ import { SharedModule } from '@shared';
 import { LayoutDefaultComponent } from './default/default.component';
 import { HeaderStorageComponent } from './default/header/components/storage.component';
 import { HeaderTaskComponent } from './default/header/components/task.component';
-import { HeaderUserComponent } from './default/header/components/user.component';
 import { HeaderComponent } from './default/header/header.component';
 import { SidebarComponent } from './default/sidebar/sidebar.component';
 import { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
@@ -18,16 +17,23 @@ const COMPONENTS = [
   ...SETTINGDRAWER
 ];
 
+import { WechatOfficeAccountComponent } from './default/header/components/wechat-office-account/wechat-office-account.component';
+
 const HEADERCOMPONENTS = [
   HeaderTaskComponent,
   HeaderStorageComponent,
-  HeaderUserComponent
+  UserComponent,
+  WechatOfficeAccountComponent
 ];
 
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
+import { UserComponent } from './default/header/components/user/user.component';
+import { FooterComponent } from './default/footer/footer.component';
+
 const PASSPORT = [
-  LayoutPassportComponent
+  LayoutPassportComponent,
+  FooterComponent
 ];
 
 @NgModule({

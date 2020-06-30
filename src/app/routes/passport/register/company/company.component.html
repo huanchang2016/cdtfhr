@@ -1,0 +1,17 @@
+<div class="register-box">
+
+    <nz-steps [nzCurrent]="transferSrv.step" nzProgressDot>
+        <nz-step nzTitle="账号信息"></nz-step>
+        <nz-step nzTitle="公司信息"></nz-step>
+        <nz-step nzTitle="等待审核"></nz-step>
+        <nz-step nzTitle="注册成功"></nz-step>
+      </nz-steps>
+  
+      <div class="steps-content">
+          
+        <app-step1 *ngIf="transferSrv.step == 0"></app-step1>
+        <app-step2 *ngIf="transferSrv.step == 1"></app-step2>
+        <app-step3 *ngIf="transferSrv.step == 2"></app-step3>
+        <app-step4 *ngIf="transferSrv.step == 3"></app-step4>
+      </div>
+</div>

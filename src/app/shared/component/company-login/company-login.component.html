@@ -1,0 +1,26 @@
+<div class="login-modal">
+    <div class="logo-box"><img src="/assets/imgs/logo_full_color.png" alt=""></div>
+
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-sm"></nz-alert>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="输入您的账号">
+                <input type="text" nzSize="large" nz-input formControlName="username" placeholder="请输入账号" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="输入您的密码">
+                <input type="password" nzSize="large" formControlName="password" nz-input placeholder="请输入密码" />
+            </nz-form-control>
+        </nz-form-item>
+        <div nz-row class="login-form-margin">
+            <div nz-col [nzSpan]="24" class="text-right">
+                <a class="login-form-forgot">忘记密码?</a>
+            </div>
+          </div>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="loading" nzSize="large">登
+            &nbsp;&nbsp;&nbsp;录</button>
+
+        <p class="text-center"><a [routerLink]="['/passport/register/company']">没有账号，立即注册</a></p>
+    </form>
+</div>

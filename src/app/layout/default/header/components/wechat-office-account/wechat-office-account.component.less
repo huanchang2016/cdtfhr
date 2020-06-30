@@ -1,0 +1,42 @@
+// -------- 引入全局统一管理样式设置 -----------
+@import "../../../../../../styles/base-color.less";
+
+.wechat-account_wrap {
+    height: 100%;
+    padding-top: 40px;
+    .wechat-account {
+        width: 148px;
+        height: 38px;
+        overflow: hidden;
+        border-left: 2px solid @primary-color;
+        color: @primary-color;
+
+        .wechat-icon {
+            width: 29px;
+            height: 29px;
+            overflow: hidden;
+            border-radius: 50%;
+            font-size: 22px;
+        }
+    }
+
+    
+
+}
+    .wechat-image-box {
+        width: 120px;
+        height: 164px;
+        overflow: hidden;
+        background: url('/assets/imgs/qr_code_bg.png') no-repeat left top;
+        background-size: 100% 100%;
+
+        .wechat-image-qr {
+            width: 103px;
+            height: 103px;
+            overflow: hidden;
+            margin: 20px auto 0;
+        }
+        &>p {
+            transform: scale(0.88);
+        }
+    }

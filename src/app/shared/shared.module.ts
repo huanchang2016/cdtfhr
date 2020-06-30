@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+import { UserLoginComponent } from './component/user-login/user-login.component';
+import { CompanyLoginComponent } from './component/company-login/company-login.component';
+import { SubTitleShowComponent } from './component/sub-title-show/sub-title-show.component';
+import { DatePickerMonthComponent } from './component/forms/date-picker-month/date-picker-month.component';
+import { DatePickerDateComponent } from './component/forms/date-picker-date/date-picker-date.component';
+import { ThreeStageCascaderComponent } from './component/forms/three-stage-cascader/three-stage-cascader.component';
 
 // #region third libs
 
@@ -12,7 +18,15 @@ const THIRDMODULES = [ ];
 
 // #region your componets & directives
 
-const COMPONENTS = [];
+const COMPONENTS = [
+    UserLoginComponent,
+    CompanyLoginComponent,
+    SubTitleShowComponent,
+    // 复用表单组件
+    DatePickerMonthComponent,
+    DatePickerDateComponent,
+    ThreeStageCascaderComponent
+];
 const DIRECTIVES = [];
 
 // #endregion
@@ -20,8 +34,8 @@ const DIRECTIVES = [];
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     ...SHARED_ZORRO_MODULES,
     // third libs

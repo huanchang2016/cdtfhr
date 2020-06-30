@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
 })
-export class UserLoginComponent implements OnDestroy {
+export class LoginComponent implements OnDestroy {
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,

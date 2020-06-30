@@ -1,0 +1,41 @@
+<div class="user_header__wrapper_box pr-md">
+
+    <div *ngIf="user; else notLogin" class="login_wrap">
+        <a nz-dropdown [nzDropdownMenu]="userMenu" class="d-flex align-items-center">
+            <span class="text-lg username text-truncate">您好，{{ user.name }}</span>
+            <i nz-icon nzType="down" class="text-md"></i>
+        </a>
+        <nz-dropdown-menu #userMenu="nzDropdownMenu">
+            <div nz-menu class="">
+                <div nz-menu-item>
+                    <p class="mb-xs">
+                        <i nz-icon nzType="bank" nzTheme="outline" class="mr-sm"></i>
+                        ssss
+                    </p>
+                </div>
+                <div nz-menu-item (click)="editpwd()">
+                    <i nz-icon nzType="unlock" nzTheme="outline" class="mr-sm"></i>
+                    修改密码
+                </div>
+                <div nz-menu-item (click)="logout(user.id)">
+                    <i nz-icon nzType="logout" class="mr-sm"></i>
+                    退出登录
+                </div>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+
+    <ng-template #notLogin>
+        <div class="not_login_wrap d-flex align-items-center">
+            <div class="not_login_wrap_content text-lg d-flex justify-content-around align-items-center point" (click)="createCompanyModal()">
+                <span class="d-block text-center company_login_icon_box"></span>
+                <span>企业用户</span>
+            </div>
+            <div class="not_login_wrap_content text-lg d-flex justify-content-around align-items-center point" (click)="createUserModal()">
+                <span class="d-block text-center"><i nz-icon nzType="user" nzTheme="outline"></i></span>
+                <span>个人用户</span>
+            </div>
+        </div>
+
+    </ng-template>
+</div>

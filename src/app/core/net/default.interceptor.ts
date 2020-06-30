@@ -105,8 +105,15 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       url = environment.SERVER_URL + url;
     }
-
-    const newReq = req.clone({ url });
+    
+    let newReq:any = req.clone({ url });
+    
+    //  如果用户已登录，那么所有接口都添加token请求
+    if (localStorage.getItem('cdtfhr_token')) {
+      const token:string = JSON.parse(localStorage.getItem('cdtfhr_token')).access_token;
+      newReq.headers = newReq.headers.set('Authorization', 'Bearer '+ token);
+    }
+    
     return next.handle(newReq).pipe(
         retry(3),
         mergeMap((event: any) => {

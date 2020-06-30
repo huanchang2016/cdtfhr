@@ -7,8 +7,9 @@ import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.compo
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // dashboard pages
 // passport pages
-import { UserLoginComponent } from './passport/login/login.component';
-import { UserRegisterComponent } from './passport/register/register.component';
+import { LoginComponent } from './passport/login/login.component';
+import { UserRegisterComponent } from './passport/register/user/user.component';
+import { CompanyRegisterComponent } from './passport/register/company/company.component';
 // single pages
 import { UserLockComponent } from './passport/lock/lock.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -19,9 +20,10 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     // canActivate: [SimpleGuard],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomePageComponent }
-      // { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
+      { path: '', redirectTo: 'recruit', pathMatch: 'full' },
+      { path: 'recruit', component: HomePageComponent },
+      // tslint:disable-next-line: max-line-length
+      { path: 'entrance', loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule) },
       // 业务子模块
     ]
   },
@@ -37,8 +39,9 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
-      { path: 'login', component: UserLoginComponent, data: { title: '登录' } },
-      { path: 'register', component: UserRegisterComponent, data: { title: '注册' } },
+      // { path: 'login', component: LoginComponent, data: { title: '登录' } },
+      { path: 'register/user', component: UserRegisterComponent, data: { title: '个人注册' } },
+      { path: 'register/company', component: CompanyRegisterComponent, data: { title: '企业注册' } },
       { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },
     ]
   },

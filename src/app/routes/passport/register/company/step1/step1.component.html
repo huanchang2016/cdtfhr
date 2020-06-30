@@ -1,0 +1,49 @@
+<app-sub-title-show [title]="'账号信息'"></app-sub-title-show>
+<div class="form-box">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">账号名称</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="输入账号名称">
+                <input nz-input formControlName="username" id="username" placeholder="输入账号名称" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>账号密码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="密码由8~12位字符构成，含数字和字母">
+                <input nz-input type="password" id="password" formControlName="password"
+                    (ngModelChange)="updateConfirmValidator()" placeholder="密码由8~12位字符构成，含数字和字母" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+                <input nz-input type="password" formControlName="checkPassword" id="checkPassword" placeholder="请再次输入密码"
+                    nzSize="large" />
+                <ng-template #errorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        请再次输入您的密码
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('confirm')">
+                        两次输入的密码不相同
+                    </ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <div nz-row class="login-form-agree">
+            <div nz-col [nzSpan]="24" class="text-md">
+                <label nz-checkbox formControlName="agree">
+                    <span>我接受</span>
+                    <a> 用户协议</a>
+                    <span>和</span>
+                    <a>隐私政策</a>
+                </label>
+            </div>
+        </div>
+        <nz-form-item nz-row>
+            <nz-form-control [nzSpan]="24" class="text-center">
+                <button nz-button nzType="primary" class="login-form-button" nzSize="large">下一步</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+
+</div>

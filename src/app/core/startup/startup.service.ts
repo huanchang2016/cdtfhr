@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS } from '../../../style-icons';
 import { ICONS_AUTO } from '../../../style-icons-auto';
+import { Router } from '@angular/router';
+import { ApiData } from 'src/app/data/interface';
 
 /**
  * Used for application startup
@@ -32,13 +34,19 @@ export class StartupService {
   }
   
   private viaMock(resolve: any, reject: any) {
-    // const tokenData = this.tokenService.get();
-    // if (!tokenData.token) {
-    //   this.injector.get(Router).navigateByUrl('/passport/login');
-    //   resolve({});
-    //   return;
-    // }
-    // mock
+    const tokenData:any = JSON.parse(localStorage.getItem('cdtfhr_user'));
+    if (!tokenData) {
+      resolve({});
+      return;
+    }
+    this.httpClient.get('/v1/web/user/profile').subscribe((res:ApiData) => {
+      if(res.code === 200) {
+
+      }
+      
+     
+    })
+     // mock
     const app: any = {
       name: `天府菁英网`,
       description: `汇聚天下英才  共创千秋伟业`
@@ -50,33 +58,6 @@ export class StartupService {
       token: '028-80518071'
     };
     console.log([app, user])
-    // // Application information: including site name, description, year
-    // this.settingService.setApp(app);
-    // // User information: including name, avatar, email address
-    // this.settingService.setUser(user);
-    // // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
-    // this.aclService.setFull(true);
-    // // Menu data, https://ng-alain.com/theme/menu
-    // this.menuService.add([
-    //   {
-    //     text: 'Main',
-    //     group: true,
-    //     children: [
-    //       {
-    //         text: 'Dashboard',
-    //         link: '/dashboard',
-    //         icon: { type: 'icon', value: 'appstore' }
-    //       },
-    //       {
-    //         text: 'Quick Menu',
-    //         icon: { type: 'icon', value: 'rocket' },
-    //         shortcutRoot: true
-    //       }
-    //     ]
-    //   }
-    // ]);
-    // // Can be set page suffix title, https://ng-alain.com/theme/title
-    // this.titleService.suffix = app.name;
 
     resolve({});
   }

@@ -1,1 +1,38 @@
-header component works!
+<div class="alain-default__header">
+    <div class="alain-default__header-logo">
+        <a [routerLink]="['/']" class="alain-default__header-logo-link">
+            <img src="./assets/imgs/logo_full_color.png" />
+        </a>
+    </div>
+    <div class="alain-default__nav-wrap">
+        <ul nz-menu nzMode="horizontal" class="alain-default__nav flex-1">
+            <li nz-menu-item [nzMatchRouter]="true">
+                <a [routerLink]="['/recruit']" class="nav__title_box text-lg">
+                    <span class="default__nav_icon mr-sm">ppp</span>
+                    招聘
+                </a>
+            </li>
+            <li nz-menu-item [nzMatchRouter]="true">
+                <a [routerLink]="['/entrance']" class="nav__title_box text-lg">
+                    <span class="default__nav_icon mr-sm">kkkk</span>
+                    招考
+                </a>
+            </li>
+        </ul>
+
+        <!-- <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search> -->
+        <ul class="d-flex">
+            <!-- Task -->
+            <!-- <li>
+                <app-header-task></app-header-task>
+            </li> -->
+            <!-- User info -->
+            <li>
+                <app-header-user></app-header-user>
+            </li>
+            <li>
+                <app-wechat-office-account></app-wechat-office-account>
+            </li>
+        </ul>
+    </div>
+</div>

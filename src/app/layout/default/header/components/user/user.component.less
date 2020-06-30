@@ -1,0 +1,63 @@
+// -------- 引入全局统一管理样式设置 -----------
+@import "../../../../../../styles/base-color.less";
+.user_header__wrapper_box {
+        height: 100%;
+        padding-top: 40px;
+
+        &>div {
+            height: 38px;
+            overflow: hidden;
+
+        }
+    
+    .login_wrap {
+        line-height: 38px;
+        .username {
+            display: inline-block;
+            width: 250px;
+            max-width: 250px;
+        }
+    }
+    .not_login_wrap {
+        &>div {
+            width: 120px;
+        }
+        .not_login_wrap_content {
+            &>span.d-block {
+                width: 29px;
+                height: 29px;
+                overflow: hidden;
+                border-radius: 50%;
+                background-color: @primary-color;
+                color: #fff;
+            }
+
+            &>span.company_login_icon_box {
+                background: url('/assets/imgs/icon/icon_company.png') no-repeat left top;
+                background-size: contain;
+            }
+
+            span {
+                color: @primary-color;
+            }
+        }
+    }
+}
+
+// 修改弹出框样式
+::ng-deep {
+    .ant-modal {
+        padding-right: 55px;
+        .ant-modal-close {
+            right: -55px;
+            .ant-modal-close-x {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                font-size: 26px;
+                font-weight: bold;
+                color: #fff;
+            }
+        }
+    }
+}
