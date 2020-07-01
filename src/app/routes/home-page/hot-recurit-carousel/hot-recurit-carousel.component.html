@@ -1,0 +1,37 @@
+<div class="hot_recurit__wrapper pt-md">
+    <div class="hot_recurit_content body__content_box">
+        <app-sub-title-show [title]="'热门招聘'" [url]="'/entrance'"></app-sub-title-show>
+        <div class="hot_carousel_wrapper">
+            <div class="carousel__wrapper">
+                <nz-carousel nzAutoPlay nzEffect="scrollx">
+                    <ng-container *ngFor="let array of list">
+                        <div class="list d-flex justify-content-center" nz-carousel-content>
+                            <div class="carousel_content_wrap">
+                                <div nz-row [nzGutter]="[18, 16]">
+                                    <div nz-col class="gutter-row" [nzSpan]="8" *ngFor="let item of array">
+                                        <div class="inner-box">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <img [src]="item.thumb" [alt]="item.title" />
+                                            </div>
+                                            <div class="carousel_hover_box point">
+                                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                                    <div class="hover_content text-white">
+                                                        <p class="hover_title text-center text-lg">石头科技2020年春季校园招聘</p>
+                                                        <p class="hover_date text-center text-md">2020年05月31日 18:00 周日</p>
+                                                    </div>
+                                                    <div class="hover_view_btn bg-primary text-center text-lg mt-md">
+                                                        <a [routerLink]="['/']"  class="text-white">前往查看</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </nz-carousel>
+            </div>
+        </div>
+    </div>
+</div>

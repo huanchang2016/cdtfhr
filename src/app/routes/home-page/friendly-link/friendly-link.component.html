@@ -1,0 +1,13 @@
+<div class="link__wrapper pt-md">
+    <div class="link_content body__content_box">
+        <app-sub-title-show [title]="'友情链接'"></app-sub-title-show>
+        <div class="link_list_wrapper text-sm text-grey mt-sm">
+           <ng-container *ngFor="let item of links; let i = index">
+               <ng-container *ngIf="i > 0">
+                    <nz-divider nzType="vertical"></nz-divider>
+               </ng-container>
+               <a [routerLink]="['/']" target="_blank" class="point text-grey link_name">{{ item.name }}</a>
+           </ng-container>
+        </div>
+    </div>
+</div>

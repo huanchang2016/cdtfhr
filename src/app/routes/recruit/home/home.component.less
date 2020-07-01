@@ -1,0 +1,57 @@
+.search__wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    .search-content_wraper {
+        width: 1000px;
+        height: 140px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+.search_list_box {
+    width: 100%;
+    overflow: hidden;
+    .search_list__content {
+        width: 1000px;
+        height: 80px;
+        overflow: hidden;
+        margin: 0 auto;
+        .search_list__content_body {
+            width: 780px;
+
+            .search_title_name {
+                color: #666666;
+            }
+        }
+
+    }
+}
+
+.search_result_list__wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    padding-bottom: 50px;
+    .search_list__content {
+        width: 1000px;
+        margin: 0 auto;
+        .search_list__result_body {
+            width: 780px;
+        }
+        .search_list__result_right-box {
+            width: 215px;
+            margin-right: -10px;
+        }
+    }
+}
+
+// 修改单选框样式
+:host ::ng-deep nz-radio-group {
+    .ant-radio-button-wrapper {
+        border-width: 2px !important;
+        border-radius: 4px;
+        margin: 0 4px;
+    }
+}

@@ -1,1 +1,34 @@
-<p>home-page works!</p>
+<!-- 搜索区域 -->
+<div class="search__top__wrapper d-flex justify-content-center align-items-center">
+    <div class="search_top_wrapper_content">
+        <app-layout-full-search></app-layout-full-search>
+    </div>
+</div>
+
+<!-- 首页轮播 -->
+<app-carousel-index></app-carousel-index>
+
+<!-- 分类  名企热招  极速入职 -->
+<div class="employ__category_wrapper">
+    <ul class="employ__category_content body__content_box d-flex align-items-center justify-content-between">
+        <li class="employ__category_list d-flex align-items-center justify-content-center default"
+            *ngFor="let item of employList">
+            <div class="employ__category__icon text-center">
+                <img [src]="item.icon" [alt]="item.title">
+            </div>
+            <div class="ml-sm">
+                <p class="employ__category__title text-lg font-weight-bold text-grey">{{ item.title }}</p>
+                <p class="employ__category__subtitle text-md text-grey-dark">{{ item.sub_title }}</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- 热门招聘 -->
+<app-hot-recurit-carousel></app-hot-recurit-carousel>
+
+<!-- 正在招聘 -->
+<app-ing-recurit-carousel></app-ing-recurit-carousel>
+
+<!-- 友情链接 -->
+<app-friendly-link></app-friendly-link>

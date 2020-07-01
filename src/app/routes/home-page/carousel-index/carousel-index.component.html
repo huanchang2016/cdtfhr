@@ -1,0 +1,18 @@
+<div class="carousel__wrapper">
+    <nz-carousel nzAutoPlay nzEffect="scrollx">
+        <ng-container *ngFor="let item of list">
+            <div class="list d-flex justify-content-center"
+                nz-carousel-content
+                style="background-image: url({{item.thumb}});">
+                
+                <div class="carousel_content_wrap">
+                    <div class="text-center text-white carousel_content_title">{{ item.title }}</div>
+                    <div class="text-center text-white carousel_content_subTitle my-lg">{{ item.sub_title }}</div>
+                    <div class="text-center pt-md view-button">
+                        <a [routerLink]="[item.url]" target="_blank" nz-button nzType="primary">前往查看</a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </nz-carousel>
+</div>

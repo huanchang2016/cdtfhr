@@ -9,6 +9,8 @@ import { SubTitleShowComponent } from './component/sub-title-show/sub-title-show
 import { DatePickerMonthComponent } from './component/forms/date-picker-month/date-picker-month.component';
 import { DatePickerDateComponent } from './component/forms/date-picker-date/date-picker-date.component';
 import { ThreeStageCascaderComponent } from './component/forms/three-stage-cascader/three-stage-cascader.component';
+import { LayoutFullSearchComponent } from './component/layout-full-search/layout-full-search.component';
+import { RecuritItemComponent } from './component/recurit-item/recurit-item.component';
 
 // #region third libs
 
@@ -25,7 +27,9 @@ const COMPONENTS = [
     // 复用表单组件
     DatePickerMonthComponent,
     DatePickerDateComponent,
-    ThreeStageCascaderComponent
+    ThreeStageCascaderComponent,
+    LayoutFullSearchComponent,
+    RecuritItemComponent
 ];
 const DIRECTIVES = [];
 

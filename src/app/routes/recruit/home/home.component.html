@@ -1,0 +1,50 @@
+<div class="search__wrapper">
+    <div class="body__content_box">
+        <div class="search-content_wraper d-flex align-items-center">
+            <app-layout-full-search></app-layout-full-search>
+        </div>
+    </div>
+</div>
+
+<div class="search_list_box">
+    <div class="body__content_box">
+        <div class="search_list__content d-flex align-items-center">
+            <div class="search_list__content_body clearfix">
+                <div class="float-left search_sort">
+                    <span class="search_title_name text-md mr-sm">排序方式</span>
+                    <nz-radio-group [(ngModel)]="searchOption.sortValue" (ngModelChange)="sortValueChange()" nzSize="small">
+                        <label nz-radio-button nzValue="default">默认</label>
+                        <label nz-radio-button nzValue="newest">最新</label>
+                    </nz-radio-group>
+                </div>
+                <div class="float-right search_select">
+                    <span class="mr-sm">月薪</span>
+                    <nz-select style="min-width: 120px;" nzSize="small" nzAllowClear nzPlaceHolder="不限" [(ngModel)]="searchOption.salary" (ngModelChange)="sortValueChange()">
+                        <nz-option nzLabel="不限" nzValue="1"></nz-option>
+                        <nz-option nzLabel="Lucy" nzValue="2"></nz-option>
+                        <nz-option nzLabel="Tom" nzValue="3"></nz-option>
+                    </nz-select>
+                    <span class="mr-sm ml-lg">工作性质</span>
+                    <nz-select style="min-width: 120px;" nzSize="small" nzAllowClear nzPlaceHolder="不限" [(ngModel)]="searchOption.natural" (ngModelChange)="sortValueChange()">
+                        <nz-option nzLabel="不限" nzValue="4"></nz-option>
+                        <nz-option nzLabel="Lucy" nzValue="6"></nz-option>
+                        <nz-option nzLabel="Tom" nzValue="7"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search_result_list__wrapper pt-sm">
+    <div class="body__content_box">
+        <div class="search_list__content clearfix">
+            <div class="search_list__result_body bg-white float-left">
+                sdfas
+            </div>
+            <div class="search_list__result_right-box bg-white float-right">
+                sdfjlaksdf
+            </div>
+        </div>
+    </div>
+</div>

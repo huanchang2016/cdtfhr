@@ -1,0 +1,24 @@
+<div class="hot_recurit__wrapper pt-md">
+    <div class="hot_recurit_content body__content_box">
+        <app-sub-title-show [title]="'正在招聘'" [url]="'/entrance'"></app-sub-title-show>
+        <div class="hot_carousel_wrapper">
+            <div class="carousel__wrapper">
+                <nz-carousel nzEffect="scrollx">
+                    <ng-container *ngFor="let array of list">
+                        <div class="list d-flex justify-content-center" nz-carousel-content>
+                            <div class="carousel_content_wrap">
+                                <div nz-row [nzGutter]="[12, 12]">
+                                    <div nz-col class="gutter-row" [nzSpan]="6" *ngFor="let item of array">
+                                        <div class="inner-box border-radius-sm p-sm card__hover point">
+                                            <app-recurit-item [data]="item"></app-recurit-item>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </nz-carousel>
+            </div>
+        </div>
+    </div>
+</div>

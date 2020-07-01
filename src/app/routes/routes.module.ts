@@ -14,6 +14,10 @@ import { Step1Component } from './passport/register/company/step1/step1.componen
 import { Step2Component } from './passport/register/company/step2/step2.component';
 import { Step3Component } from './passport/register/company/step3/step3.component';
 import { Step4Component } from './passport/register/company/step4/step4.component';
+import { CarouselIndexComponent } from './home-page/carousel-index/carousel-index.component';
+import { HotRecuritCarouselComponent } from './home-page/hot-recurit-carousel/hot-recurit-carousel.component';
+import { IngRecuritCarouselComponent } from './home-page/ing-recurit-carousel/ing-recurit-carousel.component';
+import { FriendlyLinkComponent } from './home-page/friendly-link/friendly-link.component';
 
 const COMPONENTS = [
   // passport pages
@@ -24,17 +28,24 @@ const COMPONENTS = [
   // single pages
   UserLockComponent,
 ];
-const COMPONENTS_NOROUNT = [];
+const COMPONENTS_NOROUNT = [
+  // 企业注册 分布表单
+  Step1Component,
+  Step2Component,
+  Step3Component,
+  Step4Component,
+  // 首页子组件
+  CarouselIndexComponent,
+  HotRecuritCarouselComponent,
+  IngRecuritCarouselComponent,
+  FriendlyLinkComponent
+];
 
 @NgModule({
   imports: [ SharedModule, RouteRoutingModule ],
   declarations: [
     ...COMPONENTS,
-    ...COMPONENTS_NOROUNT,
-    Step1Component,
-    Step2Component,
-    Step3Component,
-    Step4Component
+    ...COMPONENTS_NOROUNT
   ],
 })
 export class RoutesModule {}

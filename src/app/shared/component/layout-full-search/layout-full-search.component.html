@@ -1,0 +1,21 @@
+<nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate" nzSize="large">
+    <input type="text" nz-input [(ngModel)]="inputValue" nzSize="large" />
+</nz-input-group>
+<ng-template #addOnBeforeTemplate>
+    <nz-select [ngModel]="'职位'" nzSize="large">
+        <nz-option nzLabel="职位" nzValue="职位"></nz-option>
+        <nz-option nzLabel="公司" nzValue="公司"></nz-option>
+    </nz-select>
+</ng-template>
+<ng-template #addOnAfterTemplate>
+    <div class="d-flex">
+        <nz-select [ngModel]="'成都'" class="after-select" nzSize="large">
+            <nz-option nzLabel="成都" nzValue="成都"></nz-option>
+            <nz-option nzLabel=".jp" nzValue=".jp"></nz-option>
+            <nz-option nzLabel=".cn" nzValue=".cn"></nz-option>
+            <nz-option nzLabel=".org" nzValue=".org"></nz-option>
+        </nz-select>
+        <button class="search-btn" nz-button nzType="primary" nzSize="large" nzSearch>搜&nbsp;&nbsp;索</button>
+    </div>
+    
+</ng-template>

@@ -1,0 +1,31 @@
+@import "./../../../../styles/base-color.less";
+
+.recurit-item__wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .position_name, .company_name {
+        color: #666666;
+    }
+    .position_salary {
+        width: 90px;
+    }
+    .company_logo {
+        width: 100px;
+        height: 50px;
+        overflow: hidden;
+        line-height: 50px;
+    }
+    .company_des {
+        max-width: 185px;
+    }
+}
+
+
+:host ::ng-deep {
+    .ant-divider-vertical {
+        margin: 0 4px;
+        background-color: @grey-color;
+    }
+}

@@ -1,0 +1,25 @@
+<div class="recurit-item__wrapper">
+    <!-- {{ data.name }} -->
+    <a [routerLink]="['/entrance']" target="_blank" class="d-flex text-lg">
+        <div class="position_name flex-1 text-truncate">{{ data.name }}</div>
+        <div class="position_salary text-danger text-right">{{ data.salary.name }}</div>
+    </a>
+
+    <div class="position_address text-md py-xs text-grey">{{ data.city.name }} - {{ data.area.name }}</div>
+
+    <nz-divider class="m0"></nz-divider>
+
+    <a [routerLink]="['/entrance']" target="_blank" class="d-flex justify-content-center align-items-center company_info mt-sm">
+        <div class="company_logo text-center">
+            <img [src]="data.logo" alt="{{ data.company.name }}">
+        </div>
+        <div class="company_des ml-sm ">
+            <p class="company_name text-truncate text-md">{{ data.company.name }}</p>
+            <p class="company_nature text-grey text-sm">
+                {{ data.nature.name }}
+                <nz-divider nzType="vertical"></nz-divider>
+                {{ data.peo_amount.name }}</p>
+        </div>
+    </a>
+
+</div>
