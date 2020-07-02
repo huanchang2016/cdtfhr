@@ -1,0 +1,82 @@
+<div class="search__wrapper">
+    <div class="body__content_box">
+        <div class="search-content_wraper d-flex align-items-center">
+            <app-layout-full-search></app-layout-full-search>
+        </div>
+    </div>
+</div>
+
+
+<div class="search_list_box">
+    <div class="body__content_box">
+        <div class="search_list__title bg-white text-primary text-lg d-flex align-items-center">
+            <span>正在招聘</span>
+            <span class="search_list__title_icon d-block"></span>
+        </div>
+    </div>
+</div>
+
+<div class="search_result_list__wrapper pt-sm">
+    <div class="search_list__content clearfix">
+        <div class="search_list__result_body float-left border-radius-sm">
+            <ng-container *ngIf="!loadingData && list.length !== 0">
+                <div class="result_list_box bg-white border-radius-sm card__hover">
+                    <div nz-row class="result_list_title text-grey text-sm" [nzGutter]="12">
+                        <div nz-col nzSpan="2" class="text-center"></div>
+                        <div nz-col nzSpan="4" class="text-center">职位名</div>
+                        <div nz-col nzSpan="4" class="text-center">工作地点</div>
+                        <div nz-col nzSpan="3" class="text-center">薪资</div>
+                        <div nz-col nzSpan="6" class="text-center">公司名</div>
+                        <div nz-col nzSpan="2" class="text-center">行业</div>
+                        <div nz-col nzSpan="3" class="text-center">公司规模</div>
+                    </div>
+                    
+                    <div nz-row class="text-sm result_list__row card__hover text-666 border-top"
+                        *ngFor="let item of list"
+                        [nzGutter]="12">
+                        <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
+                            <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
+                        </div>
+                        <div nz-col nzSpan="4" class="d-flex align-items-center">
+                            <a [routerLink]="['/recruit/details', item.id]" target="_blank" class="text-666">{{ item.name }}</a>
+                        </div>
+                        <div nz-col nzSpan="4" class="text-center d-flex align-items-center">{{ item.city.name }}-{{ item.area.name }}</div>
+                        <div nz-col nzSpan="3" class="text-danger">{{ item.salary.name }}</div>
+                        <div nz-col nzSpan="6" class="d-flex align-items-center">
+                            <a [routerLink]="['/']" target="_blank" class="text-666">{{ item.company.name }}</a>
+                        </div>
+                        <div nz-col nzSpan="2" class="text-center d-flex align-items-center">{{ item.nature.name }}</div>
+                        <div nz-col nzSpan="3" class="text-center d-flex align-items-center">{{ item.peo_amount.name }}</div>
+                    </div>
+
+                    <div nz-row class="text-sm result_list__row text-666 border-top" [nzGutter]="12">
+                        <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
+                            <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)"></label>
+                        </div>
+                        <div nz-col nzSpan="22">
+                            <span class="ml-md mr-lg">已选中 <span class="text-primary">0</span>个职位</span>
+
+                            <button nz-button nzType="primary" (click)="sendRequest()">批量投递</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="pagination_wrapper">
+                    <app-pagination-item [total]="500"></app-pagination-item>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="loadingData">
+                <div class="loading_data_spin bg-white">
+                    <nz-spin nzSimple></nz-spin>
+                </div>
+            </ng-container>
+        </div>
+        <div class="search_list__result_right-box float-right">
+            <!-- 查看历史记录 -->
+            <app-right-sidebar-job-history></app-right-sidebar-job-history>
+
+        </div>
+    </div>
+</div>

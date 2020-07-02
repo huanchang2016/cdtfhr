@@ -1,0 +1,99 @@
+<div class="search__wrapper">
+    <div class="body__content_box">
+        <div class="search-content_wraper d-flex align-items-center">
+            <app-layout-full-search></app-layout-full-search>
+        </div>
+    </div>
+</div>
+
+
+<div class="info_details__wrapper">
+    <div class="info_content clearfix">
+        <div class="details__result_body float-left border-radius-sm">
+            <ng-container *ngIf="!loadingData && info">
+                <div class="details_block_top bg-white d-flex justify-content-end">
+                    <div class="details_left_content_body">
+                        <p class="update_time text-grey mb-sm"><i nz-icon nzType="clock-circle" nzTheme="outline"></i> 更新于 {{ '2020/05/24 10:10:10' | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+                        <h3 class="position_name text-666">小学教师（掌门1对1）</h3>
+                        <p class="text-danger mt-md text-lg">15K-25K/月</p>
+                        <div class="text-grey">
+                            <span>成都-武侯区</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>无经验</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>本科</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>招100人</span>
+                        </div>
+                        <button nz-button [nzLoading]="applyLoading" [disabled]="info.is_apply" (click)="applyPosition()" class="point apply_oper-btn bg-green text-white text-lg">
+                            <i nz-icon nzType="file-text" nzTheme="outline"></i>
+                            <span class="pl-sm">{{ info.is_apply ? '已投递' : '申请职位' }}</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- 岗位职责 -->
+                <div class="details_block_sec d-flex justify-content-end">
+                    <div class="details_left_content_body pt-sm">
+                        <app-sub-title-show [title]="'岗位职责'"></app-sub-title-show>
+                        <div class="position_duty_des mt-sm text-md text-grey">
+                            
+                            1.通过掌门教学平台进行在线1对1学科教学工作；<br>
+                            2.了解并根据学生学习能力与需求，准备教学计划和课前教案；<br>
+                            3.根据学生实际学情因材施教，提供专业化1对多教学服务；<br>
+                            4.通过掌门教学平台进行在线1对1学科教学工作；<br>
+                            5.了解并根据学生学习能力与需求，准备教学计划和课前教案；<br>
+                            6.根据学生实际学情因材施教，提供专业化1对多教学服务；
+                                                        
+                        </div>
+                    </div>
+                </div>
+                <!-- 工作地点 -->
+                <div class="details_block_thre bg-white d-flex justify-content-end">
+                    <div class="details_left_content_body pt-sm">
+
+                        <app-sub-title-show [title]="'工作地点'"></app-sub-title-show>
+                        <div class="position_work_address mt-sm text-md text-grey">
+
+                            <nz-collapse [nzBordered]="false" class="bg-white">
+                                <nz-collapse-panel [nzExpandedIcon]="addressIcon" [nzHeader]="addressHeader" [nzExtra]="addressExtra">
+                                <ng-template #addressIcon>
+                                    <span class="text-grey text-lg">
+                                        <i nz-icon nzType="environment" nzTheme="outline"></i>
+                                    </span>
+                                </ng-template>
+                                <ng-template #addressHeader>
+                                    <span class="text-grey text-lg">
+                                        工作地址成都市天府新区天府大道南段2028号
+                                    </span>
+                                </ng-template>
+                                  <div class="address_map_body">
+                                      asdfasdfasf map content works!
+                                  </div>
+                                </nz-collapse-panel>
+                                <ng-template #addressExtra>
+                                    <span class="text-grey text-lg">
+                                        查看地图
+                                        <i nz-icon nzType="down" nzTheme="outline"></i>
+                                    </span>
+                                </ng-template>
+                            </nz-collapse>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 推荐职位 -->
+                <div class="details_block_thre d-flex justify-content-end"><div class="details_left_content_body">details_block_thre</div></div>
+            </ng-container>
+            <ng-container *ngIf="loadingData">
+                <div class="loading_data_spin bg-white">
+                    <nz-spin nzSimple></nz-spin>
+                </div>
+            </ng-container>
+        </div>
+        <div class="details__result_right-box ml-sm float-left">
+            <!-- 查看历史记录 -->
+            <app-right-sidebar-job-history></app-right-sidebar-job-history>
+
+        </div>
+    </div>
+</div>

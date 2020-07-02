@@ -1,0 +1,96 @@
+@import "./../../../../styles/base-color.less";
+
+.search__wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    .search-content_wraper {
+        width: 1000px;
+        height: 140px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+
+.search_list_box {
+    width: 100%;
+    border-bottom: 2px solid @primary-color;
+    overflow: hidden;
+    .search_list__title {
+        width: 1000px;
+        height: 44px;
+        line-height: 44px;
+        overflow: hidden;
+        margin: 0 auto;
+
+        .search_list__title_icon {
+            width: 26px;
+            height: 22px;
+            overflow: hidden;
+            margin-left: 8px;
+            background: url('/assets/imgs/icon/icon_exam.png') no-repeat left top;
+            background-size: contain;
+        }
+
+    }
+}
+
+.search_result_list__wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    padding-bottom: 50px;
+    .search_list__content {
+        width: 1000px;
+        margin: 0 auto;
+        .search_list__result_body {
+            width: 780px;
+            
+            .result_list_box {
+                padding: 8px;
+                margin-bottom: 9px;
+                .result_list_img_box {
+                    width: 200px;
+                    height: 105px;
+                    overflow: hidden;
+                }
+                .result_list_des_content {
+                    position: relative;
+                    left: 0;
+                    top: 0;
+                    .view-item_btn {
+                        width: 140px;
+                        height: 40px;
+                        line-height: 40px;
+                        border: 2px solid @primary-color;
+                        position: absolute;
+                        right: 8px;
+                        bottom: 8px;
+                    }
+                }
+                
+            }
+        }
+        .search_list__result_right-box {
+            width: 215px;
+            margin-right: -10px;
+        }
+    }
+}
+
+.pagination_wrapper {
+    padding-top: 9px;
+}
+
+.border-top {
+    border-top: 1px solid #F0F0F0;
+}
+
+.loading_data_spin {
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+}

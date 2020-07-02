@@ -11,6 +11,9 @@ import { DatePickerDateComponent } from './component/forms/date-picker-date/date
 import { ThreeStageCascaderComponent } from './component/forms/three-stage-cascader/three-stage-cascader.component';
 import { LayoutFullSearchComponent } from './component/layout-full-search/layout-full-search.component';
 import { RecuritItemComponent } from './component/recurit-item/recurit-item.component';
+import { PaginationItemComponent } from './component/pagination-item/pagination-item.component';
+import { ShowTextAreaPipe } from './pipe/show-text-area.pipe';
+import { ShowWeekendsPipe } from './pipe/show-weekends.pipe';
 
 // #region third libs
 
@@ -29,9 +32,13 @@ const COMPONENTS = [
     DatePickerDateComponent,
     ThreeStageCascaderComponent,
     LayoutFullSearchComponent,
-    RecuritItemComponent
+    RecuritItemComponent,
+    PaginationItemComponent
 ];
-const DIRECTIVES = [];
+const DIRECTIVES = [
+    ShowTextAreaPipe,
+    ShowWeekendsPipe
+];
 
 // #endregion
 

@@ -564,6 +564,9 @@ a[disabled] {
   .bg-primary {
       background-color: @primary-color !important;
   }
+  .bg-green {
+      background-color: @green-color !important;
+  }
   .bg-grey {
       background-color: @grey-color !important;
   }
@@ -587,6 +590,9 @@ a[disabled] {
   }
   .text-white {
       color: @white-color !important;
+  }
+  .text-666 {
+      color: #666666 !important;
   }
 
   /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
@@ -618,15 +624,23 @@ a[disabled] {
 // 圆角样式
 .border-radius-sm {
     border-radius: 4px;
+    overflow: hidden;
 }
 .border-radius-md {
     border-radius: 8px;
+    overflow: hidden;
 }
 .border-radius-half {
     border-radius: 50%;
+    overflow: hidden;
 }
 
 // card hover 样式
+
+.card__hover {
+    transition: box-shadow 0.5s;
+}
+
 
 .card__hover:hover {
     box-shadow: 0px 1px 6px @grey-color;

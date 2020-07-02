@@ -1,0 +1,14 @@
+<div class="side__advert_wrapper">
+    <div class="side__advert_content" *ngIf="!loadingData && list.length !== 0">
+        <ng-container *ngFor="let item of list">
+            <div class="advert__list">
+                <a [routerLink]="[item.link]" ><img [src]="item.thumb" [alt]="item.title"></a>
+            </div>
+        </ng-container>
+    </div>
+    <ng-container *ngIf="loadingData">
+        <div class="loading_data_spin bg-white">
+            <nz-spin nzSimple></nz-spin>
+        </div>
+    </ng-container>
+</div>

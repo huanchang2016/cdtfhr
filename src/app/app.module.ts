@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,7 +46,8 @@ const APPINIT_PROVIDES = [
   ],
   providers: [
     ...APPINIT_PROVIDES,
-    { provide: NZ_I18N, useValue: zh_CN }
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: LOCALE_ID, useValue: 'zh_CN' }
   ],
   bootstrap: [AppComponent]
 })

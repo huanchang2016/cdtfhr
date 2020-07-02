@@ -3,7 +3,6 @@
 .search__wrapper {
     width: 100%;
     overflow: hidden;
-    border-bottom: 2px solid @primary-color;
     background-color: #F0F0F0;
     .search-content_wraper {
         width: 1000px;
@@ -13,20 +12,25 @@
     }
 }
 
+
 .search_list_box {
     width: 100%;
+    border-bottom: 2px solid @primary-color;
     overflow: hidden;
-    .search_list__content {
+    .search_list__title {
         width: 1000px;
-        height: 80px;
+        height: 44px;
+        line-height: 44px;
         overflow: hidden;
         margin: 0 auto;
-        .search_list__content_body {
-            width: 780px;
 
-            // .search_title_name {
-            //     color: #666666;
-            // }
+        .search_list__title_icon {
+            width: 26px;
+            height: 22px;
+            overflow: hidden;
+            margin-left: 8px;
+            background: url('/assets/imgs/icon/icon_exam.png') no-repeat left top;
+            background-size: contain;
         }
 
     }
@@ -42,16 +46,18 @@
         margin: 0 auto;
         .search_list__result_body {
             width: 780px;
-            .result_list_title {
-                line-height: 40px;
-            }
-            .result_list__row {
-                // color: #666666;
-                line-height: 30px;
-            }
-            .pagination_wrapper {
-                padding: 15px 0;
-                background-color: #F0F0F0;
+            
+            .result_list_box {
+                padding: 8px;
+                margin-bottom: 9px;
+                
+                .result_list_title {
+                    line-height: 40px;
+                }
+                .result_list__row {
+                    padding: 10px 0;
+                }
+                
             }
         }
         .search_list__result_right-box {
@@ -59,6 +65,10 @@
             margin-right: -10px;
         }
     }
+}
+
+.pagination_wrapper {
+    padding-top: 9px;
 }
 
 .border-top {
@@ -71,14 +81,4 @@
     margin-bottom: 20px;
     padding: 30px 50px;
     margin: 20px 0;
-}
-
-// 修改单选框样式
-:host ::ng-deep  {
-    nz-radio-group .ant-radio-button-wrapper {
-        border-width: 2px !important;
-        border-radius: 4px;
-        margin: 0 4px;
-    }
-
 }
