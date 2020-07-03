@@ -5,6 +5,7 @@
     overflow: hidden;
     background-color: #F0F0F0;
     border-bottom: 2px solid @primary-color;
+
     .search-content_wraper {
         width: 1000px;
         height: 140px;
@@ -19,27 +20,34 @@
     padding-bottom: 50px;
     overflow: hidden;
     background-color: #F0F0F0;
+
     // 左侧内容
     .details__result_body {
         width: calc(50% + 263px);
+
         &>div {
             width: 100%;
+
             .details_left_content_body {
                 width: 826px;
             }
         }
+
         .details_block_top {
             padding: 20px 20px 20px 0;
             position: relative;
             left: 0;
             top: 0;
+
             .update_time {
                 line-height: 20px;
             }
+
             .position_name {
                 font-size: 24px;
                 line-height: 30px;
             }
+
             .apply_oper-btn {
                 width: 160px;
                 height: 40px;
@@ -48,11 +56,13 @@
                 position: absolute;
                 right: 20px;
                 bottom: 20px;
+
                 &:hover {
                     border-color: @green-color;
                 }
             }
         }
+
         .details_block_sec {
             padding: 0 20px 30px 0;
 
@@ -61,20 +71,61 @@
             }
 
         }
+
         .details_block_thre {
             padding: 0 20px 10px 0;
+
             .position_work_address {
                 padding-bottom: 20px;
+
+                // 地图容器
+                .address_map_body {
+                    width: 100%;
+                    height: 340px;
+                    overflow: hidden;
+
+
+                }
             }
 
         }
 
+        .details_block_fourth {
+            padding: 20px 20px 20px 0;
+        }
 
     }
 
     // 右侧内容区域
     .details__result_right-box {
         width: 300px;
+
+        .company_info_card {
+            padding: 20px;
+            margin-bottom: 20px;
+
+            .company_info_description {
+                width: 100%;
+                line-height: 22px;
+                overflow: hidden;
+            }
+
+            .comany_info_link {
+                width: 240px;
+                height: 40px;
+                line-height: 40px;
+                overflow: hidden;
+                margin: 16px auto 10px;
+                border: 2px solid @primary-color;
+
+                transition: all .3s;
+
+                &:hover {
+                    color: #fff!important;
+                    background-color: @primary-color !important;
+                }
+            }
+        }
     }
 }
 
@@ -87,20 +138,23 @@
 }
 
 :host ::ng-deep {
-    .ant-collapse-borderless > .ant-collapse-item {
+    .ant-collapse-borderless>.ant-collapse-item {
         border: 0;
     }
-    .ant-collapse > .ant-collapse-item {
+
+    .ant-collapse>.ant-collapse-item {
         .ant-collapse-extra svg {
             transition: transform 0.3s;
         }
+
         &.ant-collapse-item-active {
             .ant-collapse-extra svg {
                 transform: rotate(180deg);
             }
         }
-        & > .ant-collapse-header {
-            padding-left: 0;
+
+        &>.ant-collapse-header {
+            padding-left: 16px;
         }
-}
+    }
 }

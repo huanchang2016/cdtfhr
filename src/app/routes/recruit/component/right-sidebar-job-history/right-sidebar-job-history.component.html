@@ -4,7 +4,7 @@
         <ng-container *ngFor="let item of list">
             <div class="position__list bg-white">
                 <a [routerLink]="['/']" target="_blank" class="d-block">
-                    <div class="position__name text-666 text-truncate text-md">{{ item.name }}</div>
+                    <div class="position__name text-666 text-truncate text-sm">{{ item.name }}</div>
                     <div class="position__des text-sm">
                         <span class="text-danger">{{ item.salary.name }}</span>
                         <nz-divider nzType="vertical"></nz-divider>

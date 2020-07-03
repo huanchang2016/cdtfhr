@@ -8,6 +8,7 @@ import { RecruitHomeComponent } from './home/home.component';
 import { HotRecruitComponent } from './hot-recruit/hot-recruit.component';
 import { InProgressRecruitComponent } from './in-progress-recruit/in-progress-recruit.component';
 import { PositionDetailsComponent } from './position-details/position-details.component';
+import { RecommendPositionsComponent } from './position-details/recommend-positions/recommend-positions.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PositionDetailsComponent } from './position-details/position-details.co
     PositionDetailsComponent,
     // 子组件
     RightSidebarAdvertComponent,
-    RightSidebarJobHistoryComponent
+    RightSidebarJobHistoryComponent,
+    RecommendPositionsComponent
   ],
   imports: [
     SharedModule,

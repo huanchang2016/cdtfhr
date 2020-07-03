@@ -50,10 +50,10 @@
                     </div>
 
                     <div nz-row class="text-sm result_list__row text-666 border-top" [nzGutter]="12">
-                        <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
-                            <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)"></label>
+                        <div nz-col nzSpan="3" class="d-flex justify-content-center align-items-center">
+                            <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
                         </div>
-                        <div nz-col nzSpan="22">
+                        <div nz-col nzSpan="21">
                             <span class="ml-md mr-lg">已选中 <span class="text-primary">0</span>个职位</span>
 
                             <button nz-button nzType="primary" (click)="sendRequest()">批量投递</button>
