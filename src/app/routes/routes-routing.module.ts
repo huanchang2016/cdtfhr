@@ -23,6 +23,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent },
       // tslint:disable-next-line: max-line-length
+      { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
       { path: 'recruit', loadChildren: () => import('./recruit/recruit.module').then(m => m.RecruitModule) },
       { path: 'entrance', loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule) },
       // 业务子模块

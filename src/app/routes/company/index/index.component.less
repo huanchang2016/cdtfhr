@@ -1,0 +1,59 @@
+@import "./../../../../styles/base-color.less";
+
+.search__wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 2px solid @primary-color;
+    background-color: #F0F0F0;
+    .search-content_wraper {
+        width: 1000px;
+        height: 140px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+
+.company_info_wrapper, .company_info_des_wapper {
+    width: 100%;
+    .company_info_body {
+        width: 1000px;
+        overflow: hidden;
+        margin: 0 auto;
+        .company_logo_box {
+            width: 124px;
+            min-width: 124px;
+            height: 124px;
+            overflow: hidden;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        .company_base_info {
+            padding-left: 50px;
+        }
+        
+    }
+}
+
+.company_info_des_wapper {
+    background-color: #F0F0F0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .badge_count {
+        line-height: 30px;
+    }
+
+    
+}
+
+:host ::ng-deep {
+    .ant-tabs-nav-wrap {
+        padding-left: 40px;
+    }
+    .ant-tabs-content {
+        min-height: 400px;
+    }
+}

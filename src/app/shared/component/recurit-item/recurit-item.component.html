@@ -9,7 +9,7 @@
 
     <nz-divider class="m0"></nz-divider>
 
-    <a [routerLink]="['/entrance']" target="_blank" class="d-flex justify-content-center align-items-center company_info mt-sm">
+    <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank" class="d-flex justify-content-center align-items-center company_info mt-sm">
         <div class="company_logo text-center">
             <img [src]="data.logo" alt="{{ data.company.name }}">
         </div>

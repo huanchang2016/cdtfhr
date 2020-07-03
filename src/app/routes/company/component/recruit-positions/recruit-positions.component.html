@@ -1,0 +1,38 @@
+    <div class="search_list__result_body">
+        <ng-container *ngIf="!loadingData && list.length !== 0">
+            <div nz-row class="result_list_title text-grey text-sm" [nzGutter]="12">
+                <div nz-col nzSpan="8" class="text-center">职位名</div>
+                <div nz-col nzSpan="6" class="text-center">职位要求</div>
+                <div nz-col nzSpan="4" class="text-center">工作地点</div>
+                <div nz-col nzSpan="3" class="text-center">薪资</div>
+                <div nz-col nzSpan="3" class="text-center">发布时间</div>
+            </div>
+            
+            <div nz-row class="text-sm result_list__row card__hover text-666 border-top"
+                *ngFor="let item of list"
+                [nzGutter]="12">
+                <div nz-col nzSpan="8">
+                    <a [routerLink]="['/recruit/details', 1]" target="_blank" class="pl-sm text-666">电商淘宝培训运营讲师</a>
+                </div>
+                <div nz-col nzSpan="6" class="text-center">
+                    经验1-3年
+                    <nz-divider nzType="vertical"></nz-divider>
+                    本科
+                    <nz-divider nzType="vertical"></nz-divider>
+                    全职
+                </div>
+                <div nz-col nzSpan="4" class="text-center">成都-武侯区</div>
+                <div nz-col nzSpan="3" class="text-danger">2K-4K/月</div>
+                <div nz-col nzSpan="3" class="text-center">2020/06/18</div>
+            </div>
+
+            <div class="pagination_wrapper">
+                <app-pagination-item [total]="500"></app-pagination-item>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="loadingData">
+            <div class="loading_data_spin">
+                <nz-spin nzSimple></nz-spin>
+            </div>
+        </ng-container>
+    </div>

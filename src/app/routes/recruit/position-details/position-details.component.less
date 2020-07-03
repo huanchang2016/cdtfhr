@@ -56,7 +56,7 @@
                 position: absolute;
                 right: 20px;
                 bottom: 20px;
-
+                z-index: 99;
                 &:hover {
                     border-color: @green-color;
                 }
@@ -104,6 +104,17 @@
             padding: 20px;
             margin-bottom: 20px;
 
+            .company_info_log {
+                width: 124px;
+                height: 124px;
+                overflow: hidden;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            
             .company_info_description {
                 width: 100%;
                 line-height: 22px;
@@ -155,6 +166,25 @@
 
         &>.ant-collapse-header {
             padding-left: 16px;
+        }
+    }
+}
+
+
+// 修改弹出框样式
+::ng-deep {
+    .ant-modal {
+        padding-right: 55px;
+        .ant-modal-close {
+            right: -55px;
+            .ant-modal-close-x {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                font-size: 26px;
+                font-weight: bold;
+                color: #fff;
+            }
         }
     }
 }

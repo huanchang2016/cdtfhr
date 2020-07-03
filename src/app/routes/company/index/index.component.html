@@ -1,0 +1,63 @@
+<div class="search__wrapper">
+    <div class="body__content_box">
+        <div class="search-content_wraper d-flex align-items-center">
+            <app-layout-full-search></app-layout-full-search>
+        </div>
+    </div>
+</div>
+<div class="company_info_wrapper py-sm">
+    <div class="body__content_box">
+        <div class="company_info_body d-flex justify-content-start align-items-center">
+            <div class="company_logo_box d-flex justify-content-center align-items-center"><img
+                    src="./assets/imgs/test/logo_company.png" alt="单位logo"></div>
+
+            <div class="company_base_info flex-1">
+                <h3 class="text-lg text-666">掌门1对1教学部（中国）</h3>
+                <p class="py-sm text-md text-grey">
+                    移动互联网,教育
+                    <nz-divider nzType="vertical"></nz-divider>
+                    上市公司
+                    <nz-divider nzType="vertical"></nz-divider>
+                    10000人以上
+                </p>
+                <p class="company_sub_des text-sm text-grey-dark mb-sm">
+                    顶尖K12在线1对1初高中辅导品牌，获华兴资本旗下华晟资本、雷军顺为资本、达晨创投等数亿元融资。顶尖K12在线1对1初高中辅导
+                    品牌，获华兴资本旗下华晟资本、雷军顺为资本、达晨创投等数亿元融资。
+                </p>
+
+                <div class="company_position_total_box clearfix">
+                    <div class="float-left">
+                        <p class="text-primary text-lg text-center">20</p>
+                        <p class="text-grey text-sm text-center">招聘职位</p>
+                    </div>
+                    <div class="float-left ml-lg">
+                        <p class="text-primary text-lg text-center">昨天</p>
+                        <p class="text-grey text-sm text-center">最近登陆</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="company_info_des_wapper">
+    <div class="body__content_box">
+        <div class="company_info_body bg-white">
+            <nz-tabset>
+                <nz-tab nzTitle="公司主页">
+                    <app-company-home></app-company-home>
+                </nz-tab>
+                <nz-tab [nzTitle]="recruit">
+                    <ng-template #recruit>
+                        <span>招聘职位</span>
+                        <span class="badge_count text-md bg-primary border-radius-sm text-white px-xs ml-sm">99+</span>
+                    </ng-template>
+
+                    <app-recruit-positions></app-recruit-positions>
+                </nz-tab>
+            </nz-tabset>
+        </div>
+    </div>
+</div>

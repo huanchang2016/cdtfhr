@@ -14,30 +14,38 @@ import { RecuritItemComponent } from './component/recurit-item/recurit-item.comp
 import { PaginationItemComponent } from './component/pagination-item/pagination-item.component';
 import { ShowTextAreaPipe } from './pipe/show-text-area.pipe';
 import { ShowWeekendsPipe } from './pipe/show-weekends.pipe';
+import { PostDeliverySuccessComponent } from './component/position-apply/post-delivery-success/post-delivery-success.component';
+import { CelebrityNotPassComponent } from './component/position-apply/celebrity-not-pass/celebrity-not-pass.component';
 
 // #region third libs
 
-const THIRDMODULES = [ ];
+const THIRDMODULES = [];
 
 // #endregion
 
 // #region your componets & directives
 
 const COMPONENTS = [
-    UserLoginComponent,
-    CompanyLoginComponent,
-    SubTitleShowComponent,
-    // 复用表单组件
-    DatePickerMonthComponent,
-    DatePickerDateComponent,
-    ThreeStageCascaderComponent,
-    LayoutFullSearchComponent,
-    RecuritItemComponent,
-    PaginationItemComponent
+  UserLoginComponent,
+  CompanyLoginComponent,
+  SubTitleShowComponent,
+  // 复用表单组件
+  DatePickerMonthComponent,
+  DatePickerDateComponent,
+  ThreeStageCascaderComponent,
+  LayoutFullSearchComponent,
+  RecuritItemComponent,
+  PaginationItemComponent
 ];
+
+const ENTRYCOMPONENTS = [
+  PostDeliverySuccessComponent,
+  CelebrityNotPassComponent
+];
+
 const DIRECTIVES = [
-    ShowTextAreaPipe,
-    ShowWeekendsPipe
+  ShowTextAreaPipe,
+  ShowWeekendsPipe
 ];
 
 // #endregion
@@ -68,6 +76,9 @@ const DIRECTIVES = [
     // your components
     ...COMPONENTS,
     ...DIRECTIVES
+  ],
+  entryComponents: [
+    ...ENTRYCOMPONENTS
   ]
 })
 export class SharedModule { }

@@ -43,7 +43,7 @@
                         <div nz-col nzSpan="4" class="text-center d-flex align-items-center">{{ item.city.name }}-{{ item.area.name }}</div>
                         <div nz-col nzSpan="3" class="text-danger">{{ item.salary.name }}</div>
                         <div nz-col nzSpan="6" class="d-flex align-items-center">
-                            <a [routerLink]="['/']" target="_blank" class="text-666">{{ item.company.name }}</a>
+                            <a [routerLink]="['/company']" [queryParams]="{cid: item.company.id }" target="_blank" class="text-666">{{ item.company.name }}</a>
                         </div>
                         <div nz-col nzSpan="2" class="text-center d-flex align-items-center">{{ item.nature.name }}</div>
                         <div nz-col nzSpan="3" class="text-center d-flex align-items-center">{{ item.peo_amount.name }}</div>
