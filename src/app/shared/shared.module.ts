@@ -63,6 +63,7 @@ const DIRECTIVES = [
   declarations: [
     // your components
     ...COMPONENTS,
+    ...ENTRYCOMPONENTS,
     ...DIRECTIVES
   ],
   exports: [

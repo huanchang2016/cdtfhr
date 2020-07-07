@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,8 @@ export class UserRegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,8 @@ export class UserRegisterComponent implements OnInit {
 
       setTimeout(() => {
         this.loading = false;
-        
+        this.msg.success('登录成功');
+        this.router.navigateByUrl('/admin/user');
       }, 1500);
 
       // 登录后， 重新获取用户信息

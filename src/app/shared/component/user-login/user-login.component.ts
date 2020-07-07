@@ -5,6 +5,7 @@ import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -25,7 +26,8 @@ export class UserLoginComponent {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
-    private startupSrv: StartupService
+    private startupSrv: StartupService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class UserLoginComponent {
 
       setTimeout(() => {
         this.loading = false;
-        
+        this.router.navigateByUrl('/admin/user');
       }, 1500);
 
       // 登录后， 重新获取用户信息

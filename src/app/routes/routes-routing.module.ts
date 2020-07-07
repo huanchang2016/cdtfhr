@@ -14,6 +14,9 @@ import { CompanyRegisterComponent } from './passport/register/company/company.co
 import { UserLockComponent } from './passport/lock/lock.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
+// Admin pages
+import { LayoutAdminComponent } from '../layout/layout-admin/layout-admin.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -36,6 +39,15 @@ const routes: Routes = [
   //     children: [
   //     ]
   // },
+
+  // user admin
+  {
+    path: 'admin',
+    component: LayoutAdminComponent,
+    children: [
+      { path: 'user', loadChildren: () => import('./user-admin/user-admin.module').then(m => m.UserAdminModule) }
+    ]
+  },
   // passport
   {
     path: 'passport',

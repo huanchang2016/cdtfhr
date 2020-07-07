@@ -30,6 +30,7 @@ const HEADERCOMPONENTS = [
 import { LayoutPassportComponent } from './passport/passport.component';
 import { UserComponent } from './default/header/components/user/user.component';
 import { FooterComponent } from './default/footer/footer.component';
+import { LayoutAdminComponent } from './layout-admin/layout-admin.component';
 
 const PASSPORT = [
   LayoutPassportComponent,
@@ -41,7 +42,8 @@ const PASSPORT = [
   declarations: [
     ...COMPONENTS,
     ...HEADERCOMPONENTS,
-    ...PASSPORT
+    ...PASSPORT,
+    LayoutAdminComponent
   ],
   exports: [
     ...COMPONENTS,
