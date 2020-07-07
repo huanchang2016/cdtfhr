@@ -14,21 +14,24 @@ export class CarouselIndexComponent implements OnInit {
       title: '菁英网 好平台 新机遇',
       sub_title: '提高收入，你值得更好的',
       thumb: './assets/imgs/test/img_banner.png',
-      link: '/entrance'
+      link: '/entrance',
+      type: 'zk'
     },
     {
       id: 2,
       title: '有灵魂 有本事 有血性 有品德',
       sub_title: '四有军人，热血报国',
       thumb: './assets/imgs/test/img_banner.png',
-      link: '/passport/register/company'
+      link: '/passport/register/company',
+      type: 'zp'
     },
     {
       id: 3,
       title: '菁英网 好平台 新机遇',
       sub_title: '提高收入，你值得更好的',
       thumb: './assets/imgs/test/img_banner.png',
-      link: '/entrance'
+      link: '/entrance',
+      type: 'default'
     }
   ];
   

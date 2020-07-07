@@ -17,38 +17,40 @@
 </div>
 
 <div class="search_result_list__wrapper pt-sm">
-    <div class="search_list__content clearfix">
-        <div class="search_list__result_body float-left border-radius-sm">
-            <ng-container *ngIf="!loadingData && list.length !== 0">
-                <div *ngFor="let item of list" class="result_list_box bg-white border-radius-sm card__hover">
-                    <div class="d-flex">
-                        <div class="result_list_img_box d-flex justify-content-center align-items-center"><img [src]="item.thumb" alt="item.title"></div>
-                        <div class="result_list_des_content flex-1 ml-md">
-                            <h3 class="list_item_name text-666 text-lg">{{ item.title }}</h3>
-                            <div class="list_item_date text-grey text-md py-xs pr-sm">
-                                <span>{{ item.date_time |  date:'fullDate' }}</span>
-                                <!-- <span [innerHTML]="item.date_time | showWeekends"></span> -->
-                            </div>
+    <div class="body__content_box">
+        <div class="search_list__content clearfix">
+            <div class="search_list__result_body float-left border-radius-sm">
+                <ng-container *ngIf="!loadingData && list.length !== 0">
+                    <div *ngFor="let item of list" class="result_list_box bg-white border-radius-sm card__hover">
+                        <div class="d-flex">
+                            <div class="result_list_img_box d-flex justify-content-center align-items-center"><img [src]="item.thumb" alt="item.title"></div>
+                            <div class="result_list_des_content flex-1 ml-md">
+                                <h3 class="list_item_name text-666 text-lg">{{ item.title }}</h3>
+                                <div class="list_item_date text-grey text-md py-xs pr-sm">
+                                    <span>{{ item.date_time |  date:'fullDate' }}</span>
+                                    <!-- <span [innerHTML]="item.date_time | showWeekends"></span> -->
+                                </div>
 
-                            <a class="view-item_btn d-block border-radius-sm text-center text-md" [routerLink]="[item.link]" target="_blank">前往查看</a>
+                                <a class="view-item_btn d-block border-radius-sm text-center text-md" [routerLink]="[item.link]" target="_blank">前往查看</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="pagination_wrapper">
-                    <app-pagination-item [total]="500"></app-pagination-item>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="loadingData">
-                <div class="loading_data_spin bg-white">
-                    <nz-spin nzSimple></nz-spin>
-                </div>
-            </ng-container>
-        </div>
-        <div class="search_list__result_right-box float-right">
-            <!-- 查看历史记录 -->
-            <app-right-sidebar-job-history></app-right-sidebar-job-history>
+                    <div class="pagination_wrapper">
+                        <app-pagination-item [total]="500"></app-pagination-item>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="loadingData">
+                    <div class="loading_data_spin bg-white">
+                        <nz-spin nzSimple></nz-spin>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="search_list__result_right-box float-right">
+                <!-- 查看历史记录 -->
+                <app-right-sidebar-job-history></app-right-sidebar-job-history>
 
+            </div>
         </div>
     </div>
 </div>

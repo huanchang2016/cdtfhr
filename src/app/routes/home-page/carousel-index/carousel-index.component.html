@@ -9,7 +9,27 @@
                     <div class="text-center text-white carousel_content_title">{{ item.title }}</div>
                     <div class="text-center text-white carousel_content_subTitle my-lg">{{ item.sub_title }}</div>
                     <div class="text-center pt-md view-button">
-                        <a [routerLink]="[item.url]" target="_blank" nz-button nzType="primary">前往查看</a>
+                        <ng-container *ngIf="item.type === 'zk'">
+                            <a [routerLink]="[item.link]" target="_blank" class="entrance_box point d-flex justify-content-around align-items-center">
+                                <div class="entrance_type_logo">
+                                    <img [src]="'/assets/imgs/icon/icon_exam.png'" alt="招考">
+                                </div>
+                                <div class="text-primary text-lg">招考入口 》</div>
+                            </a>
+                        </ng-container>
+
+                        <ng-container *ngIf="item.type === 'zp'">
+                            <a [routerLink]="[item.link]" target="_blank" class="entrance_box point d-flex justify-content-around align-items-center">
+                                <div class="entrance_type_logo">
+                                    <img [src]="'/assets/imgs/icon/icon_exam.png'" alt="招聘">
+                                </div>
+                                <div class="text-primary text-lg">招聘入口 》</div>
+                            </a>
+                        </ng-container>
+                        
+                        <ng-container *ngIf="item.type === 'default'">
+                            <a class="default-btn" [routerLink]="[item.link]" target="_blank" nz-button nzType="primary">前往查看</a>
+                        </ng-container>
                     </div>
                 </div>
             </div>

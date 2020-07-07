@@ -2,7 +2,7 @@
 
     <div *ngIf="user; else notLogin" class="login_wrap">
         <a nz-dropdown [nzDropdownMenu]="userMenu" class="d-flex align-items-center">
-            <span class="text-lg username text-truncate">您好，{{ user.name }}</span>
+            <span class="text-md username text-truncate">您好，{{ user.name }}</span>
             <i nz-icon nzType="down" class="text-md"></i>
         </a>
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
@@ -27,11 +27,11 @@
 
     <ng-template #notLogin>
         <div class="not_login_wrap d-flex align-items-center">
-            <div class="not_login_wrap_content text-lg d-flex justify-content-around align-items-center point" (click)="createCompanyModal()">
+            <div class="not_login_wrap_content text-md d-flex justify-content-around align-items-center point" (click)="createCompanyModal()">
                 <span class="d-block text-center company_login_icon_box"></span>
                 <span>企业用户</span>
             </div>
-            <div class="not_login_wrap_content text-lg d-flex justify-content-around align-items-center point" (click)="createUserModal()">
+            <div class="not_login_wrap_content ml-md text-md d-flex justify-content-around align-items-center point" (click)="createUserModal()">
                 <span class="d-block text-center"><i nz-icon nzType="user" nzTheme="outline"></i></span>
                 <span>个人用户</span>
             </div>

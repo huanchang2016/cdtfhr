@@ -18,10 +18,31 @@ nz-carousel {
             .carousel_content_subTitle {
                 font-size: 30px;
             }
-            .view-button a {
-                width: 220px;
-                height: 44px;
-                line-height: 44px;
+            .view-button {
+                .entrance_box {
+                    width: 200px;
+                    height: 160px;
+                    overflow: hidden;
+                    border-radius: 6px;
+                    margin: 0 auto;
+                    background: rgba(255, 255, 255, 0.8);
+
+                    .entrance_type_logo {
+                        width: 50px;
+                        height: 50px;
+                        overflow: hidden;
+                    }
+
+                    &:hover {
+                        box-shadow: 0 0 4px @primary-color;
+                    }
+                }
+
+                & > a.default-btn {
+                    width: 220px;
+                    height: 44px;
+                    line-height: 44px;
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 <div class="recurit-item__wrapper">
     <!-- {{ data.name }} -->
     <a [routerLink]="['/recruit/details', data.id]" target="_blank" class="d-flex text-lg">
-        <div class="position_name text-666 flex-1 text-truncate">{{ data.name }}</div>
+        <div class="position_name text-666 flex-1 text-truncate" title="{{ data.name }}">{{ data.name }}</div>
         <div class="position_salary text-danger text-right">{{ data.salary.name }}</div>
     </a>
 
@@ -9,12 +9,12 @@
 
     <nz-divider class="m0"></nz-divider>
 
-    <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank" class="d-flex justify-content-center align-items-center company_info mt-sm">
+    <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank" class="d-flex align-items-center company_info mt-sm">
         <div class="company_logo text-center">
             <img [src]="data.logo" alt="{{ data.company.name }}">
         </div>
-        <div class="company_des ml-sm flex-1">
-            <p class="company_name text-666 text-truncate text-md">{{ data.company.name }}</p>
+        <div class="company_des">
+            <p class="company_name text-666 text-truncate text-md" title="{{ data.company.name }}">{{ data.company.name }}</p>
             <p class="company_nature text-grey text-sm">
                 {{ data.nature.name }}
                 <nz-divider nzType="vertical"></nz-divider>
