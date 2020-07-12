@@ -1,0 +1,27 @@
+.admin_right_body_content_wrapper {
+    &>div {
+        width: 100%;
+        min-height: 500px;
+    }
+    .list_body_wrapper {
+
+    }
+    .empty_image_box {
+        width: 128px;
+        height: 150px;
+        margin: 30px auto 50px;
+        overflow: hidden;
+    }
+
+    .empty_btn {
+        a {
+            width: 300px;
+        }
+    }
+}
+
+:host ::ng-deep .list_body_wrapper {
+    .ant-table-thead > tr > th {
+        background-color: #ffffff;
+    }
+}

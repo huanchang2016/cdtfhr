@@ -1,0 +1,54 @@
+<div class="admin_right_body_content_wrapper bg-white border-radius-sm">
+    
+    <ng-container *ngIf="list.length !== 0 && !loadingData">
+        <div class="list_body_wrapper">
+            <nz-table #basicTable [nzData]="list" nzFrontPagination="false" nzShowPagination="false">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>简历名称</th>
+                    <th>创建时间</th>
+                    <th>最近更新</th>
+                    <th>简历公开</th>
+                    <th>默认简历</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of basicTable.data; let i = index">
+                    <td>
+                        <span *ngIf="i === 0" class="px-sm py-xs bg-danger text-white text-xs border-radius-sm">默认</span>
+                        <span *ngIf="i === 1" class="px-sm py-xs bg-grey text-white text-xs border-radius-sm">草稿</span>
+                    </td>
+                    <td>{{data.name</td>
+                    <td>{{data.age</td>
+                    <td>{{data.address</td>
+                    <td>{{data.age</td>
+                    <td>{{data.address</td>
+                    <td>
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </nz-table>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="list.length === 0 && !loadingData">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="list_empty_content">
+                <div class="text-center text-lg text-grey">您还没有简历，请创建一个简历！</div>
+                <div class="empty_image_box"><img src="./assets/imgs/icon/icon_info_gray.png" alt=""></div>
+                <div class="text-center empty_btn">
+                    <a [routerLink]="['/admin/user/resumes/add']" nz-button nzType="primary" [nzSize]="'large'">创建简历</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+    <ng-container *ngIf="list.length === 0 && loadingData">
+        <div class="d-flex justify-content-center align-items-center">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+    </ng-container>
+</div>

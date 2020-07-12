@@ -1,0 +1,46 @@
+<div class="user-admin_content_body border-radius-sm bg-white p-md">
+    <div class="steps_wrapper">
+      <nz-steps [nzCurrent]="step" nzSize="large" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
+        <nz-step [nzTitle]="'个人信息'"></nz-step>
+        <nz-step [nzTitle]="'教育经历'"></nz-step>
+        <nz-step [nzTitle]="'工作与求职'"></nz-step>
+        <nz-step [nzTitle]="'其它'"></nz-step>
+  
+      </nz-steps>
+      <div class="steps-content">
+        <div>
+          <ng-container *ngIf="step === 0">
+            <app-sub-title-show [title]="'个人信息'"></app-sub-title-show>
+            
+            <app-user-admin-info-form-c #userInfoTpl></app-user-admin-info-form-c>
+
+            <div class="next-steps__btn mt-lg"><button (click)="submitInfo()" nzBlock nz-button nzType="primary" nzSize="large">下一步</button></div>
+
+          </ng-container>
+  
+          <ng-container *ngIf="step === 1">
+            <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
+            
+            
+          </ng-container>
+  
+          <ng-container *ngIf="step === 2">
+            <app-sub-title-show [title]="'工作与求职'"></app-sub-title-show>
+            
+            
+          </ng-container>
+
+          <ng-container *ngIf="step === 3">
+            <app-sub-title-show [title]="'其它'"></app-sub-title-show>
+            
+            
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <ng-template #nzProgressDot>
+    <div class="steps_status border-radius-half"></div>
+  </ng-template>

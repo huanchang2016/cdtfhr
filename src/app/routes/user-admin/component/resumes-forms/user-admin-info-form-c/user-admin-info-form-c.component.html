@@ -1,0 +1,42 @@
+<div class="form-container">
+    <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="username" nzRequired>姓名</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的真实姓名">
+                <input nz-input id="username" formControlName="username" nzSize="large" placeholder="请填写您的真实姓名" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzRequired nzFor="email">电子邮箱</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请输入联系您的电子邮箱">
+                <input nz-input formControlName="email" id="email" placeholder="请输入联系您的电子邮箱" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzRequired nzFor="birthday">出生日期</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期">
+                <app-date-picker-date formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-date>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="work_date" [nzRequired]="!validateForm.get('is_not_work')?.value">参加工作时间</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您参加工作的时间">
+                <div nz-row [nzGutter]="8">
+                    <div nz-col [nzSpan]="16">
+                        <app-date-picker-month formControlName="work_date" [placeholder]="'请点击选择您参加工作的时间'" [size]="'large'"></app-date-picker-month>
+                    </div>
+                    <div nz-col [nzSpan]="8" class="text-right agree_box">
+                        <label nz-checkbox formControlName="is_not_work" nzSize="large" (ngModelChange)="isNotWorkChange($event)">暂无工作经验</label>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-label [nzSpan]="5" nzFor="website" nzRequired>Website</nz-form-label>
+          <nz-form-control [nzSpan]="19" nzErrorTip="Please input website!">
+            <input nz-input id="website" formControlName="website" placeholder="website" />
+          </nz-form-control>
+        </nz-form-item> -->
+
+    </form>
+</div>

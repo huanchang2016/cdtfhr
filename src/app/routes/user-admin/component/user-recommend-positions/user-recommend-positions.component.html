@@ -1,0 +1,34 @@
+<div class="recommend_positions_title">
+    <app-sub-title-show [title]="'推荐职位'"></app-sub-title-show>
+    <div class="recommend_positions_opper_wrapper d-flex justify-content-between align-items-center">
+        <span class="update_recommend_positions point" (click)="updateList()">
+            <i nz-icon [nzType]="'sync'" [nzSpin]="loadingData"></i>
+            换一批
+        </span>
+        <span class="checkedall_recommend_positions">
+            <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
+        </span>
+        <button class="request_btn" nzType="primary" nz-button (click)="sendRequest()" [nzLoading]="requestLoading">批量投递</button>
+    </div>
+</div>
+<div class="recommend_positions_wrap">
+    <ng-container *ngIf="!loadingData && list.length !== 0">
+        <div nz-row class="positions_list_wrapper text-grey text-sm" [nzGutter]="[10, 12]">
+            <div nz-col nzSpan="12" class="list_item" *ngFor="let item of list">
+                <div class="list_item_content bg-white d-flex">
+                    <div class="list_item_checked_box text-center">
+                        <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
+                    </div>
+                    <div class="list_item_des_box flex-1">
+                        <app-recurit-item [data]="item"></app-recurit-item>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="loadingData">
+        <div class="loading_data_spin d-flex justify-content-center align-items-center bg-white">
+            <nz-spin nzSimple></nz-spin>
+        </div>
+    </ng-container>
+</div>

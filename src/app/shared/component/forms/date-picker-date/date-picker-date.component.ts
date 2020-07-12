@@ -21,7 +21,8 @@ import { format } from 'date-fns';
 })
 export class DatePickerDateComponent implements ControlValueAccessor {
 
-  @Input() placeholder?:string = '请选择结束日期';
+  @Input() placeholder?:string = '请选择日期';
+  @Input() size?:string = null;
 
   dateFormat:string = 'yyyy/MM/dd';
 
@@ -37,7 +38,7 @@ export class DatePickerDateComponent implements ControlValueAccessor {
 
   datePickerChange(date:Date):void {
     this.date = date;
-    this.propagateChange(format(this.date, 'yyyy/MM/dd'))
+    this.propagateChange(format(this.date, this.dateFormat))
   }
 
   registerOnChange(fn: any): void {

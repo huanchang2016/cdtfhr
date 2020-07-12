@@ -8,16 +8,38 @@ import { UserSidebarComponent } from './component/user-sidebar/user-sidebar.comp
 import { UserAdminCertificationComponent } from './user-admin-certification/user-admin-certification.component';
 import { UserAdminBindAccountComponent } from './user-admin-bind-account/user-admin-bind-account.component';
 import { UserContentTopComponent } from './component/user-content-top/user-content-top.component';
+import { UserRecommendPositionsComponent } from './component/user-recommend-positions/user-recommend-positions.component';
+import { ResumeListComponent } from './resume-manage/resume-list/resume-list.component';
+import { ResumeCreateComponent } from './resume-manage/resume-create/resume-create.component';
+
+// 表单组件
+import { UserAdminInfoFormCComponent } from './component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 
 
-@NgModule({
-  declarations: [
+const COMPONENTS = [
     UserAdminLayoutComponent, // 布局组件
     UserSidebarComponent, // 导航组件
     UserContentTopComponent, // 内容区顶部公共组件
     UserAdminHomeComponent, // 个人主页
+    UserRecommendPositionsComponent, // 个人主页  默认简历展示 卡片
     UserAdminCertificationComponent,
-    UserAdminBindAccountComponent
+    UserAdminBindAccountComponent,
+    // 简历管理
+    ResumeListComponent,
+    ResumeCreateComponent
+];
+
+const ENTRYCOMPONENTS = [
+  UserAdminInfoFormCComponent
+];
+
+@NgModule({
+  declarations: [
+    ...COMPONENTS,
+    ...ENTRYCOMPONENTS
+  ],
+  entryComponents: [
+    ...ENTRYCOMPONENTS
   ],
   imports: [
     SharedModule,
