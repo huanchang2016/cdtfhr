@@ -14,6 +14,8 @@ import { ResumeCreateComponent } from './resume-manage/resume-create/resume-crea
 
 // 表单组件
 import { UserAdminInfoFormCComponent } from './component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
+import { UserAdminEducationComponent } from './component/resumes-forms/user-admin-education/user-admin-education.component';
+import { UserAdminEducationFormCComponent } from './component/resumes-forms/user-admin-education/user-admin-education-form-c/user-admin-education-form-c.component';
 
 
 const COMPONENTS = [
@@ -30,7 +32,9 @@ const COMPONENTS = [
 ];
 
 const ENTRYCOMPONENTS = [
-  UserAdminInfoFormCComponent
+  UserAdminInfoFormCComponent,
+  UserAdminEducationComponent,
+  UserAdminEducationFormCComponent
 ];
 
 @NgModule({

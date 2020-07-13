@@ -1,3 +1,4 @@
+
 export class User {
     id: number;
     name: string;
@@ -19,3 +20,4 @@ export class List {
     id: number;
     name: string;
 }
+

@@ -1,0 +1,31 @@
+<div class="form-container">
+
+    <ng-container *ngFor="let item of list; let i = index">
+        <div class="more_info_oper_" *ngIf="this.list.length > 1">
+            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+            <ng-template #dividerText>
+                <span class="text-grey">第{{ i + 1 }}段教育经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+            </ng-template>
+            <a
+                nz-popconfirm
+                nzPopconfirmTitle="是否确定删除当前教育经历？"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="deleted(item)"
+                (nzOnCancel)="cancel()"
+                class="text-danger delete_btn border-radius-sm bg-white"
+                >
+                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+            </a>
+        </div>
+        <app-user-admin-education-form-c [index]="item" [isSubmitCheck]="isSubmitCheck" (isNotValid)="isNotValid($event)" (formValidChange)="formValidChange($event)"></app-user-admin-education-form-c>
+    </ng-container>
+
+    <div class="add_obj_btn my-sm">
+        <button (click)="add($event)" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段教育经历</button>
+    </div>
+
+    <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
+        <button class="next_btn" (click)="submit()" nz-button nzType="primary" nzSize="large">下一步</button>
+        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
+    </div>
+</div>

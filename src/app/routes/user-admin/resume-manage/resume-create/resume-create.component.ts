@@ -10,7 +10,7 @@ export class ResumeCreateComponent implements OnInit {
 
   submitLoading:boolean = false;
 
-  step: 0 | 1 | 2 | 3 = 0;
+  step: 0 | 1 | 2 | 3 = 2;
 
   // 先获取信息，根据信息判断当前用户的实名认证 进行到了哪一步？
   ceritificationInfo:any = null;
@@ -41,5 +41,13 @@ export class ResumeCreateComponent implements OnInit {
         }, 800);
       }
     })
+  }
+
+  stepsChange(type:string) {
+    if(type === 'next') {
+      ++this.step;
+    }else {
+      --this.step;
+    }
   }
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
@@ -17,7 +17,7 @@ registerLocaleData(zh);
 
 
 // #region Startup Service
-import { StartupService } from '@core';
+import { StartupService, DefaultInterceptor } from '@core';
 export function StartupServiceFactory(startupService: StartupService) {
   return () => startupService.load();
 }
@@ -46,6 +46,7 @@ const APPINIT_PROVIDES = [
   ],
   providers: [
     ...APPINIT_PROVIDES,
+    { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
     { provide: LOCALE_ID, useValue: 'zh_CN' }
   ],

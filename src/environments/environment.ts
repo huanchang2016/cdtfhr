@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  SERVER_URL: `./`,
+  SERVER_URL: `http://api.cdtfhrdemo.com.172.16.71.123.xip.io`,
   production: false,
   useHash: false
 };

@@ -16,6 +16,7 @@ import { ShowTextAreaPipe } from './pipe/show-text-area.pipe';
 import { ShowWeekendsPipe } from './pipe/show-weekends.pipe';
 import { PostDeliverySuccessComponent } from './component/position-apply/post-delivery-success/post-delivery-success.component';
 import { CelebrityNotPassComponent } from './component/position-apply/celebrity-not-pass/celebrity-not-pass.component';
+import { UploadLogoComponent } from './component/forms/upload-logo/upload-logo.component';
 
 // #region third libs
 
@@ -35,7 +36,8 @@ const COMPONENTS = [
   ThreeStageCascaderComponent,
   LayoutFullSearchComponent,
   RecuritItemComponent,
-  PaginationItemComponent
+  PaginationItemComponent,
+  UploadLogoComponent
 ];
 
 const ENTRYCOMPONENTS = [

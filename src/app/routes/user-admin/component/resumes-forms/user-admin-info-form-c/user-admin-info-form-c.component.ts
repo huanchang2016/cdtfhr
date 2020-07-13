@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-admin-info-form-c',
@@ -16,10 +15,15 @@ export class UserAdminInfoFormCComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
-      email: [null, [Validators.email, Validators.required]],
+      sex: [null, [Validators.required]],
       birthday: [null, [Validators.required]],
+      marriy_status: [null, [Validators.required]],
+      registered_residence: [null, [Validators.required]], // 户口所在地
       work_date: [null, [Validators.required]],
-      is_not_work: [false] // 根据 是否工作 确定  工作时间是否为必填项
+      is_not_work: [false], // 根据 是否工作 确定  工作时间是否为必填项
+      address_city: [null, [Validators.required]], // 现居住城市
+      email: [null, [Validators.email, Validators.required]],
+      photo: [null]
     });
 
 

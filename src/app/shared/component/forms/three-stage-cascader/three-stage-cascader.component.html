@@ -1,1 +1,9 @@
-<nz-cascader [(ngModel)]="values" [nzLoadData]="loadData" (ngModelChange)="onChanges($event)" [nzPlaceHolder]="placeholder" nzSize="large"></nz-cascader>
+<nz-cascader
+    [(ngModel)]="values"
+    [nzLoadData]="loadData"
+    nzValueProperty="id"
+    nzLabelProperty="name"
+    (ngModelChange)="onChanges($event)"
+    [nzPlaceHolder]="placeholder"
+    [nzSize]="Size">
+</nz-cascader>

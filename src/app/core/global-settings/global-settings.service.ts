@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/data/interface';
+import { User, ApiData } from 'src/app/data/interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class GlobalSettingsService {
 
+  province:any[] = [];
+
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+    this.getGlobalConfigs();
+  }
 
   get(url:string, option?:any):Observable<any> {
     return this.httpClient.get(url, option);
@@ -57,5 +61,25 @@ export class GlobalSettingsService {
     localStorage.removeItem('cdtfhr_user');
     localStorage.removeItem('cdtfhr_token');
 
+  }
+
+  // 获取一些常用的全局配置项
+  getGlobalConfigs():void {
+    this.httpClient.get(`/v1/web/setting/city`).subscribe( (res:ApiData) => {
+      console.log(res, 'province ');
+      if(res.code === 200) {
+        this.province = res.data.map( v => {
+          return {
+            // value: v.id,
+            // label: v.name
+            ...v
+          }
+        });
+      }
+    })
+  }
+
+  getCities(pid:number): Observable<any> {
+    return this.httpClient.get(`/v1/web/setting/city?pid=${pid}`);
   }
 }

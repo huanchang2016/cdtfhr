@@ -21,6 +21,7 @@
           <ng-container *ngIf="step === 1">
             <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
             
+            <app-user-admin-education (stepsChange)="stepsChange($event)"></app-user-admin-education>
             
           </ng-container>
   

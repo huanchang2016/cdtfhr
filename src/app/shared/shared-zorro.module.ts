@@ -31,6 +31,7 @@ import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 export const SHARED_ZORRO_MODULES = [
   NzFormModule,
@@ -65,5 +66,6 @@ export const SHARED_ZORRO_MODULES = [
   NzCascaderModule,
   NzCarouselModule,
   NzCollapseModule,
-  NzTypographyModule
+  NzTypographyModule,
+  NzUploadModule
 ];
