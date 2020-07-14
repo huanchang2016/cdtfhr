@@ -1,0 +1,18 @@
+<ng-container *ngIf="nodes.length !== 0">
+    <nz-tree-select
+        style="width: 100%"
+        [(ngModel)]="values"
+        [nzNodes]="nodes"
+        (ngModelChange)="onChange($event)"
+        nzShowSearch
+        nzCheckable
+        nzDefaultExpandAll
+        [nzPlaceHolder]="placeholder"
+        [nzSize]="size"
+        [nzDropdownStyle]="{ 'max-height': '300px' }"
+        [nzAsyncData]="true"
+        (nzExpandChange)="onExpandChange($event)"
+    >
+    </nz-tree-select>
+
+</ng-container>

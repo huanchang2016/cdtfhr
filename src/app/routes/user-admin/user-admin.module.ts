@@ -16,25 +16,31 @@ import { ResumeCreateComponent } from './resume-manage/resume-create/resume-crea
 import { UserAdminInfoFormCComponent } from './component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { UserAdminEducationComponent } from './component/resumes-forms/user-admin-education/user-admin-education.component';
 import { UserAdminEducationFormCComponent } from './component/resumes-forms/user-admin-education/user-admin-education-form-c/user-admin-education-form-c.component';
+import { UserAdminJobIntensionFormCComponent } from './component/resumes-forms/user-admin-job-intension-form-c/user-admin-job-intension-form-c.component';
+import { UserAdminWorkExpComponent } from './component/resumes-forms/user-admin-work-exp/user-admin-work-exp.component';
+import { UserWorkExpFormCComponent } from './component/resumes-forms/user-admin-work-exp/user-work-exp-form-c/user-work-exp-form-c.component';
 
 
 const COMPONENTS = [
-    UserAdminLayoutComponent, // 布局组件
-    UserSidebarComponent, // 导航组件
-    UserContentTopComponent, // 内容区顶部公共组件
-    UserAdminHomeComponent, // 个人主页
-    UserRecommendPositionsComponent, // 个人主页  默认简历展示 卡片
-    UserAdminCertificationComponent,
-    UserAdminBindAccountComponent,
-    // 简历管理
-    ResumeListComponent,
-    ResumeCreateComponent
+  UserAdminLayoutComponent, // 布局组件
+  UserSidebarComponent, // 导航组件
+  UserContentTopComponent, // 内容区顶部公共组件
+  UserAdminHomeComponent, // 个人主页
+  UserRecommendPositionsComponent, // 个人主页  默认简历展示 卡片
+  UserAdminCertificationComponent,
+  UserAdminBindAccountComponent,
+  // 简历管理
+  ResumeListComponent,
+  ResumeCreateComponent,
+  UserAdminJobIntensionFormCComponent
 ];
 
 const ENTRYCOMPONENTS = [
   UserAdminInfoFormCComponent,
   UserAdminEducationComponent,
-  UserAdminEducationFormCComponent
+  UserAdminEducationFormCComponent,
+  UserAdminWorkExpComponent,
+  UserWorkExpFormCComponent
 ];
 
 @NgModule({

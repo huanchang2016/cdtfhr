@@ -10,6 +10,7 @@ export class LayoutAdminComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.querySelector('body').style.backgroundColor = "#F0F0F0";
   }
 
 }

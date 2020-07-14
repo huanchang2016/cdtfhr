@@ -2,8 +2,10 @@
     <div class="steps_wrapper">
       <nz-steps [nzCurrent]="step" nzSize="large" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
         <nz-step [nzTitle]="'个人信息'"></nz-step>
+        <nz-step [nzTitle]="'求职意向'"></nz-step>
         <nz-step [nzTitle]="'教育经历'"></nz-step>
-        <nz-step [nzTitle]="'工作与求职'"></nz-step>
+        <nz-step [nzTitle]="'工作经历'"></nz-step>
+        <nz-step [nzTitle]="'实习经历'"></nz-step>
         <nz-step [nzTitle]="'其它'"></nz-step>
   
       </nz-steps>
@@ -17,21 +19,36 @@
             <div class="next-steps__btn mt-lg"><button (click)="submitInfo()" nzBlock nz-button nzType="primary" nzSize="large">下一步</button></div>
 
           </ng-container>
-  
+
           <ng-container *ngIf="step === 1">
+            <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
+            
+            <app-user-admin-job-intension-form-c #userIntensionTpl (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c>
+
+          </ng-container>
+  
+          <ng-container *ngIf="step === 2">
             <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
             
             <app-user-admin-education (stepsChange)="stepsChange($event)"></app-user-admin-education>
             
           </ng-container>
   
-          <ng-container *ngIf="step === 2">
-            <app-sub-title-show [title]="'工作与求职'"></app-sub-title-show>
+          <ng-container *ngIf="step === 3">
+            <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
             
+            <app-user-admin-work-exp (stepsChange)="stepsChange($event)"></app-user-admin-work-exp>
             
           </ng-container>
 
-          <ng-container *ngIf="step === 3">
+          <ng-container *ngIf="step === 4">
+            <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
+            
+            <!-- <app-user-admin-job-hunting (stepsChange)="stepsChange($event)"></app-user-admin-job-hunting> -->
+            
+          </ng-container>
+
+          <ng-container *ngIf="step === 5">
             <app-sub-title-show [title]="'其它'"></app-sub-title-show>
             
             

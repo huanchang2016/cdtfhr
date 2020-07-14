@@ -10,16 +10,14 @@ export class ResumeCreateComponent implements OnInit {
 
   submitLoading:boolean = false;
 
-  step: 0 | 1 | 2 | 3 = 2;
+  step: 0 | 1 | 2 | 3 | 4 | 5 = 3;
 
   // 先获取信息，根据信息判断当前用户的实名认证 进行到了哪一步？
   ceritificationInfo:any = null;
 
   constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   @ViewChild('userInfoTpl', { static: false }) userInfoTpl: UserAdminInfoFormCComponent;
 
@@ -37,6 +35,7 @@ export class ResumeCreateComponent implements OnInit {
         
         setTimeout(() => {
           this.submitLoading = false;
+          // 在当前组件层级 存入 resume_id 简历id。
           ++this.step;
         }, 800);
       }

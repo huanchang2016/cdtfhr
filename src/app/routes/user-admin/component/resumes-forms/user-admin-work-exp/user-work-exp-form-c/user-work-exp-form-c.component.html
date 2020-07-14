@@ -1,0 +1,66 @@
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="company_name" nzRequired>公司名称</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请输入公司名称">
+            <input nz-input id="company_name" formControlName="company_name" nzSize="large" placeholder="请输入公司名称" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="company_industry" nzRequired>所属行业</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择从事行业">
+            <nz-select id="company_industry" formControlName="company_industry" nzSize="large" nzPlaceHolder="请点击选择从事行业">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="company_scale" nzRequired>公司规模</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司规模">
+            <nz-select id="company_scale" formControlName="company_scale" nzSize="large" nzPlaceHolder="请点击选择公司规模">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="company_nature" nzRequired>公司性质</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司性质">
+            <nz-select id="company_nature" formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择公司性质">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="position_name" nzRequired>职位名称</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请输入职位名称">
+            <input nz-input id="position_name" formControlName="position_name" nzSize="large" placeholder="请输入职位名称" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="work_range_date" nzRequired>在职时间</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择在职时间段">
+            <app-range-month-picker [isNow]="true" formControlName="work_range_date" [placeholder]="['请选择何时入职', '请选择何时离职']" [size]="'large'"></app-range-month-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="range_salary" nzRequired>税前月薪</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择月薪区间">
+            <nz-select id="range_salary" formControlName="range_salary" nzSize="large" nzPlaceHolder="请点击选择月薪区间">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="work_description" nzRequired>工作描述</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请填写工作内容描述">
+            <textarea nz-input formControlName="work_description" id="work_description" placeholder="请输入内容" [nzAutosize]="{ minRows: 3, maxRows: 5 }" nzSize="large"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+</form>

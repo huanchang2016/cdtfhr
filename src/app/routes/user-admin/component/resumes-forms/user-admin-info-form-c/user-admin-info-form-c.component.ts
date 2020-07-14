@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UserAdminInfoFormCComponent implements OnInit {
   validateForm!: FormGroup;
 
-
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -25,9 +24,6 @@ export class UserAdminInfoFormCComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       photo: [null]
     });
-
-
-    
   }
   isNotWorkChange(required: boolean): void {
     if (required) {

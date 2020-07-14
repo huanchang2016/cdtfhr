@@ -1,0 +1,67 @@
+<form nz-form [formGroup]="validateForm" class="mt-lg">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="work_address" nzRequired>工作地区</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的工作地区">
+            <app-multiple-cascader-selected formControlName="work_address" [size]="'large'"
+                [placeholder]="'请点击选择期望的工作地区'"></app-multiple-cascader-selected>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="industry" nzRequired>期望行业</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的行业">
+            <nz-select id="industry" formControlName="industry" nzSize="large" nzPlaceHolder="请点击选择期望的行业">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="job_position" nzRequired>期望职位</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的职位">
+            <app-multiple-cascader-selected formControlName="job_position" [size]="'large'"
+                [placeholder]="'请点击选择期望的职位'"></app-multiple-cascader-selected>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="job_salary" nzRequired>期望月薪</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的月薪区间">
+            <nz-select id="job_salary" formControlName="job_salary" nzSize="large" nzPlaceHolder="请点击选择期望的月薪区间">
+                <nz-option nzValue="1000元/月-2000元/月" nzLabel="1000元/月-2000元/月"></nz-option>
+                <nz-option nzValue="2000元/月-3000元/月" nzLabel="2000元/月-3000元/月"></nz-option>
+                <nz-option nzValue="3000元/月-4000元/月" nzLabel="3000元/月-4000元/月"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="job_status" nzRequired>求职状态</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择求职状态">
+            <nz-select id="job_status" formControlName="job_status" nzSize="large" nzPlaceHolder="请点击选择求职状态">
+                <nz-option nzValue="在职，考虑机会" nzLabel="在职，考虑机会"></nz-option>
+                <nz-option nzValue="目前正在找工作" nzLabel="目前正在找工作"></nz-option>
+                <nz-option nzValue="看心情而定" nzLabel="看心情而定"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="job_nature" nzRequired>工作性质</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择工作性质">
+            <nz-checkbox-wrapper id="job_nature" style="width: 100%; line-height: 40px;" (nzOnChange)="log($event)">
+                <div nz-row>
+                    <div nz-col nzSpan="8" *ngFor="let item of checkOptionsOne">
+                        <label nz-checkbox [nzValue]="item.value">{{ item.label }}</label>
+                    </div>
+                </div>
+            </nz-checkbox-wrapper>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <div style="width: 100%;">
+            <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
+                <button class="next_btn" (click)="submitForm()" nz-button nzType="primary" nzSize="large">下一步</button>
+                <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default"
+                    nzSize="large">返回上一步</button>
+            </div>
+        </div>
+    </nz-form-item>
+</form>

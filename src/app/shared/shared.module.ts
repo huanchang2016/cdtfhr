@@ -17,6 +17,9 @@ import { ShowWeekendsPipe } from './pipe/show-weekends.pipe';
 import { PostDeliverySuccessComponent } from './component/position-apply/post-delivery-success/post-delivery-success.component';
 import { CelebrityNotPassComponent } from './component/position-apply/celebrity-not-pass/celebrity-not-pass.component';
 import { UploadLogoComponent } from './component/forms/upload-logo/upload-logo.component';
+import { MultipleCascaderSelectedComponent } from './component/forms/multiple-cascader-selected/multiple-cascader-selected.component';
+import { RangeDatePickerComponent } from './component/forms/range-date-picker/range-date-picker.component';
+import { RangeMonthPickerComponent } from './component/forms/range-month-picker/range-month-picker.component';
 
 // #region third libs
 
@@ -37,7 +40,10 @@ const COMPONENTS = [
   LayoutFullSearchComponent,
   RecuritItemComponent,
   PaginationItemComponent,
-  UploadLogoComponent
+  UploadLogoComponent,
+  MultipleCascaderSelectedComponent,
+  RangeDatePickerComponent,
+  RangeMonthPickerComponent
 ];
 
 const ENTRYCOMPONENTS = [

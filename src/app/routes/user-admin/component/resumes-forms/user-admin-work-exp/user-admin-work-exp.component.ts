@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-user-admin-education',
-  templateUrl: './user-admin-education.component.html',
-  styleUrls: ['./user-admin-education.component.less']
+  selector: 'app-user-admin-work-exp',
+  templateUrl: './user-admin-work-exp.component.html',
+  styleUrls: ['./user-admin-work-exp.component.less']
 })
-export class UserAdminEducationComponent implements OnInit {
+export class UserAdminWorkExpComponent implements OnInit {
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
-  eduOptions:any = {};
+  workOptions:any = {};
 
   list:any[] = [1];
 
@@ -34,7 +34,7 @@ export class UserAdminEducationComponent implements OnInit {
       }else {
         this.isAllValid = true;
         this.list.forEach( item => {
-          if(!this.eduOptions[item]) {
+          if(!this.workOptions[item]) {
             this.isAllValid = false;
           }
         });
@@ -71,8 +71,8 @@ export class UserAdminEducationComponent implements OnInit {
   deleted(item:number) {
     if(this.list.length > 1) {
       this.list = this.list.filter( v => v !== item);
-      delete this.eduOptions[item];
-      console.log(this.eduOptions, 'deleted eduOptions');
+      delete this.workOptions[item];
+      console.log(this.workOptions, 'deleted eduOptions');
     }
   }
 
@@ -81,15 +81,16 @@ export class UserAdminEducationComponent implements OnInit {
   formValidChange({index, form}) {
     if(form.valid) {
       
-      this.eduOptions[index] = form.value;
-      console.log(this.eduOptions, 'valid eduOptions');
+      this.workOptions[index] = form.value;
+      console.log(this.workOptions, 'valid eduOptions');
     }
   }
 
   submitForm(): Promise<any> {
     return new Promise((resolve) => {
-      resolve(this.eduOptions);
+      resolve(this.workOptions);
     });
     
   }
+
 }
