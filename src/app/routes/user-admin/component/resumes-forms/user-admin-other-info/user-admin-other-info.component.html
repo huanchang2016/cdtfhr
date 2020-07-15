@@ -1,0 +1,252 @@
+<div class="form-container">
+    <form nz-form [formGroup]="validateForm">
+
+        <app-sub-title-show [title]="'项目经历'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="is_projectExp" nzRequired>项目经历情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择项目经历情况">
+                <nz-radio-group style="line-height: 40px;" id="is_projectExp" formControlName="is_projectExp">
+                    <label nz-radio [nzValue]="true">有项目经历</label>
+                    <label nz-radio [nzValue]="false">暂无项目经历</label>
+                  </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngIf="validateForm.get('is_projectExp').value">
+            <div formArrayName="projectExp">
+                <div *ngFor="let projectItem of projectExpArrayControls; let pro_i = index" [formGroupName]="pro_i.toString()">
+                    <div class="more_info_oper_" *ngIf="projectExpArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ pro_i + 1 }}段项目经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前项目经历？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(pro_i, 'projectExp')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>项目名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入项目名称">
+                            <input nz-input formControlName="projectName" placeholder="请输入项目名称" type="text" nzSize="large" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>项目时间</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入项目时间">
+                            <app-range-month-picker [isNow]="false" formControlName="projectRangeDate" [placeholder]="['请选择何时开始', '请选择何时结束']" [size]="'large'"></app-range-month-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>责任描述</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请填写项目中的责任描述">
+                            <textarea formControlName="projectDescription" nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" placeholder="请输入内容"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('projectExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段项目经历</button>
+            </div>
+        </ng-container>
+
+        <app-sub-title-show [title]="'培训经历'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="is_trainExp" nzRequired>培训经历情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择培训经历情况">
+                <nz-radio-group style="line-height: 40px;" id="is_trainExp" formControlName="is_trainExp">
+                    <label nz-radio [nzValue]="true">有培训经历</label>
+                    <label nz-radio [nzValue]="false">暂无培训经历</label>
+                  </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngIf="validateForm.get('is_trainExp').value">
+            <div formArrayName="trainExp">
+                <div *ngFor="let projectItem of trainExpArrayControls; let train_i = index" [formGroupName]="train_i.toString()">
+                    <div class="more_info_oper_" *ngIf="trainExpArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ train_i + 1 }}段培训经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前培训经历？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(train_i, 'trainExp')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>培训机构</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请填写培训机构名称">
+                            <input nz-input formControlName="trainOrganization" placeholder="请填写培训机构名称" type="text" nzSize="large" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>培训时间</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请选择培训时间">
+                            <app-range-month-picker [isNow]="false" formControlName="trainRangeDate" [placeholder]="['请选择何时开始', '请选择何时结束']" [size]="'large'"></app-range-month-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>培训内容</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入培训内容">
+                            <textarea formControlName="trainContent" nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" placeholder="请输入培训内容"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('trainExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段项目经历</button>
+            </div>
+        </ng-container>
+
+        <app-sub-title-show [title]="'证书'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="is_certificate" nzRequired>证书情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择证书情况">
+                <nz-radio-group style="line-height: 40px;" id="is_certificate" formControlName="is_certificate">
+                    <label nz-radio [nzValue]="true">有获得证书</label>
+                    <label nz-radio [nzValue]="false">暂未获得证书</label>
+                  </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngIf="validateForm.get('is_certificate').value">
+            <div formArrayName="certificates">
+                <div *ngFor="let projectItem of certificatesArrayControls; let certificate_i = index" [formGroupName]="certificate_i.toString()">
+                    <div class="more_info_oper_" *ngIf="certificatesArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ certificate_i + 1 }}个证书 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前证书信息？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(certificate_i, 'certificates')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>证书名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入获得证书的名称">
+                            <input nz-input formControlName="certificateName" placeholder="请输入获得证书的名称" type="text" nzSize="large" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>获得时间</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请选择获得时间">
+                            <app-date-picker-month [isNow]="false" formControlName="certificateDate" [placeholder]="'请点击选择证书获得时间'" [size]="'large'"></app-date-picker-month>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('certificates')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一项证书</button>
+            </div>
+        </ng-container>
+
+        <app-sub-title-show [title]="'其它语言能力'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="is_language" nzRequired>语言能力情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择证书情况">
+                <nz-radio-group style="line-height: 40px;" id="is_language" formControlName="is_language">
+                    <label nz-radio [nzValue]="true">有其他语言能力</label>
+                    <label nz-radio [nzValue]="false">暂无其他语言能力</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngIf="validateForm.get('is_language').value">
+            <div formArrayName="languages">
+                <div *ngFor="let projectItem of languagesArrayControls; let language_i = index" [formGroupName]="language_i.toString()">
+                    <div class="more_info_oper_" *ngIf="languagesArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ language_i + 1 }}项语言能力 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前语言能力？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(language_i, 'languages')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>外语语种</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择语种">
+                            <nz-select formControlName="languageType" nzSize="large" nzPlaceHolder="请点击选择语种">
+                                <nz-option nzValue="汉语" nzLabel="汉语"></nz-option>
+                                <nz-option nzValue="英语" nzLabel="英语"></nz-option>
+                                <nz-option nzValue="日语" nzLabel="日语"></nz-option>
+                                <nz-option nzValue="西班牙语" nzLabel="西班牙语"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>读写能力</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请选择读写能力">
+                            <nz-radio-group style="line-height: 40px;" formControlName="languageWrite">
+                                <label nz-radio [nzValue]="'一般'">一般</label>
+                                <label nz-radio [nzValue]="'良好'">良好</label>
+                                <label nz-radio [nzValue]="'熟练'">熟练</label>
+                                <label nz-radio [nzValue]="'精通'">精通</label>
+                            </nz-radio-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzRequired>听说能力</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请选择听说能力">
+                            <nz-radio-group style="line-height: 40px;" formControlName="languageListen">
+                                <label nz-radio [nzValue]="'一般'">一般</label>
+                                <label nz-radio [nzValue]="'良好'">良好</label>
+                                <label nz-radio [nzValue]="'熟练'">熟练</label>
+                                <label nz-radio [nzValue]="'精通'">精通</label>
+                            </nz-radio-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('languages')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一项证书</button>
+            </div>
+        </ng-container>
+
+        <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="self_comment">自我评价</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写自我评价">
+                <textarea formControlName="self_comment" nz-input [nzAutosize]="{ minRows: 4, maxRows: 8 }" placeholder="请输入内容"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+
+        <app-sub-title-show [title]="'兴趣爱好'"></app-sub-title-show>
+        <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="self_interest">兴趣爱好</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写兴趣爱好">
+                <textarea formControlName="self_interest" nz-input [nzAutosize]="{ minRows: 4, maxRows: 8 }" placeholder="请输入内容"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+
+    <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
+        <button class="next_btn" (click)="submitForm()" nz-button nzType="primary" nzSize="large">完成</button>
+        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
+    </div>
+
+</div>

@@ -1,31 +1,73 @@
 <div class="form-container">
-
-    <ng-container *ngFor="let item of list; let i = index">
-        <div class="more_info_oper_" *ngIf="this.list.length > 1">
-            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-            <ng-template #dividerText>
-                <span class="text-grey">第{{ i + 1 }}段教育经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-            </ng-template>
-            <a
-                nz-popconfirm
-                nzPopconfirmTitle="是否确定删除当前教育经历？"
-                nzPopconfirmPlacement="bottom"
-                (nzOnConfirm)="deleted(item)"
-                (nzOnCancel)="cancel()"
-                class="text-danger delete_btn border-radius-sm bg-white"
-                >
-                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-            </a>
+    <form nz-form [formGroup]="validateForm">
+        <div formArrayName="eduExp">
+            <div *ngFor="let projectItem of eduExpArrayControls; let edu_i = index" [formGroupName]="edu_i.toString()">
+                <div class="more_info_oper_" *ngIf="eduExpArrayControls.length > 1">
+                    <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                    <ng-template #dividerText>
+                        <span class="text-grey">第{{ edu_i + 1 }}段教育经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                    </ng-template>
+                    <a
+                        nz-popconfirm
+                        nzPopconfirmTitle="是否确定删除当前教育经历？"
+                        nzPopconfirmPlacement="bottom"
+                        (nzOnConfirm)="deleted(edu_i, 'eduExp')"
+                        (nzOnCancel)="cancel()"
+                        class="text-danger delete_btn border-radius-sm bg-white"
+                        >
+                        <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                    </a>
+                </div>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzFor="school_name" nzRequired>学校名称</nz-form-label>
+                    <nz-form-control [nzSpan]="19" nzErrorTip="请输入学校名称，例如：四川大学">
+                        <input nz-input id="school_name" formControlName="school_name" nzSize="large" placeholder="请输入学校名称，例如：四川大学" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzFor="edu_record" nzRequired>学历</nz-form-label>
+                    <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择学历">
+                        <nz-select id="edu_record" formControlName="edu_record" nzSize="large" nzPlaceHolder="请点击选择学历">
+                            <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                            <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                            <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzFor="edu_major" nzRequired>专业</nz-form-label>
+                    <nz-form-control [nzSpan]="19" nzErrorTip="请输入专业，例如：计算机科学与技术">
+                        <input nz-input id="edu_major" formControlName="edu_major" nzSize="large" placeholder="请输入专业，例如：计算机科学与技术" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzFor="edu_start_time" nzRequired>入学时间</nz-form-label>
+                    <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择入学时间">
+                        <app-date-picker-month formControlName="edu_start_time" [placeholder]="'请点击选择入学时间'" [size]="'large'"></app-date-picker-month>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="5" nzFor="edu_end_time" [nzRequired]="!validateForm.get('is_not_end')?.value">毕业时间</nz-form-label>
+                    <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择毕业时间">
+                        <div nz-row [nzGutter]="8">
+                            <div nz-col [nzSpan]="18">
+                                <app-date-picker-month formControlName="edu_end_time" [placeholder]="'请点击选择毕业时间'" [size]="'large'"></app-date-picker-month>
+                            </div>
+                            <div nz-col [nzSpan]="6" class="text-right agree_box">
+                                <label nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event, edu_i)">至今</label>
+                            </div>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
         </div>
-        <app-user-admin-education-form-c [index]="item" [isSubmitCheck]="isSubmitCheck" (isNotValid)="isNotValid($event)" (formValidChange)="formValidChange($event)"></app-user-admin-education-form-c>
-    </ng-container>
-
-    <div class="add_obj_btn my-sm">
-        <button (click)="add($event)" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段教育经历</button>
-    </div>
+        <div class="add_obj_btn mt-sm mb-lg">
+            <button (click)="add('eduExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段教育经历</button>
+        </div>
+    </form>
 
     <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
-        <button class="next_btn" (click)="submit()" nz-button nzType="primary" nzSize="large">下一步</button>
+        <button class="next_btn" (click)="submitForm()" nz-button nzType="primary" nzSize="large">下一步</button>
         <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
     </div>
 </div>

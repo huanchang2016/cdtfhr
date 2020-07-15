@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { format } from 'date-fns';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
@@ -20,7 +20,7 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
     }
   ]
 })
-export class RangeMonthPickerComponent implements ControlValueAccessor {
+export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
 
   @Input() placeholder?:string[] = ['请选择开始日期', '请选择结束日期'];
   @Input() size?:string = null;
@@ -33,9 +33,15 @@ export class RangeMonthPickerComponent implements ControlValueAccessor {
 
   values:string[] = [];
 
-  is_now:boolean = true;
+  is_now:boolean = false;
 
   private propagateChange = (_: any) => { };
+
+  ngOnInit() {
+    if(!this.isNow) {
+      this.is_now = false;
+    }
+  }
 
   writeValue(obj: string[]): void {
     if(obj) {
@@ -88,7 +94,7 @@ export class RangeMonthPickerComponent implements ControlValueAccessor {
   disabledDateEnd = (current: Date): boolean => {
     // Can not select days before today and today
     const startMonth:Date = this.start_month ? this.start_month : null;
-    console.log(startMonth, 'start month')
+    
     if(startMonth) {
       return differenceInCalendarDays(current, startMonth) < 0;
     }else {

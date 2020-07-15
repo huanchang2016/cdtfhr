@@ -19,6 +19,9 @@ import { UserAdminEducationFormCComponent } from './component/resumes-forms/user
 import { UserAdminJobIntensionFormCComponent } from './component/resumes-forms/user-admin-job-intension-form-c/user-admin-job-intension-form-c.component';
 import { UserAdminWorkExpComponent } from './component/resumes-forms/user-admin-work-exp/user-admin-work-exp.component';
 import { UserWorkExpFormCComponent } from './component/resumes-forms/user-admin-work-exp/user-work-exp-form-c/user-work-exp-form-c.component';
+import { UserAdminInternshipExpComponent } from './component/resumes-forms/user-admin-internship-exp/user-admin-internship-exp.component';
+import { UserInternshipExpFormCComponent } from './component/resumes-forms/user-admin-internship-exp/user-internship-exp-form-c/user-internship-exp-form-c.component';
+import { UserAdminOtherInfoComponent } from './component/resumes-forms/user-admin-other-info/user-admin-other-info.component';
 
 
 const COMPONENTS = [
@@ -37,16 +40,22 @@ const COMPONENTS = [
 
 const ENTRYCOMPONENTS = [
   UserAdminInfoFormCComponent,
+  // 教育经历
   UserAdminEducationComponent,
   UserAdminEducationFormCComponent,
+  // 工作经历
   UserAdminWorkExpComponent,
-  UserWorkExpFormCComponent
+  UserWorkExpFormCComponent,
+  // 实习经历
+  UserAdminInternshipExpComponent,
+  UserInternshipExpFormCComponent
 ];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS
+    ...ENTRYCOMPONENTS,
+    UserAdminOtherInfoComponent
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

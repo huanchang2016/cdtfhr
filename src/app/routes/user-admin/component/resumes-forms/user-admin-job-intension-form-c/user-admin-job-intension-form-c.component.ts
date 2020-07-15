@@ -31,15 +31,15 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
 
   }
   
-  submitForm(): Promise<any> {
+  submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
     console.log(this.validateForm, '简历 求职意向');
-    return new Promise((resolve) => {
-      resolve(this.validateForm);
-    });
+    if(this.validateForm.valid) {
+      this.steps('next');
+    }
     
   }
 

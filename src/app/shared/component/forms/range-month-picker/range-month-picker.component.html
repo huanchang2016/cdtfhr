@@ -1,12 +1,12 @@
 <!-- <nz-range-picker style="width: 100%;" [nzFormat]="dateFormat" [nzSize]="size"></nz-range-picker> -->
 <div nz-row nzGutter="16">
-    <div nz-col [nzSpan]="is_now ? 18 : 9">
+    <div nz-col [nzSpan]="!isNow ? 12 : (is_now ? 18 : 9)">
         <nz-month-picker [(ngModel)]="start_month" (ngModelChange)="valueChanges()" [nzDisabledDate]="disabledDateStart" [nzFormat]="monthFormat" [nzPlaceHolder]="placeholder[0]" [nzSize]="size"></nz-month-picker>
     </div>
-    <div nz-col nzSpan="9" *ngIf="!is_now">
+    <div nz-col [nzSpan]="!isNow ? 12 : (is_now ? 0 : 9)" *ngIf="!is_now || !isNow">
         <nz-month-picker [(ngModel)]="end_month" (ngModelChange)="valueChanges()" [nzDisabledDate]="disabledDateEnd" [nzFormat]="monthFormat" [nzPlaceHolder]="placeholder[1]" [nzSize]="size"></nz-month-picker>
     </div>
-    <div nz-col [nzSpan]="6" class="text-right">
+    <div nz-col [nzSpan]="6" class="text-right" *ngIf="isNow">
         <label style="line-height: 40px;" nz-checkbox [(ngModel)]="is_now" (ngModelChange)="valueChanges()">至今</label>
     </div>
 </div>

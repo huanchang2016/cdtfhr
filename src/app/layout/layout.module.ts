@@ -11,6 +11,7 @@ const SETTINGDRAWER = [];
 
 const COMPONENTS = [
   LayoutDefaultComponent,
+  LayoutAdminComponent,
   LayoutFullScreenComponent,
   HeaderComponent,
   SidebarComponent,
@@ -42,8 +43,7 @@ const PASSPORT = [
   declarations: [
     ...COMPONENTS,
     ...HEADERCOMPONENTS,
-    ...PASSPORT,
-    LayoutAdminComponent
+    ...PASSPORT
   ],
   exports: [
     ...COMPONENTS,

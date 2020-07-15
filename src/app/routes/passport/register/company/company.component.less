@@ -1,3 +1,5 @@
+@import "./../../../../../styles/base-color.less";
+
 .register-box {
     width: 600px;
     margin: 0 auto;
@@ -7,5 +9,42 @@
     .steps-content {
         width: 100%;
         margin: 50px auto 0;
+    }
+}
+
+// 分布步骤条样式
+.steps_status {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    background-color: @grey-dark-color;
+    border: 2px solid @grey-dark-color;
+}
+:host ::ng-deep {
+    .sub-title {
+        font-weight: 600;
+    }
+}
+
+:host ::ng-deep nz-steps {
+    .ant-steps-item-title {
+        font-size: 12px;
+    }
+    .ant-steps-dot .ant-steps-item-icon,
+    .ant-steps-dot.ant-steps-small .ant-steps-item-icon {
+        margin-left: 60px;
+    }
+    .ant-steps-item-active {
+        .steps_status {
+            background-color: @white-color;
+            border-color: @primary-color;
+        }
+    }
+
+    .ant-steps-item-finish {
+        .steps_status {
+            background-color: @primary-color;
+            border-color: @primary-color;
+        }
     }
 }

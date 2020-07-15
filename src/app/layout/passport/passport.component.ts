@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'layout-passport',
   templateUrl: './passport.component.html',
   styleUrls: ['./passport.component.less'],
 })
-export class LayoutPassportComponent {
+export class LayoutPassportComponent implements OnInit {
   links = [
     {
       title: '帮助',
@@ -20,4 +20,9 @@ export class LayoutPassportComponent {
       href: '',
     },
   ];
+  
+  ngOnInit(): void {
+    document.querySelector('body').style.backgroundColor = "#FFFFFF";
+  }
+  
 }

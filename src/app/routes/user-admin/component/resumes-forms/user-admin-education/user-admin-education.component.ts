@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-user-admin-education',
@@ -6,90 +7,97 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./user-admin-education.component.less']
 })
 export class UserAdminEducationComponent implements OnInit {
+
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
-  eduOptions:any = {};
+  validateForm!: FormGroup;
 
-  list:any[] = [1];
-
-  index:number = 2;
-
-  // 所有的子组件表单 开始验证
-  isSubmitCheck:boolean = false;
-
-  constructor() {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    
+    this.validateForm = this.fb.group({
+      eduExp: this.fb.array([
+        this.fb.group({
+          school_name: [null, [Validators.required]],
+          edu_record: [null, [Validators.required]],
+          edu_major: [null, [Validators.required]],
+          edu_start_time: [null, [Validators.required]],
+          edu_end_time: [null, [Validators.required]],
+          is_not_end: [false] // 根据 是否毕业 确定  毕业时间是否为必填项
+        })
+      ])
+    });
+
   }
+  
 
-  submit() {
-    // 先提交信息， 然后向上传递  下一步的指令
-    this.isSubmitCheck = true;
-    setTimeout(() => {
-      console.log(this.isAllValid, 'isAllvalid');
-      if(this.isAllValid) {
-        console.log('success');
-        this.steps('next');
-      }else {
-        this.isAllValid = true;
-        this.list.forEach( item => {
-          if(!this.eduOptions[item]) {
-            this.isAllValid = false;
-          }
-        });
-        if(this.isAllValid) {
-          console.log('error change success');
-          this.steps('next');
-        }
-      }
-      
-    }, 100);
-    
-  }
-
-  isAllValid:boolean = true;
-
-  isNotValid(valid:boolean) {
-    this.isAllValid = valid;
-    this.isSubmitCheck = false;
-    console.log(this.isAllValid);
-  }
-
-  steps(type: string) {
-    this.stepsChange.emit(type);
-  }
-
-  add(e:Event) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.list.push(this.index);
-    this.index++;
-  }
-
-  deleted(item:number) {
-    if(this.list.length > 1) {
-      this.list = this.list.filter( v => v !== item);
-      delete this.eduOptions[item];
-      console.log(this.eduOptions, 'deleted eduOptions');
+  isNotEndChange(required: boolean, i:number): void {
+    if (required) {
+      this.eduExpArrayControls[i].get('edu_end_time')!.clearValidators();
+      this.eduExpArrayControls[i].get('edu_end_time')!.markAsPristine();
+    } else {
+      this.eduExpArrayControls[i].get('edu_end_time')!.setValidators(Validators.required);
+      this.eduExpArrayControls[i].get('edu_end_time')!.markAsDirty();
     }
+    this.eduExpArrayControls[i].get('edu_end_time')!.updateValueAndValidity();
+  }
+
+  // 获取表单中 formArray 的所有项
+  get eduExpArrayControls() {
+    const group = this.validateForm.get('eduExp') as FormArray;
+    return group.controls;
+  }
+
+
+  add(type:string) {
+    const groupArray:FormArray = this.validateForm.get(type) as FormArray;
+    if (type === 'eduExp') {
+      groupArray.push(
+        this.fb.group({
+          school_name: [null, [Validators.required]],
+          edu_record: [null, [Validators.required]],
+          edu_major: [null, [Validators.required]],
+          edu_start_time: [null, [Validators.required]],
+          edu_end_time: [null, [Validators.required]],
+          is_not_end: [false] // 根据 是否毕业 确定  毕业时间是否为必填项
+        })
+      )
+    }
+  }
+
+  deleted(index: number, type:string): void {
+    const groupArray:FormArray = this.validateForm.get(type) as FormArray;
+
+    groupArray.removeAt(index);
   }
 
   cancel() {}
-
-  formValidChange({index, form}) {
-    if(form.valid) {
-      
-      this.eduOptions[index] = form.value;
-      console.log(this.eduOptions, 'valid eduOptions');
-    }
+  
+  steps(type: string) {
+    this.stepsChange.emit(type);
   }
+  
+  submitForm():void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+    console.log('edu controls', this.eduExpArrayControls);
+    // 验证 formArray -> formGroup -> formControl 元素
+    for (let i = 0; i < this.eduExpArrayControls.length; i++) {
+      const element:any = this.eduExpArrayControls[i];
+      for (const i in element.controls) {
+        element.controls[i].markAsDirty();
+        element.controls[i].updateValueAndValidity();
+      }
+    }
 
-  submitForm(): Promise<any> {
-    return new Promise((resolve) => {
-      resolve(this.eduOptions);
-    });
+    
+    console.log(this.validateForm, '简历 教育经历');
+    if(this.validateForm.valid) {
+      this.steps('next');
+    }
     
   }
+
 }

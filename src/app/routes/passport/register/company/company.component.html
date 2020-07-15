@@ -1,6 +1,6 @@
 <div class="register-box">
 
-    <nz-steps [nzCurrent]="transferSrv.step" nzProgressDot>
+    <nz-steps [nzCurrent]="transferSrv.step" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
         <nz-step nzTitle="账号信息"></nz-step>
         <nz-step nzTitle="公司信息"></nz-step>
         <nz-step nzTitle="等待审核"></nz-step>
@@ -15,3 +15,8 @@
         <app-step4 *ngIf="transferSrv.step == 3"></app-step4>
       </div>
 </div>
+
+
+<ng-template #nzProgressDot>
+  <div class="steps_status border-radius-half"></div>
+</ng-template>

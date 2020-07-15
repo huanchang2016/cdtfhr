@@ -20,7 +20,9 @@ export class LayoutDefaultComponent implements OnInit, OnDestroy {
   constructor() {
     
   }
-  ngOnInit() {
+  
+  ngOnInit(): void {
+    document.querySelector('body').style.backgroundColor = "#FFFFFF";
   }
 
   ngOnDestroy() {

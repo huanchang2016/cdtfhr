@@ -43,14 +43,14 @@
 
           <ng-container *ngIf="step === 4">
             <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
-            
-            <!-- <app-user-admin-job-hunting (stepsChange)="stepsChange($event)"></app-user-admin-job-hunting> -->
+
+            <app-user-admin-internship-exp (stepsChange)="stepsChange($event)"></app-user-admin-internship-exp>
             
           </ng-container>
 
           <ng-container *ngIf="step === 5">
-            <app-sub-title-show [title]="'其它'"></app-sub-title-show>
             
+            <app-user-admin-other-info (stepsChange)="stepsChange($event)"></app-user-admin-other-info>
             
           </ng-container>
         </div>
