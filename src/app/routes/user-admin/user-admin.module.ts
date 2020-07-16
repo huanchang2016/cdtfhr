@@ -22,6 +22,13 @@ import { UserWorkExpFormCComponent } from './component/resumes-forms/user-admin-
 import { UserAdminInternshipExpComponent } from './component/resumes-forms/user-admin-internship-exp/user-admin-internship-exp.component';
 import { UserInternshipExpFormCComponent } from './component/resumes-forms/user-admin-internship-exp/user-internship-exp-form-c/user-internship-exp-form-c.component';
 import { UserAdminOtherInfoComponent } from './component/resumes-forms/user-admin-other-info/user-admin-other-info.component';
+import { ResumeViewComponent } from './resume-manage/resume-view/resume-view.component';
+import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
+import { ResumeDetailsInfoComponent } from './component/resume-details-info/resume-details-info.component';
+import { UserInfoTplComponent } from './component/resume-details-info/user-info-tpl/user-info-tpl.component';
+import { UserIntensionTplComponent } from './component/resume-details-info/user-intension-tpl/user-intension-tpl.component';
+import { UserInfoFormTplComponent } from './component/resume-details-info/user-info-tpl/user-info-form-tpl/user-info-form-tpl.component';
+import { UserIntensionFormTplComponent } from './component/resume-details-info/user-intension-tpl/user-intension-form-tpl/user-intension-form-tpl.component';
 
 
 const COMPONENTS = [
@@ -35,7 +42,12 @@ const COMPONENTS = [
   // 简历管理
   ResumeListComponent,
   ResumeCreateComponent,
-  UserAdminJobIntensionFormCComponent
+  UserAdminJobIntensionFormCComponent,
+  UserAdminOtherInfoComponent,
+  // 简历查看
+  ResumeViewComponent,
+  // 简历编辑
+  ResumeEditComponent
 ];
 
 const ENTRYCOMPONENTS = [
@@ -48,14 +60,19 @@ const ENTRYCOMPONENTS = [
   UserWorkExpFormCComponent,
   // 实习经历
   UserAdminInternshipExpComponent,
-  UserInternshipExpFormCComponent
+  UserInternshipExpFormCComponent,
+  // 简历详情信息展示
+  ResumeDetailsInfoComponent,
+  UserInfoTplComponent,
+  UserInfoFormTplComponent,
+  UserIntensionTplComponent,
+  UserIntensionFormTplComponent
 ];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS,
-    UserAdminOtherInfoComponent
+    ...ENTRYCOMPONENTS
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

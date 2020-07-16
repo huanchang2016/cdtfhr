@@ -1,0 +1,50 @@
+.resume-show_sub_content_box{
+    .resume-show-sub-title-box {
+        position: relative;
+        left: 0;
+        top: 0;
+        .edit-box {
+            display: none;
+            width: 650px;
+            line-height: 40px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            nz-divider {
+                line-height: 40px;
+                margin: 0;
+            }
+        }
+    }
+    &:hover .resume-show-sub-title-box {
+        .edit-box {
+            display: block;
+        }
+    }
+    .resume-show_content_body {
+        // 显示内容区域 css
+        .user-logo {
+            width: 100px;
+            overflow: hidden;
+            .logo_img_box {
+                width: 82px;
+                height: 82px;
+                overflow: hidden;
+                &>i {
+                    font-size: 44px;
+                }
+            }
+        }
+        .user-info {
+            width: 680px;
+            overflow: hidden;
+        }
+
+    }
+}
+
+:host ::ng-deep .edit-box {
+    .ant-divider-inner-text {
+        padding: 0!important;
+    }
+}

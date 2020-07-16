@@ -1,0 +1,53 @@
+<div class="resume-show_sub_content_box">
+    <div class="resume-show-sub-title-box">
+        <app-sub-title-show [title]="'个人信息'"></app-sub-title-show>
+        <div class="edit-box">
+            <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
+            <ng-template #rightTextTpl>
+                <div class="text-sm text-primary point" (click)="editInfo()">
+                    <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                    编辑
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="resume-show_content_body my-sm py-sm px-md">
+        <div class="d-flex align-items-center">
+            <div class="user-logo">
+                <div class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+                    <!-- <img src="" alt=""> -->
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                    <h3 class="text-666 text-lg">用户姓名 <span class="text-xs text-grey-dark ml-md">更新时间：2017-04-24</span></h3>
+                    <div class="text-sm">
+                        <span>男</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>14 年工作经验</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>1986年6月</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>已婚</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>现居住于成都</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>本科</span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>巴中户口</span>
+                    </div>
+                    <div>
+                        <i class="text-md" nz-icon nzType="phone" nzTheme="outline"></i>
+                        <span class="ml-sm text-sm">180****8080</span>
+                    </div>
+                    <div>
+                        <i class="text-md" nz-icon nzType="mail" nzTheme="outline"></i>
+                        <span class="ml-sm text-sm">180****8080</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

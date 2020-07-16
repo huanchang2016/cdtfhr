@@ -6,6 +6,8 @@ import { UserAdminCertificationComponent } from './user-admin-certification/user
 import { UserAdminBindAccountComponent } from './user-admin-bind-account/user-admin-bind-account.component';
 import { ResumeListComponent } from './resume-manage/resume-list/resume-list.component';
 import { ResumeCreateComponent } from './resume-manage/resume-create/resume-create.component';
+import { ResumeViewComponent } from './resume-manage/resume-view/resume-view.component';
+import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
       { path: 'certification', component: UserAdminCertificationComponent },
       { path: 'bind', component: UserAdminBindAccountComponent },
       { path: 'resumes', component: ResumeListComponent },
-      { path: 'resumes/add', component: ResumeCreateComponent }
+      { path: 'resumes/add', component: ResumeCreateComponent },
+      { path: 'resumes/edit/:id', component: ResumeEditComponent },
+      { path: 'resumes/view/:id', component: ResumeViewComponent }
     ]
   }
 ];

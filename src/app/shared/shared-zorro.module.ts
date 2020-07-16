@@ -34,6 +34,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 
 export const SHARED_ZORRO_MODULES = [
   NzFormModule,
@@ -71,5 +72,6 @@ export const SHARED_ZORRO_MODULES = [
   NzTypographyModule,
   NzUploadModule,
   NzTreeSelectModule,
-  NzNotificationModule
+  NzNotificationModule,
+  NzAnchorModule
 ];

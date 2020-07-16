@@ -1,0 +1,76 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="username" nzRequired>姓名</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的真实姓名">
+            <input nz-input id="username" formControlName="username" nzSize="large" placeholder="请填写您的真实姓名" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="sex" nzRequired>性别</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请选择您的性别">
+            <nz-radio-group class="radio-group_content" id="sex" formControlName="sex" [nzSize]="'large'">
+                <label nz-radio nzValue="male">男</label>
+                <label nz-radio nzValue="female">女</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="birthday">出生日期</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期">
+            <app-date-picker-date formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-date>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="marriy_status" nzRequired>婚姻状况</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请选择您的婚姻状况">
+            <nz-radio-group class="radio-group_content" id="marriy_status" formControlName="marriy_status" [nzSize]="'large'">
+                <label nz-radio nzValue="married">已婚</label>
+                <label nz-radio nzValue="not_married">未婚</label>
+                <label nz-radio nzValue="secret_marry">保密</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="registered_residence" nzRequired>户口所在地</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的户口所在地">
+            <app-three-stage-cascader formControlName="registered_residence" [layer]="'second'" [Size]="'large'" placeholder="请填写您的户口所在地"></app-three-stage-cascader>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="work_date" [nzRequired]="!validateForm.get('is_not_work')?.value">参加工作时间</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您参加工作的时间">
+            <div nz-row [nzGutter]="8">
+                <div nz-col [nzSpan]="16">
+                    <app-date-picker-month formControlName="work_date" [placeholder]="'请点击选择您参加工作的时间'" [size]="'large'"></app-date-picker-month>
+                </div>
+                <div nz-col [nzSpan]="8" class="text-right agree_box">
+                    <label nz-checkbox formControlName="is_not_work" nzSize="large" (ngModelChange)="isNotWorkChange($event)">暂无工作经验</label>
+                </div>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="address_city" nzRequired>现居住城市</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的现居住城市">
+            <app-three-stage-cascader formControlName="address_city" [Size]="'large'" placeholder="请填写您的现居住城市"></app-three-stage-cascader>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="email">电子邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请输入联系您的电子邮箱">
+            <input nz-input formControlName="email" id="email" placeholder="请输入联系您的电子邮箱" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzFor="photo">头像上传</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请上传您的头像">
+            <app-upload-logo ngDefaultControl formControlName="photo" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-logo>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
+        <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
+        <button nz-button nzSize="large" nzType="primary">保存</button>
+    </div>
+
+</form>
