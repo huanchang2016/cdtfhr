@@ -1,0 +1,54 @@
+.user-home_my_resume_box {
+    // 显示内容区域 css
+    .user-logo {
+        width: 160px;
+        overflow: hidden;
+        .logo_img_box {
+            width: 116px;
+            height: 116px;
+            overflow: hidden;
+            &>i {
+                font-size: 68px;
+            }
+        }
+    }
+    .user-info {
+        width: 550px;
+        border-right: 1px solid #F0F0F0;
+        overflow: hidden;
+        background: url('/assets/imgs/icon/flag_on.png') no-repeat right top;
+
+    }
+    .oper-box {
+        width: 250px;
+        overflow: hidden;
+        .oper_btn_wrapper {
+            display: block;
+            width: 42px;
+            .oper_btn_icon {
+                width: 42px;
+                height: 42px;
+                background-repeat:  no-repeat;
+                background-position: left top;
+                background-size: cover;
+            }
+            &.oper_btn_view {
+                .oper_btn_icon {
+                    background-image: url('/assets/imgs/icon/icon_btnview.png');
+                }
+                &:hover .oper_btn_icon {
+                    background-image: url('/assets/imgs/icon/icon_btnview_mouseover.png');
+                }
+            }
+            &.oper_btn_edit {
+                .oper_btn_icon {
+                    background-image: url('/assets/imgs/icon/icon_btnedit.png');
+                }
+                &:hover .oper_btn_icon {
+                    background-image: url('/assets/imgs/icon/icon_btnedit_mouseover.png');
+                }
+            }
+        }
+    }
+
+}

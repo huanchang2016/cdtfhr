@@ -3,10 +3,10 @@ import { SharedModule } from '@shared';
 
 import { UserAdminRoutingModule } from './user-admin-routing.module';
 import { UserAdminLayoutComponent } from './user-admin-layout/user-admin-layout.component';
-import { UserAdminHomeComponent } from './user-admin-home/user-admin-home.component';
+import { UserAdminHomeComponent } from './user-center/user-admin-home/user-admin-home.component';
 import { UserSidebarComponent } from './component/user-sidebar/user-sidebar.component';
-import { UserAdminCertificationComponent } from './user-admin-certification/user-admin-certification.component';
-import { UserAdminBindAccountComponent } from './user-admin-bind-account/user-admin-bind-account.component';
+import { UserAdminCertificationComponent } from './user-center/user-admin-certification/user-admin-certification.component';
+import { UserAdminBindAccountComponent } from './user-center/user-admin-bind-account/user-admin-bind-account.component';
 import { UserContentTopComponent } from './component/user-content-top/user-content-top.component';
 import { UserRecommendPositionsComponent } from './component/user-recommend-positions/user-recommend-positions.component';
 import { ResumeListComponent } from './resume-manage/resume-list/resume-list.component';
@@ -19,7 +19,6 @@ import { UserAdminJobIntensionFormCComponent } from './component/resumes-forms/u
 import { UserAdminWorkExpComponent } from './component/resumes-forms/user-admin-work-exp/user-admin-work-exp.component';
 import { UserAdminInternshipExpComponent } from './component/resumes-forms/user-admin-internship-exp/user-admin-internship-exp.component';
 import { UserAdminOtherInfoComponent } from './component/resumes-forms/user-admin-other-info/user-admin-other-info.component';
-import { ResumeViewComponent } from './resume-manage/resume-view/resume-view.component';
 import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
 import { ResumeDetailsInfoComponent } from './component/resume-details-info/resume-details-info.component';
 import { UserInfoTplComponent } from './component/resume-details-info/user-info-tpl/user-info-tpl.component';
@@ -60,8 +59,6 @@ const COMPONENTS = [
   ResumeCreateComponent,
   UserAdminJobIntensionFormCComponent,
   UserAdminOtherInfoComponent,
-  // 简历查看
-  ResumeViewComponent,
   // 简历编辑
   ResumeEditComponent
 ];

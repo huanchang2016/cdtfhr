@@ -1,0 +1,67 @@
+
+<div class="user-home_my_resume_box bg-white border-radius-sm">
+    <div class="d-flex align-items-center">
+        <div class="user-logo px-lg py-md">
+            <div class="logo_img_box bg-grey-dark border-radius-half text-white d-flex justify-content-center align-items-center">
+                <!-- <img src="" alt=""> -->
+                <i nz-icon nzType="user" nzTheme="outline"></i>
+            </div>
+        </div>
+        <div class="user-info px-lg py-md">
+            <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                <h3 class="text-666 text-lg">简历名称</h3>
+                <div class="text-sm mb-sm">
+                    姓名
+                    <nz-divider nzType="vertical"></nz-divider>
+                    男
+                    <nz-divider nzType="vertical"></nz-divider>
+                    28岁
+                    <nz-divider nzType="vertical"></nz-divider>
+                    6 年工作经验 
+                    <nz-divider nzType="vertical"></nz-divider>
+                    本科 
+                    <nz-divider nzType="vertical"></nz-divider>
+                    成都
+                </div>
+                <div>
+                    <span class="text-666 mr-lg">毕业院校</span>
+                    <span class="text-grey">
+                        北京工商大学
+                        <nz-divider nzType="vertical"></nz-divider>
+                        本科
+                    </span>
+                </div>
+                <div>
+                    <span class="text-666 mr-lg">最近工作</span>
+                    <span class="text-grey">
+                        四川万物科技有限公司
+                        <nz-divider nzType="vertical"></nz-divider>
+                        项目管理
+                    </span>
+                </div>
+                <div>
+                    <span class="text-666 mr-lg">求职状态</span>
+                    <span class="text-grey">
+                        我目前已离职，可快速到岗
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="oper-box px-lg py-md d-flex align-items-center justify-content-around">
+            <a [routerLink]="['/fullscreen/resume/view', 2]" class="oper_btn_wrapper oper_btn_view point">
+                <div class="oper_btn_icon"></div>
+                <p class="text-center mt-xs text-primary">预览</p>
+            </a>
+            <a [routerLink]="['/admin/user/resumes/edit', 2]" class="oper_btn_wrapper oper_btn_edit point">
+                <div class="oper_btn_icon"></div>
+                <p class="text-center mt-xs text-primary">编辑</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="user-home_recommend-position mt-lg">
+    <app-user-recommend-positions></app-user-recommend-positions>
+</div>

@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserAdminLayoutComponent } from './user-admin-layout/user-admin-layout.component';
-import { UserAdminHomeComponent } from './user-admin-home/user-admin-home.component';
-import { UserAdminCertificationComponent } from './user-admin-certification/user-admin-certification.component';
-import { UserAdminBindAccountComponent } from './user-admin-bind-account/user-admin-bind-account.component';
+import { UserAdminHomeComponent } from './user-center/user-admin-home/user-admin-home.component';
+import { UserAdminCertificationComponent } from './user-center/user-admin-certification/user-admin-certification.component';
+import { UserAdminBindAccountComponent } from './user-center/user-admin-bind-account/user-admin-bind-account.component';
 import { ResumeListComponent } from './resume-manage/resume-list/resume-list.component';
 import { ResumeCreateComponent } from './resume-manage/resume-create/resume-create.component';
-import { ResumeViewComponent } from './resume-manage/resume-view/resume-view.component';
 import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
 
 
@@ -19,8 +18,7 @@ const routes: Routes = [
       { path: 'bind', component: UserAdminBindAccountComponent },
       { path: 'resumes', component: ResumeListComponent },
       { path: 'resumes/add', component: ResumeCreateComponent },
-      { path: 'resumes/edit/:id', component: ResumeEditComponent },
-      { path: 'resumes/view/:id', component: ResumeViewComponent }
+      { path: 'resumes/edit/:id', component: ResumeEditComponent }
     ]
   }
 ];
