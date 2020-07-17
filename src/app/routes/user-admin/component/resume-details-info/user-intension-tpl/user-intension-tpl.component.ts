@@ -21,7 +21,7 @@ export class UserIntensionTplComponent implements OnInit {
 
   editInfo() {
     const modal = this.modal.create({
-      nzTitle: '编辑个人信息',
+      nzTitle: '编辑求职意向',
       nzContent: UserIntensionFormTplComponent,
       nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',

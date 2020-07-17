@@ -74,31 +74,59 @@
         </nz-anchor>
     </div>
     
-    <div nz-col nzSpan="20">
+    <div nz-col nzSpan="18">
         <div class="mb-md" id="user-info-basic">
             <app-user-info-tpl></app-user-info-tpl>
-
+            <!-- 个人信息 -->
         </div>
         <div class="mb-md" id="user-job-intension">
             <app-user-intension-tpl></app-user-intension-tpl>
-
+            <!-- 求职意向 -->
         </div>
 
-        <div class="mb-md" id="user-work-exp" style="height: 200px;" class="bg-danger">工作经历</div>
-        <div class="mb-md" id="user-edu-exp" style="height: 200px;" class="bg-grey">教育经历</div>
-        <div class="mb-md" id="user-self-comment" style="height: 200px;" class="bg-grey">自我评价</div>
-        <div class="mb-md" id="user-internship" style="height: 200px;" class="bg-grey">实习经历</div>
-        <div class="mb-md" id="user-project-exp" style="height: 200px;" class="bg-grey">项目经历</div>
-        <div class="mb-md" id="user-train-exp" style="height: 200px;" class="bg-grey">培训经历</div>
-        <div class="mb-md" id="user-certificates" style="height: 200px;" class="bg-grey">证书</div>
-        <div class="mb-md" id="user-language" style="height: 200px;" class="bg-grey">其他语言能力</div>
-
-
-        <div class="mb-md" id="user-interest" style="height: 200px;" class="bg-grey">兴趣爱好</div>
-
-        <div class="oper_btn_box">
-            <button nzBlock nz-button nzType="primary" nzSize="large">编 辑</button>
+        <div class="mb-md" id="user-work-exp">
+            <app-user-work-exp-tpl></app-user-work-exp-tpl>
+            <!-- 工作经历 -->
         </div>
+
+        <div class="mb-md" id="user-edu-exp">
+            <app-user-education-exp-tpl></app-user-education-exp-tpl>
+            <!-- 教育经历 -->
+        </div>
+        
+        <div class="mb-md" id="user-self-comment">
+            <app-user-self-comment-tpl></app-user-self-comment-tpl>
+            <!-- 自我评价 -->
+        </div>
+        
+        <div class="mb-md" id="user-internship">
+            <app-user-internship-exp-tpl></app-user-internship-exp-tpl>
+            <!-- 实习经历 -->
+        </div>
+
+        <div class="mb-md" id="user-project-exp">
+            <app-user-project-exp-tpl></app-user-project-exp-tpl>
+            <!-- 项目经历 -->
+        </div>
+        <div class="mb-md" id="user-train-exp">
+            <app-user-train-exp-tpl></app-user-train-exp-tpl>
+            <!-- 培训经历 -->
+        </div>
+
+        <div class="mb-md" id="user-certificates">
+            <app-user-certificate-tpl></app-user-certificate-tpl>
+            <!-- 证书信息 -->
+        </div>
+
+        <div class="mb-md" id="user-language">
+            <app-user-language-tpl></app-user-language-tpl>
+            <!-- 其它语言能力 -->
+        </div>
+
+        <div class="mb-md" id="user-interest">
+            <app-user-self-interest-tpl></app-user-self-interest-tpl>
+            <!-- 兴趣爱好 -->
+        </div>
+
     </div>
 </div>
-<p>resume-details-info works!</p>

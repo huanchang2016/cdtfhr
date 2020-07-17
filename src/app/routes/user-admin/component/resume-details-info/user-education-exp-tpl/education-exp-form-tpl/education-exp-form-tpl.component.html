@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="validateForm">
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="school_name" nzRequired>学校名称</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请输入学校名称，例如：四川大学">
@@ -40,4 +40,10 @@
             </div>
         </nz-form-control>
     </nz-form-item>
+    
+    <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
+        <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
+        <button nz-button nzSize="large" nzType="primary">保存</button>
+    </div>
+
 </form>

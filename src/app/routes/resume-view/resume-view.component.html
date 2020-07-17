@@ -1,0 +1,277 @@
+<div class="resume-info-view">
+    <div class="body__content_box">
+        <h2 class="resume-title text-center text-lg text-grey font-weight-bold">我的简历前端开发助理工程师</h2>
+        <div class="mb-md" id="user-info-basic">
+            <!-- 个人信息 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'个人信息'"></app-sub-title-show>
+                <div class="d-flex align-items-center">
+                    <div class="user-logo">
+                        <div class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+                            <!-- <img src="" alt=""> -->
+                            <i nz-icon nzType="user" nzTheme="outline"></i>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                            <h3 class="text-666 text-lg">用户姓名 <span class="text-xs text-grey-dark ml-md">更新时间：2017-04-24</span></h3>
+                            <div class="text-sm">
+                                <span>男</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>14 年工作经验</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>1986年6月</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>已婚</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>现居住于成都</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>本科</span>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <span>巴中户口</span>
+                            </div>
+                            <div>
+                                <i class="text-md" nz-icon nzType="phone" nzTheme="outline"></i>
+                                <span class="ml-sm text-sm">180****8080</span>
+                            </div>
+                            <div>
+                                <i class="text-md" nz-icon nzType="mail" nzTheme="outline"></i>
+                                <span class="ml-sm text-sm">180****8080</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-md" id="user-job-intension">
+            <!-- 求职意向 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
+                <div class="text-sm text-grey">
+                    <div>期望工作地区： 成都</div>
+                    <div>期望工作性质： 全职</div>
+                    <div>期望从事行业： 房地产开发与经营</div>
+                    <div>期望职业： 工程总监、房地产招投标、项目主管</div>
+                    <div>期望月薪： 10K-15K/月</div>
+                    <div>求职状态： 在职，急于寻找新工作</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-work-exp">
+            <!-- 工作经历 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">华西希望集团四川特驱投资集团有限公司</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>2013.08 - 2015.09 <nz-divider nzType="vertical"></nz-divider> 2年1个月</p>
+                                    <p>工程监察专员 <nz-divider nzType="vertical"></nz-divider> 6K - 8K /月</p>
+                                    <p>
+                                        农林渔牧
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        民营
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        100-999人
+                                    </p>
+                                    <div class="text-666 mt-sm">工作描述：</div>
+                                    <div>
+                                        负责监察集团下属公司在建厂房的质量、进度、成本控制和安 全的监察。负责地产公司及项目季度审计工作。
+                                        审计的地产项目有: <br>
+                                        1、贵州松涛希望城公司经营审计和工程质量及签证审计;<br>
+                                        2、贵州平坝希望城公司经营审计和工程质量及签证审计;<br>
+                                        3、贵州习水希望城公司经营审计和工程质量及签证审计;<br>
+                                        4、辽宁昌图希望城公司经营审计和工程质量及签证审计。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-edu-exp">
+            <!-- 教育经历 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">中国地质大学(武汉)</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>
+                                        2018.03 - 至今
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        水文学及水资源
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        本科
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-md" id="user-self-comment">
+            <!-- 自我评价 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
+                <div class="text-grey text-sm">
+                    具有10年的工作经历,先后任职于四川天成集团、佳兆业房地产开发公司、四川红叶 建设有限公司和华西希望集团。
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-md" id="user-internship">
+            <!-- 实习经历 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">华西希望集团四川特驱投资集团有限公司</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>2013.08 - 2015.09 <nz-divider nzType="vertical"></nz-divider> 2年1个月</p>
+                                    <p>工程监察专员 <nz-divider nzType="vertical"></nz-divider> 6K - 8K /月</p>
+                                    <p>
+                                        农林渔牧
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        民营
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        100-999人
+                                    </p>
+                                    <div class="text-666 mt-sm">工作描述：</div>
+                                    <div>
+                                        负责监察集团下属公司在建厂房的质量、进度、成本控制和安 全的监察。负责地产公司及项目季度审计工作。
+                                        审计的地产项目有: <br>
+                                        1、贵州松涛希望城公司经营审计和工程质量及签证审计;<br>
+                                        2、贵州平坝希望城公司经营审计和工程质量及签证审计;<br>
+                                        3、贵州习水希望城公司经营审计和工程质量及签证审计;<br>
+                                        4、辽宁昌图希望城公司经营审计和工程质量及签证审计。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-project-exp">
+            <!-- 项目经历 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'项目经历'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">资阳希望玫瑰园项目</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>2015.09 - 2018.06</p>
+                                    <div class="text-666 mt-sm">责任描述：</div>
+                                    <div>
+                                        该项目的招标采购部负责人,及项目的整体协调。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="mb-md" id="user-train-exp">
+            <!-- 培训经历 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'培训经历'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-grey text-md">2012.05 - 2012.05</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>
+                                        培训内容  
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        二级建造师
+                                    </p>
+                                    <p>
+                                        培训机构
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        成都恩阳教育
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-certificates">
+            <!-- 证书信息 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'证书信息'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-grey text-sm">2012.05</h4>
+                            <div class="item_card_body">
+                                <div class="text-md text-666 font-weight-bold">中级工程师</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-language">
+            <!-- 其它语言能力 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'其它语言能力'"></app-sub-title-show>
+                <div *ngIf="list.length !== 0">
+                    <ng-container *ngFor="let item of list">
+                        <div class="item_card_box mb-md">
+                            <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">英语</h4>
+                            <div class="item_card_body text-grey">
+                                <div class="text-sm">
+                                    <p>
+                                        听说能力
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        熟练
+                                    </p>
+                                    <p>
+                                        独写能力
+                                        <nz-divider nzType="vertical"></nz-divider>
+                                        一般
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-md" id="user-interest">
+            <!-- 兴趣爱好 -->
+            <div class="resume-show_content_body my-sm">
+                <app-sub-title-show [title]="'兴趣爱好'"></app-sub-title-show>
+                <div class="text-grey text-sm">
+                    具有10年的工作经历,先后任职于四川天成集团、佳兆业房地产开发公司、四川红叶 建设有限公司和华西希望集团。
+                </div>
+            </div>
+        </div>
+
+        <div class="oper_btn_box text-center mt-lg">
+            <a [routerLink]="['/admin/user/resumes/edit', 1 ]" nz-button nzType="primary" nzSize="large">编 辑</a>
+        </div>
+    </div>
+</div>

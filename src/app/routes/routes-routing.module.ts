@@ -33,12 +33,13 @@ const routes: Routes = [
     ]
   },
   // 全屏布局
-  // {
-  //     path: 'fullscreen',
-  //     component: LayoutFullScreenComponent,
-  //     children: [
-  //     ]
-  // },
+  {
+      path: 'fullscreen',
+      component: LayoutFullScreenComponent,
+      children: [
+        { path: 'resume', loadChildren: () => import('./resume-view/resume-view.module').then( m => m.ResumeViewModule )}
+      ]
+  },
 
   // user admin
   {

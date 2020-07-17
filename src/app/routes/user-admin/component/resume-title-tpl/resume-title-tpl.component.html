@@ -1,0 +1,14 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <!-- <nz-form-label [nzSpan]="5" nzRequired>证书名称</nz-form-label> -->
+        <nz-form-control [nzSpan]="24" nzErrorTip="请填写简历名称">
+            <input nz-input formControlName="resume_title" placeholder="请填写简历名称" type="text" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    
+    <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
+        <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
+        <button nz-button nzSize="large" nzType="primary">保存</button>
+    </div>
+
+</form>

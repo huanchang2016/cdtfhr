@@ -1,0 +1,64 @@
+<div class="resume-show_sub_content_box">
+    <div class="resume-show-sub-title-box">
+        <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
+        <div class="edit-box">
+            <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
+            <ng-template #rightTextTpl>
+                <div class="text-sm text-primary point" (click)="add()">
+                    <i class="text-md" nz-icon nzType="plus" nzTheme="outline"></i>
+                    新增
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="resume-show_content_body my-sm py-sm px-md">
+        <div *ngIf="list.length !== 0; else notExpTpl">
+            <ng-container *ngFor="let item of list">
+                <div class="item_card_box mb-md">
+                    <div class="item_card_title_box">
+                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">华西希望集团四川特驱投资集团有限公司</h4>
+                        <nz-divider class="item_title_divider" nzDashed></nz-divider>
+                        <div class="item_oper_box bg-white">
+                            <span class="text-sm text-primary point" (click)="edit(item)">
+                                <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                                编辑
+                            </span>
+                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                                <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
+                                删除
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item_card_body text-grey">
+                        <div class="text-sm">
+                            <p>2013.08 - 2015.09 <nz-divider nzType="vertical"></nz-divider> 2年1个月</p>
+                            <p>工程监察专员 <nz-divider nzType="vertical"></nz-divider> 6K - 8K /月</p>
+                            <p>
+                                农林渔牧
+                                <nz-divider nzType="vertical"></nz-divider>
+                                民营
+                                <nz-divider nzType="vertical"></nz-divider>
+                                100-999人
+                            </p>
+                            <div class="text-666 mt-sm">工作描述：</div>
+                            <div>
+                                负责监察集团下属公司在建厂房的质量、进度、成本控制和安 全的监察。负责地产公司及项目季度审计工作。
+                                审计的地产项目有: <br>
+                                1、贵州松涛希望城公司经营审计和工程质量及签证审计;<br>
+                                2、贵州平坝希望城公司经营审计和工程质量及签证审计;<br>
+                                3、贵州习水希望城公司经营审计和工程质量及签证审计;<br>
+                                4、辽宁昌图希望城公司经营审计和工程质量及签证审计。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <ng-template #notExpTpl>
+            <div class="text-grey text-md">暂无实习经历</div>
+        </ng-template>
+        
+    </div>
+</div>

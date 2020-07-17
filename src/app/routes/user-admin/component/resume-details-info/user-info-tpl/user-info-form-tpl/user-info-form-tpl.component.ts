@@ -51,7 +51,7 @@ export class UserInfoFormTplComponent implements OnInit {
       is_not_work: null,
       address_city: null,
       email: null,
-      photo: null,
+      photo: null
     })
   }
 

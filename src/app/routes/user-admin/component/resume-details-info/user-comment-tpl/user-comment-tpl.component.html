@@ -1,0 +1,20 @@
+<div class="resume-show_sub_content_box">
+    <div class="resume-show-sub-title-box">
+        <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
+        <div class="edit-box">
+            <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
+            <ng-template #rightTextTpl>
+                <div class="text-sm text-primary point" (click)="editInfo()">
+                    <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                    编辑
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="resume-show_content_body my-sm py-sm px-md">
+        <div class="text-grey text-sm">
+            具有10年的工作经历,先后任职于四川天成集团、佳兆业房地产开发公司、四川红叶 建设有限公司和华西希望集团。
+        </div>
+    </div>
+</div>

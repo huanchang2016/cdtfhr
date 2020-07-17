@@ -15,12 +15,9 @@ import { ResumeCreateComponent } from './resume-manage/resume-create/resume-crea
 // 表单组件
 import { UserAdminInfoFormCComponent } from './component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { UserAdminEducationComponent } from './component/resumes-forms/user-admin-education/user-admin-education.component';
-import { UserAdminEducationFormCComponent } from './component/resumes-forms/user-admin-education/user-admin-education-form-c/user-admin-education-form-c.component';
 import { UserAdminJobIntensionFormCComponent } from './component/resumes-forms/user-admin-job-intension-form-c/user-admin-job-intension-form-c.component';
 import { UserAdminWorkExpComponent } from './component/resumes-forms/user-admin-work-exp/user-admin-work-exp.component';
-import { UserWorkExpFormCComponent } from './component/resumes-forms/user-admin-work-exp/user-work-exp-form-c/user-work-exp-form-c.component';
 import { UserAdminInternshipExpComponent } from './component/resumes-forms/user-admin-internship-exp/user-admin-internship-exp.component';
-import { UserInternshipExpFormCComponent } from './component/resumes-forms/user-admin-internship-exp/user-internship-exp-form-c/user-internship-exp-form-c.component';
 import { UserAdminOtherInfoComponent } from './component/resumes-forms/user-admin-other-info/user-admin-other-info.component';
 import { ResumeViewComponent } from './resume-manage/resume-view/resume-view.component';
 import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
@@ -29,6 +26,25 @@ import { UserInfoTplComponent } from './component/resume-details-info/user-info-
 import { UserIntensionTplComponent } from './component/resume-details-info/user-intension-tpl/user-intension-tpl.component';
 import { UserInfoFormTplComponent } from './component/resume-details-info/user-info-tpl/user-info-form-tpl/user-info-form-tpl.component';
 import { UserIntensionFormTplComponent } from './component/resume-details-info/user-intension-tpl/user-intension-form-tpl/user-intension-form-tpl.component';
+import { UserWorkExpTplComponent } from './component/resume-details-info/user-work-exp-tpl/user-work-exp-tpl.component';
+import { UserWorkExpFormTplComponent } from './component/resume-details-info/user-work-exp-tpl/user-work-exp-form-tpl/user-work-exp-form-tpl.component';
+import { UserInternshipExpTplComponent } from './component/resume-details-info/user-internship-exp-tpl/user-internship-exp-tpl.component';
+import { UserInternshipExpFormTplComponent } from './component/resume-details-info/user-internship-exp-tpl/user-internship-exp-form-tpl/user-internship-exp-form-tpl.component';
+import { UserEducationExpTplComponent } from './component/resume-details-info/user-education-exp-tpl/user-education-exp-tpl.component';
+import { EducationExpFormTplComponent } from './component/resume-details-info/user-education-exp-tpl/education-exp-form-tpl/education-exp-form-tpl.component';
+import { UserCommentTplComponent } from './component/resume-details-info/user-comment-tpl/user-comment-tpl.component';
+import { UserCommentFormTplComponent } from './component/resume-details-info/user-comment-tpl/user-comment-form-tpl/user-comment-form-tpl.component';
+import { UserProjectExpTplComponent } from './component/resume-details-info/user-project-exp-tpl/user-project-exp-tpl.component';
+import { UserProjectFormTplComponent } from './component/resume-details-info/user-project-exp-tpl/user-project-form-tpl/user-project-form-tpl.component';
+import { UserTrainExpTplComponent } from './component/resume-details-info/user-train-exp-tpl/user-train-exp-tpl.component';
+import { UserTrainExpFormTplComponent } from './component/resume-details-info/user-train-exp-tpl/user-train-exp-form-tpl/user-train-exp-form-tpl.component';
+import { UserCertificateTplComponent } from './component/resume-details-info/user-certificate-tpl/user-certificate-tpl.component';
+import { UserCertificateFormTplComponent } from './component/resume-details-info/user-certificate-tpl/user-certificate-form-tpl/user-certificate-form-tpl.component';
+import { UserLanguageTplComponent } from './component/resume-details-info/user-language-tpl/user-language-tpl.component';
+import { UserLanguageFormTplComponent } from './component/resume-details-info/user-language-tpl/user-language-form-tpl/user-language-form-tpl.component';
+import { UserInterestTplComponent } from './component/resume-details-info/user-interest-tpl/user-interest-tpl.component';
+import { UserInterestFormTplComponent } from './component/resume-details-info/user-interest-tpl/user-interest-form-tpl/user-interest-form-tpl.component';
+import { ResumeTitleTplComponent } from './component/resume-title-tpl/resume-title-tpl.component';
 
 
 const COMPONENTS = [
@@ -54,19 +70,36 @@ const ENTRYCOMPONENTS = [
   UserAdminInfoFormCComponent,
   // 教育经历
   UserAdminEducationComponent,
-  UserAdminEducationFormCComponent,
   // 工作经历
   UserAdminWorkExpComponent,
-  UserWorkExpFormCComponent,
   // 实习经历
   UserAdminInternshipExpComponent,
-  UserInternshipExpFormCComponent,
   // 简历详情信息展示
   ResumeDetailsInfoComponent,
-  UserInfoTplComponent,
+  // 简历名称 模块
+  ResumeTitleTplComponent,
+  UserInfoTplComponent, // 个人信息
   UserInfoFormTplComponent,
-  UserIntensionTplComponent,
-  UserIntensionFormTplComponent
+  UserIntensionTplComponent, // 求职意向
+  UserIntensionFormTplComponent,
+  UserWorkExpTplComponent, // 工作经历
+  UserWorkExpFormTplComponent,
+  UserEducationExpTplComponent, // 教育经历
+  EducationExpFormTplComponent,
+  UserCommentTplComponent, // 自我评价
+  UserCommentFormTplComponent,
+  UserInternshipExpTplComponent, // 实习经历
+  UserInternshipExpFormTplComponent,
+  UserProjectExpTplComponent,  // 项目经历
+  UserProjectFormTplComponent,
+  UserTrainExpTplComponent, // 培训经历
+  UserTrainExpFormTplComponent,
+  UserCertificateTplComponent, // 证书
+  UserCertificateFormTplComponent,
+  UserLanguageTplComponent, // 其它语言能力
+  UserLanguageFormTplComponent,
+  UserInterestTplComponent, // 兴趣爱好
+  UserInterestFormTplComponent
 ];
 
 @NgModule({

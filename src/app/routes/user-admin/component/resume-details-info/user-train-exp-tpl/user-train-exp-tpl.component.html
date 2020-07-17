@@ -1,0 +1,56 @@
+<div class="resume-show_sub_content_box">
+    <div class="resume-show-sub-title-box">
+        <app-sub-title-show [title]="'培训经历'"></app-sub-title-show>
+        <div class="edit-box">
+            <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
+            <ng-template #rightTextTpl>
+                <div class="text-sm text-primary point" (click)="add()">
+                    <i class="text-md" nz-icon nzType="plus" nzTheme="outline"></i>
+                    新增
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="resume-show_content_body my-sm py-sm px-md">
+        <div *ngIf="list.length !== 0; else notExpTpl">
+            <ng-container *ngFor="let item of list">
+                <div class="item_card_box mb-md">
+                    <div class="item_card_title_box">
+                        <h4 class="item_title_name bg-white text-grey text-md">2012.05 - 2012.05</h4>
+                        <nz-divider class="item_title_divider" nzDashed></nz-divider>
+                        <div class="item_oper_box bg-white">
+                            <span class="text-sm text-primary point" (click)="edit(item)">
+                                <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                                编辑
+                            </span>
+                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                                <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
+                                删除
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item_card_body text-grey">
+                        <div class="text-sm">
+                            <p>
+                                培训内容  
+                                <nz-divider nzType="vertical"></nz-divider>
+                                二级建造师
+                            </p>
+                            <p>
+                                培训机构
+                                <nz-divider nzType="vertical"></nz-divider>
+                                成都恩阳教育
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <ng-template #notExpTpl>
+            <div class="text-grey text-md">暂无培训经历</div>
+        </ng-template>
+        
+    </div>
+</div>

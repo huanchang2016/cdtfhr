@@ -10,7 +10,7 @@ export class ResumeCreateComponent implements OnInit {
 
   submitLoading:boolean = false;
 
-  step: 0 | 1 | 2 | 3 | 4 | 5 = 5;
+  step: 0 | 1 | 2 | 3 | 4 | 5 = 0;
 
   // 先获取信息，根据信息判断当前用户的实名认证 进行到了哪一步？
   ceritificationInfo:any = null;

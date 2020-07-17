@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>外语语种</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择语种">
+            <nz-select formControlName="languageType" nzSize="large" nzPlaceHolder="请点击选择语种">
+                <nz-option nzValue="汉语" nzLabel="汉语"></nz-option>
+                <nz-option nzValue="英语" nzLabel="英语"></nz-option>
+                <nz-option nzValue="日语" nzLabel="日语"></nz-option>
+                <nz-option nzValue="西班牙语" nzLabel="西班牙语"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>读写能力</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请选择读写能力">
+            <nz-radio-group style="line-height: 40px;" formControlName="languageWrite">
+                <label nz-radio [nzValue]="'一般'">一般</label>
+                <label nz-radio [nzValue]="'良好'">良好</label>
+                <label nz-radio [nzValue]="'熟练'">熟练</label>
+                <label nz-radio [nzValue]="'精通'">精通</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>听说能力</nz-form-label>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请选择听说能力">
+            <nz-radio-group style="line-height: 40px;" formControlName="languageListen">
+                <label nz-radio [nzValue]="'一般'">一般</label>
+                <label nz-radio [nzValue]="'良好'">良好</label>
+                <label nz-radio [nzValue]="'熟练'">熟练</label>
+                <label nz-radio [nzValue]="'精通'">精通</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    
+    <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
+        <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
+        <button nz-button nzSize="large" nzType="primary">保存</button>
+    </div>
+
+</form>
