@@ -9,7 +9,6 @@ import { HotRecruitComponent } from './hot-recruit/hot-recruit.component';
 import { InProgressRecruitComponent } from './in-progress-recruit/in-progress-recruit.component';
 import { PositionDetailsComponent } from './position-details/position-details.component';
 import { RecommendPositionsComponent } from './position-details/recommend-positions/recommend-positions.component';
-import { PositionAddressMapComponent } from './position-details/position-address-map/position-address-map.component';
 
 
 @NgModule({
@@ -22,8 +21,7 @@ import { PositionAddressMapComponent } from './position-details/position-address
     // 子组件
     RightSidebarAdvertComponent,
     RightSidebarJobHistoryComponent,
-    RecommendPositionsComponent,
-    PositionAddressMapComponent
+    RecommendPositionsComponent
   ],
   imports: [
     SharedModule,

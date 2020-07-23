@@ -1,1 +1,1 @@
-<nz-range-picker style="width: 100%;" [nzFormat]="dateFormat" [nzSize]="size"></nz-range-picker>
+<nz-range-picker style="width: 100%;" [(ngModel)]="date" (ngModelChange)="datePickerChange($event)" [nzFormat]="dateFormat" [nzSize]="size"></nz-range-picker>

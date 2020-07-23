@@ -1,0 +1,64 @@
+@import './../../../../../../styles/base-color.less';
+
+.steps-content {
+    .label_title {
+        width: 110px;
+    }
+
+    .body_item_list {
+        line-height: 40px;
+
+        .value_box {
+            .view_link {
+                 border: 2px solid @primary-color;
+            }
+            .map_show_box {
+                height: 220px;
+            }
+        }
+    }
+}
+
+
+// loading 
+.loading_box {
+    margin: 50px 0;
+}
+
+
+// 分布步骤条样式
+.steps_status {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    background-color: @grey-dark-color;
+    // border: 2px solid @grey-dark-color;
+}
+:host ::ng-deep {
+    .sub-title {
+        font-weight: 600;
+    }
+}
+
+:host ::ng-deep nz-steps {
+    .ant-steps-item-title {
+        font-size: 12px;
+    }
+    .ant-steps-dot .ant-steps-item-icon,
+    .ant-steps-dot.ant-steps-small .ant-steps-item-icon {
+        margin-left: 60px;
+    }
+    .ant-steps-item-active {
+        .steps_status {
+            background-color: @primary-color;
+            // border-color: @primary-color;
+        }
+    }
+
+    .ant-steps-item-finish {
+        .steps_status {
+            background-color: @primary-color;
+            border-color: @primary-color;
+        }
+    }
+}

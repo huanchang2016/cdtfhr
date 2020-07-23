@@ -1,0 +1,17 @@
+<ng-container *ngFor="let item of listOfData">
+    <div nz-row class="result_list_item" nzGutter="12">
+        <div nz-col nzSpan="4" class="position_name point pl-sm text-center">
+            <a target="_blank" [routerLink]="['/recruit/details', 11]" class="text-666 pl-sm">电商淘宝培训运营讲师</a>
+        </div>
+        <div nz-col nzSpan="6" class="company_name" point>
+            <a target="_blank" [routerLink]="['/company']" [queryParams]="{ cid: 11111 }" class="text-666">成都天府新区人力资源开发服务有限公司</a>
+        </div>
+        <div nz-col nzSpan="3" class="work_address text-center">成都-天府新区</div>
+        <div nz-col nzSpan="2" class="work_salary text-danger text-center">2K-4K/月</div>
+        <div nz-col nzSpan="4" class="delivery_time text-center">2020/07/22 18:30:03</div>
+        <div nz-col nzSpan="3" class="delivery_status text-center">投递成功</div>
+        <div nz-col nzSpan="2" class="oper_box">
+            <button (click)="createModal(item)" nz-button nzType="primary">详情</button>
+        </div>
+    </div>
+</ng-container>

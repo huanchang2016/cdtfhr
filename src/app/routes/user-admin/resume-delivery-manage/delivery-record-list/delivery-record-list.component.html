@@ -1,0 +1,159 @@
+<nz-card>
+  <div class="search_wrapper clearfix">
+    <div class="search_box_input float-left">
+
+      <div class="d-flex align-items-center">
+        <div class="search_title text-center bg-white text-primary">结果中搜索</div>
+        <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
+          <input type="text" [(ngModel)]="search_text" nz-input placeholder="职位名/公司名" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i class="text-primary text-lg font-weight-bold" nz-icon nzType="search"></i>
+        </ng-template>
+      </div>
+    </div>
+
+    <span class="more_search_btn text-primary text-md point float-left" [class.more_actived]="is_more"
+      (click)="showMoreSearch()">
+      精简筛选条件
+      <i nz-icon nzType="down" nzTheme="outline"></i>
+    </span>
+  </div>
+
+  <div class="more_search_type_wrapper pt-lg" [class.more_actived]="is_more">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label nzFor="rangeDate">投递时间</nz-form-label>
+            <nz-form-control>
+              <app-range-date-picker-c formControlName="rangeDate" [placeholder]="'请点击选择投递时间'" [size]="'large'">
+              </app-range-date-picker-c>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label nzFor="work_address">工作地点</nz-form-label>
+            <nz-form-control>
+              <app-multiple-cascader-selected formControlName="work_address" [size]="'large'"
+                [placeholder]="'请点击选择工作地点'"></app-multiple-cascader-selected>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="8">
+          <nz-form-item>
+            <nz-form-label nzFor="status">投递状态</nz-form-label>
+            <nz-form-control>
+
+              <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择投递状态">
+                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
+                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
+                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <button style="width: 140px;" nz-button [nzType]="'primary'" nzSize="large">搜索</button>
+          <button class="ml-md" nz-button (click)="resetForm()" nzSize="large">清空条件</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+</nz-card>
+
+<div class="bg-white border-radius-sm result_body">
+  <nz-tabset (nzSelectChange)="changeTab('status')">
+    <nz-tab [nzTitle]="deliveryFinishTpl">
+      <ng-template #deliveryFinishTpl>
+        <div class="tab-title_sub text-center">已投递 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+      </ng-template>
+        <ng-template nz-tab>
+          <div class="tab_content_body">
+            <ng-container *ngIf="loadingData">
+              <nz-spin></nz-spin>
+            </ng-container>
+            <ng-container *ngIf="!loadingData">
+              <div nz-row class="result_list_title bg-grey-dark text-center">
+                <div nz-col nzSpan="4" class="position_name">职位名</div>
+                <div nz-col nzSpan="6" class="company_name">公司名</div>
+                <div nz-col nzSpan="3" class="work_address">工作地点</div>
+                <div nz-col nzSpan="2" class="work_salary">薪资</div>
+                <div nz-col nzSpan="4" class="delivery_time">投递时间</div>
+                <div nz-col nzSpan="3" class="delivery_status">投递进展</div>
+                <div nz-col nzSpan="2" class="oper_box"></div>
+              </div>
+              <app-position-delivery-record-list-c [listOfData]="listOfData"></app-position-delivery-record-list-c>
+
+            </ng-container>
+            
+          </div>
+        </ng-template>
+
+    </nz-tab>
+
+    <nz-tab [nzTitle]="deliveryViewedTpl">
+      <ng-template #deliveryViewedTpl>
+        <div class="tab-title_sub text-center">已查看 <nz-tag class="text-white ml-sm">26</nz-tag></div>
+      </ng-template>
+      <div class="tab_content_body">
+        <ng-container *ngIf="loadingData">
+          <nz-spin></nz-spin>
+        </ng-container>
+        <ng-container *ngIf="!loadingData">
+          <div nz-row class="result_list_title bg-grey-dark text-center">
+            <div nz-col nzSpan="4" class="position_name">职位名</div>
+            <div nz-col nzSpan="6" class="company_name">公司名</div>
+            <div nz-col nzSpan="3" class="work_address">工作地点</div>
+            <div nz-col nzSpan="2" class="work_salary">薪资</div>
+            <div nz-col nzSpan="4" class="delivery_time">投递时间</div>
+            <div nz-col nzSpan="3" class="delivery_status">投递进展</div>
+            <div nz-col nzSpan="2" class="oper_box"></div>
+          </div>
+          <app-position-delivery-record-list-c [listOfData]="listOfData"></app-position-delivery-record-list-c>
+
+        </ng-container>
+      </div>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="deliveryDisabledTpl">
+      <ng-template #deliveryDisabledTpl>
+        <div class="tab-title_sub text-center">已失效 <nz-tag class="text-white ml-sm">88</nz-tag></div>
+      </ng-template>
+      <div class="tab_content_body">
+        <ng-container *ngIf="loadingData">
+          <nz-spin></nz-spin>
+        </ng-container>
+        <ng-container *ngIf="!loadingData">
+          <div nz-row class="result_list_title bg-grey-dark text-center">
+            <div nz-col nzSpan="4" class="position_name">职位名</div>
+            <div nz-col nzSpan="6" class="company_name">公司名</div>
+            <div nz-col nzSpan="3" class="work_address">工作地点</div>
+            <div nz-col nzSpan="2" class="work_salary">薪资</div>
+            <div nz-col nzSpan="4" class="delivery_time">投递时间</div>
+            <div nz-col nzSpan="3" class="delivery_status">投递进展</div>
+            <div nz-col nzSpan="2" class="oper_box"></div>
+          </div>
+          <app-position-delivery-record-list-c [listOfData]="listOfData"></app-position-delivery-record-list-c>
+
+        </ng-container>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+
+</div>
+
+<ng-container *ngIf="!loadingData && list.length !== 0">
+  <div class="pagination_wrapper mt-md">
+    <app-pagination-item [total]="list.length"></app-pagination-item>
+  </div>
+  <div class="refer_text_box mt-md bg-white text-grey pl-md border-radius-sm d-flex align-items-center">
+    <i class="mr-sm text-lg" nz-icon nzType="exclamation-circle" nzTheme="fill"></i>
+    仅保留近90天投递记录
+  </div>
+</ng-container>

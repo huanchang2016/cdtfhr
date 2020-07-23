@@ -24,7 +24,7 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
   @Input() placeholder?:string = '请选择日期';
   @Input() size?:string = null;
 
-  dateFormat:string = 'yyyy/MM';
+  dateFormat:string = 'yyyy/MM/dd';
 
   private propagateChange = (_: any) => { };
   
@@ -38,7 +38,8 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
 
   datePickerChange(date:Date[]):void {
     this.date = date;
-    // this.propagateChange(format(this.date[0], this.dateFormat))
+    console.log(date, 'date change');
+    this.propagateChange([format(this.date[0], this.dateFormat), format(this.date[1], this.dateFormat)])
   }
 
   registerOnChange(fn: any): void {
@@ -49,7 +50,7 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
 
   validate(control: AbstractControl): ValidationErrors | null {
     if(control.errors && control.errors.required) {
-      return this.date ? null : {
+      return this.date && this.date.length !== 2 ? null : {
         isInvalid: {
           valid: false
         }

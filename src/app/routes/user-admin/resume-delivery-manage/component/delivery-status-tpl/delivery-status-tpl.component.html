@@ -1,0 +1,141 @@
+<div class="status_modal_body">
+    <div class="steps_wrapper" *ngIf="!loading; else loadingTpl">
+        <nz-steps [nzCurrent]="step" nzSize="large" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
+            <nz-step [nzTitle]="successTpl">
+                <ng-template #successTpl>
+                    <div class="text-grey">投递成功</div>
+                    <p class="text-grey-dark">2020-07-22 13:33:02</p>
+                </ng-template>
+            </nz-step>
+            <nz-step [nzTitle]="viewedTpl">
+                <ng-template #viewedTpl>
+                    <div class="text-grey">HR查看</div>
+                    <p class="text-grey-dark">2020-07-22 13:33:02</p>
+                </ng-template>
+            </nz-step>
+            <nz-step [nzTitle]="inviteTpl">
+                <ng-template #inviteTpl>
+                    <div class="text-grey">面试邀请</div>
+                    <p class="text-grey-dark">2020-07-22 13:33:02</p>
+                </ng-template>
+            </nz-step>
+
+        </nz-steps>
+        <div class="steps-content">
+            <div class="pt-lg">
+                <ng-container *ngIf="step !== 2">
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">职位名称</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">产品经历-用户增长</span>
+                            <a [routerLink]="['/recruit/details', 11]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">公司名称</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">成都天府新区人力资源开发服务有限公司</span>
+                            <a [routerLink]="['/company']" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">工作地点</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">成都-天府新区</span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">薪资</div>
+                        <div class="value_box flex-1">
+                            <span class="text-danger">2K-4K/月</span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">投递时间</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">2020/06/22 23:00:33</span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">简历投递</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">我得简历xxx-前端开发</span>
+                            <a [routerLink]="['/fullscreen/resume/view', 2]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">查看简历</a>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md" *ngIf="info.status.name === 'HR查看'">
+                        <div class="label_title text-666">被查看时间</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">2020/6/24 12:00:32</span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">投递进展</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">投递成功</span>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="step === 2">
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">职位名称</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">产品经历-用户增长</span>
+                            <a [routerLink]="['/recruit/details', 11]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">公司名称</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">成都天府新区人力资源开发服务有限公司</span>
+                            <a [routerLink]="['/company']" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">面试地址</div>
+                        <div class="value_box flex-1">
+                            <div>四川省成都市双流区天府大道南段2028号</div>
+                            <div class="map_show_box">
+                                <app-position-address-map [address]="'四川省成都市双流区天府大道南段2028号'"></app-position-address-map>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">面试开始时间</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">
+                                {{ '2020/06/22 23:00:33' | date: 'fullDate' }} &nbsp;&nbsp;
+                                {{ '2020/06/22 23:00:33' | date: 'HH:mm:ss' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">面试邀请内容</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">XX，您好！<br>
+                                恭喜您通过我司的简历初筛，进入面试环节！请您合理安排
+                                时间准时参加面试，如有疑问，请联系HR电话123456789.</span>
+                        </div>
+                    </div>
+                    <div class="d-flex body_item_list text-md">
+                        <div class="label_title text-666">发送时间</div>
+                        <div class="value_box flex-1">
+                            <span class="text-grey">2020/06/22 23:00:33</span>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingTpl>
+    <div class="loading_box text-center">
+        <nz-spin></nz-spin>
+    </div>
+</ng-template>
+
+<ng-template #nzProgressDot>
+    <div class="steps_status border-radius-half"></div>
+</ng-template>

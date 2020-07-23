@@ -18,7 +18,8 @@ const routes: Routes = [
       { path: 'bind', component: UserAdminBindAccountComponent },
       { path: 'resumes', component: ResumeListComponent },
       { path: 'resumes/add', component: ResumeCreateComponent },
-      { path: 'resumes/edit/:id', component: ResumeEditComponent }
+      { path: 'resumes/edit/:id', component: ResumeEditComponent },
+      { path: 'delivery', loadChildren: () => import('./resume-delivery-manage/resume-delivery-manage.module').then( m => m.ResumeDeliveryManageModule ) }
     ]
   }
 ];

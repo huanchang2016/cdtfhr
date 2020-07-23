@@ -20,6 +20,7 @@ import { UploadLogoComponent } from './component/forms/upload-logo/upload-logo.c
 import { MultipleCascaderSelectedComponent } from './component/forms/multiple-cascader-selected/multiple-cascader-selected.component';
 import { RangeDatePickerComponent } from './component/forms/range-date-picker/range-date-picker.component';
 import { RangeMonthPickerComponent } from './component/forms/range-month-picker/range-month-picker.component';
+import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
 
 // #region third libs
 
@@ -43,7 +44,8 @@ const COMPONENTS = [
   UploadLogoComponent,
   MultipleCascaderSelectedComponent,
   RangeDatePickerComponent,
-  RangeMonthPickerComponent
+  RangeMonthPickerComponent,
+  PositionAddressMapComponent
 ];
 
 const ENTRYCOMPONENTS = [

@@ -1,0 +1,85 @@
+@import './../../../../../styles/base-color.less';
+
+.search_wrapper {
+    .search_box_input {
+        width: 700px;
+        overflow: hidden;
+        margin-right: 30px;
+        .search_title {
+            width: 110px;
+            line-height: 38px;
+            margin-right: -4px;
+            border-left: 1px solid;
+            border-top: 1px solid;
+            border-bottom: 1px solid;
+            border-color: @primary-color;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+    }
+    .more_search_btn {
+        line-height: 40px;
+        i {
+            transition: all 0.3s;
+        }
+        &.more_actived {
+            i {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+}
+
+.more_search_type_wrapper {
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.3s;
+    &.more_actived {
+        height: 128px;
+    }
+
+    nz-form-label {
+        line-height: 40px;
+    }
+}
+
+.result_body {
+    .tab-title_sub {
+        width: 200px;
+    }
+
+    .tab_content_body {
+        min-height: 300px;
+
+        .result_list_title {
+            line-height: 40px;
+        }
+
+        nz-spin {
+            margin-top: 50px;
+        }
+
+    }
+}
+.refer_text_box {
+    height: 36px;
+    margin-bottom: 50px;
+}
+
+:host ::ng-deep {
+    .ant-tabs-bar {
+        margin-bottom: 0;
+    }
+    .tab-title_sub nz-tag {
+        border: 0;
+        background-color: @grey-color;
+    }
+    .ant-tabs-tab-active {
+        .tab-title_sub nz-tag {
+            border: 0;
+            background-color: @primary-color;
+        }
+    }
+    
+}
