@@ -1,11 +1,20 @@
-<div class="user-admin__layout_body">
-    <div class="sidebar_body bg-white float-left">
-        <app-user-admin-sidebar></app-user-admin-sidebar>
-    </div>
-    <div class="user-admin_content_body float-right">
-        <div class="user-admin_content_top_wrapper border-radius-sm bg-white">
-            <app-user-content-top></app-user-content-top>
+<div class="search__wrapper">
+    <div class="body__content_box">
+        <div class="search-content_wraper d-flex align-items-center">
+            <app-layout-full-search></app-layout-full-search>
         </div>
-        <router-outlet></router-outlet>
+    </div>
+</div>
+<div class="body__content_box">
+    <div class="user-admin__layout_body">
+        <div class="sidebar_body bg-white float-left">
+            <app-user-admin-sidebar></app-user-admin-sidebar>
+        </div>
+        <div class="user-admin_content_body float-right">
+            <div class="user-admin_content_top_wrapper border-radius-sm bg-white">
+                <app-user-content-top></app-user-content-top>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>

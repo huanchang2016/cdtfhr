@@ -1,0 +1,58 @@
+@import "./../../../../../styles/base-color.less";
+
+.user-content-top_wrapper {
+    width: 100%;
+    height: 90px;
+    padding: 10px 20px;
+
+    .date_box {
+        width: 200px;
+        height: 100%;
+    }
+
+    .base_info_box {
+        width: 760px; // 占满内容应该是 780px
+        height: 100%;
+
+        .base_info_list {
+
+            .base_info_icon_box {
+                width: 41px;
+                height: 41px;
+                overflow: hidden;
+                background-repeat: no-repeat;
+                background-position: left top;
+                background-size: cover;
+                &.info_icon1 {
+                    background-image: url('/assets/imgs/icon/icon_info_gray.png');
+                }
+                &.info_icon2 {
+                    background-image: url('/assets/imgs/icon/icon_interview_gray.png');
+                }
+                &.info_icon3 {
+                    background-image: url('/assets/imgs/icon/icon_message_gray.png');
+                }
+                .text__amount {
+                    line-height: 22px;
+                }
+            }
+
+            &:hover {
+                .base_info_icon_box {
+                    &.info_icon1 {
+                        background-image: url('/assets/imgs/icon/icon_info_blue.png');
+                    }
+                    &.info_icon2 {
+                        background-image: url('/assets/imgs/icon/icon_interview_blue.png');
+                    }
+                    &.info_icon3 {
+                        background-image: url('/assets/imgs/icon/icon_message_blue.png');
+                    }
+                }
+                .base_info_des p{
+                    color: @primary-color !important;
+                }
+            } 
+        }
+    }
+}

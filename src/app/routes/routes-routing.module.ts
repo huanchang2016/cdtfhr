@@ -46,7 +46,8 @@ const routes: Routes = [
     path: 'admin',
     component: LayoutAdminComponent,
     children: [
-      { path: 'user', loadChildren: () => import('./user-admin/user-admin.module').then(m => m.UserAdminModule) }
+      { path: 'user', loadChildren: () => import('./user-admin/user-admin.module').then(m => m.UserAdminModule) },
+      { path: 'company', loadChildren: () => import('./company-admin/company-admin.module').then(m => m.CompanyAdminModule) }
     ]
   },
   // passport

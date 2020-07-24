@@ -1,0 +1,47 @@
+<div class="sidebar__wrapper">
+    <div class="sidebar_top_wrap">
+        <div class="logo_box border-radius-half bg-grey-dark d-flex justify-content-center align-items-center">
+            <div class="user_logo_icon text-white"><i nz-icon nzType="user" nzTheme="outline"></i></div>
+            <!-- <img src="./assets/imgs/test/img_adv1.png" alt="用户姓名"> -->
+        </div>
+        <div class="my-sm refer-info_box text-center">
+            <!-- <span class="text-danger mr-sm"><i nz-icon nzType="warning" nzTheme="outline"></i></span> -->
+            <span class="text-grey text-xs">成都天府新区人力资源开发服务有限公司</span>
+        </div>
+    </div>
+
+    <div class="sidebar__menu_wraper">
+        <ul nz-menu nzMode="inline">
+            <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                <a [routerLink]="['/admin/company/home']">公司信息</a>
+            </li>
+            <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                <a [routerLink]="['/admin/company/positions']">职位管理</a>
+            </li>
+            <li nz-submenu nzTitle="简历管理" nzOpen>
+                <ul>
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                        <a [routerLink]="['/admin/company/resumes/search']">简历搜索</a>
+                    </li>
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                        <a [routerLink]="['/admin/company/resumes/handle']">简历处理</a>
+                    </li>
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                        <a [routerLink]="['/admin/company/resumes/history']">简历库</a>
+                    </li>
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="系统设置" nzOpen>
+                <ul>
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                        <a [routerLink]="['/admin/company/settings/organ']">机构管理</a>
+                    </li>
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
+                        <a [routerLink]="['/admin/company/settings/account']">账号管理</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</div>
