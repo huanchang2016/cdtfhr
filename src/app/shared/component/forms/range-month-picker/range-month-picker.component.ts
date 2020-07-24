@@ -23,7 +23,7 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
 
   @Input() placeholder?:string[] = ['请选择开始日期', '请选择结束日期'];
-  @Input() size?:string = null;
+  @Input() size?:string = 'large';
   @Input() isNow?:boolean = false;
 
   monthFormat:string = 'yyyy/MM';

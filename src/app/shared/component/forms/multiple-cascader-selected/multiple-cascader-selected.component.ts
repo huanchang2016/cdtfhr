@@ -24,8 +24,8 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class MultipleCascaderSelectedComponent implements ControlValueAccessor {
 
-  @Input() placeholder?:string = '请选择日期';
-  @Input() size?:string = null;
+  @Input() placeholder?:string = '请选择省市区';
+  @Input() size?:string = 'large';
 
   values?: number[] = [];
   nodes:any[] = [];
@@ -48,21 +48,22 @@ export class MultipleCascaderSelectedComponent implements ControlValueAccessor {
         return d;
       })
     }else {
-      setTimeout(() => {
-        province = this.globalService.province;
-        console.log('pro', province)
-        this.nodes = province.map( v => {
-          let d = {
-            title: v.name,
-            value: v.id,
-            key: v.id,
-            disabled: true,
-            children: []
-          }
-          this.loadNode(v.id).then( data => d.children = data);
-          return d;
-        })
-      }, 1000);
+      console.log('获取级联信息第一层数据')
+      // setTimeout(() => {
+      //   province = this.globalService.province;
+      //   console.log('pro', province)
+      //   this.nodes = province.map( v => {
+      //     let d = {
+      //       title: v.name,
+      //       value: v.id,
+      //       key: v.id,
+      //       disabled: true,
+      //       children: []
+      //     }
+      //     this.loadNode(v.id).then( data => d.children = data);
+      //     return d;
+      //   })
+      // }, 1000);
     }
   }
 

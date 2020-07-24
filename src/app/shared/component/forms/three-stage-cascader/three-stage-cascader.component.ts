@@ -2,72 +2,9 @@ import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { NzCascaderOption } from 'ng-zorro-antd/cascader';
 import { GlobalSettingsService } from '@core';
-import { HttpClient } from '@angular/common/http';
 import { ApiData } from 'src/app/data/interface';
 import { resolve } from 'dns';
 
-
-const globals:any = GlobalSettingsService;
-
-// const provinces = [
-//   {
-//     value: 'zhejiang',
-//     label: 'Zhejiang'
-//   },
-//   {
-//     value: 'jiangsu',
-//     label: 'Jiangsu'
-//   }
-// ];
-
-// const cities: { [key: string]: Array<{ value: string; label: string; isLeaf?: boolean }> } = {
-//   zhejiang: [
-//     {
-//       value: 'hangzhou',
-//       label: 'Hangzhou'
-//     },
-//     {
-//       value: 'ningbo',
-//       label: 'Ningbo'
-//     }
-//   ],
-//   jiangsu: [
-//     {
-//       value: 'nanjing',
-//       label: 'Nanjing'
-//     }
-//   ]
-// };
-
-// const scenicspots: { [key: string]: Array<{ value: string; label: string; isLeaf?: boolean }> } = {
-//   hangzhou: [
-//     {
-//       value: 'xihu',
-//       label: 'West Lake',
-//       isLeaf: true
-//     }
-//   ],
-//   nanjing: [
-//     {
-//       value: 'zhonghuamen',
-//       label: 'Zhong Hua Men',
-//       isLeaf: true
-//     }
-//   ],
-//   ningbo: [
-//     {
-//       value: 'xxx',
-//       label: 'xxxxxxxxx',
-//       isLeaf: true
-//     },
-//     {
-//       value: 'yyy',
-//       label: 'yyyyyyyyy',
-//       isLeaf: true
-//     }
-//   ]
-
-// };
 
 @Component({
   selector: 'app-three-stage-cascader',
@@ -89,7 +26,7 @@ const globals:any = GlobalSettingsService;
 export class ThreeStageCascaderComponent implements ControlValueAccessor {
   
   @Input() placeholder?:string = '请选择省市区';
-  @Input() Size?:string = 'default';
+  @Input() Size?:string = 'large';
   @Input() layer?:string = '';
 
   private propagateChange = (_: any) => { };

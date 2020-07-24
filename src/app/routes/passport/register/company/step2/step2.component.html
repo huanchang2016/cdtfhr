@@ -2,41 +2,41 @@
 <div class="form-box">
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="companyname">公司名称</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入公司营业执照上的全称">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="companyname">公司名称</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入公司营业执照上的全称">
                 <input nz-input formControlName="companyname" id="companyname" placeholder="请输入公司营业执照上的全称" nzSize="large" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="or_code">组织机构代码</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入公司营业执照上的组织机构代码">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="or_code">组织机构代码</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入公司营业执照上的组织机构代码">
                 <input nz-input formControlName="or_code" id="or_code" placeholder="请输入公司营业执照上的组织机构代码" nzSize="large" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="end_date">有效期至</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请点击选择有效期时间">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="end_date">有效期至</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择有效期时间">
                 <app-date-picker-date ngDefaultcontrol formControlName="end_date" [placeholder]="'请点击选择有效期时间'"></app-date-picker-date>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="cascader">所在省市</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请点击选择省市">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="cascader">所在省市</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择省市">
                 <app-three-stage-cascader ngDefaultcontrol formControlName="cascader" [placeholder]="'请点击选择省市'"></app-three-stage-cascader>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="address">详细地址</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入公司的详细地址">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="address">详细地址</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入公司的详细地址">
                 <input nz-input formControlName="address" id="address" placeholder="请输入公司的详细地址" nzSize="large" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="nature">单位性质</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请点击选择单位性质">
-                <nz-select nzShowSearch  formControlName="nature" id="nature" placeholder="请点击选择单位性质" nzSize="large">
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="nature">单位性质</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择单位性质">
+                <nz-select nzShowSearch  formControlName="nature" id="nature" nzPlaceHolder="请点击选择单位性质" nzSize="large">
                     <ng-container *ngFor="let item of config.nature">
-                        <!-- <nz-option [nzLabel]="Jack" [nzValue]="jack"></nz-option> -->
+                        <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                     </ng-container>
                   </nz-select>
             </nz-form-control>
@@ -45,11 +45,12 @@
 
 
         <nz-form-item nz-row>
-            <nz-form-control [nzSpan]="24">
-                <div class="d-flex justify-content-around">
+            <nz-form-control [nzSpan]="18" nzOffset="6">
+                <!-- <div class="d-flex justify-content-around">
                     <button nz-button nzType="primary" class="login-form-button" nzSize="large">下一步</button>
                     <button (click)="prev()" nz-button nzType="default" class="login-form-button" nzSize="large">返回上一步</button>
-                </div>
+                </div> -->
+                <button nz-button nzType="primary" class="login-form-button" nzSize="large">下一步</button>
             </nz-form-control>
         </nz-form-item>
     </form>

@@ -24,7 +24,7 @@ import { Observable, Observer } from 'rxjs';
 export class UploadLogoComponent implements ControlValueAccessor {
 
   @Input() placeHolder?:string = '请选择文件上传';
-  @Input() Size?:string = 'default';
+  @Input() Size?:string = 'large';
 
   loading = false;
   avatarUrl?: string;

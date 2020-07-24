@@ -22,7 +22,7 @@ import { format } from 'date-fns';
 export class DatePickerMonthComponent implements ControlValueAccessor {
 
   @Input() placeholder?:string = '请选择日期';
-  @Input() size?:string = null;
+  @Input() size?:string = 'large';
 
   dateFormat:string = 'yyyy/MM';
 

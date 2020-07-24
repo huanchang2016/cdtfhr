@@ -25,7 +25,7 @@ export class Step2Component implements OnInit {
       companyname: [null, [Validators.required]],
       or_code: [null, Validators.required ],
       end_date: [null, Validators.required ],
-      cascader: [['zhejiang', 'hangzhou', 'xihu'], Validators.required ],
+      cascader: [null, Validators.required ],
       address: [null, Validators.required ],
       nature: [null, Validators.required ],
 
