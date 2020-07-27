@@ -21,6 +21,7 @@ import { MultipleCascaderSelectedComponent } from './component/forms/multiple-ca
 import { RangeDatePickerComponent } from './component/forms/range-date-picker/range-date-picker.component';
 import { RangeMonthPickerComponent } from './component/forms/range-month-picker/range-month-picker.component';
 import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
+import { UploadFilePhotoComponent } from './component/forms/upload-file-photo/upload-file-photo.component';
 
 // #region third libs
 
@@ -38,6 +39,7 @@ const COMPONENTS = [
   DatePickerMonthComponent,
   DatePickerDateComponent,
   ThreeStageCascaderComponent,
+  UploadFilePhotoComponent,
   LayoutFullSearchComponent,
   RecuritItemComponent,
   PaginationItemComponent,

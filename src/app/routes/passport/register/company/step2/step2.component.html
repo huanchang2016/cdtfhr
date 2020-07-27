@@ -41,8 +41,94 @@
                   </nz-select>
             </nz-form-control>
         </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="scale">企业规模</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择企业规模">
+                <nz-select nzShowSearch  formControlName="scale" id="scale" nzPlaceHolder="请点击选择企业规模" nzSize="large">
+                    <ng-container *ngFor="let item of config.scale">
+                        <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                    </ng-container>
+                  </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="industry">单位行业</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择单位行业">
+                <nz-select nzShowSearch  formControlName="industry" id="industry" nzPlaceHolder="请点击选择单位行业" nzSize="large">
+                    <ng-container *ngFor="let item of config.industry">
+                        <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                    </ng-container>
+                  </nz-select>
+            </nz-form-control>
+        </nz-form-item>
         
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="license_photo">营业执照</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传营业执照">
+                <app-upload-file-photo ngDefaultControl formControlName="license_photo" [placeHolder]="'上传营业执照'" [Size]="'large'"></app-upload-file-photo>
+            </nz-form-control>
+        </nz-form-item>
 
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="logo">公司LOGO</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司LOGO">
+                <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="description">公司简介</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司简介， 内容长度小于1000个字符">
+                <div class="text_area_count_limit">
+                    <textarea nz-input id="description" formControlName="description" placeholder="请输入内容" [nzAutosize]="{ minRows: 8, maxRows: 15 }"></textarea>
+                    <div class="limit_count text-grey" [class.text-danger]="getTextareaLength > 1000">{{ getTextareaLength }} / 1000</div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <div nz-col nzSpan="24">
+                <app-sub-title-show [title]="'公司联系人'"></app-sub-title-show>
+            </div>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="user_name">姓名</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入联系人姓名">
+                <input nz-input formControlName="user_name" id="user_name" placeholder="请输入联系人姓名" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="user_phone">联系人手机</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入联系人手机号码">
+                <input nz-input formControlName="user_phone" id="user_phone" placeholder="请输入联系人手机号码" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="check_number">手机验证码</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入收到的验证码">
+                <nz-input-group [nzSuffix]="suffixCode" nzSize="large">
+                    <input type="text" formControlName="check_number" nz-input placeholder="验证码" />
+                </nz-input-group>
+                <ng-template #suffixCode>
+                    <div class="code-btn-box text-center">
+                        <span *ngIf="!isGetCode" (click)="getCaptcha($event)" class="text-primary text-md point">获取验证码</span>
+                        <span *ngIf="isGetCode" class="text-primary text-md">{{ count }}s</span>
+                    </div>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzFor="zj_tel">座机号码</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入座机号码">
+                <input nz-input formControlName="zj_tel" id="zj_tel" placeholder="请输入座机号码" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzFor="user_email">邮箱地址</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请输入邮箱地址">
+                <input nz-input formControlName="user_email" id="user_email" placeholder="请输入邮箱地址" type="email" nzSize="large" />
+            </nz-form-control>
+        </nz-form-item>
 
         <nz-form-item nz-row>
             <nz-form-control [nzSpan]="18" nzOffset="6">

@@ -9,8 +9,6 @@ import { TransferService } from './transfer.service';
 })
 export class CompanyRegisterComponent implements OnInit {
 
-  index = 'First-content';
-
   constructor(
     public transferSrv: TransferService
   ) { }

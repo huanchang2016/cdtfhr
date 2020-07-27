@@ -5,23 +5,23 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 
 @Component({
-  selector: 'app-upload-logo',
-  templateUrl: './upload-logo.component.html',
-  styleUrls: ['./upload-logo.component.less'],
+  selector: 'app-upload-file-photo',
+  templateUrl: './upload-file-photo.component.html',
+  styleUrls: ['./upload-file-photo.component.less'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => UploadLogoComponent),
+      useExisting: forwardRef(() => UploadFilePhotoComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => UploadLogoComponent),
+      useExisting: forwardRef(() => UploadFilePhotoComponent),
       multi: true
     }
   ]
 })
-export class UploadLogoComponent implements ControlValueAccessor {
+export class UploadFilePhotoComponent implements ControlValueAccessor {
 
   @Input() placeHolder?:string = '请选择文件上传';
   @Input() Size?:string = 'large';
