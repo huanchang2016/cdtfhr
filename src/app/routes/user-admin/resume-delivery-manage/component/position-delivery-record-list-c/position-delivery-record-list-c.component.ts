@@ -12,7 +12,7 @@ export class PositionDeliveryRecordListCComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef
+    // private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
@@ -22,13 +22,13 @@ export class PositionDeliveryRecordListCComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '投递进展',
       nzContent: DeliveryStatusTplComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      nzGetContainer: () => document.body,
+      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: data
       },

@@ -13,7 +13,7 @@ export class ResumeListComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef
+    // private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
@@ -49,13 +49,13 @@ export class ResumeListComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '修改简历名称',
       nzContent: ResumeTitleTplComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       // nzWidth: '800px',
       // nzBodyStyle: {
       //   padding: '24px 100px 30px'
       // },
       nzMaskClosable: false,
-      nzGetContainer: () => document.body,
+      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: data
       },

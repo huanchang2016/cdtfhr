@@ -13,7 +13,7 @@ export class UserInfoTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef
+    // private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
@@ -23,13 +23,13 @@ export class UserInfoTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '编辑个人信息',
       nzContent: UserInfoFormTplComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      nzGetContainer: () => document.body,
+      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: this.data
       },

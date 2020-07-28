@@ -13,7 +13,7 @@ export class UserWorkExpTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef
+    // private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
@@ -34,13 +34,13 @@ export class UserWorkExpTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: ( data ? '编辑' : '新增' )+ '工作经历',
       nzContent: UserWorkExpFormTplComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      nzGetContainer: () => document.body,
+      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: data
       },

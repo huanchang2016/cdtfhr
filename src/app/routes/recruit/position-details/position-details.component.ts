@@ -64,7 +64,7 @@ export class PositionDetailsComponent implements OnInit {
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
+      // // nzGetContainer: () => document.body,
       
       nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
@@ -90,7 +90,7 @@ export class PositionDetailsComponent implements OnInit {
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
+      // // nzGetContainer: () => document.body,
       
       nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
