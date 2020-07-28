@@ -1,6 +1,6 @@
-import { PositionFormComponent } from './position-form/position-form.component';
 import { Component, OnInit, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { PositionFormComponent } from './position-form/position-form.component';
 
 @Component({
   selector: 'app-position-list',

@@ -13,7 +13,7 @@ export class GlobalSettingsService {
   constructor(
     private httpClient: HttpClient
   ) {
-    this.getGlobalConfigs();
+    // this.getGlobalConfigs();
   }
 
   get(url:string, option?:any):Observable<any> {

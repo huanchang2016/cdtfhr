@@ -1,0 +1,8 @@
+<div class="bg-white">
+    <nz-tabset [nzSelectedIndex]="pos">
+        <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (nzClick)="to(i)"></nz-tab>
+    </nz-tabset>
+    <div class="sub-tab_content px-md pb-md">
+        <router-outlet></router-outlet>
+    </div>
+</div>
