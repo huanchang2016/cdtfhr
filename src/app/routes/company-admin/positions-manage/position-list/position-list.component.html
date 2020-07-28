@@ -1,1 +1,77 @@
-<p>position-list works!</p>
+<nz-card class="mt-md">
+    <div class="d-flex">
+        <div class="create_position_btn_box d-flex align-items-center">
+            <button nz-button nzType="primary" (click)="create()">发布新职位</button>
+        </div>
+        <div class="position_status_box d-flex justify-content-around align-items-center">
+            <div class="position_status_type_box">
+                <div class="text-lg text-primary text-center">8</div>
+                <div class="text-md text-grey text-center">招聘中</div>
+            </div>
+            <div class="position_status_type_box">
+                <div class="text-lg text-danger text-center">50</div>
+                <div class="text-md text-grey text-center">已下线</div>
+            </div>
+            <div style="opacity: 0;">已过期</div>
+        </div>
+    </div>
+</nz-card>
+
+<nz-card class="mt-md">
+    <div class="search_box_input">
+
+        <div class="d-flex align-items-center">
+          <div class="search_title text-center bg-white text-primary">结果中搜索</div>
+          <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
+            <input type="text" [(ngModel)]="search_text" nz-input placeholder="请输入关键字" (keypress)="($event.which === 13)?search():0" />
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <i *ngIf="!searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="search" (click)="search()"></i>
+            <i *ngIf="searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="sync" [nzSpin]="searchLoading"></i>
+          </ng-template>
+        </div>
+      </div>
+</nz-card>
+
+
+<div class="bg-white border-radius-sm result_body mt-sm">
+    <nz-tabset (nzSelectChange)="changeTab($event)">
+      <nz-tab [nzTitle]="inRecuritTpl">
+        <ng-template #inRecuritTpl>
+          <div class="tab-title_sub text-center">招聘中</div>
+        </ng-template>
+          <ng-template nz-tab>
+            <div class="tab_content_body">
+                <div *ngIf="tabIndex === 0">
+                    <ng-container *ngIf="loadingData">
+                        <nz-spin></nz-spin>
+                    </ng-container>
+                    <ng-container *ngIf="!loadingData">
+                        <app-position-list-c [listOfData]="listOfData" [status]="'ing'"></app-position-list-c>
+                    </ng-container>
+                </div>
+            </div>
+          </ng-template>
+  
+      </nz-tab>
+  
+      <nz-tab [nzTitle]="underlineTpl">
+        <ng-template #underlineTpl>
+          <div class="tab-title_sub text-center">已下线</div>
+        </ng-template>
+        <div class="tab_content_body">
+            <div *ngIf="tabIndex === 1">
+                <ng-container *ngIf="loadingData">
+                    <nz-spin></nz-spin>
+                </ng-container>
+                <ng-container *ngIf="!loadingData">
+                    <app-position-list-c [listOfData]="listOfData" [status]="'under-line'"></app-position-list-c>
+                </ng-container>
+            </div>
+          
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  
+  </div>
+

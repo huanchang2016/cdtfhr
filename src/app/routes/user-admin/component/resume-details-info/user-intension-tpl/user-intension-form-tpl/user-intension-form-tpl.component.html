@@ -2,7 +2,7 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="work_address" nzRequired>工作地区</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的工作地区">
-            <app-multiple-cascader-selected formControlName="work_address" [size]="'large'"
+            <app-multiple-cascader-selected ngDefaultcontrol formControlName="work_address" [size]="'large'"
                 [placeholder]="'请点击选择期望的工作地区'"></app-multiple-cascader-selected>
         </nz-form-control>
     </nz-form-item>
@@ -19,7 +19,7 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="job_position" nzRequired>期望职位</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的职位">
-            <app-multiple-cascader-selected formControlName="job_position" [size]="'large'"
+            <app-multiple-cascader-selected ngDefaultcontrol formControlName="job_position" [size]="'large'"
                 [placeholder]="'请点击选择期望的职位'"></app-multiple-cascader-selected>
         </nz-form-control>
     </nz-form-item>

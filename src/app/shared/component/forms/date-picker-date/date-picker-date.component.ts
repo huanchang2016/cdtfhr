@@ -45,6 +45,10 @@ export class DatePickerDateComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
+  isDisabled:boolean = false;
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
   registerOnTouched(fn: any): void { }
 
   validate(control: AbstractControl): ValidationErrors | null {

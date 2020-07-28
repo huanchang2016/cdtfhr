@@ -11,6 +11,8 @@ import { PositionCreateComponent } from './positions-manage/position-create/posi
 import { ResumesListComponent } from './resumes-manage/resumes-list/resumes-list.component';
 import { ResumesHandleComponent } from './resumes-manage/resumes-handle/resumes-handle.component';
 import { ResumesHistoryComponent } from './resumes-manage/resumes-history/resumes-history.component';
+import { PositionListCComponent } from './positions-manage/position-list/position-list-c/position-list-c.component';
+import { PositionFormComponent } from './positions-manage/position-list/position-form/position-form.component';
 
 
 const COMPONENTS = [
@@ -20,12 +22,14 @@ const COMPONENTS = [
   PositionCreateComponent,
   ResumesListComponent,
   ResumesHandleComponent,
-  ResumesHistoryComponent
+  ResumesHistoryComponent,
+  PositionListCComponent
 ];
 
 const ENTRYCOMPONENTS = [
   CompanySidebarComponent,
-  CompanyContentTopComponent
+  CompanyContentTopComponent,
+  PositionFormComponent
 ];
 
 @NgModule({

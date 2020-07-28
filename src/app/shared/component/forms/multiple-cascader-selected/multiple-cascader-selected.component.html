@@ -11,6 +11,7 @@
         [nzSize]="size"
         [nzDropdownStyle]="{ 'max-height': '300px' }"
         [nzAsyncData]="true"
+        [nzDisabled]="isDisabled"
         (nzExpandChange)="onExpandChange($event)"
     >
     </nz-tree-select>

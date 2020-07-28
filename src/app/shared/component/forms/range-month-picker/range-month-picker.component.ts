@@ -103,6 +103,10 @@ export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
     
   };
 
+  isDisabled:boolean = false;
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
 
   registerOnChange(fn: any): void {
     this.propagateChange = fn;

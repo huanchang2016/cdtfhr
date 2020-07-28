@@ -1,0 +1,71 @@
+@import './../../../../../styles/base-color.less';
+
+.create_position_btn_box {
+    width: 200px;
+    button {
+        width: 140px;
+    }
+}
+.position_status_box {
+    width: 760px;
+    .position_status_type_box {
+        margin-right: 50px;
+        line-height: 18px;
+    }
+}
+
+.search_box_input {
+    width: 700px;
+    overflow: hidden;
+    margin-right: 30px;
+    .search_title {
+        width: 110px;
+        line-height: 38px;
+        margin-right: -4px;
+        border-left: 1px solid;
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        border-color: @primary-color;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+}
+
+
+.result_body {
+    margin-bottom: 50px;
+    .tab-title_sub {
+        width: 200px;
+        line-height: 36px;
+    }
+
+    .tab_content_body {
+        min-height: 300px;
+
+        .result_list_title {
+            line-height: 40px;
+        }
+
+        nz-spin {
+            margin-top: 50px;
+        }
+
+    }
+}
+
+:host ::ng-deep {
+    .ant-tabs-bar {
+        margin-bottom: 0;
+    }
+    // .tab-title_sub nz-tag {
+    //     border: 0;
+    //     background-color: @grey-color;
+    // }
+    // .ant-tabs-tab-active {
+    //     .tab-title_sub nz-tag {
+    //         border: 0;
+    //         background-color: @primary-color;
+    //     }
+    // }
+    
+}

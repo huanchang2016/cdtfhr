@@ -1,0 +1,111 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="position_name">职位名称</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请填写职位名称">
+            <input nz-input formControlName="position_name" id="position_name" placeholder="请填写职位名称" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="test">test</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请填写test">
+            <app-test-input-access ngDefaultcontrol formControlName="test" [placeholder]="'请点击选择etesa'"></app-test-input-access>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="recruiters">招聘人数</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请填写招聘人数">
+            <nz-input-group nzSuffix="人" nzSize="large">
+                <input formControlName="recruiters" id="recruiters" placeholder="请填写招聘人数" type="text" nz-input />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="job_category">职位类别</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择职位类别">
+            <app-three-stage-cascader ngDefaultcontrol formControlName="job_category" [placeholder]="'请点击选择职位类别'"></app-three-stage-cascader>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="cascader">工作地区</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择工作地区">
+            <app-three-stage-cascader ngDefaultcontrol formControlName="cascader" [placeholder]="'请点击选择工作地区'"></app-three-stage-cascader>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="address">详细地址</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入具体街道地址">
+            <input nz-input formControlName="address" id="address" placeholder="请输入具体街道地址" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="nature">工作性质</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择工作性质">
+            <nz-select formControlName="nature" id="nature" nzPlaceHolder="请点击选择工作性质" nzSize="large">
+                <ng-container *ngFor="let item of config.nature">
+                    <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </ng-container>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="salary">薪资</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择薪资">
+            <nz-select formControlName="salary" id="salary" nzPlaceHolder="请点击选择薪资" nzSize="large">
+                <ng-container *ngFor="let item of config.salary">
+                    <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </ng-container>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="education">学历要求</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择学历要求">
+            <nz-select formControlName="education" id="education" nzPlaceHolder="请点击选择学历要求" nzSize="large">
+                <ng-container *ngFor="let item of config.education">
+                    <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </ng-container>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="work_exp">工作经验</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择工作经验">
+            <nz-select formControlName="work_exp" id="work_exp" nzPlaceHolder="请点击选择工作经验" nzSize="large">
+                <ng-container *ngFor="let item of config.work_exp">
+                    <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </ng-container>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="description">岗位描述</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请填写岗位职责及任职要求">
+            <textarea nz-input id="description" formControlName="description" placeholder="请填写岗位职责及任职要求" [nzAutosize]="{ minRows: 8, maxRows: 15 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzFor="user_email">简历接收邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入简历接收邮箱">
+            <input nz-input formControlName="user_email" id="user_email" placeholder="请输入简历接收邮箱" type="email" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="duration_time">职位发布时长</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择职位发布时长">
+            <nz-select formControlName="duration_time" id="duration_time" nzPlaceHolder="请点击选择职位发布时长" nzSize="large">
+                <ng-container *ngFor="let item of config.duration_time">
+                    <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </ng-container>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row>
+        <nz-form-control [nzSpan]="24">
+            <div class="d-flex justify-content-around pt-lg">
+                <button (click)="cancel($event)" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+                <button nz-button nzType="primary" class="login-form-button" nzSize="large">{{ data ? '修改' : '发布'}}</button>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+</form>

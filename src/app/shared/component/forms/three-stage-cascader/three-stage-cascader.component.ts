@@ -47,6 +47,11 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
+  isDisabled:boolean = false;
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
+
   onChanges(values: string[]): void {
     console.log(values, this.values, '省市区级联选择');
     this.propagateChange(this.values);

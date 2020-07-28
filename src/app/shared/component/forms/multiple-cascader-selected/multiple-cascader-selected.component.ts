@@ -49,21 +49,21 @@ export class MultipleCascaderSelectedComponent implements ControlValueAccessor {
       })
     }else {
       console.log('获取级联信息第一层数据')
-      // setTimeout(() => {
-      //   province = this.globalService.province;
-      //   console.log('pro', province)
-      //   this.nodes = province.map( v => {
-      //     let d = {
-      //       title: v.name,
-      //       value: v.id,
-      //       key: v.id,
-      //       disabled: true,
-      //       children: []
-      //     }
-      //     this.loadNode(v.id).then( data => d.children = data);
-      //     return d;
-      //   })
-      // }, 1000);
+      setTimeout(() => {
+        province = this.globalService.province;
+        console.log('pro', province)
+        this.nodes = province.map( v => {
+          let d = {
+            title: v.name,
+            value: v.id,
+            key: v.id,
+            disabled: true,
+            children: []
+          }
+          this.loadNode(v.id).then( data => d.children = data);
+          return d;
+        })
+      }, 1000);
     }
   }
 
@@ -115,6 +115,10 @@ export class MultipleCascaderSelectedComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
+  isDisabled:boolean = false;
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
   registerOnTouched(fn: any): void { }
 
   validate(control: AbstractControl): ValidationErrors | null {
