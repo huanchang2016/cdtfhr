@@ -3,7 +3,7 @@
     <div class="source_info_box">
         <div class="d-flex">
             <div class="source_item_box">
-                <div class="source_item_icon mb-md bg-grey"></div>
+                <div class="source_item_icon icon_postrelease mb-md"></div>
                 <div class="source_item_introduce">
                     <div class="text-center mb-sm text-666 text-md">职位发布 &nbsp;<i nz-tooltip nzTooltipTitle="职位发布说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
                     <div class="clearfix">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="source_item_box">
-                <div class="source_item_icon mb-md bg-primary"></div>
+                <div class="source_item_icon icon_resumedownload mb-md"></div>
                 <div class="source_item_introduce">
                     <div class="text-center mb-sm text-666 text-md">简历下载 &nbsp;<i nz-tooltip nzTooltipTitle="简历下载说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
                     <div class="clearfix">
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="source_item_box">
-                <div class="source_item_icon mb-md bg-grey-dark"></div>
+                <div class="source_item_icon icon_message mb-md"></div>
                 <div class="source_item_introduce">
                     <div class="text-center mb-sm text-666 text-md">短信通知 &nbsp;<i nz-tooltip nzTooltipTitle="短信通知说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
                     <div class="clearfix">
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="source_item_box">
-                <div class="source_item_icon mb-md bg-danger"></div>
+                <div class="source_item_icon icon_refresh mb-md"></div>
                 <div class="source_item_introduce">
                     <div class="text-center mb-sm text-666 text-md text-center">刷新次数 &nbsp;<i nz-tooltip nzTooltipTitle="刷新次数说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
                     <div class="clearfix">
@@ -99,5 +99,11 @@
             <div nz-col nzSpan="6" class="text-666">工作时间</div>
             <div nz-col nzSpan="18" class="text-grey">工作日 9:00~18:00</div>
         </div>
+    </div>
+
+    <div class="update_oper text-center mb-lg">
+        <button (click)="updateAccountInfo()" nz-button nzType="default" nzSize="large">
+            <span class="text-primary">更新账号信息</span>
+        </button>
     </div>
 </div>

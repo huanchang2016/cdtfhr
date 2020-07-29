@@ -21,7 +21,7 @@ export class AccountInfoComponent implements OnInit {
   sourceChange():void {
     console.log('change source info');
 
-    const modal = this.modal.create({
+    this.tplModal = this.modal.create({
       nzTitle: '资源分配设置',
       nzContent: SourceInfoFormComponent,
       nzWidth: '800px',
@@ -38,10 +38,13 @@ export class AccountInfoComponent implements OnInit {
     // const instance = modal.getContentComponent();
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    modal.afterClose.subscribe(result => {
+    this.tplModal.afterClose.subscribe(result => {
       console.log('[afterClose] The result is:', result)
     });
+  }
 
+  updateAccountInfo():void {
+    console.log('updateAccountInfo 更新账户信息')
   }
   
 }

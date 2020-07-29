@@ -7,6 +7,12 @@
                     <span class="text-md ml-xs">个人信息</span>
                 </ng-template>
             </nz-link>
+            <nz-link nzHref="#user-self-comment" [nzTitle]="selfComment">
+                <ng-template #selfComment>
+                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <span class="text-md ml-xs">自我评价</span>
+                </ng-template>
+            </nz-link>
             <nz-link nzHref="#user-job-intension" [nzTitle]="intensionInfo">
                 <ng-template #intensionInfo>
                     <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
@@ -19,18 +25,6 @@
                     <span class="text-md ml-xs">工作经历</span>
                 </ng-template>
             </nz-link>
-            <nz-link nzHref="#user-edu-exp" [nzTitle]="eduExpInfo">
-                <ng-template #eduExpInfo>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
-                    <span class="text-md ml-xs">教育经历</span>
-                </ng-template>
-            </nz-link>
-            <nz-link nzHref="#user-self-comment" [nzTitle]="selfComment">
-                <ng-template #selfComment>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
-                    <span class="text-md ml-xs">自我评价</span>
-                </ng-template>
-            </nz-link>
             <nz-link nzHref="#user-internship" [nzTitle]="internshipTpl">
                 <ng-template #internshipTpl>
                     <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
@@ -41,6 +35,12 @@
                 <ng-template #projectExpTpl>
                     <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
                     <span class="text-md ml-xs">项目经历</span>
+                </ng-template>
+            </nz-link>
+            <nz-link nzHref="#user-edu-exp" [nzTitle]="eduExpInfo">
+                <ng-template #eduExpInfo>
+                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <span class="text-md ml-xs">教育经历</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-train-exp" [nzTitle]="trainExpTpl">
@@ -61,8 +61,6 @@
                     <span class="text-md ml-xs">其他语言能力</span>
                 </ng-template>
             </nz-link>
-
-
             <nz-link nzHref="#user-interest" [nzTitle]="interestInfo">
                 <ng-template #interestInfo>
                     <span class="text-danger text-md">
@@ -79,6 +77,12 @@
             <app-user-info-tpl></app-user-info-tpl>
             <!-- 个人信息 -->
         </div>
+        
+        <div class="mb-md" id="user-self-comment">
+            <app-user-self-comment-tpl></app-user-self-comment-tpl>
+            <!-- 自我评价 -->
+        </div>
+
         <div class="mb-md" id="user-job-intension">
             <app-user-intension-tpl></app-user-intension-tpl>
             <!-- 求职意向 -->
@@ -89,16 +93,6 @@
             <!-- 工作经历 -->
         </div>
 
-        <div class="mb-md" id="user-edu-exp">
-            <app-user-education-exp-tpl></app-user-education-exp-tpl>
-            <!-- 教育经历 -->
-        </div>
-        
-        <div class="mb-md" id="user-self-comment">
-            <app-user-self-comment-tpl></app-user-self-comment-tpl>
-            <!-- 自我评价 -->
-        </div>
-        
         <div class="mb-md" id="user-internship">
             <app-user-internship-exp-tpl></app-user-internship-exp-tpl>
             <!-- 实习经历 -->
@@ -108,6 +102,12 @@
             <app-user-project-exp-tpl></app-user-project-exp-tpl>
             <!-- 项目经历 -->
         </div>
+
+        <div class="mb-md" id="user-edu-exp">
+            <app-user-education-exp-tpl></app-user-education-exp-tpl>
+            <!-- 教育经历 -->
+        </div>
+        
         <div class="mb-md" id="user-train-exp">
             <app-user-train-exp-tpl></app-user-train-exp-tpl>
             <!-- 培训经历 -->

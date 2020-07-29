@@ -71,12 +71,6 @@ export class PositionFormComponent implements OnInit {
       recruiters: this.data.resumes_count,
       test: 'i am test component, test disabled controlValueAccess component!'
     });
-
-    if(this.data) {
-      // this.validateForm.get('position_name')!.clearValidators();
-      // this.validateForm.get('position_name')!.markAsPristine();
-      // this.validateForm.get('position_name')!.disabled;
-    }
   }
 
   cancel(e:Event):void {

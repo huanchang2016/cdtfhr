@@ -1,1 +1,45 @@
-<p>sub-account-settings works!</p>
+<div class="content_box">
+    <nz-table #basicTable [nzData]="listOfData" [nzLoading]="loading" nzShowPagination="false">
+        <thead>
+            <tr>
+                <th></th>
+                <th>账号名称</th>
+                <th>创建时间</th>
+                <th>最近登录</th>
+                <th>姓名</th>
+                <th>使用中</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of basicTable.data">
+                <td>
+                    <span class="account_status px-xs bg-green text-xs border-radius-sm text-white">在线</span>
+                </td>
+                <td>gongsimingchen_1</td>
+                <td>2020/06/18 20:20:20</td>
+                <td>2020/07/18 20:20:20</td>
+                <td>江二娃</td>
+                <td>
+                    <nz-switch [ngModel]="true" nzCheckedChildren="是" nzUnCheckedChildren="冻结"></nz-switch>
+                </td>
+                <td>
+                    <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="编辑"></i>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm
+                        nzPopconfirmTitle="是否删除当前账号？"
+                        nzOkText="删除" class="text-danger"
+                        (nzOnConfirm)="deleted(item)"
+                        (nzOnCancel)="cancel()">
+                        <i nz-icon nzType="delete" nzTheme="outline" nz-tooltip nzTooltipTitle="删除"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <div class="add_account" *ngIf="!loading && listOfData.length < 10">
+        <button nz-button nzBlock nzType="dashed" (click)="add()" nzSize="large">
+            <span class="text-primary"><i class="mr-sm" nz-icon nzType="plus-circle" nzTheme="outline"></i>新增子账号</span>
+        </button>
+    </div>
+</div>

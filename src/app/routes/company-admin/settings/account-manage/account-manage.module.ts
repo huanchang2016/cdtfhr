@@ -8,6 +8,7 @@ import { LinkUserInfoComponent } from './link-user-info/link-user-info.component
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { SubAccountSettingsComponent } from './sub-account-settings/sub-account-settings.component';
 import { SourceInfoFormComponent } from './account-info/source-info-form/source-info-form.component';
+import { SubAccountFormCComponent } from './sub-account-settings/sub-account-form-c/sub-account-form-c.component';
 
 const COMPONENTS = [
   AccountInfoComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
 ];
 
 const ENTRYCOMPONENTS = [
-  SourceInfoFormComponent
+  SourceInfoFormComponent,
+  SubAccountFormCComponent
 ];
 
 @NgModule({

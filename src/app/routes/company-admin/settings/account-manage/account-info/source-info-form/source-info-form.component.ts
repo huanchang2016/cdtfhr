@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-source-info-form',
@@ -16,7 +17,9 @@ export class SourceInfoFormComponent implements OnInit {
     { id: 5, name: 'meiqimingyue', msg: { account: 0, is_not_limit: true }, download: { account: 0, is_not_limit: true }}
   ];
 
-  constructor() { }
+  constructor(
+    private modal: NzModalRef
+  ) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +27,7 @@ export class SourceInfoFormComponent implements OnInit {
 
   closeModal() {
     console.log('close Modal');
+    this.modal.destroy();
   }
 
   submit() {
