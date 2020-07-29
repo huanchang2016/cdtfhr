@@ -13,6 +13,7 @@ import { ResumesHandleComponent } from './resumes-manage/resumes-handle/resumes-
 import { ResumesHistoryComponent } from './resumes-manage/resumes-history/resumes-history.component';
 import { PositionListCComponent } from './positions-manage/position-list/position-list-c/position-list-c.component';
 import { PositionFormComponent } from './positions-manage/position-list/position-form/position-form.component';
+import { OrganizationComponent } from './settings/organization/organization.component';
 
 
 const COMPONENTS = [
@@ -23,7 +24,8 @@ const COMPONENTS = [
   ResumesListComponent,
   ResumesHandleComponent,
   ResumesHistoryComponent,
-  PositionListCComponent
+  PositionListCComponent,
+  OrganizationComponent
 ];
 
 const ENTRYCOMPONENTS = [
