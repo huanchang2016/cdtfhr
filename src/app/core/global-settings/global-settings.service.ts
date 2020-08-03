@@ -46,20 +46,31 @@ export class GlobalSettingsService {
   }
 
   setUser(user: User): void {
-    localStorage.setItem('cdtfhr_user', JSON.stringify(user));
+    // localStorage.setItem('cdtfhr_user', JSON.stringify(user));
+    this.setItem('cdtfhr_user', user);
   }
 
   getUser(): User {
-    const user = JSON.parse(localStorage.getItem('cdtfhr_user'));
+    // const user = JSON.parse(localStorage.getItem('cdtfhr_user'));
+    const user = this.getItem('cdtfhr_user');
     if(user) {
       return user;
     }
     
   }
+
+  setItem(key:string, value:any):void {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  
+  getItem(key:string):any {
+    return JSON.parse(localStorage.getItem(key));
+  }
   
   clearUser(): void {
-    localStorage.removeItem('cdtfhr_user');
-    localStorage.removeItem('cdtfhr_token');
+    // localStorage.removeItem('cdtfhr_user');
+    // localStorage.removeItem('cdtfhr_token');
+    localStorage.clear();
 
   }
 

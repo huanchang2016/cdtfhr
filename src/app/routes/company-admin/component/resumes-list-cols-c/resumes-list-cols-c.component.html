@@ -1,0 +1,18 @@
+<div class="mb-lg text-center">
+    <nz-transfer
+      [nzDataSource]="list"
+      [nzListStyle]="styleOption"
+      nzShowSearch
+      [nzFilterOption]="filterOption"
+      (nzSearchChange)="search($event)"
+      (nzSelectChange)="select($event)"
+    >
+      <!-- (nzChange)="change($event)" -->
+    </nz-transfer>
+</div>
+
+
+<div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
+    <button nz-button nzSize="large" nzType="default" (click)="cancel()">取消</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="save()">保存</button>
+</div>

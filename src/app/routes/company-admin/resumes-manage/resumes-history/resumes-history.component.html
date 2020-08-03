@@ -1,1 +1,76 @@
-<p>resumes-history works!</p>
+<nz-card>
+  <div class="search_box_input">
+
+    <div class="d-flex align-items-center">
+      <div class="search_title text-center bg-white text-primary">结果中搜索</div>
+      <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
+        <input type="text" [(ngModel)]="search_text" nz-input placeholder="请输入关键字"
+          (keypress)="($event.which === 13)?search():0" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i *ngIf="!searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="search"
+          (click)="search()"></i>
+        <i *ngIf="searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="sync"
+          [nzSpin]="searchLoading"></i>
+      </ng-template>
+    </div>
+  </div>
+</nz-card>
+
+<div class="bg-white border-radius-sm result_body mt-sm">
+  <nz-tabset [nzSelectedIndex]="tabIndex" (nzSelectChange)="changeTab($event)" [nzTabBarExtraContent]="settingsTemplate">
+    <ng-template #settingsTemplate>
+      <a (click)="settingCols()" class="settings_btn mr-md">设置列</a>
+    </ng-template>
+
+    <nz-tab [nzTitle]="collectTpl">
+      <ng-template #collectTpl>
+        <div class="tab-title_sub text-md text-center">收藏夹</div>
+      </ng-template>
+      <ng-template nz-tab>
+        <div class="tab_content_body" *ngIf="tabIndex === 0">
+          <app-collect-resume-list-c [colsChange]="colsChange"></app-collect-resume-list-c>
+        </div>
+      </ng-template>
+
+    </nz-tab>
+
+    <nz-tab [nzTitle]="downloadTpl">
+      <ng-template #downloadTpl>
+        <div class="tab-title_sub text-md text-center">下载记录</div>
+      </ng-template>
+      <div class="tab_content_body" *ngIf="tabIndex === 1">
+        <app-download-resume-list-c [colsChange]="colsChange"></app-download-resume-list-c>
+      </div>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="saveResumeTpl">
+      <ng-template #saveResumeTpl>
+        <div class="tab-title_sub text-md text-center">保存记录</div>
+      </ng-template>
+      <div class="tab_content_body" *ngIf="tabIndex === 2">
+        <app-save-resume-list-c [colsChange]="colsChange"></app-save-resume-list-c>
+      </div>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="reSendTpl">
+      <ng-template #reSendTpl>
+        <div class="tab-title_sub text-md text-center">转发记录</div>
+      </ng-template>
+      <div class="tab_content_body" *ngIf="tabIndex === 3">
+        <app-send-resume-list-c [colsChange]="colsChange"></app-send-resume-list-c>
+      </div>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="joinUsTpl">
+      <ng-template #joinUsTpl>
+        <div class="tab-title_sub text-md text-center">入职员工</div>
+      </ng-template>
+      <div class="tab_content_body" *ngIf="tabIndex === 4">
+        <app-joinus-resume-list-c [colsChange]="colsChange"></app-joinus-resume-list-c>
+      </div>
+    </nz-tab>
+
+  </nz-tabset>
+
+</div>

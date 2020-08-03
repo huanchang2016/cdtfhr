@@ -37,6 +37,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzSliderModule } from 'ng-zorro-antd/slider'
+import { NzTransferModule } from 'ng-zorro-antd/transfer';
 
 export const SHARED_ZORRO_MODULES = [
   NzFormModule,
@@ -77,5 +78,6 @@ export const SHARED_ZORRO_MODULES = [
   NzNotificationModule,
   NzAnchorModule,
   NzTagModule,
-  NzSliderModule
+  NzSliderModule,
+  NzTransferModule
 ];

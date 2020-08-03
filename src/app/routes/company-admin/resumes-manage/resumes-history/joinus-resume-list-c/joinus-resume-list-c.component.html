@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="!loadingData; else lodingSpin">
+    <p>joinus-resume-list-c works!</p>
+</ng-container>
+
+<ng-template #lodingSpin>
+    <div class="text-center py-lg">
+        <nz-spin nzSimple></nz-spin>
+    </div>
+</ng-template>

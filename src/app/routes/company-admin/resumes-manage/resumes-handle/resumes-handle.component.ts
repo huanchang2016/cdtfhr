@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumesHandleComponent implements OnInit {
 
+  search_text:string = '';
+  searchLoading: boolean = false;
+  
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  
+  search(): void {
+    console.log(this.search_text, 'search_ text info');
+
+    this.searchLoading = true;
+    setTimeout(() => {
+      this.searchLoading = false;
+    }, 500);
   }
 
 }
