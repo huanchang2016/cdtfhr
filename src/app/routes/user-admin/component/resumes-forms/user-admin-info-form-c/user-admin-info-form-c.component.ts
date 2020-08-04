@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserDataService } from '../../../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-info-form-c',
@@ -9,20 +10,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UserAdminInfoFormCComponent implements OnInit {
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    public userDataService: UserDataService
+  ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
+      name: [null, [Validators.required]],
       sex: [null, [Validators.required]],
       birthday: [null, [Validators.required]],
-      marriy_status: [null, [Validators.required]],
-      registered_residence: [null, [Validators.required]], // 户口所在地
+      marriage_id: [null, [Validators.required]],
+      registered_residence: [null, [Validators.required]], // 户口所在地 [registered_province_id, registered_city_id]
       work_date: [null, [Validators.required]],
       is_not_work: [false], // 根据 是否工作 确定  工作时间是否为必填项
-      address_city: [null, [Validators.required]], // 现居住城市
+      address_city: [null, [Validators.required]], // 现居住城市 [work_province_id, work_city_id]
       email: [null, [Validators.email, Validators.required]],
-      photo: [null]
+      avatar: [null]
     });
   }
   isNotWorkChange(required: boolean): void {

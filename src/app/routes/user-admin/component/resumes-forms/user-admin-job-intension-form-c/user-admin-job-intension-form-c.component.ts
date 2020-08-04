@@ -1,5 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserDataService } from '../../../service/user-data.service';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-user-admin-job-intension-form-c',
@@ -7,28 +11,30 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./user-admin-job-intension-form-c.component.less']
 })
 export class UserAdminJobIntensionFormCComponent implements OnInit {
+  @Input() resumeUserInfo:any;
+  
   @Output()stepsChange:EventEmitter<any> = new EventEmitter();
   
   validateForm!: FormGroup;
 
-  checkOptionsOne = [
-    { label: '全职', value: 1 },
-    { label: '兼职', value: 2 },
-    { label: '实习', value: 3 }
-  ];
+  submitLoading:boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    public userDataService: UserDataService,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      work_address: [null, [Validators.required]],
-      industry: [null, [Validators.required]],
-      job_position: [null, [Validators.required]],
+      work_address: [null, [Validators.required, Validators.maxLength(3)]], // [2544, 2580, 2895]
+      industry: [null, [Validators.required, Validators.maxLength(3)]],
+      job_position: [null, [Validators.required, Validators.maxLength(3)]], // [646, 957, 959, 647]
       job_salary: [null, [Validators.required]],
       job_status: [null, [Validators.required]],
       job_nature: [null, [Validators.required]]
     });
-
   }
   
   submitForm(): void {
@@ -36,9 +42,28 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 求职意向');
+    console.log(this.validateForm, '简历 求职意向', this.resumeUserInfo, 'resumeUserInfo');
     if(this.validateForm.valid) {
-      this.steps('next');
+      // this.steps('next');
+      const form:any = this.validateForm.value;
+      const option = {
+        city: form.work_address,
+        industry: form.industry,
+        job_type: form.job_position,
+        target_salary_id: form.job_salary,
+        status: form.job_status,
+        type: form.job_nature,
+        // resume_id: this.resumeUserInfo.id
+        resume_id: 18
+      };
+      console.log( option, 'intention object submit');
+
+      this.submitLoading = true;
+      this.globalService.post('/v1/web/user/resume/all_work/intent', option).subscribe((res:ApiData) => {
+        this.submitLoading = false;
+        this.msg.success(res.message);
+        this.steps('next');
+      }, err => this.submitLoading = false)
     }
     
   }

@@ -4,8 +4,6 @@ export class AccountInfo {
     phone: string;
     type: 'user' | 'company';
 }
-
-
 export class userProfile {
     name: string;
     phone: string;
@@ -27,3 +25,9 @@ export class List {
     name: string;
 }
 
+
+export class Config {
+    id: number;
+    key: string;
+    value: string;
+}

@@ -23,7 +23,7 @@
           <ng-container *ngIf="step === 1">
             <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
             
-            <app-user-admin-job-intension-form-c #userIntensionTpl (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c>
+            <app-user-admin-job-intension-form-c [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c>
 
           </ng-container>
   

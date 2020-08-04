@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ResumeTitleTplComponent } from '../../component/resume-title-tpl/resume-title-tpl.component';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resume-list',
@@ -13,20 +15,21 @@ export class ResumeListComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    // private viewContainerRef: ViewContainerRef
+    private settingService: GlobalSettingsService
   ) {}
 
   ngOnInit(): void {
-
     this.getDataList();
   }
 
   getDataList() {
     this.loadingData = true;
-    setTimeout(() => {
-      this.list = [1, 2, 3, 4];
+    
+    this.settingService.get('/v1/web/user/resumes').subscribe((res:ApiData) => {
       this.loadingData = false;
-    }, 1000);
+      console.log(res)
+      this.list = res.data;
+    }, err => this.loadingData = false)
   }
 
   isOpen:boolean = false;

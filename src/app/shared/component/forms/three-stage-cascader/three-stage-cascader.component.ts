@@ -24,21 +24,21 @@ import { resolve } from 'dns';
   ]
 })
 export class ThreeStageCascaderComponent implements ControlValueAccessor {
-  
-  @Input() placeholder?:string = '请选择省市区';
-  @Input() Size?:string = 'large';
-  @Input() layer?:string = '';
+
+  @Input() placeholder?: string = '请选择省市区';
+  @Input() Size?: string = 'large';
+  @Input() layer?: string = '';
 
   private propagateChange = (_: any) => { };
-  
+
   constructor(
     private globalService: GlobalSettingsService
-  ) {}
-  
-  values:any[];
+  ) { }
+
+  values: any[];
 
   writeValue(obj: any[]): void {
-    if(obj) {
+    if (obj) {
       this.values = obj;
     }
   }
@@ -47,7 +47,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
-  isDisabled:boolean = false;
+  isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
@@ -59,31 +59,29 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
 
   /** load data async execute by `nzLoadData` method */
   loadData = (node: NzCascaderOption, index: number): PromiseLike<void> => {
-        
+
     return new Promise(resolve => {
-      
-      if(index < 0) {
-          node.children = this.globalService.province;
-          resolve();
+      if (index < 0) {
+        node.children = this.globalService.province;
+        resolve();
       } else {
-        let isLeaf:boolean = false;
-        if(index > 0) {
+        let isLeaf: boolean = false;
+        if (this.layer === 'second') {
           isLeaf = true;
-        }else {
-          if(this.layer === 'second') {
-            isLeaf = true;
-          }
+        } else {
+          isLeaf = true;
         }
-        this.globalService.getCities(node.id).subscribe((res:ApiData) => {
-              const children = res.data.map( v => {
-                return {
-                  ...v,
-                  isLeaf: isLeaf
-                }
-              });
-              node.children = children;
-              console.log(children);
-              resolve();
+
+        this.globalService.getCities(node.id).subscribe((res: ApiData) => {
+          const children = res.data.map(v => {
+            return {
+              ...v,
+              isLeaf: isLeaf
+            }
+          });
+          node.children = children;
+          // console.log(children);
+          resolve();
         })
       }
     });
@@ -92,13 +90,13 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void { }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if(control.errors && control.errors.required) {
+    if (control.errors && control.errors.required) {
       return this.values && this.values.length !== 0 ? null : {
         isInvalid: {
           valid: false
         }
       }
-    }else {
+    } else {
       return null;
     }
   }

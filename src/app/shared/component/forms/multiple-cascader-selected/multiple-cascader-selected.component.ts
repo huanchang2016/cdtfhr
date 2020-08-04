@@ -1,9 +1,10 @@
-import { Component, OnInit, forwardRef, Input } from '@angular/core';
+import { Component, OnInit, forwardRef, Input, OnChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { format } from 'util';
 import { NzTreeNodeOptions, NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-multiple-cascader-selected',
@@ -22,91 +23,98 @@ import { ApiData } from 'src/app/data/interface';
     }
   ]
 })
-export class MultipleCascaderSelectedComponent implements ControlValueAccessor {
+export class MultipleCascaderSelectedComponent implements OnChanges, ControlValueAccessor {
+  /*****  三级级联多选
+   * 
+   * isLeaf: boolean = true | false // 确定层级是否已经完全展示
+   * total: number; // 判断多选的数据条数
+   * 
+   * type: string = 'city' | 'position_type' .... // 类型有 城市， 职位类别 
+   *      根据类型判断当前调用的是哪个配置项， 如： city 则调用 省市区 数据， position_type 则调用职位类别数据
+   * layer: string = 'second' | 'three' // 层级数，如： second 表示 选择 省市  两层，  three 则表示三层
+   *      加载数据时，根据node.level  和 layer 判断当前数据是否为 最后一层。
+   * ******/
+  
 
   @Input() placeholder?:string = '请选择省市区';
+  @Input() type:string;
+  @Input() layer?:string = 'three';
   @Input() size?:string = 'large';
 
   values?: number[] = [];
   nodes:any[] = [];
-  
+
   constructor(
     private globalService: GlobalSettingsService
-  ) {
-    let province:any[] = this.globalService.province;
-    console.log(province)
-    if(province.length !== 0) {
-      this.nodes = province.map( v => {
-        let d = {
-          title: v.name,
-          value: v.id,
-          key: v.id,
-          disabled: true,
-          children: []
-        }
-        this.loadNode(v.id).then( data => d.children = data);
-        return d;
-      })
-    }else {
-      console.log('获取级联信息第一层数据')
-      setTimeout(() => {
-        province = this.globalService.province;
-        console.log('pro', province)
-        this.nodes = province.map( v => {
-          let d = {
-            title: v.name,
-            value: v.id,
-            key: v.id,
-            disabled: true,
-            children: []
-          }
-          this.loadNode(v.id).then( data => d.children = data);
-          return d;
-        })
-      }, 1000);
+  ) { }
+  
+  ngOnChanges() {
+    if(this.type) {
+      if(this.type === 'city') {
+        this.nodes = this.globalService.cities;
+      }else if(this.type === 'position_type') {
+        this.nodes = this.globalService.position_type;
+      }
     }
   }
 
 
-  onExpandChange(e: NzFormatEmitEvent): void {
-    const node = e.node;
-    if (node && node.getChildren().length === 0 && node.isExpanded) {
-      this.loadNode(node.origin.value).then(data => {
-        node.addChildren(data);
-      });
-    }
-  }
 
-  loadNode(key:number): Promise<NzTreeNodeOptions[]> {
-    return new Promise(resolve => {
-      this.globalService.getCities(key).subscribe( (res:ApiData) => {
-        const children:any[] = res.data.map( v => {
-          return {
-            title: v.name,
-            value: v.id,
-            key: v.id,
-            isLeaf: true
-          }
-        });
-        resolve(children);
-      })
-    });
-  }
+  // onExpandChange(e: NzFormatEmitEvent): void {
+  //   const node = e.node;
+  //   if (node && node.getChildren().length === 0 && node.isExpanded) {
+  //     let is_leaf:boolean = false;
+  //     if((node.level === 0 && this.layer === 'second') || (node.level === 1 && this.layer === 'three')) {
+  //       is_leaf = true;
+  //     }
+  //     this.loadNode(node.origin.value, is_leaf).then(data => {
+  //       node.addChildren(data);
+  //     });
+  //   }
+  // }
+
+  // loadNode(key:number, is_leaf:boolean): Promise<NzTreeNodeOptions[]> {
+  //   console.log(is_leaf,'is_leaf, layer', this.layer)
+  //   return new Promise(resolve => {
+  //     let url: string = '';
+  //     if(this.type === 'city') {
+  //       url = `/v1/web/setting/city?pid=${key}`;
+  //     }else if(this.type === 'position_type') {
+  //       url = `/v1/web/setting/type?pid=${key}`
+  //     }
+  //     this.globalService.get(url)
+  //       .subscribe( (res:ApiData) => {
+  //         const children:any[] = res.data.map( v => {
+  //           let child = {
+  //             title: v.name,
+  //             value: v.id,
+  //             key: v.id,
+  //             disabled: !is_leaf,
+  //             isLeaf: is_leaf
+  //           }
+  //           return child;
+  //         });
+
+
+          
+          
+  //         resolve(children);
+  //       })
+  //   });
+  // }
 
   onChange($event: number[]): void {
     
-    if(this.values.length < 4) {
-      this.values = $event;
-    }
-    console.log($event, 'value: ', this.values);
+    console.log('ssss', this.values);
     this.propagateChange(this.values);
   }
 
   private propagateChange = (_: any) => { };
 
-  writeValue(obj: string): void {
+  writeValue(obj: any[]): void {
+    console.log(obj, 'multiple .....')
     if(obj) {
-      
+      this.values = obj;
     }
   }
 

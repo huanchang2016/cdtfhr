@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { GlobalSettingsService } from '@core';
 import { UserDataService } from '../service/user-data.service';
 
 @Injectable({
@@ -9,7 +8,6 @@ import { UserDataService } from '../service/user-data.service';
 })
 export class UserAdminHomeGuard implements CanActivate {
   constructor(
-    private settingService: GlobalSettingsService,
     private router: Router,
     private userDataService: UserDataService
   ) { }

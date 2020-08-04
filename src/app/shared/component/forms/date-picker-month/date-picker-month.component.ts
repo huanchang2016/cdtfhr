@@ -39,7 +39,8 @@ export class DatePickerMonthComponent implements ControlValueAccessor {
   datePickerChange(date:Date):void {
     this.date = date;
     if(this.date) {
-      this.propagateChange(format(this.date, this.dateFormat))
+      this.propagateChange(format(this.date, 'yyyy-MM'))
+      // this.propagateChange(format(this.date, this.dateFormat))
     }else {
       this.propagateChange(null);
     }

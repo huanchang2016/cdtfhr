@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AccountInfo, ApiData } from 'src/app/data/interface';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,31 @@ export class GlobalSettingsService {
 
   user:AccountInfo = null;
 
-  province:any[] = [];
+  globalConfigOptions:{ [key:string]: any[]} = {
+    province: [], // 省
+    city: [], // 省
+    position_type: [], // 职位类别，第一层级
+    industry: [] // 行业配置项
+  };
 
   constructor(
     private httpClient: HttpClient
   ) {
     // this.getGlobalConfigs();
+    this.getConfigs();
+  }
+
+  get province():Array<any> {
+    return this.globalConfigOptions.province;
+  }
+  get cities():Array<any> {
+    return this.globalConfigOptions.city;
+  }
+  get position_type():Array<any> {
+    return this.globalConfigOptions.position_type;
+  }
+  get industry():Array<any> {
+    return this.globalConfigOptions.industry;
   }
 
   get(url:string, option?:any):Observable<any> {
@@ -51,18 +71,6 @@ export class GlobalSettingsService {
     }
   }
 
-  // setUser(user: AccountInfo): void {
-  //   this.setItem('cdtfhr_user', user);
-  // }
-
-  // getUser(): AccountInfo {
-  //   const user = this.getItem('cdtfhr_user');
-  //   if(user) {
-  //     return user;
-  //   }
-    
-  // }
-
   setItem(key:string, value:any):void {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -78,12 +86,28 @@ export class GlobalSettingsService {
 
   }
 
+  getConfigs():void {
+    zip(
+      this.get(`/v1/web/setting/city`),
+      this.get(`/v1/web/setting/city/all`),
+      this.get(`/v1/web/setting/type/all`),
+      this.get(`/v1/web/setting/industry`)
+    ).pipe(
+      map(([province, city, type, industry]) => [province.data, city.data, type.data, industry.data])
+    ).subscribe(([province, city, type, industry]) => {
+      this.globalConfigOptions.province = province;
+      this.globalConfigOptions.city = city;
+      this.globalConfigOptions.position_type = type;
+      this.globalConfigOptions.industry = industry;
+    })
+  }
+
   // 获取一些常用的全局配置项
   getGlobalConfigs():void {
     this.httpClient.get(`/v1/web/setting/city`).subscribe( (res:ApiData) => {
       console.log(res, 'province ');
       if(res.code === 200) {
-        this.province = res.data.map( v => {
+        this.globalConfigOptions.city = res.data.map( v => {
           return {
             // value: v.id,
             // label: v.name
@@ -95,6 +119,6 @@ export class GlobalSettingsService {
   }
 
   getCities(pid:number): Observable<any> {
-    return this.httpClient.get(`/v1/web/setting/city?pid=${pid}`);
+    return this.get(`/v1/web/setting/city?pid=${pid}`);
   }
 }

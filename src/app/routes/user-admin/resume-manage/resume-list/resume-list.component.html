@@ -17,42 +17,41 @@
                     <tr *ngFor="let data of basicTable.data; let i = index">
                         <!-- <td></td> -->
                         <td>
-                            我的简历（1）
-                            <span *ngIf="i === 0"
+                            {{ data.title }}
+                            <span *ngIf="data.is_default === 1"
                                 class="px-sm py-xs bg-danger text-white text-xs border-radius-sm">默认</span>
-                            <!-- <span *ngIf="i !== 1" class="px-sm py-xs bg-grey text-white text-xs border-radius-sm">草稿</span> -->
                         </td>
                         <td class="text-666">
-                            <div>2020/06/18</div>
-                            <div>20:20:20</div>
+                            <div>{{ data.created_at | date: 'yyyy/MM/dd'}}</div>
+                            <div>{{ data.created_at | date: 'HH:mm:ss'}}</div>
                         </td>
                         <td class="text-666">
-                            <div>2020/06/18</div>
-                            <div>20:20:20</div>
+                            <div>{{ data.updated_at | date: 'yyyy/MM/dd'}}</div>
+                            <div>{{ data.updated_at | date: 'HH:mm:ss'}}</div>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="isOpen" (ngModelChange)="openValueChange($event, data)"
+                            <nz-switch [(ngModel)]="data.privacy" (ngModelChange)="openValueChange($event, data)"
                                 nzCheckedChildren="是" nzUnCheckedChildren="否"></nz-switch>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="isDefault" (ngModelChange)="setDefault($event, data)"
+                            <nz-switch [(ngModel)]="data.is_default" (ngModelChange)="setDefault($event, data)"
                                 nzCheckedChildren="是" nzUnCheckedChildren="否"></nz-switch>
                         </td>
                         <td>
                             <div class="oper_box_wrapper">
                                 <div class="oper-list text-lg text-nowrap text-center">
-                                    <span class="text-primary mr-sm point" (click)="editResumeName(data)">
+                                    <span class="text-primary mr-sm point" (click)="editResumeName(data)" nz-tooltip nzTooltipTitle="修改简历名称">
                                         <i nz-icon nzType="exception" nzTheme="outline"></i>
                                     </span>
 
-                                    <a [routerLink]="['/fullscreen/resume/view', 2]" target="_blank"><i nz-icon
-                                            nzType="eye" nzTheme="outline"></i></a>
+                                    <a [routerLink]="['/fullscreen/resume/view', data.id]" target="_blank"><i nz-icon
+                                            nzType="eye" nzTheme="outline" nz-tooltip nzTooltipTitle="简历预览"></i></a>
 
-                                    <a class="mx-sm" [routerLink]="['/admin/user/resumes/edit', 2]"><i nz-icon
-                                            nzType="edit" nzTheme="outline"></i></a>
+                                    <a class="mx-sm" [routerLink]="['/admin/user/resumes/edit', data.id]"><i nz-icon
+                                            nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="修改简历"></i></a>
                                     <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前简历" nzPopconfirmPlacement="bottom"
                                         (nzOnConfirm)="deleted(data)" (nzOnCancel)="cancel()" class="text-danger">
-                                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                        <i nz-icon nzType="delete" nzTheme="outline" nz-tooltip nzTooltipTitle="删除简历"></i>
                                     </a>
 
                                 </div>
