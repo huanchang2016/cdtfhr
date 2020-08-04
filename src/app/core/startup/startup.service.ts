@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { ICONS } from '../../../style-icons';
 import { ICONS_AUTO } from '../../../style-icons-auto';
-import { Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
+import { GlobalSettingsService } from '../global-settings/global-settings.service';
 
 /**
  * Used for application startup
@@ -16,51 +16,29 @@ export class StartupService {
   constructor(
     iconSrv: NzIconService,
     private httpClient: HttpClient,
-    private injector: Injector
+    private injector: Injector,
+    private settingService: GlobalSettingsService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
   
-  private viaMockI18n(resolve: any, reject: any) {
-    // this.httpClient
-    //   .get(`assets/tmp/i18n/${this.i18n.defaultLang}.json`)
-    //   .subscribe(langData => {
-    //     this.translate.setTranslation(this.i18n.defaultLang, langData);
-    //     this.translate.setDefaultLang(this.i18n.defaultLang);
-
-    //     this.viaMock(resolve, reject);
-    //   });
-    this.viaMock(resolve, reject);
-  }
-  
-  private viaMock(resolve: any, reject: any) {
-    const tokenData:any = JSON.parse(localStorage.getItem('cdtfhr_user'));
+  private viaHttp(resolve: any, reject: any) {
+    const tokenData:any = this.settingService.getToken();
     if (!tokenData) {
       resolve({});
       return;
     }
-    this.httpClient.get('/v1/web/user/profile').subscribe((res:ApiData) => {
-      if(res.code === 200) {
-
-      }
+    this.httpClient.get('/v1/web/user/account').subscribe((res:ApiData) => {
+      console.log(res, 'star_service accountinfo');
+      this.settingService.user = res.data;
       
-     
-    })
-     // mock
-    const app: any = {
-      name: `天府菁英网`,
-      description: `汇聚天下英才  共创千秋伟业`
-    };
-    const user: any = {
-      name: '天府人资',
-      avatar: './assets/tmp/img/avatar.jpg',
-      email: 'cdtfhr@admin.com',
-      token: '028-80518071'
-    };
-    console.log([app, user])
+      resolve(res.data);
 
-    resolve({});
+    }, err => console.log('error account info get!'))
+    
+
   }
+
 
   load(): Promise<any> {
     console.log('startup service works!')
@@ -68,9 +46,9 @@ export class StartupService {
     // https://github.com/angular/angular/issues/15088
     return new Promise((resolve, reject) => {
       // http
-      // this.viaHttp(resolve, reject);
+      this.viaHttp(resolve, reject);
       // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-      this.viaMockI18n(resolve, reject);
+      // this.viaMockI18n(resolve, reject);
 
     });
   }

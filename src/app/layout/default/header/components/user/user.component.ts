@@ -1,9 +1,10 @@
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from 'src/app/data/interface';
 import { GlobalSettingsService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserLoginComponent } from 'src/app/shared/component/user-login/user-login.component';
 import { CompanyLoginComponent } from 'src/app/shared/component/company-login/company-login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-user',
@@ -13,36 +14,16 @@ import { CompanyLoginComponent } from 'src/app/shared/component/company-login/co
 export class UserComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line: semicolon
-  user: User = null;
   // tslint:disable-next-line: no-trailing-whitespace
 
   constructor(
-    private settingService: GlobalSettingsService,
-    private modal: NzModalService
-  ) {
-    this.getUserInfo();
-    
-    
-  }
+    public settingService: GlobalSettingsService,
+    private modal: NzModalService,
+    private msg: NzMessageService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-  }
-
-  getUserInfo() {
-    // 模拟登录信息验证
-    this.user = this.settingService.getUser();
-    // const _random:number = Math.random();
-
-    // if(_random > 0.5) {
-    //   this.user = {
-    //     id: 1,
-    //     name: '天府新区人力资源开发服务有限公司',
-    //     username: 'cdtfhr',
-    //     avatar: 'ssss',
-    //     token: '10123819477239874',
-    //   };
-    // }else {
-    //   this.user = null;
-    // }
   }
 
   companyModal:any = null;
@@ -63,11 +44,7 @@ export class UserComponent implements OnInit, OnDestroy {
     const instance = this.companyModal.getContentComponent();
     this.companyModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.companyModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-        this.getUserInfo();
-      }
-    });
+    this.companyModal.afterClose.subscribe( result => console.log(result, 'close modal'));
   }
   createUserModal () {
     this.userModal = this.modal.create({
@@ -81,23 +58,40 @@ export class UserComponent implements OnInit, OnDestroy {
       nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    const instance = this.userModal.getContentComponent();
-    this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // const instance = this.userModal.getContentComponent();
+    // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.userModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-        this.getUserInfo();
-      }
-    });
+    this.userModal.afterClose.subscribe( result => console.log(result, 'close modal'));
 
+  }
+
+  toCenter():void {
+    let path: string = '';
+    if(this.settingService.user.type === 'user') {
+      path = '/admin/user';
+    } else {
+      path = '/admin/company';
+    }
+    this.router.navigateByUrl(path);
   }
 
   editpwd() {
     console.log('修改密码');
   }
 
-  logout(user_id: number) {
-    this.settingService.clearUser();
+  logout() {
+    let url: string = '';
+    if(this.settingService.user.type === 'user') {
+      url = '/v1/web/logout';
+    } else {
+      url = '/v1/com/logout';
+    }
+    this.settingService.delete(url).subscribe( res => {
+      this.msg.success(res.message);
+      this.settingService.user = null;
+      this.settingService.clearUser();
+      this.router.navigateByUrl('/');
+    }, err => console.log(err));
   }
 
   ngOnDestroy() {

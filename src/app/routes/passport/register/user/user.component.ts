@@ -4,6 +4,8 @@ import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.less']
 })
 export class UserRegisterComponent implements OnInit {
-  isGetCode:boolean = false;
+  isGetCode: boolean = false;
 
   validateForm: FormGroup;
   error: string = '';
@@ -21,14 +23,15 @@ export class UserRegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
       code: [null, [Validators.required]],
-      remember: [null, [Validators.required]]
+      agree: [null, [Validators.required]]
     });
   }
 
@@ -39,53 +42,59 @@ export class UserRegisterComponent implements OnInit {
     }
 
     console.log(this.validateForm);
+    if (!this.validateForm.get('agree').valid) {
+      this.msg.warning('请阅读《用户协议》和《隐私政策》');
+    }
 
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       console.log(this.validateForm.value, 'register Info');
       // this.httpClient.post('')
       this.loading = true;
+      const opt: any = {
+        phone: this.validateForm.value.phone,
+        code: this.validateForm.value.code
+      };
 
-      setTimeout(() => {
+      this.settingService.post('/v1/web/register', this.validateForm.value).subscribe((res: ApiData) => {
+        console.log(res, 'register');
         this.loading = false;
-        this.msg.success('登录成功');
-        this.router.navigateByUrl('/admin/user');
-      }, 1500);
-
-      // 登录后， 重新获取用户信息
-      // this.startupSrv.load().then(() => {
-      //   this.destroyModal({ type: 'success'});
-      // })
+        // 注册成功后，处理用户数据及token，并前往实名认证页面 完成实名认证
+        this.settingService.setToken(res.data);
+        this.router.navigateByUrl('/admin/user/certification');
+      }, err => this.loading = false)
     }
   }
 
-  count:number = 59;
+  count: number = 60;
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const phone = this.validateForm.get('phone');
-    if(!phone.valid) {
+    if (!phone.valid) {
       this.msg.error('手机号码未填写');
       return;
     }
-    if(this.isGetCode) {
+    if (this.isGetCode) {
       return;
-    }else {
+    } else {
       console.log('send code');
-      setTimeout(() => {
+      this.settingService.post('/v1/web/send_reg_code', { phone: phone.value }).subscribe((res: ApiData) => {
         this.isGetCode = true;
+        this.msg.success('发送成功');
         this.counter();
-      }, 800);
+      }, err => this.isGetCode = false)
     }
   }
 
   counter() {
+    this.count = 60;
     const numbers = interval(1000);
     const takeFourNumbers = numbers.pipe(take(60));
     takeFourNumbers.subscribe(
       x => {
-        this.count = 60 - x;
+        this.count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.isGetCode = false;
       });

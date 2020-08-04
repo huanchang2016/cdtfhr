@@ -1,3 +1,4 @@
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponseBase, HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
@@ -35,11 +36,16 @@ export class DefaultInterceptor implements HttpInterceptor {
     return this.injector.get(NzNotificationService);
   }
 
+  private get msg(): NzMessageService {
+    return this.injector.get(NzMessageService);
+  }
+
   private goTo(url: string) {
     setTimeout(() => this.injector.get(Router).navigateByUrl(url));
   }
 
   private checkStatus(ev: HttpResponseBase) {
+
     if ((ev.status >= 200 && ev.status < 300) || ev.status === 401) {
       return;
     }
@@ -48,12 +54,12 @@ export class DefaultInterceptor implements HttpInterceptor {
     this.notification.error(`请求错误 ${ev.status}: ${ev.url}`, errortext);
   }
 
-  private handleData(ev: HttpResponseBase): Observable<any> {
+  private handleData(ev: any): Observable<any> {
     // 可能会因为 `throw` 导出无法执行 `_HttpClient` 的 `end()` 操作
     if (ev.status > 0) {
       
     }
-    this.checkStatus(ev);
+    // this.checkStatus(ev);
     // 业务处理：一些通用操作
     switch (ev.status) {
       case 200:
@@ -77,6 +83,9 @@ export class DefaultInterceptor implements HttpInterceptor {
         //     }
         // }
         break;
+      case 400:
+        this.msg.error(ev.error.message);
+        break;
       case 401:
         this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
         this.goTo('/passport/login');
@@ -88,7 +97,10 @@ export class DefaultInterceptor implements HttpInterceptor {
         break;
       default:
         if (ev instanceof HttpErrorResponse) {
-          console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
+          // console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
+          const errors = ev.error.errors;
+          const errorText:string = errors[Object.keys(errors)[0]];
+          this.msg.error(errorText);
         }
         break;
     }
@@ -113,7 +125,6 @@ export class DefaultInterceptor implements HttpInterceptor {
       const token:string = JSON.parse(localStorage.getItem('cdtfhr_token')).access_token;
       newReq.headers = newReq.headers.set('Authorization', 'Bearer '+ token);
     }
-    
     return next.handle(newReq).pipe(
         retry(3),
         mergeMap((event: any) => {

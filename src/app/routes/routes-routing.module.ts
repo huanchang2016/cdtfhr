@@ -16,6 +16,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 
 // Admin pages
 import { LayoutAdminComponent } from '../layout/layout-admin/layout-admin.component';
+import { UserAdminGuard } from './user-admin/guard/user-admin.guard';
+import { AgreementPageComponent } from './passport/agreement-page/agreement-page.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,7 @@ const routes: Routes = [
       // { path: 'login', component: LoginComponent, data: { title: '登录' } },
       { path: 'register/user', component: UserRegisterComponent, data: { title: '个人注册' } },
       { path: 'register/company', component: CompanyRegisterComponent, data: { title: '企业注册' } },
+      { path: 'register/agreement', component: AgreementPageComponent, data: { title: '企业注册' } },
       { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },
     ]
   },

@@ -25,12 +25,14 @@
             </nz-form-item>
             <div nz-row class="login-form-remember">
                 <div nz-col [nzSpan]="24" class="text-md">
-                  <label nz-checkbox formControlName="remember">
+                  <label nz-checkbox formControlName="agree">
                     <span>我接受</span>
-                    <a > 用户协议</a>
-                    <span>和</span>
-                    <a >隐私政策</a>
                   </label>
+                  <span class="text-sm">
+                    <a [routerLink]="['/passport/register/agreement']" target="_blank">《天府菁英网用户服务协议》</a>
+                    <span>，并自愿遵守该协议</span>
+                  </span>
+                    
                 </div>
             </div>
             <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="loading" nzSize="large">提交注册</button>

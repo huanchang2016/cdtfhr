@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataService } from '../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-layout',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserAdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public userDataService: UserDataService
+  ) { }
 
   ngOnInit(): void {
   }

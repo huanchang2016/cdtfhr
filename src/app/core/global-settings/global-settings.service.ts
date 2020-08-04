@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, ApiData } from 'src/app/data/interface';
+import { AccountInfo, ApiData } from 'src/app/data/interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GlobalSettingsService {
+
+  user:AccountInfo = null;
 
   province:any[] = [];
 
@@ -24,6 +26,10 @@ export class GlobalSettingsService {
     return this.httpClient.post(url, option);
   }
 
+  delete(url:string, option?:any):Observable<any> {
+    return this.httpClient.delete(url, option);
+  }
+
   getBytoken(url:string, option?:any):Observable<any> {
     return this.httpClient.get(url, option);
   }
@@ -33,11 +39,11 @@ export class GlobalSettingsService {
   // tslint:disable-next-line: semicolon
 
   setToken(token: any) {
-    localStorage.setItem('cdtfhr_token', JSON.stringify(token));
+    this.setItem('cdtfhr_token', token);
   }
 
   getToken():string {
-    const token:any = JSON.parse(localStorage.getItem('cdtfhr_user'));
+    const token:any = JSON.parse(localStorage.getItem('cdtfhr_token'));
     if(token) {
       return token.access_token;
     }else {
@@ -45,19 +51,17 @@ export class GlobalSettingsService {
     }
   }
 
-  setUser(user: User): void {
-    // localStorage.setItem('cdtfhr_user', JSON.stringify(user));
-    this.setItem('cdtfhr_user', user);
-  }
+  // setUser(user: AccountInfo): void {
+  //   this.setItem('cdtfhr_user', user);
+  // }
 
-  getUser(): User {
-    // const user = JSON.parse(localStorage.getItem('cdtfhr_user'));
-    const user = this.getItem('cdtfhr_user');
-    if(user) {
-      return user;
-    }
+  // getUser(): AccountInfo {
+  //   const user = this.getItem('cdtfhr_user');
+  //   if(user) {
+  //     return user;
+  //   }
     
-  }
+  // }
 
   setItem(key:string, value:any):void {
     localStorage.setItem(key, JSON.stringify(value));

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-sidebar',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-sidebar.component.less']
 })
 export class UserSidebarComponent implements OnInit {
+  profile:any = null;
 
-  constructor() { }
+  constructor(
+    public userDataService: UserDataService
+  ) { }
 
   ngOnInit(): void {
+    this.userDataService.getProfile().then( v => this.profile = v );
   }
 
 }

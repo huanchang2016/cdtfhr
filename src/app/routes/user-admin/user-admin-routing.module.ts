@@ -7,19 +7,58 @@ import { UserAdminBindAccountComponent } from './user-center/user-admin-bind-acc
 import { ResumeListComponent } from './resume-manage/resume-list/resume-list.component';
 import { ResumeCreateComponent } from './resume-manage/resume-create/resume-create.component';
 import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
+import { AuthenticationGuard } from './guard/authentication.guard';
+import { UserAdminGuard } from './guard/user-admin.guard';
+import { UserAdminHomeGuard } from './guard/user-admin-home.guard';
 
 
 const routes: Routes = [
-  { path: '', component: UserAdminLayoutComponent,
+  {
+    path: '', component: UserAdminLayoutComponent,
+    canActivate: [UserAdminGuard],
+
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: UserAdminHomeComponent },
+      {
+        path: 'home',
+        canActivate: [
+          UserAdminHomeGuard
+        ],
+        component: UserAdminHomeComponent
+      },
       { path: 'certification', component: UserAdminCertificationComponent },
-      { path: 'bind', component: UserAdminBindAccountComponent },
-      { path: 'resumes', component: ResumeListComponent },
-      { path: 'resumes/add', component: ResumeCreateComponent },
-      { path: 'resumes/edit/:id', component: ResumeEditComponent },
-      { path: 'delivery', loadChildren: () => import('./resume-delivery-manage/resume-delivery-manage.module').then( m => m.ResumeDeliveryManageModule ) }
+      {
+        path: 'bind',
+        canActivate: [
+          AuthenticationGuard
+        ],
+        component: UserAdminBindAccountComponent
+      },
+      {
+        path: 'resumes',
+        canActivate: [
+          AuthenticationGuard
+        ], component: ResumeListComponent
+      },
+      {
+        path: 'resumes/add',
+        canActivate: [
+          AuthenticationGuard
+        ], component: ResumeCreateComponent
+      },
+      {
+        path: 'resumes/edit/:id',
+        canActivate: [
+          AuthenticationGuard
+        ], component: ResumeEditComponent
+      },
+      {
+        path: 'delivery',
+        canActivate: [
+          AuthenticationGuard
+        ], loadChildren: () => import('./resume-delivery-manage/resume-delivery-manage.module').then(m => m.ResumeDeliveryManageModule)
+      },
+      { path: '***', redirectTo: '/' }
     ]
   }
 ];

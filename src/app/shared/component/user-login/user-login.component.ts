@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
 import { Router } from '@angular/router';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user-login',
@@ -46,23 +47,26 @@ export class UserLoginComponent {
     console.log(this.validateForm);
 
     if(this.validateForm.valid) {
+
       console.log(this.validateForm.value, 'login Info');
       // this.httpClient.post('')
       this.loading = true;
-
-      setTimeout(() => {
+      this.settingService.post('/v1/web/login', this.validateForm.value).subscribe((res:ApiData) => {
         this.loading = false;
-        this.router.navigateByUrl('/admin/user');
-      }, 1500);
+        console.log(res, 'login ');
+        // this.router.navigateByUrl('/admin/user');
+        this.settingService.setToken(res.data);
+        // 登录后， 重新获取用户信息
+        this.startupSrv.load().then((ss) => {
+          this.destroyModal({ type: 'success'});
+          this.router.navigateByUrl('/admin/user');
+        })
+      }, err => this.loading = false);
 
-      // 登录后， 重新获取用户信息
-      this.startupSrv.load().then(() => {
-        this.destroyModal({ type: 'success'});
-      })
     }
   }
 
-  count:number = 59;
+  count:number = 30;
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -75,19 +79,21 @@ export class UserLoginComponent {
       return;
     }else {
       console.log('send code');
-      setTimeout(() => {
+      this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res:ApiData) => {
         this.isGetCode = true;
-        this.counter();
-      }, 800);
+          this.msg.success('发送成功');
+          this.counter();
+      }, err => this.isGetCode = false)
     }
   }
 
   counter() {
+    this.count = 60;
     const numbers = interval(1000);
     const takeFourNumbers = numbers.pipe(take(60));
     takeFourNumbers.subscribe(
       x => {
-        this.count = 60 - x;
+        this.count = 60 - x - 1;
       },
       error => {},
       () => {
