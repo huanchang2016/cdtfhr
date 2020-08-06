@@ -3,6 +3,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ResumeTitleTplComponent } from '../../component/resume-title-tpl/resume-title-tpl.component';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { isTemplateRef } from 'ng-zorro-antd/core/util';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-resume-list',
@@ -13,9 +15,13 @@ export class ResumeListComponent implements OnInit {
   list:any[] = [];
   loadingData: boolean = true;
 
+  openItemOption: {[key:number]: boolean} = {};
+  defaultItemOption: {[key:number]: boolean} = {};
+
   constructor(
     private modal: NzModalService,
-    private settingService: GlobalSettingsService
+    private settingService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -24,11 +30,18 @@ export class ResumeListComponent implements OnInit {
 
   getDataList() {
     this.loadingData = true;
-    
+    this.openItemOption = {};
     this.settingService.get('/v1/web/user/resumes').subscribe((res:ApiData) => {
       this.loadingData = false;
       console.log(res)
       this.list = res.data;
+      
+      if(this.list.length !== 0) {
+        this.list.forEach(item => {
+          this.openItemOption[item.id] = false;
+          this.defaultItemOption[item.id] = false;
+        });
+      }
     }, err => this.loadingData = false)
   }
 
@@ -37,10 +50,36 @@ export class ResumeListComponent implements OnInit {
 
   openValueChange(key:boolean, data:any) {
     console.log(key, 'key', data, 'data', 'open your resume');
+    const option = {
+      privacy: key ? 1 : 0
+    };
+    this.openItemOption[data.id] = true;
+    this.settingService.post(`/v1/web/user/resume/privacy/${data.id}`, option).subscribe((res:ApiData) => {
+      this.openItemOption[data.id] = false;
+      this.msg.success(res.message);
+      this.updateList(res.data);
+    }, err => this.openItemOption[data.id] = false)
   }
 
   setDefault(key:boolean, data:any) {
     console.log(key, 'key', data, 'data', 'set default resume')
+    this.defaultItemOption[data.id] = true;
+    this.settingService.post(`/v1/web/user/resume/set_default/${data.id}`).subscribe((res:ApiData) => {
+      this.defaultItemOption[data.id] = false;
+      this.msg.success(res.message);
+      this.resetListDefault(data.id);
+    }, err => this.defaultItemOption[data.id] = false)
+  }
+  resetListDefault(id:number):void {
+    this.list = this.list.map( v => {
+      if(v.id === id) {
+        v.is_default = true;
+      }else {
+        v.is_default = false;
+      }
+      return v;
+    })
+    // .sort((a, b) => b.is_default - a.is_default)
   }
 
   editResumeName(data:any) {
@@ -70,12 +109,28 @@ export class ResumeListComponent implements OnInit {
     // Return a result when closed
     modal.afterClose.subscribe(result => {
       console.log('[afterClose] The result is:', result)
+      if(result && result.data) {
+        const data = result.data;
+        this.updateList(data);
+      }
+    });
+  }
+
+  updateList(data:any):void {
+    this.list = this.list.map( v => {
+      if(v.id === data.id) {
+        v = data
+      }
+      return v;
     });
   }
 
   deleted(data:any) {
     console.log('deleted data', data);
-
+    this.settingService.delete(`/v1/web/user/resume/${data.id}`).subscribe((res:ApiData) => {
+      this.list = this.list.filter(v => v.id !== data.id);
+      this.msg.success(res.message);
+    });
   }
 
   cancel():void {}

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserAdminInfoFormCComponent } from '../../component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-resume-create',
@@ -12,13 +13,14 @@ export class ResumeCreateComponent implements OnInit {
 
   submitLoading:boolean = false;
 
-  step: 0 | 1 | 2 | 3 | 4 | 5 = 1;
+  step: 0 | 1 | 2 | 3 | 4 | 5 = 0;
 
   // 先获取信息，根据信息判断当前用户的实名认证 进行到了哪一步？
   resumeUserInfo:any = null;
 
   constructor(
-    private settingService: GlobalSettingsService
+    private settingService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {}
@@ -56,14 +58,10 @@ export class ResumeCreateComponent implements OnInit {
           console.log(res);
           this.submitLoading = false;
           this.resumeUserInfo = res.data;
+          this.msg.success(res.message);
           ++this.step;
         }, err => this.submitLoading = false)
         
-        // setTimeout(() => {
-        //   this.submitLoading = false;
-        //   // 在当前组件层级 存入 resume_id 简历id。
-        //   ++this.step;
-        // }, 800);
       }
     })
   }

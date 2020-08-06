@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user-intension-form-tpl',
@@ -14,15 +17,11 @@ export class UserIntensionFormTplComponent implements OnInit {
 
   loading:boolean = false;
 
-  checkOptionsOne = [
-    { label: '全职', value: 1 },
-    { label: '兼职', value: 2 },
-    { label: '实习', value: 3 }
-  ];
-  
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {}
 
 
@@ -41,19 +40,25 @@ export class UserIntensionFormTplComponent implements OnInit {
     }
   }
 
+  job_nature:any[] = [];
   setForm() {
+    const work_address = this.data.target.city.map(v => v.id);
+    const industry = this.data.target.industry.map(v => v.id);
+    const job_position = this.data.target.job_type.map(v => v.id);
+    this.job_nature = this.data.target.type.map(v => v.id);
     // 设置表单值
     this.validateForm.patchValue({
-      work_address: null,
-      industry: null,
-      job_position: null,
-      job_salary: null,
-      job_status: null,
-      job_nature: null
+      work_address: work_address,
+      industry: industry,
+      job_position: job_position,
+      job_salary: this.data.target.salary.id,
+      job_status: this.data.target.status.id,
+      job_nature: this.job_nature
     })
   }
 
   log(value: string[]): void {
+    console.log(value , 'valuevaluevaluevalue');
     this.validateForm.patchValue({
       job_nature: value
     });
@@ -67,10 +72,23 @@ export class UserIntensionFormTplComponent implements OnInit {
     console.log(this.validateForm, '简历 个人信息');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
+      const form:any = this.validateForm.value;
+      const option = {
+        city: form.work_address,
+        industry: form.industry,
+        job_type: form.job_position,
+        target_salary_id: form.job_salary,
+        status: form.job_status,
+        type: form.job_nature,
+        resume_id: this.data.id
+      };
+
+      this.globalService.post(`/v1/web/user/resume_target/${this.data.id}`, option).subscribe((res:ApiData) => {
+        console.log(res);
         this.loading = false;
-        this.destroyModal({ id: 1, name: '张三' })
-      }, 800);
+        this.destroyModal(res.data);
+        this.msg.success('修改成功');
+      }, err => this.loading = false)
     }
     
   }

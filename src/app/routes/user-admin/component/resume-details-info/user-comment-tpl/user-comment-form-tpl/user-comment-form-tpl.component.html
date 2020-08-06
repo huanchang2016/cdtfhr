@@ -1,8 +1,8 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item class="mt-md">
-        <!-- <nz-form-label [nzSpan]="5" nzFor="self_comment">自我评价</nz-form-label> -->
+        <!-- <nz-form-label [nzSpan]="5" nzFor="self_evalution">自我评价</nz-form-label> -->
         <nz-form-control [nzSpan]="24" nzErrorTip="请填写自我评价">
-            <textarea formControlName="self_comment" nz-input [nzAutosize]="{ minRows: 8, maxRows: 20 }" placeholder="请输入内容"></textarea>
+            <textarea formControlName="self_evalution" nz-input [nzAutosize]="{ minRows: 8, maxRows: 20 }" placeholder="请输入内容"></textarea>
         </nz-form-control>
     </nz-form-item>
     

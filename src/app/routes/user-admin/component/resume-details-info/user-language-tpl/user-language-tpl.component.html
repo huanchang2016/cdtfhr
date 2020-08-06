@@ -14,20 +14,20 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let language of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">英语</h4>
+                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ language.language.value }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(language)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前语言能力" (nzOnConfirm)="deleted(language)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
@@ -35,12 +35,12 @@
                             <p>
                                 听说能力
                                 <nz-divider nzType="vertical"></nz-divider>
-                                熟练
+                                {{ language.listening_speaking }}
                             </p>
                             <p>
-                                独写能力
+                                读写能力
                                 <nz-divider nzType="vertical"></nz-divider>
-                                一般
+                                {{ language.reading_writing }}
                             </p>
                         </div>
                     </div>

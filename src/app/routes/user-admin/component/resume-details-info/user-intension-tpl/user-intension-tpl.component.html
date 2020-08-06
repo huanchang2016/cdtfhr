@@ -14,12 +14,32 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div class="text-sm text-grey">
-            <div>期望工作地区： 成都</div>
-            <div>期望工作性质： 全职</div>
-            <div>期望从事行业： 房地产开发与经营</div>
-            <div>期望职业： 工程总监、房地产招投标、项目主管</div>
-            <div>期望月薪： 10K-15K/月</div>
-            <div>求职状态： 在职，急于寻找新工作</div>
+            <div>期望工作地区： 
+                <ng-container *ngFor="let city of resumeInfo.target.city; let city_idx = index">
+                    <nz-divider nzType="vertical" *ngIf="city_idx !== 0"></nz-divider>
+                    {{ city.name }}
+                </ng-container>
+            </div>
+            <div>期望工作性质： 
+                <ng-container *ngFor="let type of resumeInfo.target.type; let type_idx = index">
+                    <nz-divider nzType="vertical" *ngIf="type_idx !== 0"></nz-divider>
+                    {{ type.value }}
+                </ng-container>
+            </div>
+            <div>期望从事行业： 
+                <ng-container *ngFor="let industry of resumeInfo.target.industry; let industry_idx = index">
+                    <nz-divider nzType="vertical" *ngIf="industry_idx !== 0"></nz-divider>
+                    {{ industry.name }}
+                </ng-container>
+            </div>
+            <div>期望职业： 
+                <ng-container *ngFor="let job_type of resumeInfo.target.job_type; let job_type_idx = index">
+                    <nz-divider nzType="vertical" *ngIf="job_type_idx !== 0"></nz-divider>
+                    {{ job_type.name }}
+                </ng-container>
+            </div>
+            <div>期望月薪： {{ resumeInfo.target.salary.value }} 元/月</div>
+            <div>求职状态： {{ resumeInfo.target.status.value }}</div>
         </div>
     </div>
 </div>

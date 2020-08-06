@@ -1,5 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-user-admin-internship-exp',
@@ -7,11 +10,16 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./user-admin-internship-exp.component.less']
 })
 export class UserAdminInternshipExpComponent implements OnInit {
+  @Input() resumeUserInfo:any;
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -96,6 +104,7 @@ export class UserAdminInternshipExpComponent implements OnInit {
     this.stepsChange.emit(type);
   }
 
+  submitLoading: boolean = false;
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -116,7 +125,33 @@ export class UserAdminInternshipExpComponent implements OnInit {
     
     console.log(this.validateForm, '简历 实习经历');
     if(this.validateForm.valid) {
-      this.steps('next');
+      if(this.validateForm.get('is_internship').value) {
+        const internshipExp:any[] = this.validateForm.get('internshipExp').value;
+  
+        const practice:any[] = internshipExp.map( v => {
+          return {
+            name: v.company_name,
+            industry_id: v.company_industry,
+            company_scale_id: v.company_scale,
+            company_type_id: v.company_nature,
+            position_name: v.position_name,
+            start_time: v.work_range_date[0],
+            end_time: v.work_range_date[1],
+            salary: v.range_salary,
+            description: v.work_description
+          }
+        });
+        const option = Object.assign({practice}, { resume_id: this.resumeUserInfo.id }); // this.resumeUserInfo.id
+  
+        this.submitLoading = true;
+        this.globalService.post('/v1/web/user/resume/all_work/inter', option).subscribe((res:ApiData) => {
+          this.submitLoading = false;
+          this.msg.success(res.message);
+          this.steps('next');
+        }, err => this.submitLoading = false)
+      } else {
+        this.steps('next');
+      }
     }
   }
 

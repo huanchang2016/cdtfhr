@@ -14,42 +14,41 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let practice of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">华西希望集团四川特驱投资集团有限公司</h4>
+                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ practice.name }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(practice)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前实习经历" (nzOnConfirm)="deleted(practice)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
                         <div class="text-sm">
-                            <p>2013.08 - 2015.09 <nz-divider nzType="vertical"></nz-divider> 2年1个月</p>
-                            <p>工程监察专员 <nz-divider nzType="vertical"></nz-divider> 6K - 8K /月</p>
                             <p>
-                                农林渔牧
+                                {{ practice.start_time | date: 'yyyy.MM' }} - 
+                                <ng-container *ngIf="practice.end_time !== '至今'">{{ practice.end_time | date: 'yyyy.MM' }}</ng-container>
+                                <ng-container *ngIf="practice.end_time === '至今'">至今</ng-container>
                                 <nz-divider nzType="vertical"></nz-divider>
-                                民营
+                                {{ countMonth(practice.start_time, practice.end_time)}}
+                            </p>
+                            <p>{{ practice.position }} <nz-divider nzType="vertical"></nz-divider> {{ practice.salary.value }} /月</p>
+                            <p>
+                                {{ practice.industry.name }}
                                 <nz-divider nzType="vertical"></nz-divider>
-                                100-999人
+                                {{ practice.type.value }}
+                                <nz-divider nzType="vertical"></nz-divider>
+                                {{ practice.scale.value }}
                             </p>
                             <div class="text-666 mt-sm">工作描述：</div>
-                            <div>
-                                负责监察集团下属公司在建厂房的质量、进度、成本控制和安 全的监察。负责地产公司及项目季度审计工作。
-                                审计的地产项目有: <br>
-                                1、贵州松涛希望城公司经营审计和工程质量及签证审计;<br>
-                                2、贵州平坝希望城公司经营审计和工程质量及签证审计;<br>
-                                3、贵州习水希望城公司经营审计和工程质量及签证审计;<br>
-                                4、辽宁昌图希望城公司经营审计和工程质量及签证审计。
-                            </div>
+                            <div [innerHTML]="practice.description | showTextAreaText"></div>
                         </div>
                     </div>
                 </div>

@@ -58,7 +58,7 @@ const routes: Routes = [
           AuthenticationGuard
         ], loadChildren: () => import('./resume-delivery-manage/resume-delivery-manage.module').then(m => m.ResumeDeliveryManageModule)
       },
-      { path: '***', redirectTo: '/' }
+      { path: '**', redirectTo: '/' }
     ]
   }
 ];

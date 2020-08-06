@@ -47,7 +47,7 @@ export class MultipleCascaderSelectedComponent implements OnChanges, ControlValu
   constructor(
     private globalService: GlobalSettingsService
   ) { }
-  
+
   ngOnChanges() {
     if(this.type) {
       if(this.type === 'city') {
@@ -57,51 +57,6 @@ export class MultipleCascaderSelectedComponent implements OnChanges, ControlValu
       }
     }
   }
-
-
-
-  // onExpandChange(e: NzFormatEmitEvent): void {
-  //   const node = e.node;
-  //   if (node && node.getChildren().length === 0 && node.isExpanded) {
-  //     let is_leaf:boolean = false;
-  //     if((node.level === 0 && this.layer === 'second') || (node.level === 1 && this.layer === 'three')) {
-  //       is_leaf = true;
-  //     }
-  //     this.loadNode(node.origin.value, is_leaf).then(data => {
-  //       node.addChildren(data);
-  //     });
-  //   }
-  // }
-
-  // loadNode(key:number, is_leaf:boolean): Promise<NzTreeNodeOptions[]> {
-  //   console.log(is_leaf,'is_leaf, layer', this.layer)
-  //   return new Promise(resolve => {
-  //     let url: string = '';
-  //     if(this.type === 'city') {
-  //       url = `/v1/web/setting/city?pid=${key}`;
-  //     }else if(this.type === 'position_type') {
-  //       url = `/v1/web/setting/type?pid=${key}`
-  //     }
-  //     this.globalService.get(url)
-  //       .subscribe( (res:ApiData) => {
-  //         const children:any[] = res.data.map( v => {
-  //           let child = {
-  //             title: v.name,
-  //             value: v.id,
-  //             key: v.id,
-  //             disabled: !is_leaf,
-  //             isLeaf: is_leaf
-  //           }
-  //           return child;
-  //         });
-
-
-          
-          
-  //         resolve(children);
-  //       })
-  //   });
-  // }
 
   onChange($event: number[]): void {
     

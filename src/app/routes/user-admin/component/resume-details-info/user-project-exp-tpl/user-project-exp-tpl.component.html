@@ -14,29 +14,31 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let project of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">资阳希望玫瑰园项目</h4>
+                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ project.name }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(project)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前项目经验" (nzOnConfirm)="deleted(project)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
                         <div class="text-sm">
-                            <p>2015.09 - 2018.06</p>
+                            <p>
+                                {{ project.start_time | date: 'yyyy.MM' }} - 
+                                <ng-container *ngIf="project.end_time !== '至今'">{{ project.end_time | date: 'yyyy.MM' }}</ng-container>
+                                <ng-container *ngIf="project.end_time === '至今'">至今</ng-container>
+                            </p>
                             <div class="text-666 mt-sm">责任描述：</div>
-                            <div>
-                                该项目的招标采购部负责人,及项目的整体协调。
-                            </div>
+                            <div [innerHTML]="project.description | showTextAreaText"></div>
                         </div>
                     </div>
                 </div>
@@ -44,7 +46,7 @@
         </div>
 
         <ng-template #notExpTpl>
-            <div class="text-grey text-md">暂无项目经历</div>
+            <div class="text-grey text-md">暂无项目经验</div>
         </ng-template>
         
     </div>

@@ -9,9 +9,9 @@
         <nz-form-label [nzSpan]="5" nzFor="company_industry" nzRequired>所属行业</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择从事行业">
             <nz-select id="company_industry" formControlName="company_industry" nzSize="large" nzPlaceHolder="请点击选择从事行业">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                </ng-container>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
@@ -19,9 +19,9 @@
         <nz-form-label [nzSpan]="5" nzFor="company_scale" nzRequired>公司规模</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司规模">
             <nz-select id="company_scale" formControlName="company_scale" nzSize="large" nzPlaceHolder="请点击选择公司规模">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_scale">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                </ng-container>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
@@ -29,9 +29,9 @@
         <nz-form-label [nzSpan]="5" nzFor="company_nature" nzRequired>公司性质</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司性质">
             <nz-select id="company_nature" formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择公司性质">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_type">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                </ng-container>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
@@ -51,9 +51,9 @@
         <nz-form-label [nzSpan]="5" nzFor="range_salary" nzRequired>税前月薪</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择月薪区间">
             <nz-select id="range_salary" formControlName="range_salary" nzSize="large" nzPlaceHolder="请点击选择月薪区间">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                </ng-container>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
@@ -66,7 +66,7 @@
     
     <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
         <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
-        <button nz-button nzSize="large" nzType="primary">保存</button>
+        <button nz-button nzSize="large" [nzLoading]="loading" nzType="primary">保存</button>
     </div>
 
 </form>

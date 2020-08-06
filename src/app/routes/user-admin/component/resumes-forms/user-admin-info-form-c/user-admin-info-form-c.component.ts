@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserDataService } from '../../../service/user-data.service';
+import { GlobalSettingsService } from '@core';
 
 @Component({
   selector: 'app-user-admin-info-form-c',
@@ -12,7 +12,7 @@ export class UserAdminInfoFormCComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public userDataService: UserDataService
+    public globalService: GlobalSettingsService
   ) {}
 
   ngOnInit(): void {

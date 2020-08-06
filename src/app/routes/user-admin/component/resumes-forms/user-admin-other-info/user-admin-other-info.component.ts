@@ -1,5 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-admin-other-info',
@@ -7,11 +11,17 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./user-admin-other-info.component.less']
 })
 export class UserAdminOtherInfoComponent implements OnInit {
+  @Input() resumeUserInfo:any;
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService,
+    private route: Router
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -210,7 +220,8 @@ export class UserAdminOtherInfoComponent implements OnInit {
     this.stepsChange.emit(type);
   }
 
-  submitForm(): Promise<any> {
+  submitLoading = false;
+  submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -253,13 +264,77 @@ export class UserAdminOtherInfoComponent implements OnInit {
         }
       }
     }
-
     
     console.log(this.validateForm, '简历 其它信息');
 
-    return new Promise((resolve) => {
-      resolve();
-    });
+    if(this.validateForm.valid) {
+      let option:any = {};
+      // let project:any[] = [];
+      // let training:any[] = [];
+      // let certificate:any[] = [];
+      // let language:any[] = [];
+
+      if(this.validateForm.get('is_projectExp').value) {
+        const projectExp:any[] = this.validateForm.get('projectExp').value;
+        const project:any[] = projectExp.map( v => {
+          return {
+            name: v.projectName,
+            start_time: v.projectRangeDate[0],
+            end_time: v.projectRangeDate[1],
+            description: v.projectDescription
+          }
+        });
+        option = Object.assign(option, { project });
+      }
+      if(this.validateForm.get('is_trainExp').value) {
+        const trainExp:any[] = this.validateForm.get('trainExp').value;
+        const training:any[] = trainExp.map( v => {
+          return {
+            name: v.trainOrganization,
+            start_time: v.trainRangeDate[0],
+            end_time: v.trainRangeDate[1],
+            description: v.trainContent
+          }
+        });
+        option = Object.assign(option, { training });
+      }
+      if(this.validateForm.get('is_certificate').value) {
+        const certificates:any[] = this.validateForm.get('certificates').value;
+        const certificate:any[] = certificates.map( v => {
+          return {
+            name: v.certificateName,
+            time: v.certificateDate
+          }
+        });
+        option = Object.assign(option, { certificate });
+      }
+      if(this.validateForm.get('is_language').value) {
+        const languages:any[] = this.validateForm.get('languages').value;
+        const language:any[] = languages.map( v => {
+          return {
+            language_id: v.languageType,
+            reading_writing: v.languageWrite,
+            listening_speaking: v.languageListen
+          }
+        });
+        option = Object.assign(option, { language });
+      }
+
+      option = Object.assign(option, {
+        resume_id: this.resumeUserInfo.id,
+        self_evalution: this.validateForm.get('self_comment').value,
+        hobby: this.validateForm.get('self_interest').value
+      });
+      console.log(option, 'submit Other Info')
+
+        this.submitLoading = true;
+        this.globalService.post('/v1/web/user/resume/other', option).subscribe((res:ApiData) => {
+          this.submitLoading = false;
+          this.msg.success(res.message);
+          this.route.navigateByUrl(`/fullscreen/resume/view/${this.resumeUserInfo.id}`);
+        }, err => this.submitLoading = false)
+      
+    }
     
   }
 

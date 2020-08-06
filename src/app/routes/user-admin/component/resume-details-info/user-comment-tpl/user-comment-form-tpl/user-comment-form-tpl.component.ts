@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user-comment-form-tpl',
@@ -16,13 +19,15 @@ export class UserCommentFormTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private settingService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {}
 
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      self_comment: [null]
+      self_evalution: [null]
     });
 
     if(this.data) {
@@ -33,7 +38,7 @@ export class UserCommentFormTplComponent implements OnInit {
   setForm() {
     // 设置表单值
     this.validateForm.patchValue({
-      self_comment: null
+      self_evalution: this.data.self_evalution
     })
   }
 
@@ -45,10 +50,12 @@ export class UserCommentFormTplComponent implements OnInit {
     console.log(this.validateForm, '简历 个人信息');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
+      this.settingService.post(`/v1/web/user/resume_self_evalution/${this.data.id}`, this.validateForm.value).subscribe((res:ApiData) => {
+        console.log(res);
         this.loading = false;
-        this.destroyModal({ id: 1, name: '张三' })
-      }, 800);
+        this.destroyModal(res.data);
+        this.msg.success('修改成功');
+      }, err => this.loading = false)
     }
     
   }

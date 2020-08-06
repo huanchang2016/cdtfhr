@@ -14,24 +14,24 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let certificate of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-grey text-sm">2012.05</h4>
+                        <h4 class="item_title_name bg-white text-grey text-sm">{{ certificate.time | date: 'yyyy.MM' }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(certificate)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前培训经历" (nzOnConfirm)="deleted(certificate)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body">
-                        <div class="text-md text-666 font-weight-bold">中级工程师</div>
+                        <div class="text-md text-666 font-weight-bold">{{ certificate.name }}</div>
                     </div>
                 </div>
             </ng-container>

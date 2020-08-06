@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountInfo, ApiData } from 'src/app/data/interface';
+import { AccountInfo, ApiData, Config } from 'src/app/data/interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,6 +16,31 @@ export class GlobalSettingsService {
     city: [], // 省
     position_type: [], // 职位类别，第一层级
     industry: [] // 行业配置项
+  };
+
+  
+  resumeConfigOptions:{[key:string]: Config[]} = {
+    marriage: [], // 婚姻状况
+    target_type: [], // 工作性质 全职/兼职
+    status: [],  // 求职状态
+    salary: [], // 期望月薪 k/月
+    language: [], // 语言
+    education: []  // 学历
+    // {
+    //   "key": "marriage",
+    //   "value": "未婚",
+    //   "sort": 1
+    // }
+  };
+  companyConfigOptions:{[key:string]: Config[]} = {
+    company_type: [], // 公司性质： 国企/ 外资
+    company_scale: [], // 公司规模 少于 50
+    company_work_experience: []  // 职位发布    工作经验要求
+    // {
+    //   "key": "marriage",
+    //   "value": "未婚",
+    //   "sort": 1
+    // }
   };
 
   constructor(
@@ -44,6 +69,10 @@ export class GlobalSettingsService {
   
   post(url:string, option?:any):Observable<any> {
     return this.httpClient.post(url, option);
+  }
+
+  patch(url:string, option?:any):Observable<any> {
+    return this.httpClient.patch(url, option);
   }
 
   delete(url:string, option?:any):Observable<any> {
@@ -85,20 +114,25 @@ export class GlobalSettingsService {
     localStorage.clear();
 
   }
-
+  
   getConfigs():void {
     zip(
       this.get(`/v1/web/setting/city`),
       this.get(`/v1/web/setting/city/all`),
       this.get(`/v1/web/setting/type/all`),
-      this.get(`/v1/web/setting/industry`)
+      this.get(`/v1/web/setting/industry`),
+      this.get('/v1/web/setting/resume'),
+      this.get('/v1/web/setting/company')
     ).pipe(
-      map(([province, city, type, industry]) => [province.data, city.data, type.data, industry.data])
-    ).subscribe(([province, city, type, industry]) => {
+      map(([province, city, type, industry, resume, companyConfig]) => [province.data, city.data, type.data, industry.data, resume.data, companyConfig.data])
+    ).subscribe(([province, city, type, industry, resume, companyConfig]) => {
       this.globalConfigOptions.province = province;
       this.globalConfigOptions.city = city;
       this.globalConfigOptions.position_type = type;
       this.globalConfigOptions.industry = industry;
+
+      this.resumeConfigOptions = resume;
+      this.companyConfigOptions = companyConfig;
     })
   }
 

@@ -1,5 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-user-admin-education',
@@ -7,12 +10,17 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
   styleUrls: ['./user-admin-education.component.less']
 })
 export class UserAdminEducationComponent implements OnInit {
+  @Input() resumeUserInfo:any;
 
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -76,7 +84,7 @@ export class UserAdminEducationComponent implements OnInit {
   steps(type: string) {
     this.stepsChange.emit(type);
   }
-  
+  submitLoading: boolean = false;
   submitForm():void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -95,7 +103,26 @@ export class UserAdminEducationComponent implements OnInit {
     
     console.log(this.validateForm, '简历 教育经历');
     if(this.validateForm.valid) {
-      this.steps('next');
+      const eduExp:any[] = this.validateForm.get('eduExp').value;
+
+      const edu:any[] = eduExp.map( v => {
+        return {
+          name: v.school_name,
+          major: v.edu_major,
+          education_id: v.edu_record,
+          start_time: v.edu_start_time,
+          end_time: v.is_not_end ? '至今' : v.edu_end_time
+        }
+      });
+      const option = Object.assign({edu}, { resume_id: 18 });
+
+      this.submitLoading = true;
+      this.globalService.post('/v1/web/user/resume/edu', option).subscribe((res:ApiData) => {
+        this.submitLoading = false;
+        this.msg.success(res.message);
+        this.steps('next');
+      }, err => this.submitLoading = false)
+      
     }
     
   }

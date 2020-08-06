@@ -1,4 +1,4 @@
-<div nz-row nzGutter="24">
+<div nz-row nzGutter="24" *ngIf="!loadingData && resumeInfo">
     <div nz-col nzSpan="4">
         <nz-anchor>
             <nz-link nzHref="#user-info-basic" [nzTitle]="basicInfo">
@@ -9,7 +9,11 @@
             </nz-link>
             <nz-link nzHref="#user-self-comment" [nzTitle]="selfComment">
                 <ng-template #selfComment>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="!resumeInfo.self_evalution; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">自我评价</span>
                 </ng-template>
             </nz-link>
@@ -21,19 +25,31 @@
             </nz-link>
             <nz-link nzHref="#user-work-exp" [nzTitle]="workExpInfo">
                 <ng-template #workExpInfo>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.work.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">工作经历</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-internship" [nzTitle]="internshipTpl">
                 <ng-template #internshipTpl>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.practice.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">实习经历</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-project-exp" [nzTitle]="projectExpTpl">
                 <ng-template #projectExpTpl>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.project.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">项目经历</span>
                 </ng-template>
             </nz-link>
@@ -45,88 +61,117 @@
             </nz-link>
             <nz-link nzHref="#user-train-exp" [nzTitle]="trainExpTpl">
                 <ng-template #trainExpTpl>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.training.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">培训经历</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-certificates" [nzTitle]="certificatesTpl">
                 <ng-template #certificatesTpl>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.certificate.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">证书</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-language" [nzTitle]="languageTpl">
                 <ng-template #languageTpl>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.language.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">其他语言能力</span>
                 </ng-template>
             </nz-link>
             <nz-link nzHref="#user-interest" [nzTitle]="interestInfo">
                 <ng-template #interestInfo>
-                    <span class="text-danger text-md">
-                        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
-                    </span>
+                    <ng-container *ngIf="!resumeInfo.hobby; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">兴趣爱好</span>
                 </ng-template>
             </nz-link>
         </nz-anchor>
     </div>
+    <ng-template #successIconTpl>
+        <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+    </ng-template>
     
     <div nz-col nzSpan="18">
         <div class="mb-md" id="user-info-basic">
-            <app-user-info-tpl></app-user-info-tpl>
+            <app-user-info-tpl [resumeInfo]="resumeInfo"></app-user-info-tpl>
             <!-- 个人信息 -->
         </div>
         
         <div class="mb-md" id="user-self-comment">
-            <app-user-self-comment-tpl></app-user-self-comment-tpl>
+            <app-user-self-comment-tpl [resumeInfo]="resumeInfo"></app-user-self-comment-tpl>
             <!-- 自我评价 -->
         </div>
 
         <div class="mb-md" id="user-job-intension">
-            <app-user-intension-tpl></app-user-intension-tpl>
+            <app-user-intension-tpl [resumeInfo]="resumeInfo"></app-user-intension-tpl>
             <!-- 求职意向 -->
         </div>
 
         <div class="mb-md" id="user-work-exp">
-            <app-user-work-exp-tpl></app-user-work-exp-tpl>
+            <app-user-work-exp-tpl [resumeInfo]="resumeInfo"></app-user-work-exp-tpl>
             <!-- 工作经历 -->
         </div>
 
         <div class="mb-md" id="user-internship">
-            <app-user-internship-exp-tpl></app-user-internship-exp-tpl>
+            <app-user-internship-exp-tpl [resumeInfo]="resumeInfo"></app-user-internship-exp-tpl>
             <!-- 实习经历 -->
         </div>
 
         <div class="mb-md" id="user-project-exp">
-            <app-user-project-exp-tpl></app-user-project-exp-tpl>
+            <app-user-project-exp-tpl [resumeInfo]="resumeInfo"></app-user-project-exp-tpl>
             <!-- 项目经历 -->
         </div>
 
         <div class="mb-md" id="user-edu-exp">
-            <app-user-education-exp-tpl></app-user-education-exp-tpl>
+            <app-user-education-exp-tpl [resumeInfo]="resumeInfo"></app-user-education-exp-tpl>
             <!-- 教育经历 -->
         </div>
         
         <div class="mb-md" id="user-train-exp">
-            <app-user-train-exp-tpl></app-user-train-exp-tpl>
+            <app-user-train-exp-tpl [resumeInfo]="resumeInfo"></app-user-train-exp-tpl>
             <!-- 培训经历 -->
         </div>
 
         <div class="mb-md" id="user-certificates">
-            <app-user-certificate-tpl></app-user-certificate-tpl>
+            <app-user-certificate-tpl [resumeInfo]="resumeInfo"></app-user-certificate-tpl>
             <!-- 证书信息 -->
         </div>
 
         <div class="mb-md" id="user-language">
-            <app-user-language-tpl></app-user-language-tpl>
+            <app-user-language-tpl [resumeInfo]="resumeInfo"></app-user-language-tpl>
             <!-- 其它语言能力 -->
         </div>
 
         <div class="mb-md" id="user-interest">
-            <app-user-self-interest-tpl></app-user-self-interest-tpl>
+            <app-user-self-interest-tpl [resumeInfo]="resumeInfo"></app-user-self-interest-tpl>
             <!-- 兴趣爱好 -->
         </div>
 
     </div>
 </div>
+
+<ng-container *ngIf="loadingData && !resumeInfo">
+    <div class="text-center p-lg">
+        <nz-spin nzSimple></nz-spin>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="!loadingData && !resumeInfo">
+    <div class="text-center p-lg">
+        无当前简历信息
+    </div>
+</ng-container>

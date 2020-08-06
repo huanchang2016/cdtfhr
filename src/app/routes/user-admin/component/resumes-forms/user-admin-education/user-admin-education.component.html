@@ -28,9 +28,9 @@
                     <nz-form-label [nzSpan]="5" nzFor="edu_record" nzRequired>学历</nz-form-label>
                     <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择学历">
                         <nz-select id="edu_record" formControlName="edu_record" nzSize="large" nzPlaceHolder="请点击选择学历">
-                            <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                            <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                            <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                            <ng-container *ngFor="let item of globalService.resumeConfigOptions.education">
+                                <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                            </ng-container>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -67,7 +67,7 @@
     </form>
 
     <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
-        <button class="next_btn" (click)="submitForm()" nz-button nzType="primary" nzSize="large">下一步</button>
-        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
+        <button class="next_btn" (click)="submitForm()" [nzLoading]="submitLoading" nz-button nzType="primary" nzSize="large">下一步</button>
+        <!-- <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button> -->
     </div>
 </div>

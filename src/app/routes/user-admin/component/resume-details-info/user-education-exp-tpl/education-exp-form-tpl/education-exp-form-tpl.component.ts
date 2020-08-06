@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-education-exp-form-tpl',
@@ -8,17 +11,20 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./education-exp-form-tpl.component.less']
 })
 export class EducationExpFormTplComponent implements OnInit {
-  @Input() data:any;
+  
+  @Input() data: any;
+  @Input() resume_id: number;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
-  ) {}
-
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -36,15 +42,18 @@ export class EducationExpFormTplComponent implements OnInit {
   }
 
   setForm() {
+    console.log(this.data, 'setForm');
     // 设置表单值
     this.validateForm.patchValue({
-      school_name: null,
-      edu_record: null,
-      edu_major: null,
-      edu_start_time: null,
-      edu_end_time: null,
-      is_not_end: null
+      school_name: this.data.name,
+      edu_record: this.data.education.id,
+      edu_major: this.data.major,
+      edu_start_time: this.data.start_time,
+      edu_end_time: this.data.end_time === '至今' ? null : this.data.end_time,
+      is_not_end: this.data.end_time === '至今' ? true : false
     })
+
+    this.isNotEndChange(this.data.end_time === '至今');
   }
 
 
@@ -56,12 +65,43 @@ export class EducationExpFormTplComponent implements OnInit {
     console.log(this.validateForm, '简历 教育经历');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.destroyModal({ id: 1, name: '张三' })
-      }, 800);
+      const object: any = this.validateForm.value;
+
+      const option = {
+        name: object.school_name,
+        major: object.edu_major,
+        education_id: object.edu_record,
+        start_time: object.edu_start_time,
+        end_time: object.is_not_end ? '至今' : object.edu_end_time
+      };
+
+      console.log(option, 'project exp submit');
+
+      this.loading = true;
+      if (this.data) {
+        this.edit(option);
+      } else {
+        this.create(option);
+      }
     }
-    
+
+  }
+
+  edit(option: any): void {
+    this.globalService.patch(`/v1/web/user/resume_edu/${this.data.id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'edit' });
+      this.msg.success('修改成功');
+
+    }, err => this.loading = false)
+  }
+  create(option: any): void {
+    this.globalService.post(`/v1/web/user/resume_edu/${this.resume_id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'create' });
+      this.msg.success('新增成功');
+
+    }, err => this.loading = false)
   }
 
   

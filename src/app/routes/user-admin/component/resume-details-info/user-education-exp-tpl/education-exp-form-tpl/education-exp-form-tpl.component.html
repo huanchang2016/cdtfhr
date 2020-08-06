@@ -9,9 +9,9 @@
         <nz-form-label [nzSpan]="5" nzFor="edu_record" nzRequired>学历</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择学历">
             <nz-select id="edu_record" formControlName="edu_record" nzSize="large" nzPlaceHolder="请点击选择学历">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                <ng-container *ngFor="let item of globalService.resumeConfigOptions.education">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                </ng-container>
             </nz-select>
         </nz-form-control>
     </nz-form-item>
@@ -43,7 +43,7 @@
     
     <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
         <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
-        <button nz-button nzSize="large" nzType="primary">保存</button>
+        <button nz-button nzSize="large" [nzLoading]="loading" nzType="primary">保存</button>
     </div>
 
 </form>

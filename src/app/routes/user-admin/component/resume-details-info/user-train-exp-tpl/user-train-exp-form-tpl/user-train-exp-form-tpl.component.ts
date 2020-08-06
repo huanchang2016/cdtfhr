@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user-train-exp-form-tpl',
@@ -8,17 +11,19 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./user-train-exp-form-tpl.component.less']
 })
 export class UserTrainExpFormTplComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
+  @Input() resume_id: number;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
-  ) {}
-
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -35,9 +40,9 @@ export class UserTrainExpFormTplComponent implements OnInit {
   setForm() {
     // 设置表单值
     this.validateForm.patchValue({
-      trainContent: null,
-      trainOrganization: null,
-      trainRangeDate: null
+      trainContent: this.data.description,
+      trainOrganization: this.data.name,
+      trainRangeDate: [this.data.start_time, this.data.end_time]
     })
   }
 
@@ -50,12 +55,42 @@ export class UserTrainExpFormTplComponent implements OnInit {
     console.log(this.validateForm, '简历 培训经历');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.destroyModal({ id: 1, name: '张三' })
-      }, 800);
+      const object: any = this.validateForm.value;
+
+      const option = {
+        name: object.trainOrganization,
+        start_time: object.trainRangeDate[0],
+        end_time: object.trainRangeDate[1],
+        description: object.trainContent
+      };
+
+      console.log(option, 'project exp submit');
+
+      this.loading = true;
+      if (this.data) {
+        this.edit(option);
+      } else {
+        this.create(option);
+      }
     }
-    
+
+  }
+
+  edit(option: any): void {
+    this.globalService.patch(`/v1/web/user/resume_training/${this.data.id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'edit' });
+      this.msg.success('修改成功');
+
+    }, err => this.loading = false)
+  }
+  create(option: any): void {
+    this.globalService.post(`/v1/web/user/resume_training/${this.resume_id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'create' });
+      this.msg.success('新增成功');
+
+    }, err => this.loading = false)
   }
 
   cancel(e: MouseEvent): void {

@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { environment } from '@env/environment';
+import { differenceInYears } from 'date-fns';
 import { UserInfoFormTplComponent } from './user-info-form-tpl/user-info-form-tpl.component';
 
 @Component({
@@ -8,8 +10,10 @@ import { UserInfoFormTplComponent } from './user-info-form-tpl/user-info-form-tp
   styleUrls: ['./user-info-tpl.component.less']
 })
 export class UserInfoTplComponent implements OnInit {
+  @Input() resumeInfo:any;
+  environment = environment;
 
-  data:any = null;
+  workExpYears:string = '';
 
   constructor(
     private modal: NzModalService,
@@ -17,6 +21,7 @@ export class UserInfoTplComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.countYears(this.resumeInfo.work_date);
   }
 
   editInfo() {
@@ -31,17 +36,34 @@ export class UserInfoTplComponent implements OnInit {
       nzMaskClosable: false,
       // nzGetContainer: () => document.body,
       nzComponentParams: {
-        data: this.data
+        data: this.resumeInfo
       },
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = modal.getContentComponent();
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
+      console.log('[afterClose] The result is:', result);
+      if(result && result.data) {
+        this.resumeInfo = Object.assign(this.resumeInfo, result.data);
+        this.countYears(this.resumeInfo.work_date);
+      }
     });
 
+  }
+
+  
+  countYears(t:string) {
+    let work_date:string = '';
+    if(t) {
+      const today:Date = new Date();
+      const year = differenceInYears(today, new Date(t));
+      work_date = year > 1 ? `${year}年工作经验` : '工作经验不足一年';
+    }else {
+      work_date = '暂无工作经验'
+    }
+    this.workExpYears = work_date;
   }
 }

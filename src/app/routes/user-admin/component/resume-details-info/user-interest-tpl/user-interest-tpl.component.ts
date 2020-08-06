@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserInterestFormTplComponent } from './user-interest-form-tpl/user-interest-form-tpl.component';
 
@@ -9,7 +9,7 @@ import { UserInterestFormTplComponent } from './user-interest-form-tpl/user-inte
 })
 export class UserInterestTplComponent implements OnInit {
 
-  data:any = null;
+  @Input() resumeInfo:any;
 
   constructor(
     private modal: NzModalService,
@@ -31,7 +31,7 @@ export class UserInterestTplComponent implements OnInit {
       nzMaskClosable: false,
       // nzGetContainer: () => document.body,
       nzComponentParams: {
-        data: this.data
+        data: this.resumeInfo
       },
       nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
@@ -40,7 +40,9 @@ export class UserInterestTplComponent implements OnInit {
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
+      if(result && result.data) {
+        this.resumeInfo = Object.assign(this.resumeInfo, result.data);
+      }
     });
 
   }

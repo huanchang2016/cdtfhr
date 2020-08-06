@@ -44,7 +44,6 @@ import { UserLanguageFormTplComponent } from './component/resume-details-info/us
 import { UserInterestTplComponent } from './component/resume-details-info/user-interest-tpl/user-interest-tpl.component';
 import { UserInterestFormTplComponent } from './component/resume-details-info/user-interest-tpl/user-interest-form-tpl/user-interest-form-tpl.component';
 import { ResumeTitleTplComponent } from './component/resume-title-tpl/resume-title-tpl.component';
-import { UserDataService } from './service/user-data.service';
 import { UserAdminHomeGuard } from './guard/user-admin-home.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { UserAdminGuard } from './guard/user-admin.guard';
@@ -120,9 +119,6 @@ const ENTRYCOMPONENTS = [
   imports: [
     SharedModule,
     UserAdminRoutingModule
-  ],
-  providers: [
-    UserDataService
   ]
 })
 export class UserAdminModule { }

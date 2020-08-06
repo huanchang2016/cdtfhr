@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserDataService } from '../../../service/user-data.service';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -21,7 +20,6 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public userDataService: UserDataService,
     public globalService: GlobalSettingsService,
     private msg: NzMessageService
   ) {}
@@ -44,7 +42,6 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
     }
     console.log(this.validateForm, '简历 求职意向', this.resumeUserInfo, 'resumeUserInfo');
     if(this.validateForm.valid) {
-      // this.steps('next');
       const form:any = this.validateForm.value;
       const option = {
         city: form.work_address,
@@ -53,10 +50,8 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
         target_salary_id: form.job_salary,
         status: form.job_status,
         type: form.job_nature,
-        // resume_id: this.resumeUserInfo.id
-        resume_id: 18
+        resume_id: this.resumeUserInfo.id
       };
-      console.log( option, 'intention object submit');
 
       this.submitLoading = true;
       this.globalService.post('/v1/web/user/resume/all_work/intent', option).subscribe((res:ApiData) => {

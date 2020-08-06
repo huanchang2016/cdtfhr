@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resume-title-tpl',
@@ -16,13 +19,15 @@ export class ResumeTitleTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private settingService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {}
 
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      resume_title: [null, [Validators.required]]
+      title: [null, [Validators.required]]
     })
 
     if(this.data) {
@@ -33,7 +38,7 @@ export class ResumeTitleTplComponent implements OnInit {
   setForm() {
     // 设置表单值
     this.validateForm.patchValue({
-      resume_title: null
+      title: this.data.title
     })
   }
 
@@ -46,10 +51,12 @@ export class ResumeTitleTplComponent implements OnInit {
     console.log(this.validateForm, '简历 证书信息');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
+      this.settingService.post(`/v1/web/user/resume/set_title/${this.data.id}`, this.validateForm.value).subscribe((res: ApiData) => {
         this.loading = false;
-        this.destroyModal(this.validateForm.value)
-      }, 800);
+        this.destroyModal(res.data);
+        this.msg.success(res.message);
+  
+      }, err => this.loading = false)
     }
     
   }

@@ -4,7 +4,8 @@ import { ResumeViewComponent } from './resume-view.component';
 
 
 const routes: Routes = [
-  { path: 'view/:id', component: ResumeViewComponent }
+  { path: 'view/:id', component: ResumeViewComponent },
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

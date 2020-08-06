@@ -1,8 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { Observable, Observer } from 'rxjs';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-upload-logo',
@@ -25,6 +24,8 @@ export class UploadLogoComponent implements ControlValueAccessor {
 
   @Input() placeHolder?:string = '请选择文件上传';
   @Input() Size?:string = 'large';
+
+  environment = environment;
 
   loading = false;
   
@@ -62,10 +63,10 @@ export class UploadLogoComponent implements ControlValueAccessor {
 
   private propagateChange = (_: any) => { };
 
-  writeValue(obj: any): void {
+  writeValue(obj: string): void {
     console.log(obj);
     if(obj) {
-      this.avatarUrl = obj;
+      this.avatarUrl = environment.SERVER_URL + '/' + obj;
     }
   }
 

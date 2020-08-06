@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-user-project-form-tpl',
@@ -8,16 +11,19 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./user-project-form-tpl.component.less']
 })
 export class UserProjectFormTplComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
+  @Input() resume_id: number;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    public globalService: GlobalSettingsService,
+    private msg: NzMessageService
+  ) { }
 
 
   ngOnInit(): void {
@@ -33,11 +39,12 @@ export class UserProjectFormTplComponent implements OnInit {
   }
 
   setForm() {
+    console.log(this.data, 'setForm');
     // 设置表单值
     this.validateForm.patchValue({
-      projectName: null,
-      projectRangeDate: null,
-      projectDescription: null
+      projectName: this.data.name,
+      projectRangeDate: [this.data.start_time, this.data.end_time],
+      projectDescription: this.data.description
     })
   }
 
@@ -47,15 +54,45 @@ export class UserProjectFormTplComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 工作经历');
+    console.log(this.validateForm, '简历 项目经历');
     if(this.validateForm.valid) {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.destroyModal({ id: 1, name: '张三' })
-      }, 800);
+      const object: any = this.validateForm.value;
+
+      const option = {
+        name: object.projectName,
+        start_time: object.projectRangeDate[0],
+        end_time: object.projectRangeDate[1],
+        description: object.projectDescription
+      };
+
+      console.log(option, 'project exp submit');
+
+      this.loading = true;
+      if (this.data) {
+        this.edit(option);
+      } else {
+        this.create(option);
+      }
     }
-    
+
+  }
+
+  edit(option: any): void {
+    this.globalService.patch(`/v1/web/user/resume_project/${this.data.id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'edit' });
+      this.msg.success('修改成功');
+
+    }, err => this.loading = false)
+  }
+  create(option: any): void {
+    this.globalService.post(`/v1/web/user/resume_project/${this.resume_id}`, option).subscribe((res: ApiData) => {
+      this.loading = false;
+      this.destroyModal({ data: res.data, type: 'create' });
+      this.msg.success('新增成功');
+
+    }, err => this.loading = false)
   }
 
   cancel(e: MouseEvent): void {

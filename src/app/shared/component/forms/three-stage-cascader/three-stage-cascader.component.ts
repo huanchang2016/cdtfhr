@@ -40,6 +40,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
   writeValue(obj: any[]): void {
     if (obj) {
       this.values = obj;
+      console.log('this.values', obj)
     }
   }
 

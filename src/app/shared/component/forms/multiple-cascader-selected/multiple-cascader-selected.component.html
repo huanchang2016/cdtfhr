@@ -12,11 +12,10 @@
         [nzDropdownStyle]="{ 'max-height': '300px' }"
         [nzAsyncData]="true"
         [nzDisabled]="isDisabled"
-        (nzExpandChange)="onExpandChange($event)"
     >
     
     <!-- nzDefaultExpandAll
-        [nzExpandedKeys]="expandKeys" -->
+        [nzExpandedKeys]="expandKeys" (nzExpandChange)="onExpandChange($event)"-->
     </nz-tree-select>
 
 </ng-container>

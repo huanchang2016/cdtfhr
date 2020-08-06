@@ -13,8 +13,6 @@
     </div>
 
     <div class="resume-show_content_body my-sm py-sm px-md">
-        <div class="text-grey text-sm">
-            具有10年的工作经历,先后任职于四川天成集团、佳兆业房地产开发公司、四川红叶 建设有限公司和华西希望集团。
-        </div>
+        <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText"></div>
     </div>
 </div>

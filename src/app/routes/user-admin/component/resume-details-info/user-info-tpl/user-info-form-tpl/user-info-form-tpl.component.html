@@ -1,32 +1,32 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
     <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="username" nzRequired>姓名</nz-form-label>
+        <nz-form-label [nzSpan]="5" nzFor="name" nzRequired>姓名</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的真实姓名">
-            <input nz-input id="username" formControlName="username" nzSize="large" placeholder="请填写您的真实姓名" />
+            <input nz-input id="name" formControlName="name" nzSize="large" placeholder="请填写您的真实姓名" />
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="sex" nzRequired>性别</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请选择您的性别">
             <nz-radio-group class="radio-group_content" id="sex" formControlName="sex" [nzSize]="'large'">
-                <label nz-radio nzValue="male">男</label>
-                <label nz-radio nzValue="female">女</label>
+                <label nz-radio [nzValue]="1">男</label>
+                <label nz-radio [nzValue]="2">女</label>
             </nz-radio-group>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzRequired nzFor="birthday">出生日期</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期">
-            <app-date-picker-date formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-date>
+            <app-date-picker-month formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-month>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="marriy_status" nzRequired>婚姻状况</nz-form-label>
+        <nz-form-label [nzSpan]="5" nzFor="marriage_id" nzRequired>婚姻状况</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请选择您的婚姻状况">
-            <nz-radio-group class="radio-group_content" id="marriy_status" formControlName="marriy_status" [nzSize]="'large'">
-                <label nz-radio nzValue="married">已婚</label>
-                <label nz-radio nzValue="not_married">未婚</label>
-                <label nz-radio nzValue="secret_marry">保密</label>
+            <nz-radio-group class="radio-group_content" id="marriage_id" formControlName="marriage_id" [nzSize]="'large'">
+                <ng-container *ngFor="let item of settingService.resumeConfigOptions.marriage">
+                    <label nz-radio [nzValue]="item.id">{{ item.value }}</label>
+                </ng-container>
             </nz-radio-group>
         </nz-form-control>
     </nz-form-item>
@@ -62,15 +62,15 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzFor="photo">头像上传</nz-form-label>
+        <nz-form-label [nzSpan]="5" nzFor="avatar">头像上传</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请上传您的头像">
-            <app-upload-logo ngDefaultControl formControlName="photo" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-logo>
+            <app-upload-logo ngDefaultControl formControlName="avatar" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-logo>
         </nz-form-control>
     </nz-form-item>
     
     <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
         <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>
-        <button nz-button nzSize="large" nzType="primary">保存</button>
+        <button nz-button nzSize="large" [nzLoading]="loading" nzType="primary">保存</button>
     </div>
 
 </form>

@@ -14,30 +14,32 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let education of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">中国地质大学(武汉)</h4>
+                        <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ education.name }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(education)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前教育经历" (nzOnConfirm)="deleted(education)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
                         <div class="text-sm">
                             <p>
-                                2018.03 - 至今
+                                {{ education.start_time | date: 'yyyy.MM' }} - 
+                                <ng-container *ngIf="education.end_time !== '至今'">{{ education.end_time | date: 'yyyy.MM' }}</ng-container>
+                                <ng-container *ngIf="education.end_time === '至今'">至今</ng-container>
                                 <nz-divider nzType="vertical"></nz-divider>
-                                水文学及水资源
+                                {{ education.major }}
                                 <nz-divider nzType="vertical"></nz-divider>
-                                本科
+                                {{ education.education.value }}
                             </p>
                         </div>
                     </div>

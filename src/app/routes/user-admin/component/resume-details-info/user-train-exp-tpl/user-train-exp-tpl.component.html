@@ -14,20 +14,20 @@
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let item of list">
+            <ng-container *ngFor="let train of list">
                 <div class="item_card_box mb-md">
                     <div class="item_card_title_box">
-                        <h4 class="item_title_name bg-white text-grey text-md">2012.05 - 2012.05</h4>
+                        <h4 class="item_title_name bg-white text-grey text-md">{{ train.start_time | date: 'yyyy.MM' }} - {{ train.end_time | date: 'yyyy.MM' }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(item)">
+                            <span class="text-sm text-primary point" (click)="edit(train)">
                                 <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
                                 编辑
                             </span>
-                            <span class="ml-md text-sm text-danger point" (click)="deleted(item)">
+                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前培训经历" (nzOnConfirm)="deleted(train)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
@@ -35,12 +35,12 @@
                             <p>
                                 培训内容  
                                 <nz-divider nzType="vertical"></nz-divider>
-                                二级建造师
+                                {{ train.description }}
                             </p>
                             <p>
                                 培训机构
                                 <nz-divider nzType="vertical"></nz-divider>
-                                成都恩阳教育
+                                {{ train.name }}
                             </p>
                         </div>
                     </div>
