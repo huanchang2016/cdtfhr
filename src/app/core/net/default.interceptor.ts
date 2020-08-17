@@ -88,6 +88,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         break;
       case 401:
         this.notification.error(`未登录或登录已过期，请重新登录。`, ``);
+        localStorage.clear();
         this.goTo('/passport/login');
         break;
       case 403:
@@ -119,9 +120,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     }
     
     let newReq:any = req.clone({ url });
-    
+    // 判断是否为配置项请求，如果是配置项请求，请求中则不添加token字段
+    const is_take_token:boolean = this.isNotNeedTokenRequest(url);
     //  如果用户已登录，那么所有接口都添加token请求
-    if (localStorage.getItem('cdtfhr_token')) {
+    if (localStorage.getItem('cdtfhr_token') && is_take_token) {
       const token:string = JSON.parse(localStorage.getItem('cdtfhr_token')).access_token;
       newReq.headers = newReq.headers.set('Authorization', 'Bearer '+ token);
     }
@@ -130,12 +132,30 @@ export class DefaultInterceptor implements HttpInterceptor {
         mergeMap((event: any) => {
             // 允许统一对请求错误处理
             if (event instanceof HttpResponseBase) {
-            return this.handleData(event);
+              return this.handleData(event);
             }
             // 若一切都正常，则后续操作
             return of(event);
         }),
         catchError((err: HttpErrorResponse) => this.handleData(err)),
     );
+  }
+
+  ignores:string[] = [
+    '/v1/web/setting/', // 配置项
+    // 个人请求
+    '/v1/web/login',
+    '/v1/web/send_login_code',
+    '/v1/web/send_reg_code',
+    '/v1/web/register',
+    // 企业
+    '/v1/web/com/register',
+    '/v1/web/com/login'
+    // 其余为首页相关请求
+
+  ];
+  // 判断当前接口是否需要携带token, 如果存在，则返回false， 不存在则返回true
+  isNotNeedTokenRequest(url:string):boolean{
+    return this.ignores.every(item => url.indexOf(item) === -1);
   }
 }

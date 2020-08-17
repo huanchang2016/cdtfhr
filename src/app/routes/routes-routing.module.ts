@@ -57,7 +57,7 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
-      // { path: 'login', component: LoginComponent, data: { title: '登录' } },
+      { path: 'login', component: LoginComponent, data: { title: '登录' } },
       { path: 'register/user', component: UserRegisterComponent, data: { title: '个人注册' } },
       { path: 'register/company', component: CompanyRegisterComponent, data: { title: '企业注册' } },
       { path: 'register/agreement', component: AgreementPageComponent, data: { title: '企业注册' } },

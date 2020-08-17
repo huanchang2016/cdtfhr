@@ -14,7 +14,12 @@ export class UserSidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userDataService.getProfile().then( v => this.profile = v );
+    
+    if(this.userDataService.userProfile) {
+      this.profile = this.userDataService.userProfile;
+    }else {
+      this.userDataService.getProfile().then( v => this.profile = v );
+    }
   }
 
 }

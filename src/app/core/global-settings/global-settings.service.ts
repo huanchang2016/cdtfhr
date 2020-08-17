@@ -109,9 +109,9 @@ export class GlobalSettingsService {
   }
   
   clearUser(): void {
-    // localStorage.removeItem('cdtfhr_user');
-    // localStorage.removeItem('cdtfhr_token');
-    localStorage.clear();
+    localStorage.removeItem('cdtfhr_user');
+    localStorage.removeItem('cdtfhr_token');
+    // localStorage.clear();
 
   }
   

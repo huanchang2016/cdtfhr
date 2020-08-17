@@ -6,6 +6,7 @@ import { ICONS } from '../../../style-icons';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ApiData } from 'src/app/data/interface';
 import { GlobalSettingsService } from '../global-settings/global-settings.service';
+import { Router } from '@angular/router';
 
 /**
  * Used for application startup
@@ -34,12 +35,13 @@ export class StartupService {
       
       resolve(res.data);
 
-    }, err => console.log('error account info get!'))
+    }, err => {
+      console.error('error account info get!', err);
+      this.settingService.clearUser();
+    })
     
-
   }
-
-
+  
   load(): Promise<any> {
     console.log('startup service works!')
     // only works with promises
