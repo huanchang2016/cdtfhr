@@ -18,10 +18,11 @@
 </nz-card>
 
 <div class="bg-white border-radius-sm result_body mt-sm">
-  <nz-tabset [nzSelectedIndex]="tabIndex" (nzSelectChange)="changeTab($event)" [nzTabBarExtraContent]="settingsTemplate">
+  <nz-tabset [nzSelectedIndex]="tabIndex" (nzSelectChange)="changeTab($event)">
+    <!-- [nzTabBarExtraContent]="settingsTemplate"
     <ng-template #settingsTemplate>
       <a (click)="settingCols()" class="settings_btn mr-md">设置列</a>
-    </ng-template>
+    </ng-template> -->
 
     <nz-tab [nzTitle]="collectTpl">
       <ng-template #collectTpl>

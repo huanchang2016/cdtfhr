@@ -1,66 +1,77 @@
-<nz-card>
-  <div class="search_wrapper clearfix">
-    <div class="search_box_input float-left">
+<div nz-row nzGutter="18">
+  <div nz-col nzSpan="18">
+    <nz-card>
+      <app-resumes-search-form-tpl (searchValueChange)="searchValueChange($event)"></app-resumes-search-form-tpl>
 
-      <div class="d-flex align-items-center">
-        <div class="search_title text-center bg-white text-primary">结果中搜索</div>
-        <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
-          <input type="text" [(ngModel)]="search_text" nz-input placeholder="职位名/公司名" />
-        </nz-input-group>
-        <ng-template #suffixIconSearch>
-          <i class="text-primary text-lg font-weight-bold" nz-icon nzType="search"></i>
-        </ng-template>
-      </div>
-    </div>
-
-    <span class="more_search_btn text-primary text-md point float-left" [class.more_actived]="is_more"
-      (click)="showMoreSearch()">
-      更多筛选条件
-      <i nz-icon nzType="down" nzTheme="outline"></i>
-    </span>
+    </nz-card>
   </div>
-  <div class="more_search_type_wrapper pt-lg" [class.more_actived]="is_more">
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-      <div nz-row [nzGutter]="24">
-        <div nz-col [nzSpan]="8">
-          <nz-form-item>
-            <nz-form-label nzFor="rangeDate">投递时间</nz-form-label>
-            <nz-form-control>
-              <app-range-date-picker-c formControlName="rangeDate" [placeholder]="'请点击选择投递时间'" [size]="'large'">
-              </app-range-date-picker-c>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="8">
-          <nz-form-item>
-            <nz-form-label nzFor="work_address">工作地点</nz-form-label>
-            <nz-form-control>
-              <!-- <app-multiple-cascader-selected ngDefaultcontrol formControlName="work_address"  [size]="'large'"
-                [placeholder]="'请点击选择工作地点'"></app-multiple-cascader-selected> -->
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="8">
-          <nz-form-item>
-            <nz-form-label nzFor="status">投递状态</nz-form-label>
-            <nz-form-control>
-
-              <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择投递状态">
-                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
-      <div nz-row>
-        <div nz-col [nzSpan]="24">
-          <button style="width: 140px;" nz-button [nzType]="'primary'" nzSize="large">搜索</button>
-          <button class="ml-md" nz-button (click)="resetForm()" nzSize="large">清空条件</button>
-        </div>
-      </div>
-    </form>
+  <div nz-col nzSpan="6">
+    <nz-card nzTitle="最近搜索记录" class="history_record">
+      <nz-list nzSize="small">
+        <ng-container *ngFor="let item of historyData">
+          <nz-list-item (click)="historyClick(item)">{{ item }}</nz-list-item>
+        </ng-container>
+      </nz-list>
+    </nz-card>
+    
   </div>
-</nz-card>
-
+</div>
+<div class="mt-md bg-white">
+  <div class="sort_box text-right">
+    <span class="mr-sm" style="line-height: 26px;">排序方式</span>
+    <nz-radio-group [(ngModel)]="searchOptions.sort" nzSize="small" (ngModelChange)="sortChange()">
+      <label nz-radio-button nzValue="A">最新</label>
+      <label nz-radio-button nzValue="B">相关度</label>
+    </nz-radio-group>
+  </div>
+  <nz-table
+      #tableTpl
+      nzShowSizeChanger
+      [nzData]="listOfData"
+      [nzFrontPagination]="false"
+      [nzLoading]="loadingData"
+      [nzTotal]="total"
+      [nzPageSize]="searchOptions.pageSize"
+      [nzPageIndex]="searchOptions.pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)"
+    >
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>年龄</th>
+          <th class="text-center">工作经验</th>
+          <th>学历</th>
+          <th>学校</th>
+          <th>专业</th>
+          <th>最近就职公司</th>
+          <th>最近职位</th>
+          <th class="text-center">相关度</th>
+          <th>刷新时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of tableTpl.data">
+          <td>
+            <a [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">张三</a>
+          </td>
+          <td>性别</td>
+          <td>
+            {{ countYears('1990-11-07') }} 岁
+          </td>
+          <td class="text-center">
+            <!-- 如果存在工作时间  2013-03-09  则表示有工作经验，如果没有工作时间，则显示 无经验 -->
+            <ng-container *ngIf="countYears('2013-03-09') >= 1">{{countYears('2013-03-09')}}年</ng-container>
+            <ng-container *ngIf="countYears('2013-03-09') < 1">1年以内</ng-container>
+          </td>
+          <td>学历</td>
+          <td>学校</td>
+          <td>专业</td>
+          <td>最近就职公司</td>
+          <td>最近职位</td>
+          <td class="text-danger">80%</td>
+          <td>刷新时间</td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>

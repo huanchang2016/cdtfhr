@@ -1,0 +1,30 @@
+<div class="resume-oper-tpl_body">
+    <h2 class="text-666 text-lg">{{ resumeInfo.title }}</h2>
+    <p class="text-grey">
+        <i class="mr-sm" nz-icon nzType="clock-circle" nzTheme="outline"></i>
+        <span>更新于 {{ resumeInfo.updated_at }}</span>
+    </p>
+    <p class="text-grey">
+        <i class="mr-sm" nz-icon nzType="download" nzTheme="outline"></i>
+        <span>账号名称</span>
+        <span class="text-666">已于</span>
+        <span class="text-nowrap">2020/7/23 23:20:42</span>
+        <span class="text-666">下载</span>
+        <span class="text-primary point text-nowrap" (click)="viewOperRecord()">查看操作记录 ></span>
+    </p>
+    <p class="text-grey">
+        <i class="mr-sm" nz-icon nzType="message" nzTheme="outline"></i>
+        <span class="text-666">可以先找TA来面试一下。</span>
+        <span>账号名称 &nbsp; <span class="text-nowrap">2020/7/23 23:20:42</span></span>
+        <span class="text-primary point text-nowrap" (click)="viewRemarks()">查看更多备注 ></span>
+    </p>
+
+    <div class="oper_btn_box mt-sm">
+        <button nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="download" nzTheme="outline"></i> 下载</button>
+        <button nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="save" nzTheme="outline"></i> 保存</button>
+        <button nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="star" nzTheme="outline"></i> 收藏</button>
+        <button nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="send" nzTheme="outline"></i> 转发</button>
+        <button nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="message" nzTheme="outline"></i> 备注</button>
+    </div>
+
+</div>

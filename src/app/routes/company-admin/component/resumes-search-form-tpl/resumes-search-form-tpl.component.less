@@ -1,0 +1,42 @@
+@import './../../../../../styles/base-color.less';
+
+nz-form-item {
+    margin-bottom: 12px;
+
+    nz-form-label {
+        min-width: 90px;
+        line-height: 40px;
+        &.label_default {
+            line-height: 32px;
+        }
+    }
+    
+    .radio-group_content {
+        line-height: 40px;
+    }
+    .customer_input_box {
+        nz-input-number {
+            width: 60px;
+            margin-right: 8px;
+        }
+    }
+}
+
+.keywords_refer {
+    line-height: 30px;
+}
+
+:host ::ng-deep {
+    .ant-radio-button-wrapper {
+        border: 1px solid #d9d9d9;
+    }
+    .ant-radio-button-wrapper:first-child,
+    .ant-radio-button-wrapper:last-child {
+        border-radius: 4px;
+    }
+    .radio_label {
+        &::before {
+            display: none;
+        }
+    }
+}

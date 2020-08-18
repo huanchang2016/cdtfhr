@@ -62,7 +62,7 @@ export class ResumeListComponent implements OnInit {
   }
 
   setDefault(key:boolean, data:any) {
-    console.log(key, 'key', data, 'data', 'set default resume')
+    console.log(key, 'key', data, 'data', 'set default resume');
     this.defaultItemOption[data.id] = true;
     this.settingService.post(`/v1/web/user/resume/set_default/${data.id}`).subscribe((res:ApiData) => {
       this.defaultItemOption[data.id] = false;

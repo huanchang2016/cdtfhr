@@ -39,7 +39,6 @@ export class StartupService {
       console.error('error account info get!', err);
       this.settingService.clearUser();
     })
-    
   }
   
   load(): Promise<any> {

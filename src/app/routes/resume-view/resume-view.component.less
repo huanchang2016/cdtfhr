@@ -1,38 +1,32 @@
-.resume-info-view {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    .resume-show_content_body {
+
+.body__content_box {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    .resume-show_content_body { // 个人用户预览简历
         width: 800px;
         margin: 0 auto;
-
-        &>div {
-            padding: 12px 20px 0;
-        }
-        // 显示内容区域 css
-        .user-logo {
-            width: 100px;
-            overflow: hidden;
-
-            .logo_img_box {
-                width: 82px;
-                height: 82px;
-                overflow: hidden;
-
-                &>i {
-                    font-size: 44px;
-                }
-            }
-        }
-
-        .user-info {
-            width: 700px;
-            overflow: hidden;
-        }
+    }
+    .resume-show_oper_view_body { // 企业用户查看简历
+        width: 900px;
+    }
+    .resume-show_oper_box {
+        width: 360px;
+        margin-top: -50px;
     }
 }
 
 .oper_btn_box {
     a {
         width: 240px;
+    }
+}
+
+:host ::ng-deep {
+    nz-affix {
+        .ant-affix {
+            height: 100vh!important;
+            background-color: #EFEFEF;
+        }
+        
     }
 }

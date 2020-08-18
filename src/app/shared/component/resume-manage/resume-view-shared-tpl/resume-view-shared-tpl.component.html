@@ -1,0 +1,335 @@
+<div class="content_div mb-md" id="user-info-basic">
+    <!-- 个人信息 -->
+
+    <app-sub-title-show [title]="'个人信息'"></app-sub-title-show>
+    <div class="d-flex align-items-center">
+        <div class="user-logo">
+            <div
+                class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+                <ng-container *ngIf="resumeInfo.avatar;else notPhoto">
+                    <img [src]="environment.SERVER_URL + '/' + resumeInfo.avatar" alt="">
+                </ng-container>
+                <ng-template #notPhoto>
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                <h3 class="text-666 text-lg">{{ resumeInfo.name }} <span
+                        class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
+                </h3>
+                <div class="text-sm">
+                    <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span [innerHTML]="countYears(resumeInfo.work_date)"></span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>{{ resumeInfo.birthday | date: 'yyyy年MM月' }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>{{ resumeInfo.marriage.value }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>现居住于
+                        <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
+                            {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
+                        </ng-container>
+                        <ng-container *ngIf="resumeInfo.work_province.name === resumeInfo.work_city.name">
+                            {{ resumeInfo.work_province.name }}
+                        </ng-container>
+                    </span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span *ngIf="resumeInfo.education.data.length !== 0">
+                        <span>
+                            {{ resumeInfo.education.data[0].education.value }}
+                        </span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span>
+                        <ng-container *ngIf="resumeInfo.registered_province.name !== resumeInfo.registered_city.name">
+                            {{ resumeInfo.registered_province.name + resumeInfo.registered_city.name }}
+                        </ng-container>
+                        <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
+                            {{ resumeInfo.registered_province.name }}
+                        </ng-container>
+                        户口
+                    </span>
+                </div>
+                <div>
+                    <i class="text-md" nz-icon nzType="phone" nzTheme="outline"></i>
+                    <span class="ml-sm text-sm">{{ resumeInfo.phone }}</span>
+                </div>
+                <div>
+                    <i class="text-md" nz-icon nzType="mail" nzTheme="outline"></i>
+                    <span class="ml-sm text-sm">{{ resumeInfo.email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-self-comment">
+    <!-- 自我评价 -->
+
+    <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
+    <div class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
+</div>
+
+<div class="content_div mb-md" id="user-job-intension">
+    <!-- 求职意向 -->
+
+    <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
+    <div class="text-sm text-grey">
+        <div>期望工作地区：
+            <ng-container *ngFor="let city of resumeInfo.target.city; let city_idx = index">
+                <nz-divider nzType="vertical" *ngIf="city_idx !== 0"></nz-divider>
+                {{ city.name }}
+            </ng-container>
+        </div>
+        <div>期望工作性质：
+            <ng-container *ngFor="let type of resumeInfo.target.type; let type_idx = index">
+                <nz-divider nzType="vertical" *ngIf="type_idx !== 0"></nz-divider>
+                {{ type.value }}
+            </ng-container>
+        </div>
+        <div>期望从事行业：
+            <ng-container *ngFor="let industry of resumeInfo.target.industry; let industry_idx = index">
+                <nz-divider nzType="vertical" *ngIf="industry_idx !== 0"></nz-divider>
+                {{ industry.name }}
+            </ng-container>
+        </div>
+        <div>期望职业：
+            <ng-container *ngFor="let job_type of resumeInfo.target.job_type; let job_type_idx = index">
+                <nz-divider nzType="vertical" *ngIf="job_type_idx !== 0"></nz-divider>
+                {{ job_type.name }}
+            </ng-container>
+        </div>
+        <div>期望月薪： {{ resumeInfo.target.salary.value }} 元/月</div>
+        <div>求职状态： {{ resumeInfo.target.status.value }}</div>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-work-exp">
+    <!-- 工作经历 -->
+
+    <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
+    <ng-template #notWork>
+        <span class="text-grey pl-md">暂无工作经历</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.work.data.length !== 0; else notWork">
+        <ng-container *ngFor="let work of resumeInfo.work.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
+                    {{ work.name }}</h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            {{ work.start_time | date: 'yyyy.MM' }} -
+                            <ng-container *ngIf="work.end_time !== '至今'">{{ work.end_time | date: 'yyyy.MM' }}
+                            </ng-container>
+                            <ng-container *ngIf="work.end_time === '至今'">至今</ng-container>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ countMonth(work.start_time, work.end_time)}}
+                        </p>
+                        <p>{{ work.position }} <nz-divider nzType="vertical"></nz-divider> {{ work.salary.value }}
+                            /月</p>
+                        <p>
+                            {{ work.industry.name }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ work.type.value }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ work.scale.value }}
+                        </p>
+                        <div class="text-666 mt-sm">工作描述：</div>
+                        <div [innerHTML]="work.description | showTextAreaText"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-internship">
+    <!-- 实习经历 -->
+
+    <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
+    <ng-template #notPractice>
+        <span class="text-grey pl-md">暂无实习经历</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.practice.data.length !== 0; else notPractice">
+        <ng-container *ngFor="let practice of resumeInfo.practice.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
+                    {{ practice.name }}</h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            {{ practice.start_time | date: 'yyyy.MM' }} -
+                            <ng-container *ngIf="practice.end_time !== '至今'">
+                                {{ practice.end_time | date: 'yyyy.MM' }}</ng-container>
+                            <ng-container *ngIf="practice.end_time === '至今'">至今</ng-container>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ countMonth(practice.start_time, practice.end_time)}}
+                        </p>
+                        <p>{{ practice.position }} <nz-divider nzType="vertical"></nz-divider>
+                            {{ practice.salary.value }} /月</p>
+                        <p>
+                            {{ practice.industry.name }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ practice.type.value }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ practice.scale.value }}
+                        </p>
+                        <div class="text-666 mt-sm">工作描述：</div>
+                        <div [innerHTML]="practice.description | showTextAreaText"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-project-exp">
+    <!-- 项目经历 -->
+
+    <app-sub-title-show [title]="'项目经历'"></app-sub-title-show>
+    <ng-template #notProject>
+        <span class="text-grey pl-md">暂无项目经历</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.project.data.length !== 0; else notProject">
+        <ng-container *ngFor="let project of resumeInfo.project.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ project.name }}</h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            {{ project.start_time | date: 'yyyy.MM' }} -
+                            <ng-container *ngIf="project.end_time !== '至今'">{{ project.end_time | date: 'yyyy.MM' }}
+                            </ng-container>
+                            <ng-container *ngIf="project.end_time === '至今'">至今</ng-container>
+                        </p>
+                        <div class="text-666 mt-sm">责任描述：</div>
+                        <div [innerHTML]="project.description | showTextAreaText"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-edu-exp">
+    <!-- 教育经历 -->
+
+    <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
+    <ng-template #notEducation>
+        <span class="text-grey pl-md">暂无教育经历</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.education.data.length !== 0; else notEducation">
+        <ng-container *ngFor="let education of resumeInfo.education.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ education.name }}</h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            {{ education.start_time | date: 'yyyy.MM' }} -
+                            <ng-container *ngIf="education.end_time !== '至今'">
+                                {{ education.end_time | date: 'yyyy.MM' }}</ng-container>
+                            <ng-container *ngIf="education.end_time === '至今'">至今</ng-container>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ education.major }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ education.education.value }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="content_div mb-md" id="user-train-exp">
+    <!-- 培训经历 -->
+
+    <app-sub-title-show [title]="'培训经历'"></app-sub-title-show>
+    <ng-template #notTraining>
+        <span class="text-grey pl-md">暂无培训经历</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.training.data.length !== 0; else notTraining">
+        <ng-container *ngFor="let training of resumeInfo.training.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-grey text-md">
+                    {{ training.start_time | date: 'yyyy.MM' }} -
+                    {{ training.end_time | date: 'yyyy.MM' }}
+                </h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            培训内容
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ training.description }}
+                        </p>
+                        <p>
+                            培训机构
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ training.name }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-certificates">
+    <!-- 证书信息 -->
+
+    <app-sub-title-show [title]="'证书信息'"></app-sub-title-show>
+    <ng-template #notCertificate>
+        <span class="text-grey pl-md">暂无证书信息</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.certificate.data.length !== 0; else notCertificate">
+        <ng-container *ngFor="let certificate of resumeInfo.certificate.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-grey text-sm">{{ certificate.time | date: 'yyyy.MM' }}</h4>
+                <div class="item_card_body">
+                    <div class="text-md text-666 font-weight-bold">{{ certificate.name }}</div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-language">
+    <!-- 其它语言能力 -->
+
+    <app-sub-title-show [title]="'其它语言能力'"></app-sub-title-show>
+    <ng-template #notLanguage>
+        <span class="text-grey pl-md">暂无其它语言能力</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.language.data.length !== 0; else notLanguage">
+        <ng-container *ngFor="let language of resumeInfo.language.data">
+            <div class="item_card_box mb-md">
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ language.language.value }}
+                </h4>
+                <div class="item_card_body text-grey">
+                    <div class="text-sm">
+                        <p>
+                            听说能力
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ language.listening_speaking }}
+                        </p>
+                        <p>
+                            读写能力
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ language.reading_writing }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="content_div mb-md" id="user-interest">
+    <!-- 兴趣爱好 -->
+
+    <app-sub-title-show [title]="'兴趣爱好'"></app-sub-title-show>
+    <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText"></div>
+</div>

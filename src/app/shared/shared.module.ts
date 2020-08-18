@@ -23,6 +23,8 @@ import { RangeMonthPickerComponent } from './component/forms/range-month-picker/
 import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
 import { UploadFilePhotoComponent } from './component/forms/upload-file-photo/upload-file-photo.component';
 import { TestInputAccessComponent } from './component/forms/test-input-access/test-input-access.component';
+import { ResumeViewSharedTplComponent } from './component/resume-manage/resume-view-shared-tpl/resume-view-shared-tpl.component';
+import { ResumeOperTplComponent } from './component/resume-manage/resume-oper-tpl/resume-oper-tpl.component';
 
 // #region third libs
 
@@ -49,7 +51,9 @@ const COMPONENTS = [
   RangeDatePickerComponent,
   RangeMonthPickerComponent,
   PositionAddressMapComponent,
-  TestInputAccessComponent
+  TestInputAccessComponent,
+  ResumeViewSharedTplComponent,
+  ResumeOperTplComponent
 ];
 
 const ENTRYCOMPONENTS = [

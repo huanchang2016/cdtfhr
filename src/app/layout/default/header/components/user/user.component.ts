@@ -81,6 +81,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   logout() {
     let url: string = '';
+    console.log(this.settingService.user, 'user');
     if(this.settingService.user.type === 'user') {
       url = '/v1/web/logout';
     } else {

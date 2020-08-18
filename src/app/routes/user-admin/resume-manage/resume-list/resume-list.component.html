@@ -35,7 +35,7 @@
                         </td>
                         <td>
                             <nz-switch [(ngModel)]="data.is_default" [nzLoading]="defaultItemOption[data.id]" (ngModelChange)="setDefault($event, data)"
-                                nzCheckedChildren="是" nzUnCheckedChildren="否"></nz-switch>
+                                nzCheckedChildren="是" nzUnCheckedChildren="否" [nzDisabled]="data.is_default"></nz-switch>
                         </td>
                         <td>
                             <div class="oper_box_wrapper">

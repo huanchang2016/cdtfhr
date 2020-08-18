@@ -20,6 +20,7 @@ import { SaveResumeListCComponent } from './resumes-manage/resumes-history/save-
 import { SendResumeListCComponent } from './resumes-manage/resumes-history/send-resume-list-c/send-resume-list-c.component';
 import { JoinusResumeListCComponent } from './resumes-manage/resumes-history/joinus-resume-list-c/joinus-resume-list-c.component';
 import { ResumesListColsCComponent } from './component/resumes-list-cols-c/resumes-list-cols-c.component';
+import { ResumesSearchFormTplComponent } from './component/resumes-search-form-tpl/resumes-search-form-tpl.component';
 
 
 const COMPONENTS = [
@@ -38,6 +39,8 @@ const ENTRYCOMPONENTS = [
   CompanySidebarComponent,
   CompanyContentTopComponent,
   PositionFormComponent,
+  // 简历搜索 表单组件
+  ResumesSearchFormTplComponent,
   // 简历管理   简历库子组件
   CollectResumeListCComponent,
   DownloadResumeListCComponent,

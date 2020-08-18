@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { differenceInYears } from 'date-fns';
 
 @Component({
   selector: 'app-resumes-list',
@@ -7,65 +8,71 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./resumes-list.component.less']
 })
 export class ResumesListComponent implements OnInit {
-  is_more:boolean = true; // 展开更多搜索条件
 
-  validateForm!: FormGroup;
-
-  search_text:string = '';
+  historyData = [
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.',
+    'Man charged over missing wedding girl.',
+    'Los Angeles battles huge wildfires.'
+  ]; // 历史搜索记录
 
   loadingData:boolean = true;
   listOfData:any[] = [];
 
   list:any[] = []; // 当前页得数据
 
-  constructor(
-    private fb: FormBuilder
-  ) {
-    this.getDataList();
-  }
+  searchOptions:any = {
+    pageIndex: 1,
+    pageSize: 15,
+    sort: 'A'  // 最新 A,  相关度 B
+  };
+  total = 1; // 总数
 
-  getDataList(total: number = 10) {
+
+  constructor() {}
+
+  getDataList(total: number = 20) {
     this.loadingData = true;
     setTimeout(() => {
       this.loadingData = false;
-      this.list = Array.from(new Array(total).keys());
-      if(this.list.length !== 0) {
-        this.listOfData = this.list.slice(0, 9);
-      }
-      // this.listOfData = [1, 2, 3];
+      this.total = 200;
+      this.listOfData = Array.from(new Array(total).keys());
+      
     }, 800);
   }
 
-  changeTab(status:string):void {
-    console.log(status, 'change tabs, status changed!');
-    const total:number = Math.ceil(Math.random() * 800);
-    this.getDataList(total);
-  }
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      rangeDate: [null],
-      work_address: [null],
-      status: [null]
-    });
+    this.getDataList();
   }
 
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-
-    console.log(this.validateForm, 'validateForm');
+  searchValueChange(option:any):void {
+    console.log('search option change', option);
+    this.getDataList();
   }
 
-  resetForm(): void {
-    this.validateForm.reset();
-    this.search_text = '';
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params, 'params');
+    // const { pageSize, pageIndex, sort, filter } = params;
+    // const currentSort = sort.find(item => item.value !== null);
+    // const sortField = (currentSort && currentSort.key) || null;
+    // const sortOrder = (currentSort && currentSort.value) || null;
+    
   }
 
-
-  showMoreSearch():void {
-    this.is_more = !this.is_more;
+  sortChange():void {
+    console.log('%csort type changed!','color: #f00', this.searchOptions);
   }
+
+  historyClick(data:any):void {
+    console.log('点击历史搜索jil ', data)
+  }
+
+  countYears(t:string):number { // 计算 t  至今的时间段（多少年）
+    const today:Date = new Date();
+    const year:number = differenceInYears(today, new Date(t));
+    return year;
+  }
+
 }

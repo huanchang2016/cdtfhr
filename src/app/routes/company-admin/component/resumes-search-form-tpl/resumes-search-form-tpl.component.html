@@ -1,0 +1,213 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="18">
+            <nz-form-item>
+                <nz-form-label nzFor="keywords">关键词</nz-form-label>
+                <nz-form-control>
+                    <input type="text" formControlName="keywords" id="keywords" nzSize="large" nz-input placeholder="请输入关键词" />
+                    <div class="keywords_refer bg-grey-dark border-radius-sm pl-md mt-sm text-primary"><i nz-icon
+                            nzType="exclamation-circle" nzTheme="fill"></i> &nbsp;多个关键词请用空格隔开</div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <nz-form-item>
+                <nz-form-control>
+                    <label style="line-height: 40px;" nz-checkbox formControlName="is_any_key"><span class="text-primary">含任一关键词</span></label>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="work_address">期望工作地</nz-form-label>
+                <nz-form-control>
+
+                    <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
+                        [placeholder]="'请点击选择期望工作地'"></app-three-stage-cascader>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="stay_address">现居住地</nz-form-label>
+                <nz-form-control>
+                    <app-three-stage-cascader ngDefaultcontrol formControlName="stay_address"
+                        [placeholder]="'请点击选择现居住地'"></app-three-stage-cascader>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="now_industry">目前行业</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="now_industry" formControlName="now_industry" nzSize="large" nzPlaceHolder="请点击选择目前行业">
+                        <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="plan_industry">期望行业</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="plan_industry" formControlName="plan_industry" nzSize="large" nzPlaceHolder="请点击选择期望行业">
+                        <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="status">求职状态</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择求职状态">
+                        <ng-container *ngFor="let item of globalService.resumeConfigOptions.status">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="update_time">简历更新</nz-form-label>
+                <nz-form-control>
+                    <app-range-date-picker-c formControlName="update_time" [placeholder]="'请点击选择简历更新时间'" [size]="'large'">
+                    </app-range-date-picker-c>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="age_start">年龄区间</nz-form-label>
+                <nz-form-control>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <nz-input-number formControlName="age_start" [nzMin]="0" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
+                        <span class="mx-sm">-</span>
+                        <nz-input-number formControlName="age_end" [nzMin]="0" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
+                        岁
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12"></div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="company_name">公司名称</nz-form-label>
+                <nz-form-control>
+                    <input type="text" formControlName="company_name" id="company_name" nzSize="large" nz-input placeholder="请输入公司名称" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="company_nature">企业性质</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="company_nature" formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择企业性质">
+                        <ng-container *ngFor="let item of globalService.companyConfigOptions.company_type">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="school_name">毕业院校</nz-form-label>
+                <nz-form-control>
+                    <input type="text" formControlName="school_name" id="school_name" nzSize="large" nz-input placeholder="请输入毕业院校" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="school_major">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</nz-form-label>
+                <nz-form-control>
+                    <input type="text" formControlName="school_major" id="school_major" nzSize="large" nz-input placeholder="请输入专业" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="now_salary">目前月薪</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="now_salary" formControlName="now_salary" nzSize="large" nzPlaceHolder="请点击选择目前月薪">
+                        <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+            <nz-form-item>
+                <nz-form-label nzFor="plan_salary">期望月薪</nz-form-label>
+                <nz-form-control>
+                    <nz-select id="plan_salary" formControlName="plan_salary" nzSize="large" nzPlaceHolder="请点击选择期望月薪">
+                        <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                        </ng-container>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-label class="label_default" nzFor="education">学历筛选</nz-form-label>
+                <nz-form-control>
+                    <nz-radio-group id="education" formControlName="education" nzButtonStyle="solid">
+                        <label nz-radio-button [nzValue]="null" class="radio_label border-radius-sm mr-sm">不限</label>
+                        <ng-container *ngFor="let item of globalService.resumeConfigOptions.education">
+                            <label nz-radio-button [nzValue]="item.id" class="radio_label border-radius-sm mr-sm">{{ item.value }}</label>
+                        </ng-container>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-label class="label_default" nzFor="work_exp">工作经验</nz-form-label>
+                <nz-form-control>
+                    <nz-radio-group class="float-left" id="work_exp" formControlName="work_exp" nzButtonStyle="solid">
+                        <ng-container *ngFor="let item of workExpOptions">
+                            <label nz-radio-button [nzValue]="item.value" class="radio_label border-radius-sm mr-sm">{{ item.key }}</label>
+                        </ng-container>
+                        <label *ngIf="!isCustomer" nz-radio-button [nzValue]="-1" (click)="customerExpSettings()" class="radio_label border-radius-sm mr-sm">自定义</label>
+
+                    </nz-radio-group>
+                    <div *ngIf="isCustomer" class="customer_input_box float-left">
+                        <nz-input-number formControlName="customer_exp_start" [nzMin]="0" [nzMax]="99" [nzStep]="1"></nz-input-number>
+                        <nz-input-number formControlName="customer_exp_end" [nzMin]="0" [nzMax]="99" [nzStep]="1"></nz-input-number>
+                        <button nz-button nzType="primary" (click)="confirm($event)" nzSize="small" class="mr-sm">确认</button>
+                        <button nz-button nzType="default" (click)="cancel($event)" nzSize="small">取消</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="24">
+            <nz-form-item>
+                <nz-form-label class="label_default" nzFor="sex">性别筛选</nz-form-label>
+                <nz-form-control>
+                    <nz-radio-group id="sex" formControlName="sex" nzButtonStyle="solid">
+                        <label nz-radio-button [nzValue]="null" class="radio_label border-radius-sm mr-sm">不限</label>
+                        <label nz-radio-button [nzValue]="1" class="radio_label border-radius-sm mr-sm">男</label>
+                        <label nz-radio-button [nzValue]="2" class="radio_label border-radius-sm mr-sm">女</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col [nzSpan]="24">
+            <div class="text-center">
+                <button style="width: 300px;" nz-button [nzType]="'primary'" nzSize="large">开始搜索</button>
+                <button class="ml-md" nz-button (click)="resetForm()" nzSize="large">清空条件</button>
+            </div>
+        </div>
+    </div>
+</form>
