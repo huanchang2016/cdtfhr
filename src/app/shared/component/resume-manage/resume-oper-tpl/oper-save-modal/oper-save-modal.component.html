@@ -1,0 +1,19 @@
+<div class="wrapper-box">
+    <h3 class="text-lg text-666 text-center">是否保存此简历？</h3>
+    <p class="my-xs text-center text-grey">保存不限制次数</p>
+    <div class="d-flex mt-md">
+        <div style="line-height: 30px;" class="text-center px-xs">选择格式<span class="text-danger">*</span></div>
+        <div class="flex-1">
+            <nz-select style="width: 100%;" [(ngModel)]="type" nzPlaceHolder="选择保存格式">
+                <nz-option [nzValue]="1" nzLabel="PDF"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="WORD"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="PPT"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+
+</div>
+<div *nzModalFooter class="text-center footer-btn-wrapper">
+    <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取消</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">保存</button>
+</div>

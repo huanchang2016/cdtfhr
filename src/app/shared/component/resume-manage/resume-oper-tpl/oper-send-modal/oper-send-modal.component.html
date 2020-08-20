@@ -1,0 +1,15 @@
+<div class="wrapper-box">
+    <h3 class="text-lg text-666 text-center">是否转发此简历？</h3>
+    <p class="my-xs text-center text-grey">转发不消耗次数</p>
+    <div class="d-flex mt-md">
+        <div style="line-height: 30px;" class="text-center px-xs">转发到<span class="text-danger">*</span></div>
+        <div class="flex-1">
+            <input nz-input [(ngModel)]="emails" placeholder="最多同时发送5份邮件，邮箱地址请用英文“;”隔开" />
+        </div>
+    </div>
+
+</div>
+<div *nzModalFooter class="text-center footer-btn-wrapper">
+    <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取消</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">发送</button>
+</div>

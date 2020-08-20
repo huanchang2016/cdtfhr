@@ -1,0 +1,19 @@
+<div class="wrapper-box">
+    <h3 class="text-lg text-666 text-center">是否收藏此简历？</h3>
+    <p class="my-xs text-center text-grey">收藏不限制次数</p>
+    <div class="d-flex mt-md">
+        <div style="line-height: 30px;" class="text-center px-xs">选择收藏夹<span class="text-danger">*</span></div>
+        <div class="flex-1">
+            <nz-select style="width: 100%;" [(ngModel)]="type" nzPlaceHolder="选择收藏夹">
+                <nz-option [nzValue]="1" nzLabel="未归类"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="收藏夹1.0"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="收藏夹2.0"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+
+</div>
+<div *nzModalFooter class="text-center footer-btn-wrapper">
+    <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取消</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">收 藏</button>
+</div>

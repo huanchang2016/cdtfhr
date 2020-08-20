@@ -1,0 +1,33 @@
+<div class="wrapper-box">
+    <h3 class="text-lg text-center text-666">
+        本次下载将使用<span class="text-primary"> {{ setOfCheckedId.size }}</span> 个下载次数。
+    </h3>
+    <p class="text-center">下载剩余次数 {{ 100 - setOfCheckedId.size }}</p>
+    <div class="list-box pb-sm">
+        <nz-list nzSize="small">
+            <nz-list-item *ngFor="let item of data">
+                <div class="d-flex align-items-center">
+                    <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
+                    <p class="text-666 mx-sm">awer23913-技术部门-JAVA工程师20020197</p>
+                    <p class="text-right text-primary flex-1" *ngIf="setOfCheckedId.has(item.id)">
+                        <i nz-icon nzType="exclamation-circle" nzTheme="fill"></i>
+                        <span class="ml-sm">您可以在该职位“合适”阶段或简历库中查看此简历</span>
+                    </p>
+                </div>
+            </nz-list-item>
+        </nz-list>
+    </div>
+
+    <div class="form-box mt-sm px-md">
+        <div class="d-flex">
+            <label nz-checkbox [(ngModel)]="beRelated" (ngModelChange)="onAllChecked($event)"><span class="text-primary">不关联到职位</span></label>
+            <span class="text-primary ml-md"><i nz-icon nzType="exclamation-circle" nzTheme="fill"></i><span class="ml-sm">该简历无法在线进行面试安排</span></span>
+        </div>
+    </div>
+
+</div>
+
+<div *nzModalFooter class="text-center footer-btn-wrapper">
+    <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取消</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">下载</button>
+</div>

@@ -9,6 +9,7 @@ import { ResumesListComponent } from './resumes-manage/resumes-list/resumes-list
 import { ResumesHandleComponent } from './resumes-manage/resumes-handle/resumes-handle.component';
 import { ResumesHistoryComponent } from './resumes-manage/resumes-history/resumes-history.component';
 import { OrganizationComponent } from './settings/organization/organization.component';
+import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
       // { path: 'position/create', component: PositionCreateComponent },
       { path: 'resumes/search', component: ResumesListComponent },
       { path: 'resumes/handle', component: ResumesHandleComponent },
+      { path: 'resumes/handle', component: ResumesHandleComponent },
+      { path: 'resumes/handle/:id', component: ResumesByPositionComponent },
       { path: 'resumes/history', component: ResumesHistoryComponent },
       { path: 'settings/organ', component: OrganizationComponent },
       { path: 'settings/account', loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule) }

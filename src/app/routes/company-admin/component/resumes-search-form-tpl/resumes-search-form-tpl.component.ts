@@ -99,7 +99,7 @@ export class ResumesSearchFormTplComponent implements OnInit {
   resetForm(): void {
     this.validateForm.patchValue({
       keywords: null,
-      is_any_key: [false],
+      is_any_key: false,
       work_address: null,
       stay_address: null,
       now_industry: null,
@@ -137,7 +137,7 @@ export class ResumesSearchFormTplComponent implements OnInit {
   emit():void {
     const option:any = {
       keywords: null,
-      is_any_key: [false],
+      is_any_key: false,
       work_address: null,
       stay_address: null,
       now_industry: null,

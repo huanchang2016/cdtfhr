@@ -21,6 +21,9 @@ import { SendResumeListCComponent } from './resumes-manage/resumes-history/send-
 import { JoinusResumeListCComponent } from './resumes-manage/resumes-history/joinus-resume-list-c/joinus-resume-list-c.component';
 import { ResumesListColsCComponent } from './component/resumes-list-cols-c/resumes-list-cols-c.component';
 import { ResumesSearchFormTplComponent } from './component/resumes-search-form-tpl/resumes-search-form-tpl.component';
+import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
+import { ListItemsComponent } from './resumes-manage/resumes-by-position/list-items/list-items.component';
+import { SearchOptionFormCComponent } from './resumes-manage/resumes-by-position/search-option-form-c/search-option-form-c.component';
 
 
 const COMPONENTS = [
@@ -28,9 +31,12 @@ const COMPONENTS = [
   CompanyAdminHomeComponent,
   PositionListComponent,
   PositionCreateComponent,
+  // 简历搜索
   ResumesListComponent,
+  // 简历管理
   ResumesHandleComponent,
-  ResumesHistoryComponent,
+  ResumesByPositionComponent, // 通过职位获取简历
+  ResumesHistoryComponent, // 简历库
   PositionListCComponent,
   OrganizationComponent
 ];
@@ -48,7 +54,9 @@ const ENTRYCOMPONENTS = [
   SendResumeListCComponent,
   JoinusResumeListCComponent,
   // 简历列表，显示列内容
-  ResumesListColsCComponent
+  ResumesListColsCComponent,
+  ListItemsComponent,
+  SearchOptionFormCComponent
 ];
 
 @NgModule({

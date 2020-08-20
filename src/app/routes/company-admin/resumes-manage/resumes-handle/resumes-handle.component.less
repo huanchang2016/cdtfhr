@@ -16,3 +16,21 @@
         border-bottom-left-radius: 4px;
     }
 }
+
+
+:host ::ng-deep {
+    .content_wrapper {
+        .ant-card-body {
+            padding: 0;
+            .ant-table-pagination.ant-pagination {
+                margin-right: 16px;
+            }
+        }
+    }
+    .ant-tabs-tab {
+        padding: 17px 0;
+        width: 168px;
+        text-align: center;
+        font-size: 16px;
+    }
+}

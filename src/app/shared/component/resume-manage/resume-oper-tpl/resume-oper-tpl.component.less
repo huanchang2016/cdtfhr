@@ -10,3 +10,24 @@
         }
     }
 }
+// 修改弹出框样式
+::ng-deep {
+  .ant-modal {
+      padding-right: 55px;
+      
+      .ant-modal-title {
+          text-align: center;
+      }
+      .ant-modal-close {
+          right: -55px;
+          .ant-modal-close-x {
+              width: 32px;
+              height: 32px;
+              line-height: 32px;
+              font-size: 26px;
+              font-weight: bold;
+              color: #fff;
+          }
+      }
+  }
+}

@@ -1,0 +1,35 @@
+.user-logo {
+    .logo_img_box {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+
+        &>i {
+            font-size: 44px;
+        }
+    }
+}
+
+.oper_btn {
+    display: inline-block;
+    width: 120px;
+    line-height: 30px;
+    font-size: 16px;
+    transition: all 0.3s;
+    &.btn_warning {
+        color: #E64B3B;
+        border: 1px solid #E64B3B;
+        &:hover {
+            color: #fff;
+            background-color: #E64B3B;
+        }
+    }
+    &.btn_success {
+        color: #19BB9B;
+        border: 1px solid #19BB9B;
+        &:hover {
+            color: #fff;
+            background-color: #19BB9B;
+        }
+    }
+}

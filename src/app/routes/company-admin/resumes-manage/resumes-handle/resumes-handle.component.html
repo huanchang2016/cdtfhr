@@ -7,11 +7,94 @@
             <input type="text" [(ngModel)]="search_text" nz-input placeholder="请输入关键字" (keypress)="($event.which === 13)?search():0" />
           </nz-input-group>
           <ng-template #suffixIconSearch>
-            <i *ngIf="!searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="search" (click)="search()"></i>
-            <i *ngIf="searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="sync" [nzSpin]="searchLoading"></i>
+            <i *ngIf="!loadingData" class="text-primary text-lg font-weight-bold" nz-icon nzType="search" (click)="search()"></i>
+            <i *ngIf="loadingData" class="text-primary text-lg font-weight-bold" nz-icon nzType="sync" [nzSpin]="loadingData"></i>
           </ng-template>
         </div>
       </div>
 </nz-card>
 
-<p>resumes-handle works!</p>
+<nz-card class="content_wrapper mt-md mb-lg">
+  <nz-tabset>
+    <nz-tab nzTitle="招聘中" (nzSelect)="selectChange('ing')">
+      <nz-table
+        nzShowSizeChanger
+        nzShowQuickJumper
+        [nzData]="listOfData"
+        [nzFrontPagination]="false"
+        [nzLoading]="loadingData"
+        [nzTotal]="pageOptionIng.total"
+        [nzPageSize]="pageOptionIng.pageSize"
+        [nzPageIndex]="pageOptionIng.pageIndex"
+        (nzQueryParams)="onQueryParamsChange($event)"
+        [nzFooter]="footerTpl"
+      >
+        <thead>
+          <tr>
+            <th nzWidth="600px">职位名</th>
+            <th>新收到简历</th>
+            <th>简历总数</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listOfData">
+            <td>awer23913-技术部门-JAVA工程师20020197</td>
+            <td>
+              <a [routerLink]="['/admin/company/resumes/handle', 1]" [queryParams]="{ type: 'new' }" target="_blank">32</a>
+            </td>
+            <td><a [routerLink]="['/admin/company/resumes/handle', 1]" target="_blank">101</a></td>
+            <td>2020/06/20</td>
+            <td>2021/01/31</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+    <nz-tab nzTitle="已下线" (nzSelect)="selectChange('underline')">
+      <ng-template nz-tab>
+        <nz-table
+          nzShowSizeChanger
+          nzShowQuickJumper
+          [nzData]="underlineData"
+          [nzFrontPagination]="false"
+          [nzLoading]="loadingData"
+          [nzTotal]="pageOptionUnderline.total"
+          [nzPageSize]="pageOptionUnderline.pageSize"
+          [nzPageIndex]="pageOptionUnderline.pageIndex"
+          (nzQueryParams)="onQueryParamsChange($event)"
+          [nzFooter]="footerTpl"
+        >
+          <thead>
+            <tr>
+              <th nzWidth="600px">职位名</th>
+              <th>新收到简历</th>
+              <th>简历总数</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of underlineData">
+              <td>awer23913-技术部门-JAVA工程师20020197 已下线</td>
+              <td>
+                <a [routerLink]="['/admin/company/resumes/handle', 1]" [queryParams]="{ type: 'new' }" target="_blank">32</a>
+              </td>
+              <td><a [routerLink]="['/admin/company/resumes/handle', 1]" target="_blank">101</a></td>
+              <td>2020/06/20</td>
+              <td>2021/01/31</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+  
+</nz-card>
+
+<ng-template #footerTpl>
+  <div class="text-666 text-md">
+    正在招聘 <span class="text-primary">{{ pageOptionIng.total }}</span> 个职位，
+    已下线 <span class="text-primary">{{ pageOptionUnderline.total }}</span> 个职位
+  </div>
+</ng-template>

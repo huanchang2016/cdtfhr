@@ -23,8 +23,15 @@ import { RangeMonthPickerComponent } from './component/forms/range-month-picker/
 import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
 import { UploadFilePhotoComponent } from './component/forms/upload-file-photo/upload-file-photo.component';
 import { TestInputAccessComponent } from './component/forms/test-input-access/test-input-access.component';
+// 简历预览 公共部分
 import { ResumeViewSharedTplComponent } from './component/resume-manage/resume-view-shared-tpl/resume-view-shared-tpl.component';
+// 简历操作管理
 import { ResumeOperTplComponent } from './component/resume-manage/resume-oper-tpl/resume-oper-tpl.component';
+import { OperRemarkModalComponent } from './component/resume-manage/resume-oper-tpl/oper-remark-modal/oper-remark-modal.component';
+import { OperCollectModalComponent } from './component/resume-manage/resume-oper-tpl/oper-collect-modal/oper-collect-modal.component';
+import { OperSaveModalComponent } from './component/resume-manage/resume-oper-tpl/oper-save-modal/oper-save-modal.component';
+import { OperSendModalComponent } from './component/resume-manage/resume-oper-tpl/oper-send-modal/oper-send-modal.component';
+import { OperDownloadModalComponent } from './component/resume-manage/resume-oper-tpl/oper-download-modal/oper-download-modal.component';
 
 // #region third libs
 
@@ -58,7 +65,13 @@ const COMPONENTS = [
 
 const ENTRYCOMPONENTS = [
   PostDeliverySuccessComponent,
-  CelebrityNotPassComponent
+  CelebrityNotPassComponent,
+  // 简历操作管理 弹出层
+  OperRemarkModalComponent,
+  OperCollectModalComponent,
+  OperSaveModalComponent,
+  OperSendModalComponent,
+  OperDownloadModalComponent
 ];
 
 const DIRECTIVES = [
