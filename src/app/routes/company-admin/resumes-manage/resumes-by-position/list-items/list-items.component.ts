@@ -14,6 +14,11 @@ export class ListItemsComponent implements OnChanges {
 
   environment = environment;
 
+  params:any = {
+    origin: 'handle',
+    posId: null
+  };
+
   pageOption:any = {
     total: 179,
     pageIndex: 1,
@@ -37,6 +42,10 @@ export class ListItemsComponent implements OnChanges {
     if(this.loadingData) {
       return;
     }
+    
+    this.params.posId = this.option['position_id'];
+    console.log(this.params)
+    
     this.loadingData = true;
     setTimeout(() => {
       this.loadingData = false;

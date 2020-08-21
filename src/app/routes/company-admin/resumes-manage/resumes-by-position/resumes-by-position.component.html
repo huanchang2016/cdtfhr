@@ -25,7 +25,9 @@
 </nz-card>
 
 <div class="my-sm border-radius-sm position_info bg-white">
-    <h3 class="info_title text-grey"><i class="mr-sm" nz-icon nzType="left-circle" nzTheme="outline"></i>返回查看其它职位</h3>
+    <h3 class="info_title text-grey">
+        <a [routerLink]="['/admin/company/resumes/handle']"><i class="mr-sm" nz-icon nzType="left-circle" nzTheme="outline"></i>返回查看其它职位</a>
+    </h3>
     <div class="info_content clearfix">
         <div class="float-left info_name">
             <a class="text-lg" [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">awer23913-技术部门-JAVA工程师20020197</a>

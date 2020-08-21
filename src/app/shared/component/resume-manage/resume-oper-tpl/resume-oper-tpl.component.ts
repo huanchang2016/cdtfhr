@@ -57,6 +57,7 @@ export class ResumeOperTplComponent implements OnInit {
       nzTitle: '提示',
       nzContent: OperSendModalComponent,
       nzViewContainerRef: this.viewContainerRef,
+      nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
       },
@@ -72,6 +73,7 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: OperSaveModalComponent,
+      nzMaskClosable: false,
       nzViewContainerRef: this.viewContainerRef,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
@@ -88,6 +90,7 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: OperCollectModalComponent,
+      nzMaskClosable: false,
       nzViewContainerRef: this.viewContainerRef,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
@@ -104,6 +107,7 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '备注',
       nzContent: OperRemarkModalComponent,
+      nzMaskClosable: false,
       nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       // nzBodyStyle: {

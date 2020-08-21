@@ -1,0 +1,121 @@
+<div class="show_info mb-lg">
+    <div class="d-flex align-items-center">
+        <div class="user-logo">
+            <div
+                class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+                <ng-container *ngIf="resumeInfo.avatar;else notPhoto">
+                    <img [src]="environment.SERVER_URL + '/' + resumeInfo.avatar" alt="">
+                </ng-container>
+                <ng-template #notPhoto>
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                </ng-template>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                <h3 class="text-666 text-lg">
+                    {{ resumeInfo.name }} <span class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
+                </h3>
+                <div class="text-sm">
+                    <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span [innerHTML]="countYears(resumeInfo.work_date)"></span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>{{ resumeInfo.birthday | date: 'yyyy年MM月' }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>{{ resumeInfo.marriage.value }}</span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span>现居住于
+                        <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
+                            {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
+                        </ng-container>
+                        <ng-container *ngIf="resumeInfo.work_province.name === resumeInfo.work_city.name">
+                            {{ resumeInfo.work_province.name }}
+                        </ng-container>
+                    </span>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <span *ngIf="resumeInfo.education.data.length !== 0">
+                        <span>
+                            {{ resumeInfo.education.data[0].education.value }}
+                        </span>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </span>
+                    <span>
+                        <ng-container *ngIf="resumeInfo.registered_province.name !== resumeInfo.registered_city.name">
+                            {{ resumeInfo.registered_province.name + resumeInfo.registered_city.name }}
+                        </ng-container>
+                        <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
+                            {{ resumeInfo.registered_province.name }}
+                        </ng-container>
+                        户口
+                    </span>
+                </div>
+                <div>
+                    <i class="text-md" nz-icon nzType="phone" nzTheme="outline"></i>
+                    <span class="ml-sm text-sm">{{ resumeInfo.phone }}</span>
+                </div>
+                <div>
+                    <i class="text-md" nz-icon nzType="mail" nzTheme="outline"></i>
+                    <span class="ml-sm text-sm">{{ resumeInfo.email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试地址</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+        <input nz-input formControlName="address" placeholder="请填写面试地址" nzSize="large" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试时间</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+        <nz-date-picker
+            nzFormat="yyyy/MM/dd HH:mm:ss"
+            [nzDisabledDate]="disabledDate"
+            formControlName="time"
+            [nzShowTime]="{ nzHideDisabledOptions: true, nzMinuteStep: 5, nzSecondStep: 30 }"
+            nzPlaceHolder="请选择面试时间"
+            nzSize="large"
+            >
+            </nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired class="text-left">邀请内容</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzErrorTip="请填写面试邀请通知内容信息">
+        <textarea formControlName="content" nz-input rows="4" placeholder="请填写面试邀请通知内容信息" nzSize="large"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试通知</nz-form-label>
+        <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+          <div class="d-flex mb-sm" style="line-height: 40px;">
+            <label nz-checkbox formControlName="is_email" class="mr-md" [nzDisabled]="!resumeInfo.email">
+                <span>邮件通知</span>
+            </label>
+            <div>{{ resumeInfo.email }}</div>
+            <!-- <input style="width: 400px" nz-input formControlName="email" placeholder="请填写接收通知的邮件地址" nzSize="large" /> -->
+          </div>
+          <div class="d-flex" style="line-height: 40px;">
+            <label nz-checkbox formControlName="is_phone" class="mr-md" [nzDisabled]="!resumeInfo.phone">
+                <span>手机短信</span>
+            </label>
+            <div>{{ resumeInfo.phone }}</div>
+            <!-- <input style="width: 400px" nz-input formControlName="phone" placeholder="请填写接收通知短信的手机号码" nzSize="large" /> -->
+          </div>
+            
+        </nz-form-control>
+      </nz-form-item>
+      
+  </form>
+
+  <div *nzModalFooter class="text-center footer-btn-wrapper">
+      <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取 消</button>
+      <button *ngIf="validateForm.get('is_phone').value" nz-button nzSize="large" nzType="default" (click)="view()" class="mr-lg">预 览</button>
+      <button nz-button nzSize="large" nzType="primary" (click)="submitForm()" [nzLoading]="submitLoading">发送通知</button>
+  </div>
+  

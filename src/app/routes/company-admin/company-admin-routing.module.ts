@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'resumes/search', component: ResumesListComponent },
       { path: 'resumes/handle', component: ResumesHandleComponent },
       { path: 'resumes/handle', component: ResumesHandleComponent },
-      { path: 'resumes/handle/:id', component: ResumesByPositionComponent },
+      { path: 'resumes/handle/:positionId', component: ResumesByPositionComponent },
       { path: 'resumes/history', component: ResumesHistoryComponent },
       { path: 'settings/organ', component: OrganizationComponent },
       { path: 'settings/account', loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule) }

@@ -34,7 +34,7 @@
         </td>
         <td>
           <div class="mb-sm">
-            <span class="text-primary">张三丰</span>
+            <a [routerLink]="['/fullscreen/resume/view', 18]" [queryParams]="params" target="_blank">张三丰</a>
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.sex === 1 ? '男' : '女' }}</span>
             <nz-divider nzType="vertical"></nz-divider>
@@ -107,8 +107,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of rowSelectionTable.data">
-        <td class="text-left text-primary" [nzChecked]="setOfCheckedId.has(data.id)"
-          (nzCheckedChange)="onItemChecked(data.id, $event)"> &nbsp; 姓名</td>
+        <td class="text-left" [nzChecked]="setOfCheckedId.has(data.id)"
+          (nzCheckedChange)="onItemChecked(data.id, $event)"> &nbsp; 
+          <a [routerLink]="['/fullscreen/resume/view', 18]" [queryParams]="params" target="_blank">张三丰</a>
+        </td>
         <td>性别</td>
         <td>年龄</td>
         <td>工作年限</td>

@@ -1,28 +1,32 @@
 <div class="resume-info-view">
     <div class="body__content_box">
         <ng-container *ngIf="resumeInfo && !loadingData">
-            <!-- 如果当前用户为 个人，则显示简历名称 -->
-            <ng-container *ngIf="settingService.user.type === 'user'">
+            <!-- 如果当前用户为 个人，则显示简历名称 和 简历操作按钮-->
+            <!-- <ng-container *ngIf="settingService.user.type === 'user'">
                 <h2 class="resume-title text-center text-lg text-grey font-weight-bold">{{ resumeInfo.title }}</h2>
             
                 <div class="resume-show_content_body"> 
                     <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
                 </div>
 
-                <!-- 如果当前用户为 个人，则显示简历操作按钮 -->
                 <div class="oper_btn_box text-center mt-lg">
                     <a [routerLink]="['/admin/user/resumes/edit', resumeInfo.id ]" nz-button nzType="primary" nzSize="large">编 辑</a>
                 </div>
-            </ng-container>
+            </ng-container> -->
 
             <!-- 如果是企业用户查看用户简历 -->
-            <div class="clearfix" *ngIf="settingService.user.type === 'company'">
+            <div class="clearfix" *ngIf="settingService.user.type === 'user'">
                 <div class="resume-show_oper_view_body float-left">
                     <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
                 </div>
                 <div class="float-right resume-show_oper_box">
                     <nz-affix nzOffsetTop="0">
                         <app-resume-oper-tpl [resumeInfo]="resumeInfo"></app-resume-oper-tpl>
+                        
+                        <ng-container *ngIf="params.posId">
+                            <app-resume-status-handle-process-tpl [positionId]="params.posId" [resumeInfo]="resumeInfo"></app-resume-status-handle-process-tpl>
+                        </ng-container>
+                    
                     </nz-affix>
                 </div>
             </div>

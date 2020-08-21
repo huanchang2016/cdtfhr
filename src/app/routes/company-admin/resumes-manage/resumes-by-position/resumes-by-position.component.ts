@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-resumes-by-position',
@@ -14,25 +15,33 @@ export class ResumesByPositionComponent implements OnInit {
 
   itemType:'simple' | 'card' = 'card';
 
-  searchOption:{ [key:string]: any } = {
+  positionId:number;
+
+  searchOption:{ [key:string]: any } = {};
+  option:{ [key:string]: any } = {
     resume_status: '待处理'
   };
 
+  type: any;
+
   constructor(
-    // private cd: ChangeDetectorRef
+    private activatedRoute: ActivatedRoute
   ) {
-    // this.getDataList();
+    // 获取 最新 收到的简历 type === 'new' ?
+    this.activatedRoute.queryParams.subscribe(params => this.type = params['type']);
+    // 获取当前的职位 id
+    this.activatedRoute.params.subscribe((parmas:Params) => {
+      this.positionId = +parmas['positionId'];
+      this.option['position_id'] = this.positionId;
+      console.log( 'this positionId', this.positionId)
+      // 根据职位id 获取 各个状态的简历列表
+    })
   }
 
   ngOnInit(): void {
     
+    console.log(this.type, 'this type', this.searchOption)
   }
-
-  // ngAfterViewInit() {
-    // console.log('cd .....')
-    // this.cd.detectChanges();
-  // }
-  
   
   search():void { // 回车事件
     console.log('search text change', this.search_text, this.searchOption);
@@ -56,10 +65,9 @@ export class ResumesByPositionComponent implements OnInit {
     this.searchOptionConfig({ resume_status: status });
   }
 
-  option:any = {};
   searchOptionConfig(option:any = {}):void {
     const obj = Object.assign(this.searchOption, option);
-    this.option = {...obj};
+    this.option = {...obj };
     console.log('....', this.option, option);
   }
 

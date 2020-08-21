@@ -1,0 +1,51 @@
+<div class="status_oper_wrapper">
+
+    <div class="position_title_box mt-md mb-sm">
+        <app-sub-title-show [title]="'应聘'"></app-sub-title-show>
+        <div class="position_title px-sm bg-primary text-white text-lg ">先后任职于四川天成集团</div>
+    </div>
+
+    <nz-card class="status_body">
+
+        <nz-steps [nzCurrent]="1" nzProgressDot nzDirection="vertical">
+            <nz-step nzTitle="待处理" [nzDescription]="dealTpl">
+                <ng-template #dealTpl>
+                    <span class="point oper_btn text-center btn_warning border-radius-sm">不合适</span>
+                    <span class="point oper_btn text-center btn_success border-radius-sm">进入下一阶段</span>
+                </ng-template>
+            </nz-step>
+            <nz-step nzTitle="合适" [nzDescription]="appropriateTpl">
+                <ng-template #appropriateTpl>
+                    <span class="point oper_btn text-center btn_warning border-radius-sm">淘汰</span>
+                    <span class="point oper_btn text-center btn_success border-radius-sm">进入下一阶段</span>
+                </ng-template>
+            </nz-step>
+            <nz-step nzTitle="面试" [nzDescription]="interviewTpl">
+                <ng-template #interviewTpl>
+                    <span class="point oper_btn oper_btn_three text-center btn_warning border-radius-sm">淘汰</span>
+                    <span (click)="interviewSend()" class="point oper_btn oper_btn_three text-center btn_primary border-radius-sm">安排面试</span>
+                    <span class="point oper_btn oper_btn_three text-center btn_success border-radius-sm">进入下一阶段</span>
+                </ng-template>
+            </nz-step>
+            <nz-step nzTitle="Offer" [nzDescription]="offerTpl">
+                <ng-template #offerTpl>
+                    <span class="point oper_btn text-center btn_warning border-radius-sm">不合适</span>
+                    <span class="point oper_btn text-center btn_success border-radius-sm">进入下一阶段</span>
+                </ng-template>
+            </nz-step>
+            <nz-step nzTitle="入职" [nzDescription]="entryTpl">
+                <ng-template #entryTpl>
+                    <span class="point oper_btn text-center btn_warning border-radius-sm">不合适</span>
+                    <span class="point oper_btn text-center btn_success border-radius-sm">进入下一阶段</span>
+                </ng-template>
+            </nz-step>
+            <nz-step nzTitle="淘汰" [nzDescription]="eliminateTpl">
+                <ng-template #eliminateTpl>
+                    <!-- <span class="point oper_btn text-center btn_warning border-radius-sm">不合适</span>
+                    <span class="point oper_btn text-center btn_success border-radius-sm">进入下一阶段</span> -->
+                </ng-template>
+            </nz-step>
+        </nz-steps>
+
+    </nz-card>
+</div>

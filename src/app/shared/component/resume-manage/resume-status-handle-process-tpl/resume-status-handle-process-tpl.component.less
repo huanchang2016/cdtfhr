@@ -1,0 +1,72 @@
+@import './../../../../../styles/base-color.less';
+
+.status_oper_wrapper {
+    padding: 0 20px;
+
+    .position_title_box {
+        position: relative;
+
+        .position_title {
+            line-height: 26px;
+            border-radius: 13px;
+            position: absolute;
+            top: 6px;
+            left: 80px;
+        }
+    }
+
+    .status_body {
+        .oper_btn {
+            display: inline-block;
+            width: 120px;
+            // padding: 0 16px;
+            line-height: 30px;
+            font-size: 16px;
+            transition: all 0.3s;
+            &.oper_btn_three {
+                width: auto;
+                padding: 0 5px;
+            }
+            &.btn_warning {
+                color: #E64B3B;
+                border: 1px solid #E64B3B;
+                &:hover {
+                    color: #fff;
+                    background-color: #E64B3B;
+                }
+            }
+            &.btn_success {
+                color: #19BB9B;
+                border: 1px solid #19BB9B;
+                &:hover {
+                    color: #fff;
+                    background-color: #19BB9B;
+                }
+            }
+            &.btn_primary {
+                color: @primary-color;
+                border: 1px solid @primary-color;
+                &:hover {
+                    color: #fff;
+                    background-color: @primary-color;
+                }
+            }
+        }
+    }
+}
+
+:host ::ng-deep {
+    .status_body {
+        .ant-card-body {
+            padding: 10px;
+        }
+    }
+    .ant-steps-item-content {
+        width: 250px;
+        .ant-steps-item-description {
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
