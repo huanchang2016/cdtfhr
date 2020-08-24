@@ -1,9 +1,22 @@
-<ng-container *ngIf="!loadingData; else lodingSpin">
-    <p>download-resume-list-c works!</p>
-</ng-container>
-
-<ng-template #lodingSpin>
-    <div class="text-center py-lg">
-        <nz-spin nzSimple></nz-spin>
-    </div>
-</ng-template>
+<nz-table nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
+    [nzLoading]="loadingData" [nzTotal]="pageOption.total" [nzPageSize]="pageOption.pageSize"
+    [nzPageIndex]="pageOption.pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+        <tr>
+            <th nzWidth="600px">职位名</th>
+            <th>下载简历</th>
+            <th>状态</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listOfData">
+            <td>awer23913-技术部门-JAVA工程师20020197</td>
+            <td>
+                <a [routerLink]="['/admin/company/resumes/history/download', 1]" target="_blank">32</a>
+            </td>
+            <td>
+                <span [class.text-primary]="data.status" [class.text-danger]="!data.status">简历状态</span>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewContainerRef } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { CollectFileFormTplComponent } from './collect-file-form-tpl/collect-file-form-tpl.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-collect-resume-list-c',
@@ -6,18 +9,22 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   styleUrls: ['./collect-resume-list-c.component.less']
 })
 export class CollectResumeListCComponent implements OnChanges, OnInit {
-  @Input() colsChange:boolean;
-  
-  loadingData:boolean = true;
+  @Input() colsChange: boolean;
 
-  listOfData:any[] = [];
+  loadingData: boolean = true;
 
-  constructor() { }
+  listOfData: any[] = [];
+
+  constructor(
+    private modal: NzModalService,
+    private viewContainerRef: ViewContainerRef,
+    public msg: NzMessageService
+  ) { }
 
   ngOnChanges() {
     console.log('onchanges ');
-    
-    if(this.listOfData.length !== 0) {
+
+    if (this.listOfData.length !== 0) {
       console.log('cols changes', this.colsChange);
     }
   }
@@ -26,46 +33,37 @@ export class CollectResumeListCComponent implements OnChanges, OnInit {
     console.log('collect list c');
     this.getDataList();
   }
-  getDataList():void {
+  getDataList(): void {
     this.loadingData = true;
     const total = Math.ceil(Math.random() * 200);
     setTimeout(() => {
       this.loadingData = false;
 
-      this.listOfData = Array.from(new Array(total).keys()).map( v => {
-        return {
-          id: v + 1,
-          username: '产品经理-用户增长',
-          resumes_count: 90,
-          sex: { id: 1, name: '男' },
-          work_date: '6年',
-          age: 29,
-          school: '成都天府新区人才学院',
-          major: '内训讲师',
-          address: '',
-          start_time: '2020-07-22 11:24:23',
-          end_time: '2020-09-22 12:00:00',
-          province: { id: 1, name: '四川' },
-          city: { id: 11, name: '成都' },
-          area: { id: 111, name: '武侯区' },
-          salary: { id: 1111, name: '15-25K' },
-          nature: { id: 11111, name: '金融' },
-          peo_amount: { id: 11111, name: '500-2000人' },
-          status: Math.random() > 0.5
-        }
-      });
-      // username
-      // sex
-      // work_date
-      // age
-      // school
-      // major
-      // address
-      // intention_address
-      // td_time
-      // status
-
+      this.listOfData = [1, 2, 3, 4, 5, 6, 7, 8]
     }, 1000);
   }
-  
+
+  editCollectFileName(data:any):void {
+    this.createModal(data);
+  }
+
+  addCollectFile():void {
+    this.createModal();
+  }
+  createModal(data?:any):void {
+    const modal = this.modal.create({
+      nzTitle: '提示',
+      nzContent: CollectFileFormTplComponent,
+      nzMaskClosable: false,
+      nzViewContainerRef: this.viewContainerRef,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: null
+    });
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose 新建简历库 收藏夹] The result is:', result));
+
+  }
 }

@@ -30,7 +30,7 @@
       </ng-template>
       <ng-template nz-tab>
         <div class="tab_content_body" *ngIf="tabIndex === 0">
-          <app-collect-resume-list-c [colsChange]="colsChange"></app-collect-resume-list-c>
+          <app-collect-resume-list-c></app-collect-resume-list-c>
         </div>
       </ng-template>
 
@@ -41,10 +41,10 @@
         <div class="tab-title_sub text-md text-center">下载记录</div>
       </ng-template>
       <div class="tab_content_body" *ngIf="tabIndex === 1">
-        <app-download-resume-list-c [colsChange]="colsChange"></app-download-resume-list-c>
+        <app-download-resume-list-c></app-download-resume-list-c>
       </div>
     </nz-tab>
-
+<!-- 
     <nz-tab [nzTitle]="saveResumeTpl">
       <ng-template #saveResumeTpl>
         <div class="tab-title_sub text-md text-center">保存记录</div>
@@ -70,7 +70,7 @@
       <div class="tab_content_body" *ngIf="tabIndex === 4">
         <app-joinus-resume-list-c [colsChange]="colsChange"></app-joinus-resume-list-c>
       </div>
-    </nz-tab>
+    </nz-tab> -->
 
   </nz-tabset>
 

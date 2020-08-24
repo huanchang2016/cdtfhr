@@ -1,12 +1,13 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-download-resume-list-c',
   templateUrl: './download-resume-list-c.component.html',
   styleUrls: ['./download-resume-list-c.component.less']
 })
-export class DownloadResumeListCComponent implements OnChanges, OnInit {
-  @Input() colsChange:boolean;
+export class DownloadResumeListCComponent implements OnInit {
+  // @Input() colsChange:boolean;
   
   loadingData:boolean = true;
 
@@ -14,24 +15,48 @@ export class DownloadResumeListCComponent implements OnChanges, OnInit {
 
   constructor() { }
 
-  ngOnChanges() {
-    if(this.listOfData.length !== 0) {
-      console.log('cols changes', this.colsChange);
-    }
-  }
+  // ngOnChanges() {
+  //   if(this.listOfData.length !== 0) {
+  //     console.log('cols changes', this.colsChange);
+  //   }
+  // }
 
+  pageOption:any = {
+    total: 179,
+    pageIndex: 1,
+    pageSize: 20
+  };
+  
+  
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.pageOption.pageIndex = pageIndex;
+    this.pageOption.pageSize = pageSize;
+    console.log(params, this.pageOption);
+    this.getDataList();
+  }
   ngOnInit(): void {
     console.log('collect list c');
     this.getDataList();
   }
 
   getDataList():void {
+    const page_size:number = this.pageOption.pageSize;
+    const pageIndex:number = this.pageOption.pageIndex;
+    const total:number = Math.ceil(Math.random() * 200);
+    const option:any = {
+      page: pageIndex,
+      page_size: page_size,
+      total: total
+    }
+
+    console.log('option by searchs', option);
+
     this.loadingData = true;
-    const total = Math.ceil(Math.random() * 200);
     setTimeout(() => {
       this.loadingData = false;
 
-      this.listOfData = Array.from(new Array(total).keys()).map( v => {
+      this.listOfData = Array.from(new Array(page_size).keys()).map( v => {
         return {
           id: v + 1,
           name: '产品经理-用户增长',

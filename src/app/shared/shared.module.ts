@@ -35,6 +35,9 @@ import { OperDownloadModalComponent } from './component/resume-manage/resume-ope
 import { ResumeStatusHandleProcessTplComponent } from './component/resume-manage/resume-status-handle-process-tpl/resume-status-handle-process-tpl.component';
 import { InterviewMessageSendTplComponent } from './component/resume-manage/interview-message-send-tpl/interview-message-send-tpl.component';
 import { InterviewMessageViewTplComponent } from './component/resume-manage/interview-message-view-tpl/interview-message-view-tpl.component';
+import { OperRecordListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-record-list-tpl/oper-record-list-tpl.component';
+import { OperRemarkListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-remark-list-tpl/oper-remark-list-tpl.component';
+import { OperDeliverListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-deliver-list-tpl/oper-deliver-list-tpl.component';
 
 // #region third libs
 
@@ -79,7 +82,11 @@ const ENTRYCOMPONENTS = [
   // 面试通知信息填写
   InterviewMessageSendTplComponent,
   // 面试通知消息预览
-  InterviewMessageViewTplComponent
+  InterviewMessageViewTplComponent,
+  // 简历记录列表弹窗显示
+  OperRecordListTplComponent,
+  OperRemarkListTplComponent,
+  OperDeliverListTplComponent
 ];
 
 const DIRECTIVES = [

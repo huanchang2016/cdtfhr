@@ -1,0 +1,125 @@
+<div *ngIf="itemType === 'card'">
+  <nz-table #cardTableTpl nzShowSizeChanger nzShowQuickJumper nzBordered [nzData]="listOfData"
+    [nzFrontPagination]="false" [nzLoading]="loadingData" [nzTotal]="pageOption.total"
+    [nzPageSize]="pageOption.per_page" [nzPageIndex]="pageOption.current_page"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzFooter]="footerTpl">
+    <thead>
+      <tr>
+        <th colspan="3" class="text-center">简历概述</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of cardTableTpl.data">
+        <td>
+          <div class="user-logo">
+            <div
+              class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+              <ng-container *ngIf="data.avatar;else notPhoto">
+                <img [src]="environment.SERVER_URL + '/' + data.avatar" alt="">
+              </ng-container>
+              <ng-template #notPhoto>
+                <i nz-icon nzType="user" nzTheme="outline"></i>
+              </ng-template>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mb-sm">
+            <!-- [queryParams]="params" -->
+            <a [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">张三丰</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span>{{ data.sex === 1 ? '男' : '女' }}</span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span [innerHTML]="countAge('1990/11/07')"></span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span [innerHTML]="countYears('2013/07/08')"></span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span>本科</span>
+            <nz-divider nzType="vertical"></nz-divider>
+            <span>成都</span>
+          </div>
+          <p class="text-666">毕业院校
+            <span class="ml-sm text-grey">成都信息工程大学<nz-divider nzType="vertical"></nz-divider>本科</span>
+          </p>
+          <p class="text-666">求职状态
+            <span class="ml-sm text-grey">离职</span>
+          </p>
+          <p class="text-666">投递时间
+            <span class="ml-sm text-grey">2020/07/08</span>
+          </p>
+        </td>
+        <td>
+          <div>
+            <h3 class="text-666 text-md">工作经历</h3>
+            <p class="text-nowrap">
+              <span>2020.01 ~ 2020.08</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>成都天府新区人力资源开发服务有限公司</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>web前端开发</span>
+            </p>
+            <p class="text-nowrap">
+              <span>2020.01 ~ 2020.08</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>成都天府新区人力资源开发服务有限公司</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>web前端开发</span>
+            </p>
+            <p class="text-nowrap">
+              <span>2020.01 ~ 2020.08</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>成都天府新区人力资源开发服务有限公司</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>web前端开发</span>
+            </p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<div *ngIf="itemType === 'simple'">
+  <nz-table #rowSelectionTable nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
+    [nzLoading]="loadingData" [nzTotal]="pageOption.total" [nzPageSize]="pageOption.per_page"
+    [nzPageIndex]="pageOption.current_page" (nzQueryParams)="onQueryParamsChange($event)" [nzFooter]="footerTpl">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>工作年限</th>
+        <th>学历</th>
+        <th>学校</th>
+        <th>专业</th>
+        <th>最近就职公司</th>
+        <th>最近职位</th>
+        <th>投递时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable.data">
+        <td>
+          <!-- [queryParams]="params" -->
+          <a [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">张三丰</a>
+        </td>
+        <td>性别</td>
+        <td>年龄</td>
+        <td>工作年限</td>
+        <td>学历</td>
+        <td>学校</td>
+        <td>专业</td>
+        <td>最近就职公司</td>
+        <td>最近职位</td>
+        <td>投递时间</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+<ng-template #footerTpl>
+  <div class="text-666 text-md d-flex align-items-center">
+    <span class="text-666">总共 <span class="text-primary">1,000,000,000</span> 份简历</span>
+  </div>
+</ng-template>

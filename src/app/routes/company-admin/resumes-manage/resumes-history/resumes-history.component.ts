@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ResumesListColsCComponent } from '../../component/resumes-list-cols-c/resumes-list-cols-c.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-resumes-history',
@@ -8,17 +9,24 @@ import { ResumesListColsCComponent } from '../../component/resumes-list-cols-c/r
   styleUrls: ['./resumes-history.component.less']
 })
 export class ResumesHistoryComponent implements OnInit {
-  tabIndex: 0 | 1 | 2 | 3 | 4 = 0;
+  tabIndex:number = 0; // | 2 | 3 | 4 
 
   search_text:string = '';
   searchLoading: boolean = false;
 
-  colsChange:boolean = false;
+  // colsChange:boolean = false;
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef
-  ) { }
+    private viewContainerRef: ViewContainerRef,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if(params['tabIndex']) {
+        this.tabIndex = +params['tabIndex'];
+      }
+    });
+  }
 
   ngOnInit(): void {
     // this.createComponentModal();
@@ -50,7 +58,7 @@ export class ResumesHistoryComponent implements OnInit {
     modal.afterClose.subscribe(result => {
       console.log('[afterClose] The result is:', result)
       if(result && result.data.save) {
-        this.colsChange = !this.colsChange;
+        // this.colsChange = !this.colsChange;
       }
     });
 

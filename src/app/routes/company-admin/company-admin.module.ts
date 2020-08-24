@@ -23,7 +23,11 @@ import { ResumesListColsCComponent } from './component/resumes-list-cols-c/resum
 import { ResumesSearchFormTplComponent } from './component/resumes-search-form-tpl/resumes-search-form-tpl.component';
 import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
 import { ListItemsComponent } from './resumes-manage/resumes-by-position/list-items/list-items.component';
-import { SearchOptionFormCComponent } from './resumes-manage/resumes-by-position/search-option-form-c/search-option-form-c.component';
+import { SearchOptionFormCComponent } from './resumes-manage/component/search-option-form-c/search-option-form-c.component';
+import { CollectFileFormTplComponent } from './resumes-manage/resumes-history/collect-resume-list-c/collect-file-form-tpl/collect-file-form-tpl.component';
+import { ResumesListItemCComponent } from './resumes-manage/component/resumes-list-item-c/resumes-list-item-c.component';
+import { ResumesCollectListComponent } from './resumes-manage/resumes-collect-list/resumes-collect-list.component';
+import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-list/resumes-download-list.component';
 
 
 const COMPONENTS = [
@@ -37,6 +41,8 @@ const COMPONENTS = [
   ResumesHandleComponent,
   ResumesByPositionComponent, // 通过职位获取简历
   ResumesHistoryComponent, // 简历库
+  ResumesCollectListComponent, // 简历库收藏简历列表
+  ResumesDownloadListComponent, // 简历库 简历下载列表
   PositionListCComponent,
   OrganizationComponent
 ];
@@ -56,7 +62,10 @@ const ENTRYCOMPONENTS = [
   // 简历列表，显示列内容
   ResumesListColsCComponent,
   ListItemsComponent,
-  SearchOptionFormCComponent
+  ResumesListItemCComponent, // 将简历列表展示 修改未共享组件
+  SearchOptionFormCComponent,
+  // 新建收藏夹
+  CollectFileFormTplComponent
 ];
 
 @NgModule({
