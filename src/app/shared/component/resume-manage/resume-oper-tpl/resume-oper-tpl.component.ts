@@ -5,6 +5,10 @@ import { OperSendModalComponent } from './oper-send-modal/oper-send-modal.compon
 import { OperCollectModalComponent } from './oper-collect-modal/oper-collect-modal.component';
 import { OperSaveModalComponent } from './oper-save-modal/oper-save-modal.component';
 import { OperRemarkModalComponent } from './oper-remark-modal/oper-remark-modal.component';
+import { OperDeliverListTplComponent } from './oper-deliver-list-tpl/oper-deliver-list-tpl.component';
+import { OperRecordListTplComponent } from './oper-record-list-tpl/oper-record-list-tpl.component';
+import { OperRemarkListTplComponent } from './oper-remark-list-tpl/oper-remark-list-tpl.component';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-resume-oper-tpl',
@@ -16,8 +20,13 @@ export class ResumeOperTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
+    private iconService: NzIconService,
     private viewContainerRef: ViewContainerRef
-  ) { }
+  ) {
+    this.iconService.fetchFromIconfont({
+      scriptUrl: 'https://at.alicdn.com/t/font_8d5l8fzk5b87iudi.js'
+    });
+  }
 
   ngOnInit(): void {
     console.log('resumeInfo oper component works!', this.resumeInfo);
@@ -25,9 +34,45 @@ export class ResumeOperTplComponent implements OnInit {
 
   viewOperRecord():void {
     console.info('查看当前简历的操作记录');
+    const modal = this.modal.create({
+      nzTitle: '操作记录',
+      nzContent: OperRecordListTplComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '800px',
+      // nzBodyStyle: {
+      //   padding: '24px 100px 30px'
+      // },
+      nzMaskClosable: false,
+      nzComponentParams: {
+        resumeInfo: this.resumeInfo
+      },
+      nzFooter: null
+    });
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose 简历操作记录] The result is:', result));
+
   }
   viewRemarks():void {
     console.info('查看当前简历的 更多备注记录');
+    const modal = this.modal.create({
+      nzTitle: '备注记录',
+      nzContent: OperRemarkListTplComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '800px',
+      // nzBodyStyle: {
+      //   padding: '24px 100px 30px'
+      // },
+      nzMaskClosable: false,
+      nzComponentParams: {
+        resumeInfo: this.resumeInfo
+      },
+      nzFooter: null
+    });
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose 简历备注记录] The result is:', result));
+
   }
   // 简历操作按钮功能（弹出框）
 
@@ -49,6 +94,27 @@ export class ResumeOperTplComponent implements OnInit {
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => console.log('[afterClose 下载modal] The result is:', result));
+
+  }
+
+  deliver(): void { // 下载
+    const modal = this.modal.create({
+      nzTitle: '投递记录',
+      nzContent: OperDeliverListTplComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '800px',
+      // nzBodyStyle: {
+      //   padding: '24px 100px 30px'
+      // },
+      nzMaskClosable: false,
+      nzComponentParams: {
+        resumeInfo: this.resumeInfo
+      },
+      nzFooter: null
+    });
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose 简历投递记录] The result is:', result));
 
   }
 
