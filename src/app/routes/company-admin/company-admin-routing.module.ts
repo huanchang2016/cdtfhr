@@ -18,8 +18,8 @@ import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position
 const routes: Routes = [
   { path: '', component: CompanyAdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: CompanyAdminHomeComponent },
+      { path: '', redirectTo: 'positions', pathMatch: 'full' },
+      // { path: 'home', component: CompanyAdminHomeComponent },
       { path: 'positions', component: PositionListComponent },
       // { path: 'position/create', component: PositionCreateComponent },
       { path: 'resumes/search', component: ResumesListComponent },
@@ -30,7 +30,9 @@ const routes: Routes = [
       { path: 'resumes/history/collect/:id', component: ResumesCollectListComponent },
       { path: 'resumes/history/download/:id', component: ResumesDownloadListComponent },
       { path: 'settings/organ', component: OrganizationComponent },
-      { path: 'settings/account', loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule) }
+      { path: 'settings/account', loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule) },
+
+      { path: '**', redirectTo: 'positions' }
     ]
   }
 ];

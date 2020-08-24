@@ -5,7 +5,7 @@ import { CompanyAdminRoutingModule } from './company-admin-routing.module';
 import { CompanyAdminLayoutComponent } from './company-admin-layout/company-admin-layout.component';
 import { CompanySidebarComponent } from './component/company-sidebar/company-sidebar.component';
 import { CompanyContentTopComponent } from './component/company-content-top/company-content-top.component';
-import { CompanyAdminHomeComponent } from './company-center/company-admin-home/company-admin-home.component';
+// import { CompanyAdminHomeComponent } from './company-center/company-admin-home/company-admin-home.component';
 import { PositionListComponent } from './positions-manage/position-list/position-list.component';
 import { PositionCreateComponent } from './positions-manage/position-create/position-create.component';
 import { ResumesListComponent } from './resumes-manage/resumes-list/resumes-list.component';
@@ -32,7 +32,7 @@ import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-
 
 const COMPONENTS = [
   CompanyAdminLayoutComponent,
-  CompanyAdminHomeComponent,
+  // CompanyAdminHomeComponent,
   PositionListComponent,
   PositionCreateComponent,
   // 简历搜索
