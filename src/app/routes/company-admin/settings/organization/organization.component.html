@@ -1,92 +1,133 @@
-<nz-card>
+<nz-card [nzLoading]="!companyInfo">
     <div class="authentication_box">
         <div class="authentication_status text-center">
-            <span class="text-primary text-lg"><i nz-icon nzType="check-circle" nzTheme="outline"></i> 您已完成企业认证</span>
+            <ng-container *ngIf="companyInfo.status === 1">
+                <span class="text-green text-lg"><i nz-icon nzType="check-circle" nzTheme="outline"></i> 您已完成企业认证</span>
+            </ng-container>
+            <ng-container *ngIf="companyInfo.status === 0">
+                <span class="text-primary text-lg"><i nz-icon nzType="exclamation-circle" nzTheme="outline"></i>
+                    资料提交成功，等待审核中......</span>
+            </ng-container>
         </div>
 
         <div class="authentication_form">
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司名称<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.name }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">组织机构代码<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.code }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">有效期至<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.expires_date }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">所在省市<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.province.name }}-{{ companyInfo.city.name }}-{{ companyInfo.area.name }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">详细地址<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.address }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">单位性质<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.type.value }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">企业规模<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.scale.value }}
                 </div>
             </div>
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">单位行业<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    {{ companyInfo.industry.name }}
                 </div>
             </div>
 
             <div nz-row class="mb-sm">
                 <div nz-col [nzSpan]="6" class="label_text text-md">营业执照<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    <img [src]="environment.SERVER_URL + '/' + companyInfo.licence" alt="">
                 </div>
             </div>
 
-            <div nz-row class="mb-sm">
+            <div nz-row class="mb-sm" class="is_edit_box">
+                <a *ngIf="companyInfo.status === 1" class="edit_btn text-md"
+                    (click)="editLogo(tplLogoTitle, tplLogoContent, tplLogoFooter)"><i nz-icon nzType="edit"
+                        nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司LOGO<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
-                    lsjdflkajs;ldkfjlaskjdf;lasd
+                    <img style="max-width: 200px;" [src]="environment.SERVER_URL + '/' + companyInfo.logo" alt="">
                 </div>
             </div>
 
-            <div nz-row class="mb-sm">
+            <div nz-row class="mb-sm" class="is_edit_box">
+                <a *ngIf="companyInfo.status === 1" class="edit_btn text-md"
+                    (click)="editDescription(tplDescriptionTitle, tplDescriptionContent, tplDescriptionFooter)"><i
+                        nz-icon nzType="edit" nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司简介<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md description">
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容，一大段公司简介内容，一大段公司简介内容，
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容，一大段公司简介内容，一大段公司简介内容，
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容。
-                    <br>
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容，一大段公司简介内容，一大段公司简介内容，
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容，一大段公司简介内容，一大段公司简介内容，
-                    一大段公司简介内容，一大段公司简介内容，一大段公司
-                    简介内容。
+                    <div [innerHTML]="companyInfo.description | showTextAreaText"></div>
                 </div>
             </div>
         </div>
-        <div class="refresh_submit text-lg text-white bg-grey border-radius-sm text-center">重新认证（暂不开放）</div>
+        <!-- <div class="refresh_submit text-lg text-white bg-grey border-radius-sm text-center">重新认证（暂不开放）</div> -->
     </div>
 </nz-card>
+
+<ng-template #tplLogoTitle>
+    <span>编辑公司LOGO</span>
+</ng-template>
+<ng-template #tplLogoContent let-params let-ref="modalRef">
+    <form nz-form [formGroup]="validateLogoForm">
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="logo">公司LOGO</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司LOGO">
+                <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-template>
+<ng-template #tplLogoFooter>
+    <button nz-button nzType="default" (click)="cancel()">取消</button>
+    <button nz-button nzType="primary" (click)="submitLogoChange()" [nzLoading]="logoSubmitLoading">保存</button>
+</ng-template>
+
+<ng-template #tplDescriptionTitle>
+    <span>编辑公司简介</span>
+</ng-template>
+<ng-template #tplDescriptionContent let-params let-ref="modalRef">
+    <form nz-form [formGroup]="validateDescForm">
+        <nz-alert *ngIf="desError" [nzType]="'error'" [nzMessage]="desError" [nzShowIcon]="true" class="mb-sm"></nz-alert>
+        <nz-form-item>
+            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="description">公司简介</nz-form-label>
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司简介， 内容长度小于1000个字符">
+                <div class="text_area_count_limit">
+                    <textarea nz-input id="description" formControlName="description" placeholder="请输入内容" [nzAutosize]="{ minRows: 12, maxRows: 20 }"></textarea>
+                    <div class="limit_count text-grey" [class.text-danger]="getTextareaLength > 1000">{{ getTextareaLength }} / 1000</div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-template>
+<ng-template #tplDescriptionFooter>
+    <button nz-button nzType="default" (click)="cancel()">取消</button>
+    <button nz-button nzType="primary" (click)="submitDescriptionChange()"
+        [nzLoading]="descriptionSubmitLoading">保存</button>
+</ng-template>

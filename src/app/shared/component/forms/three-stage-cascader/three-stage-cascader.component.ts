@@ -67,10 +67,10 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
         resolve();
       } else {
         let isLeaf: boolean = false;
-        if (this.layer === 'second') {
+        if (this.layer === 'second' || index > 0) {
           isLeaf = true;
         } else {
-          isLeaf = true;
+          isLeaf = false;
         }
 
         this.globalService.getCities(node.id).subscribe((res: ApiData) => {

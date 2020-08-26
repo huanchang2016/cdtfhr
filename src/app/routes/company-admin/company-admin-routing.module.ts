@@ -14,23 +14,72 @@ import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-
 
 import { OrganizationComponent } from './settings/organization/organization.component';
 import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
+import { ComAuthenticationGuard } from './guard/com-authentication.guard';
+import { ComStatusCheckGuard } from './guard/com-status-check.guard';
 
 const routes: Routes = [
-  { path: '', component: CompanyAdminLayoutComponent,
+  {
+    path: '', component: CompanyAdminLayoutComponent,
+    canActivate: [ComAuthenticationGuard],
     children: [
       { path: '', redirectTo: 'positions', pathMatch: 'full' },
       // { path: 'home', component: CompanyAdminHomeComponent },
-      { path: 'positions', component: PositionListComponent },
+      {
+        path: 'positions',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: PositionListComponent
+      },
       // { path: 'position/create', component: PositionCreateComponent },
-      { path: 'resumes/search', component: ResumesListComponent },
-      { path: 'resumes/handle', component: ResumesHandleComponent },
-      { path: 'resumes/handle', component: ResumesHandleComponent },
-      { path: 'resumes/handle/:positionId', component: ResumesByPositionComponent },
-      { path: 'resumes/history', component: ResumesHistoryComponent },
-      { path: 'resumes/history/collect/:id', component: ResumesCollectListComponent },
-      { path: 'resumes/history/download/:id', component: ResumesDownloadListComponent },
+      {
+        path: 'resumes/search',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesListComponent
+      },
+      {
+        path: 'resumes/handle',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesHandleComponent
+      },
+      {
+        path: 'resumes/handle',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesHandleComponent
+      },
+      {
+        path: 'resumes/handle/:positionId',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesByPositionComponent
+      },
+      {
+        path: 'resumes/history',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesHistoryComponent
+      },
+      {
+        path: 'resumes/history/collect/:id',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesCollectListComponent
+      },
+      {
+        path: 'resumes/history/download/:id',
+        canActivate: [
+          ComStatusCheckGuard
+        ], component: ResumesDownloadListComponent
+      },
       { path: 'settings/organ', component: OrganizationComponent },
-      { path: 'settings/account', loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule) },
+      {
+        path: 'settings/account',
+        canActivate: [
+          ComStatusCheckGuard
+        ], loadChildren: () => import('./settings/account-manage/account-manage.module').then(m => m.AccountManageModule)
+      },
 
       { path: '**', redirectTo: 'positions' }
     ]

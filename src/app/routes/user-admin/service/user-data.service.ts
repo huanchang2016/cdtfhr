@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalSettingsService } from '@core';
 import { ApiData, userProfile } from 'src/app/data/interface';
-import { Config } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,9 @@ export class UserDataService {
 
   constructor(
     private settingService: GlobalSettingsService
-  ) {}
+  ) {
+    console.log('UserDataService works!')
+  }
 
   getProfile():Promise<any> {
     return new Promise((resolve) => {

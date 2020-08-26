@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransferService } from '../transfer.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-step1',
@@ -9,18 +12,23 @@ import { TransferService } from '../transfer.service';
 })
 export class Step1Component implements OnInit {
   validateForm!: FormGroup;
+  error: string = '';
+
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    public transferSrv: TransferService
+    public transferSrv: TransferService,
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
   ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: ['sfasdfa', [Validators.required]],
-      password: ['a123456789a', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/)]],
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      agree: [null, Validators.required]
+      agree: [false, Validators.required]
     });
 
     this.validateForm.patchValue(this.transferSrv.companyRegisterOption);
@@ -31,12 +39,28 @@ export class Step1Component implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm, 'steps1');
+    console.log(this.validateForm, 'steps1', this.validateForm.get('agree').value);
     if(this.validateForm.valid) {
+      if(!this.validateForm.get('agree').value) {
+        this.msg.error('请选择接受用户服务协议');
+        return;
+      }
 
-      Object.assign(this.transferSrv.companyRegisterOption, this.validateForm.value);
-
-      ++this.transferSrv.step;
+      // Object.assign(this.transferSrv.companyRegisterOption, this.validateForm.value);
+      const value = this.validateForm.value;
+      const option = {
+        name: value.username,
+        password: value.password,
+        password_confirmation: value.checkPassword
+      };
+      this.loading = true;
+      this.settingService.post('/v1/web/com/register', option).subscribe((res: ApiData) => {
+        console.log(res, 'register company account');
+        this.loading = false;
+        // 注册成功后，直接跳转到下一步，进行信息填写
+        this.settingService.setToken(res.data);
+        ++this.transferSrv.step;
+      }, err => this.loading = false)
     }
   }
 

@@ -111,7 +111,7 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS,
+    ...ENTRYCOMPONENTS
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

@@ -66,7 +66,7 @@ export class UserLoginComponent {
     }
   }
 
-  count:number = 30;
+  count:number = 60;
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();

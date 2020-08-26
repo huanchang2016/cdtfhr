@@ -7,11 +7,12 @@ export class ShowTextAreaPipe implements PipeTransform {
 
   transform(value: string = ''): any {
     if(!value) return '';
-    let str: string = value.replace(/\r\n/g, "<br>")
+    let str: string = value.replace(/\r\n/g, "<br>");
     let val = str.replace(/\n/g, "<br>");
     if(val.indexOf(' ') != -1) {
       val = val.replace(/\s/g, '&nbsp;');
     }
+    console.log('textarea val', val)
     return val;
   }
 }

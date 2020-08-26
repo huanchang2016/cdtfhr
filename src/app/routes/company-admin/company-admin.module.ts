@@ -28,6 +28,7 @@ import { CollectFileFormTplComponent } from './resumes-manage/resumes-history/co
 import { ResumesListItemCComponent } from './resumes-manage/component/resumes-list-item-c/resumes-list-item-c.component';
 import { ResumesCollectListComponent } from './resumes-manage/resumes-collect-list/resumes-collect-list.component';
 import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-list/resumes-download-list.component';
+import { ComAuthenticationGuard } from './guard/com-authentication.guard';
 
 
 const COMPONENTS = [
@@ -68,10 +69,14 @@ const ENTRYCOMPONENTS = [
   CollectFileFormTplComponent
 ];
 
+const GUARDS = [
+  // ComAuthenticationGuard
+];
+
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS,
+    ...ENTRYCOMPONENTS
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

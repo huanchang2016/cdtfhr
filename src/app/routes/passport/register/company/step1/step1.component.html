@@ -1,6 +1,7 @@
 <app-sub-title-show [title]="'账号信息'"></app-sub-title-show>
 <div class="form-box">
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-sm"></nz-alert>
         <nz-form-item>
             <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">账号名称</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="输入账号名称">
@@ -43,7 +44,7 @@
         </div>
         <nz-form-item nz-row>
             <nz-form-control [nzSpan]="24" class="text-center">
-                <button nz-button nzType="primary" class="login-form-button" nzSize="large">下一步</button>
+                <button nz-button nzType="primary" class="login-form-button" nzSize="large" [nzLoading]="loading">下一步</button>
             </nz-form-control>
         </nz-form-item>
     </form>

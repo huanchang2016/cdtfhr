@@ -1,139 +1,129 @@
-<div class="refer_text text-danger text-center text-lg">正在审核中，请保持手机通畅，方便联系！</div>
+<ng-container *ngIf="companyInfo">
+    <div class="refer_text text-danger text-center text-lg" *ngIf="companyInfo.status === 0">正在审核中，请保持手机通畅，方便联系！</div>
 
-<div class="form-box">
+    <div class="form-box">
 
-    <div nz-row class="mb-sm">
-        <div nz-col nzSpan="24">
-            <app-sub-title-show [title]="'账号信息'"></app-sub-title-show>
+        <div nz-row class="mb-sm">
+            <div nz-col nzSpan="24">
+                <app-sub-title-show [title]="'账号信息'"></app-sub-title-show>
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">账号名称<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            公司简称  第一步注册的账号名称
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">账号名称<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.company.name }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">账号密码<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            ************
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">账号密码<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                ************
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm mt-sm">
-        <div nz-col nzSpan="24">
-            <app-sub-title-show [title]="'公司信息'"></app-sub-title-show>
+        <div nz-row class="mb-sm mt-sm">
+            <div nz-col nzSpan="24">
+                <app-sub-title-show [title]="'公司信息'"></app-sub-title-show>
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">公司名称<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">公司名称<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.name }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">组织机构代码<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">组织机构代码<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.code }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">有效期至<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">有效期至<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.expires_date }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">所在省市<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">所在地区<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.province.name }}-{{ companyInfo.city.name }}-{{ companyInfo.area.name }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">详细地址<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">详细地址<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.address }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">单位性质<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">单位性质<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.type.value }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">企业规模<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">企业规模<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.scale.value }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">单位行业<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">单位行业<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.industry.name }}
+            </div>
         </div>
-    </div>
 
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">营业执照<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">营业执照<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                <img [src]="environment.SERVER_URL + '/' + companyInfo.licence" alt="">
+            </div>
         </div>
-    </div>
 
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">公司LOGO<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">公司LOGO<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                <img style="max-width: 200px;" [src]="environment.SERVER_URL + '/' + companyInfo.logo" alt="">
+            </div>
         </div>
-    </div>
 
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">公司简介<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md description">
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容，一大段公司简介内容，一大段公司简介内容，
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容，一大段公司简介内容，一大段公司简介内容，
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容。
-            <br>
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容，一大段公司简介内容，一大段公司简介内容，
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容，一大段公司简介内容，一大段公司简介内容，
-            一大段公司简介内容，一大段公司简介内容，一大段公司
-            简介内容。
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">公司简介<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md description">
+                <div [innerHTML]="companyInfo.description | showTextAreaText"></div>
+            </div>
         </div>
-    </div>
 
-    <div nz-row class="mb-sm mt-sm">
-        <div nz-col nzSpan="24">
-            <app-sub-title-show [title]="'公司联系人'"></app-sub-title-show>
+        <div nz-row class="mb-sm mt-sm">
+            <div nz-col nzSpan="24">
+                <app-sub-title-show [title]="'公司联系人'"></app-sub-title-show>
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">姓名<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">姓名<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.company.full_name }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">联系人手机<span class="text-danger">*</span></div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">联系人手机<span class="text-danger">*</span></div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.company.phone }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">座机号码</div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">座机号码</div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.company.telephone }}
+            </div>
         </div>
-    </div>
-    <div nz-row class="mb-sm">
-        <div nz-col [nzSpan]="6" class="label_text text-md">邮箱地址</div>
-        <div nz-col [nzSpan]="18" class="value_text text-md">
-            lsjdflkajs;ldkfjlaskjdf;lasd
+        <div nz-row class="mb-sm">
+            <div nz-col [nzSpan]="6" class="label_text text-md">邮箱地址</div>
+            <div nz-col [nzSpan]="18" class="value_text text-md">
+                {{ companyInfo.company.email }}
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
+</ng-container>

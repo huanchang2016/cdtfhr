@@ -1,9 +1,9 @@
 .authentication_box {
     width: 600px;
     margin: 50px auto;
-    overflow: hidden;
+    // overflow: hidden;
     .authentication_status {
-        width: 258px;
+        width: 320px;
         height: 36px;
         line-height: 36px;
         border-radius: 17px;
@@ -29,5 +29,25 @@
         margin: 50px auto 0;
     }
 
+    .is_edit_box {
+        position: relative;
+        .edit_btn {
+            line-height: 40px;
+            z-index: 9;
+            position: absolute;
+            right: -120px;
+            top: 0;
+        }
+    }
 
+}
+
+.text_area_count_limit {
+    position: relative;
+
+    .limit_count {
+        position: absolute;
+        right: 8px;
+        bottom: 0;
+    }
 }

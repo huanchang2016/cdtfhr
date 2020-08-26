@@ -3,6 +3,8 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
+import { Router } from '@angular/router';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-company-login',
@@ -23,7 +25,8 @@ export class CompanyLoginComponent {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
-    private startupSrv: StartupService
+    private startupSrv: StartupService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,20 +45,23 @@ export class CompanyLoginComponent {
     console.log(this.validateForm);
 
     if(this.validateForm.valid) {
-      console.log(this.validateForm.value, 'company login Info');
-      // this.httpClient.post('')
+      console.log(this.validateForm.value, 'login Info');
+      const value = this.validateForm.value;
       this.loading = true;
-
-      setTimeout(() => {
+      const option = {
+        name: value.username,
+        password: value.password
+      };
+      this.settingService.post('/v1/web/com/login', option).subscribe((res:ApiData) => {
         this.loading = false;
-        // 如果登录错误  this.error = '错误信息'
-        this.error = '错误信息'
-      }, 1500);
-
-      // 登录后， 重新获取用户信息
-      this.startupSrv.load().then(() => {
-        this.destroyModal({ type: 'success'});
-      })
+        console.log(res, 'company login ');
+        this.settingService.setToken(res.data);
+        // 登录后， 重新获取用户信息
+        this.startupSrv.load().then((ss) => {
+          this.destroyModal({ type: 'success'});
+          this.router.navigateByUrl('/admin/company');
+        })
+      }, err => this.loading = false);
     }
   }
 

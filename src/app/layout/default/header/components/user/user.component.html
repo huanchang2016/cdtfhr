@@ -7,7 +7,7 @@
         </a>
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
             <div nz-menu class="">
-                <div nz-menu-item *ngIf="settingService.user.type === 'company'">
+                <div nz-menu-item *ngIf="settingService.user.type === 'company'" (click)="toCenter()">
                     <p class="mb-xs">
                         <i nz-icon nzType="bank" nzTheme="outline" class="mr-sm"></i>
                         ssss
