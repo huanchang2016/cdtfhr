@@ -14,7 +14,8 @@ export class GlobalSettingsService {
   globalConfigOptions:{ [key:string]: any[]} = {
     province: [], // 省
     city: [], // 省
-    position_type: [], // 职位类别，第一层级
+    positionType: [], // 职位类别，第一层级
+    positionTypeAll: [], // 职位类别，所有的。
     industry: [] // 行业配置项
   };
 
@@ -56,15 +57,31 @@ export class GlobalSettingsService {
   get cities():Array<any> {
     return this.globalConfigOptions.city;
   }
-  get position_type():Array<any> {
-    return this.globalConfigOptions.position_type;
+  get positionType():Array<any> {
+    return this.globalConfigOptions.positionType;
+  }
+  get positionTypeAll():Array<any> {
+    return this.globalConfigOptions.positionTypeAll;
   }
   get industry():Array<any> {
     return this.globalConfigOptions.industry;
   }
 
   get(url:string, option?:any):Observable<any> {
-    return this.httpClient.get(url, option);
+    let _url:string = url;
+    if(option) {
+      let keys:string = '';
+      for (const item in option) {
+        const element = option[item];
+        if (element || element === 0) {
+          keys += `${item}=${element}&`;
+        }
+      }
+      
+      _url = _url + '?' + keys;
+      _url = _url.substr(0, _url.length - 1);
+    }
+    return this.httpClient.get(_url);
   }
   
   post(url:string, option?:any):Observable<any> {
@@ -119,16 +136,18 @@ export class GlobalSettingsService {
     zip(
       this.get(`/v1/web/setting/city`),
       this.get(`/v1/web/setting/city/all`),
+      this.get(`/v1/web/setting/type`),
       this.get(`/v1/web/setting/type/all`),
       this.get(`/v1/web/setting/industry`),
       this.get('/v1/web/setting/resume'),
       this.get('/v1/web/setting/company')
     ).pipe(
-      map(([province, city, type, industry, resume, companyConfig]) => [province.data, city.data, type.data, industry.data, resume.data, companyConfig.data])
-    ).subscribe(([province, city, type, industry, resume, companyConfig]) => {
+      map(([province, city, positionType, type, industry, resume, companyConfig]) => [province.data, city.data, positionType.data, type.data, industry.data, resume.data, companyConfig.data])
+    ).subscribe(([province, city, positionType, type, industry, resume, companyConfig]) => {
       this.globalConfigOptions.province = province;
       this.globalConfigOptions.city = city;
-      this.globalConfigOptions.position_type = type;
+      this.globalConfigOptions.positionType = positionType; // 第一层职位类别
+      this.globalConfigOptions.positionTypeAll = type; // 所有职位类别
       this.globalConfigOptions.industry = industry;
 
       this.resumeConfigOptions = resume;
@@ -154,5 +173,9 @@ export class GlobalSettingsService {
 
   getCities(pid:number): Observable<any> {
     return this.get(`/v1/web/setting/city?pid=${pid}`);
+  }
+
+  getPositionType(pid:number): Observable<any> {
+    return this.get(`/v1/web/setting/type?pid=${pid}`);
   }
 }

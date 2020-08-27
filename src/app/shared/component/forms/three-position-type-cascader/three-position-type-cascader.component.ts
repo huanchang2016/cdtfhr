@@ -4,27 +4,26 @@ import { NzCascaderOption } from 'ng-zorro-antd/cascader';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
-
 @Component({
-  selector: 'app-three-stage-cascader',
-  templateUrl: './three-stage-cascader.component.html',
-  styleUrls: ['./three-stage-cascader.component.less'],
+  selector: 'app-three-position-type-cascader',
+  templateUrl: './three-position-type-cascader.component.html',
+  styleUrls: ['./three-position-type-cascader.component.less'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ThreeStageCascaderComponent),
+      useExisting: forwardRef(() => ThreePositionTypeCascaderComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => ThreeStageCascaderComponent),
+      useExisting: forwardRef(() => ThreePositionTypeCascaderComponent),
       multi: true
     }
   ]
 })
-export class ThreeStageCascaderComponent implements ControlValueAccessor {
+export class ThreePositionTypeCascaderComponent implements ControlValueAccessor {
 
-  @Input() placeholder?: string = '请选择省市区';
+  @Input() placeholder?: string = '请选择职位类别';
   @Input() Size?: string = 'large';
   @Input() layer?: string = '';
 
@@ -53,7 +52,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
   }
 
   onChanges(values: string[]): void {
-    console.log(values, this.values, '省市区级联选择');
+    console.log(values, this.values, '职位类别  级联选择');
     this.propagateChange(this.values);
   }
 
@@ -62,7 +61,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
 
     return new Promise(resolve => {
       if (index < 0) {
-        node.children = this.globalService.province;
+        node.children = this.globalService.positionType;
         resolve();
       } else {
         let isLeaf: boolean = false;
@@ -72,7 +71,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
           isLeaf = false;
         }
 
-        this.globalService.getCities(node.id).subscribe((res: ApiData) => {
+        this.globalService.getPositionType(node.id).subscribe((res: ApiData) => {
           const children = res.data.map(v => {
             return {
               ...v,

@@ -23,7 +23,7 @@
         <div class="d-flex align-items-center">
           <div class="search_title text-center bg-white text-primary">结果中搜索</div>
           <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
-            <input type="text" [(ngModel)]="search_text" nz-input placeholder="请输入关键字" (keypress)="($event.which === 13)?search():0" />
+            <input type="text" [(ngModel)]="keywords" nz-input placeholder="请输入关键字" (keypress)="($event.which === 13)?search():0" />
           </nz-input-group>
           <ng-template #suffixIconSearch>
             <i *ngIf="!searchLoading" class="text-primary text-lg font-weight-bold" nz-icon nzType="search" (click)="search()"></i>
@@ -43,12 +43,13 @@
           <ng-template nz-tab>
             <div class="tab_content_body">
                 <div *ngIf="tabIndex === 0">
-                    <ng-container *ngIf="loadingData">
+                    <!-- <ng-container *ngIf="loadingData">
                         <nz-spin></nz-spin>
                     </ng-container>
-                    <ng-container *ngIf="!loadingData">
-                        <app-position-list-c [listOfData]="listOfData" [status]="'ing'"></app-position-list-c>
-                    </ng-container>
+                    <ng-container *ngIf="!loadingData"> -->
+                      <!-- [listOfData]="listOfData" [paginationOption]="paginationOption" -->
+                        <app-position-list-c [searchOption]="searchOption" [status]="'ing'"></app-position-list-c>
+                    <!-- </ng-container> -->
                 </div>
             </div>
           </ng-template>
@@ -61,12 +62,13 @@
         </ng-template>
         <div class="tab_content_body">
             <div *ngIf="tabIndex === 1">
-                <ng-container *ngIf="loadingData">
+                <!-- <ng-container *ngIf="loadingData">
                     <nz-spin></nz-spin>
                 </ng-container>
-                <ng-container *ngIf="!loadingData">
-                    <app-position-list-c [listOfData]="listOfData" [status]="'under-line'"></app-position-list-c>
-                </ng-container>
+                <ng-container *ngIf="!loadingData"> -->
+                   <!-- [listOfData]="listOfData" -->
+                    <app-position-list-c [searchOption]="searchOption" [status]="'under-line'"></app-position-list-c>
+                <!-- </ng-container> -->
             </div>
           
         </div>

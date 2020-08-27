@@ -18,6 +18,7 @@ export class ApiData {
     status_code: string;
     // error?: string;
     message?: string;
+    meta?:any;
 }
 
 export class List {

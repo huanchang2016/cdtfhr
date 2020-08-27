@@ -12,7 +12,6 @@ export class ShowTextAreaPipe implements PipeTransform {
     if(val.indexOf(' ') != -1) {
       val = val.replace(/\s/g, '&nbsp;');
     }
-    console.log('textarea val', val)
     return val;
   }
 }

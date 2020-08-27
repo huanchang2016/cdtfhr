@@ -38,6 +38,7 @@ import { InterviewMessageViewTplComponent } from './component/resume-manage/inte
 import { OperRecordListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-record-list-tpl/oper-record-list-tpl.component';
 import { OperRemarkListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-remark-list-tpl/oper-remark-list-tpl.component';
 import { OperDeliverListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-deliver-list-tpl/oper-deliver-list-tpl.component';
+import { ThreePositionTypeCascaderComponent } from './component/forms/three-position-type-cascader/three-position-type-cascader.component';
 
 // #region third libs
 
@@ -55,6 +56,7 @@ const COMPONENTS = [
   DatePickerMonthComponent,
   DatePickerDateComponent,
   ThreeStageCascaderComponent,
+  ThreePositionTypeCascaderComponent,
   UploadFilePhotoComponent,
   LayoutFullSearchComponent,
   RecuritItemComponent,

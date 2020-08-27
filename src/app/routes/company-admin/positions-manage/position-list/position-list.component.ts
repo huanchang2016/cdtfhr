@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { PositionFormComponent } from './position-form/position-form.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-position-list',
@@ -9,65 +12,41 @@ import { PositionFormComponent } from './position-form/position-form.component';
 })
 export class PositionListComponent implements OnInit {
   tabIndex: 0 | 1 = 0;
-  
-  search_text: string = '';
-  searchLoading: boolean = false;
 
-  listOfData: any[] = [];
-  loadingData: boolean = false;
+  // searchOption:any = {
+  //   name: null,
+  //   status: 1
+  // };
+
+  keywords:string;
+  searchOption:any = null;
+
 
 
   tplModal?: NzModalRef;
 
   constructor(
     private modal: NzModalService,
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
     // private viewContainerRef: ViewContainerRef
   ) { }
 
   ngOnInit(): void {
 
-    this.getDataList();
+    // this.getDataList();
   }
 
   search(): void {
-    console.log(this.search_text, 'search_ text info');
-
-    this.searchLoading = true;
-    setTimeout(() => {
-      this.searchLoading = false;
-    }, 500);
-  }
-
-  
-  getDataList(total: number = 10) {
-    this.loadingData = true;
-    setTimeout(() => {
-      this.loadingData = false;
-      // this.listOfData = Array.from(new Array(total).keys());
-      this.listOfData = Array.from(new Array(total).keys()).map( v => {
-        return {
-          id: v + 1,
-          name: '产品经理-用户增长',
-          resumes_count: 90,
-          start_time: '2020-07-22 11:24:23',
-          end_time: '2020-09-22 12:00:00',
-          province: { id: 1, name: '四川' },
-          city: { id: 11, name: '成都' },
-          area: { id: 111, name: '武侯区' },
-          salary: { id: 1111, name: '15-25K' },
-          nature: { id: 11111, name: '金融' },
-          peo_amount: { id: 11111, name: '500-2000人' },
-          status: Math.random() > 0.5
-        }
-      });
-    }, 800);
+    console.log(this.searchOption, 'searchOption text info');
+    const obj:any = { name: this.keywords };
+    this.searchOption = { ...obj };
   }
 
   changeTab({index}):void {
     console.log(index, 'change tabs, status changed!');
     this.tabIndex = index;
-    const total:number = Math.ceil(Math.random() * 800);
-    this.getDataList(total);
+    // this.searchOption.status = index === 0 ? 1 : 0;
   }
 
   create(): void {
@@ -92,7 +71,10 @@ export class PositionListComponent implements OnInit {
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
+      console.log('result', result);
+      if(result && this.searchOption.status === 1) {
+        this.search();
+      }
     });
 
   }

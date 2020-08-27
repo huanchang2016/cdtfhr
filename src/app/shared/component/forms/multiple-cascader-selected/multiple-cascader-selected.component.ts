@@ -53,7 +53,7 @@ export class MultipleCascaderSelectedComponent implements OnChanges, ControlValu
       if(this.type === 'city') {
         this.nodes = this.globalService.cities;
       }else if(this.type === 'position_type') {
-        this.nodes = this.globalService.position_type;
+        this.nodes = this.globalService.positionTypeAll;
       }
     }
   }
