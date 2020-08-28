@@ -8,7 +8,9 @@
         <span class="checkedall_recommend_positions">
             <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
         </span>
-        <button class="request_btn" nzType="primary" nz-button (click)="sendRequest()" [nzLoading]="requestLoading">批量投递</button>
+        <ng-container *ngIf="settingService.user && settingService.user.type === 'user'">
+            <button class="request_btn" nzType="primary" nz-button (click)="sendRequest()" [nzLoading]="requestLoading">批量投递</button>
+        </ng-container>
     </div>
 </div>
 <div class="recommend_positions_wrap">

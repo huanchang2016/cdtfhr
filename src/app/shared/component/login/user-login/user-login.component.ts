@@ -59,7 +59,9 @@ export class UserLoginComponent {
         // 登录后， 重新获取用户信息
         this.startupSrv.load().then((ss) => {
           this.destroyModal({ type: 'success'});
-          this.router.navigateByUrl('/admin/user');
+          window.document.location.reload();
+          // if(this.currentUrl.indexOf('/home'))
+          // this.router.navigateByUrl('/admin/user');
         })
       }, err => this.loading = false);
 

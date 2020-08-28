@@ -59,7 +59,7 @@ export class CompanyLoginComponent {
         // 登录后， 重新获取用户信息
         this.startupSrv.load().then((ss) => {
           this.destroyModal({ type: 'success'});
-          this.router.navigateByUrl('/admin/company');
+          // this.router.navigateByUrl('/admin/company');
         })
       }, err => this.loading = false);
     }

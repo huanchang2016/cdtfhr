@@ -1,5 +1,5 @@
-    <div class="search_list__result_body">
-        <ng-container *ngIf="!loadingData && list.length !== 0">
+<div class="search_list__result_body">
+    <!-- <ng-container *ngIf="!loadingData && list.length !== 0">
             <div nz-row class="result_list_title text-grey text-sm" [nzGutter]="12">
                 <div nz-col nzSpan="8" class="text-center">职位名</div>
                 <div nz-col nzSpan="6" class="text-center">职位要求</div>
@@ -34,5 +34,38 @@
             <div class="loading_data_spin">
                 <nz-spin nzSimple></nz-spin>
             </div>
-        </ng-container>
-    </div>
+        </ng-container> -->
+
+    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="list" [nzFrontPagination]="false"
+        [nzLoading]="loadingData" [nzTotal]="pageConfig.total" [nzPageSize]="pageConfig.page_size"
+        [nzPageIndex]="pageConfig.page" (nzQueryParams)="onQueryParamsChange($event)">
+        <thead>
+            <tr>
+                <th class="text-center">职位名</th>
+                <th class="text-center">职位要求</th>
+                <th class="text-center">工作地点</th>
+                <th class="text-center">薪资</th>
+                <th class="text-center">发布时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of rowSelectionTable.data">
+                <td>
+                    <a [routerLink]="['/recruit/details', item.id]" target="_blank"
+                        class="pl-sm text-666">{{ item.name }}</a>
+                </td>
+                <td class="text-center">
+                    {{ item.work_experience.value }}
+                    <nz-divider nzType="vertical"></nz-divider>
+                    {{ item.education.value }}
+                    <nz-divider nzType="vertical"></nz-divider>
+                    {{ item.type.value }}
+                </td>
+                <td class="text-center">{{ item.city.name }}-{{ item.area.name }}</td>
+                <td class="text-center text-danger">{{ item.salary.value }}/月</td>
+                <td class="text-center">{{ item.updated_at }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+</div>

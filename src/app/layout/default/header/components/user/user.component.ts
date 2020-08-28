@@ -2,8 +2,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalSettingsService } from '@core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserLoginComponent } from 'src/app/shared/component/user-login/user-login.component';
-import { CompanyLoginComponent } from 'src/app/shared/component/company-login/company-login.component';
+import { UserLoginComponent } from 'src/app/shared/component/login/user-login/user-login.component';
+import { CompanyLoginComponent } from 'src/app/shared/component/login/company-login/company-login.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -46,6 +46,7 @@ export class UserComponent implements OnInit, OnDestroy {
     // Return a result when closed
     this.companyModal.afterClose.subscribe( result => console.log(result, 'close modal'));
   }
+
   createUserModal () {
     this.userModal = this.modal.create({
       nzTitle: null,
@@ -61,7 +62,12 @@ export class UserComponent implements OnInit, OnDestroy {
     // const instance = this.userModal.getContentComponent();
     // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.userModal.afterClose.subscribe( result => console.log(result, 'close modal'));
+    this.userModal.afterClose.subscribe( result => {
+      console.log(result, 'close modal')
+      if(result.type === 'success') {
+        
+      }
+    });
 
   }
 
@@ -77,6 +83,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   editpwd() {
     console.log('修改密码');
+    // 只有企业用户可以修改密码   
+    this.router.navigateByUrl('/admin/company/settings/account/change-password');
   }
 
   logout() {
@@ -85,13 +93,20 @@ export class UserComponent implements OnInit, OnDestroy {
     if(this.settingService.user.type === 'user') {
       url = '/v1/web/logout';
     } else {
-      url = '/v1/com/logout';
+      url = '/v1/web/com/logout';
     }
     this.settingService.delete(url).subscribe( res => {
       this.msg.success(res.message);
       this.settingService.user = null;
       this.settingService.clearUser();
-      this.router.navigateByUrl('/');
+      const href:string = window.location.href;
+      console.log(href, 'href', href.indexOf('/admin/') !== -1)
+      if(href.indexOf('/admin/') !== -1) {
+        this.router.navigateByUrl('/');
+      }else {
+        window.location.reload();
+      }
+      
     }, err => console.log(err));
   }
 

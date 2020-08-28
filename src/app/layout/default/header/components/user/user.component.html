@@ -7,21 +7,23 @@
         </a>
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
             <div nz-menu class="">
-                <div nz-menu-item *ngIf="settingService.user.type === 'company'" (click)="toCenter()">
-                    <p class="mb-xs">
-                        <i nz-icon nzType="bank" nzTheme="outline" class="mr-sm"></i>
-                        ssss
-                    </p>
-                </div>
+                <ng-container *ngIf="settingService.user.type === 'company'">
+                    <div nz-menu-item (click)="toCenter()">
+                        <p class="mb-xs">
+                            <i nz-icon nzType="bank" nzTheme="outline" class="mr-sm"></i>
+                            单位后台
+                        </p>
+                    </div>
+                    <div nz-menu-item (click)="editpwd()">
+                        <i nz-icon nzType="unlock" nzTheme="outline" class="mr-sm"></i>
+                        修改密码
+                    </div>
+                </ng-container>
                 <div nz-menu-item *ngIf="settingService.user.type === 'user'" (click)="toCenter()">
                     <p class="mb-xs">
                         <i nz-icon nzType="user" nzTheme="outline" class="mr-sm"></i>
                         个人中心
                     </p>
-                </div>
-                <div nz-menu-item (click)="editpwd()">
-                    <i nz-icon nzType="unlock" nzTheme="outline" class="mr-sm"></i>
-                    修改密码
                 </div>
                 <div nz-menu-item (click)="logout()">
                     <i nz-icon nzType="logout" class="mr-sm"></i>

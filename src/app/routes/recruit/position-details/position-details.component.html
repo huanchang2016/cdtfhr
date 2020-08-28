@@ -10,26 +10,26 @@
 <div class="info_details__wrapper">
     <div class="info_content clearfix">
         <div class="details__result_body float-left border-radius-sm">
-            <ng-container *ngIf="!loadingData && info">
+            <ng-container *ngIf="!loadingData && info;else loadingSpin">
                 <div class="details_block_top bg-white d-flex justify-content-end">
                     <div class="details_left_content_body">
                         <p class="update_time text-grey mb-sm"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>
-                            更新于 {{ '2020/05/24 10:10:10' | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
-                        <h3 class="position_name text-666">小学教师（掌门1对1）</h3>
-                        <p class="text-danger mt-md text-lg">15K-25K/月</p>
+                            更新于 {{ info.updated_at | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+                        <h3 class="position_name text-666">{{ info.name }}</h3>
+                        <p class="text-danger mt-md text-lg">{{ info.salary.value }} /月</p>
                         <div class="text-grey">
-                            <span>成都-武侯区</span>
+                            <span>{{ info.province.name }}-{{ info.city.name }}</span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <span>无经验</span>
+                            <span>{{ info.workExperience.value }}</span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <span>本科</span>
+                            <span>{{ info.education.value }}</span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <span>招100人</span>
+                            <span>招{{ info.number }}人</span>
                         </div>
-                        <button nz-button [nzLoading]="applyLoading" [disabled]="info.is_apply"
+                        <button nz-button [disabled]="status === 1"
                             (click)="applyPosition()" class="point apply_oper-btn bg-green text-white text-lg">
                             <i nz-icon nzType="file-text" nzTheme="outline"></i>
-                            <span class="pl-sm">{{ info.is_apply ? '已投递' : '申请职位' }}</span>
+                            <span class="pl-sm">{{ status ? '已投递' : '申请职位' }}</span>
                         </button>
                     </div>
                 </div>
@@ -38,14 +38,7 @@
                     <div class="details_left_content_body pt-sm">
                         <app-sub-title-show [title]="'岗位职责'"></app-sub-title-show>
                         <div class="position_duty_des mt-sm text-md text-grey">
-
-                            1.通过掌门教学平台进行在线1对1学科教学工作；<br>
-                            2.了解并根据学生学习能力与需求，准备教学计划和课前教案；<br>
-                            3.根据学生实际学情因材施教，提供专业化1对多教学服务；<br>
-                            4.通过掌门教学平台进行在线1对1学科教学工作；<br>
-                            5.了解并根据学生学习能力与需求，准备教学计划和课前教案；<br>
-                            6.根据学生实际学情因材施教，提供专业化1对多教学服务；
-
+                            <div [innerHTML]="info.description | showTextAreaText"></div>
                         </div>
                     </div>
                 </div>
@@ -66,11 +59,11 @@
                                     </ng-template>
                                     <ng-template #addressHeader>
                                         <span class="text-grey text-lg">
-                                            四川省成都市双流区天府大道南段2028号石化大厦
+                                            {{ info.address }}
                                         </span>
                                     </ng-template>
                                     <div class="address_map_body">
-                                       <app-position-address-map [address]="'四川省成都市双流区天府大道南段2028号'"></app-position-address-map>
+                                       <app-position-address-map [address]="info.address"></app-position-address-map>
                                     </div>
                                 </nz-collapse-panel>
                                 <ng-template #addressExtra>
@@ -85,42 +78,44 @@
                     </div>
                 </div>
                 <!-- 推荐职位 -->
-                <div class="details_block_fourth d-flex justify-content-end">
-                    <div class="details_left_content_body">
-                        <app-recommend-positions [positionId]="positionId"></app-recommend-positions>
+                <ng-container *ngIf="(settingService.user && settingService.user.type !== 'company') || !settingService.user">
+                    <div class="details_block_fourth d-flex justify-content-end">
+                        <div class="details_left_content_body">
+                            <app-recommend-positions [positionId]="positionId"></app-recommend-positions>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
             </ng-container>
-            <ng-container *ngIf="loadingData">
+            <ng-template #loadingSpin>
                 <div class="loading_data_spin bg-white">
                     <nz-spin nzSimple></nz-spin>
                 </div>
-            </ng-container>
+            </ng-template>
         </div>
-        <div class="details__result_right-box float-left">
+        <div class="details__result_right-box float-left" *ngIf="!loadingData && info;else loadingSpin">
             <!-- 职位详情    公司信息  -->
             <div class="company_info_card bg-white d-flex flex-column align-items-center border-radius-sm">
                 <div class="company_info_log d-flex justify-content-center align-items-center">
-                    <img src="./assets/imgs/test/logo_company.png" alt="公司logo">
+                    <!-- <img src="./assets/imgs/test/logo_company.png" alt="公司logo"> -->
+                    <img [src]="environment.SERVER_URL + '/' + info.company.logo" alt="公司logo">
                 </div>
 
-                <p class="company_info_name text-center text-666 py-md">掌门1对1教学部（中国）</p>
+                <p class="company_info_name text-center text-666 py-md">{{ info.company.name }}</p>
                 <div class="company_info_type text-grey text-center">
-                   移动互联网,教育 <br> 上市公司
+                   {{ info.company.industry.name }} <br> {{ info.company.type.value }}
                 </div>
-                <div class="company_info_amount text-grey-dark text-center pt-sm pb-md">1000人以上</div>
+                <div class="company_info_amount text-grey-dark text-center pt-sm pb-md">{{ info.company.scale.value }}</div>
 
                 <div class="company_info_description" nz-typography nzEllipsis nzEllipsisRows="5">
-                    掌门1对1，专注为8—18岁孩子提供一对一专属定制化辅导。其前身是由清华、北大、交大、浙大、复旦精英联合创立的状元俱乐部。2014年，为满足更多学员及家长对高品质个性化定制教育的需求，掌门1对1全面转旦精英联合创...
+                    <div [innerHTML]="info.company.description | showTextAreaText"></div>
                 </div>
 
-                <a [routerLink]="['/']" target="_blank" class="comany_info_link text-center text-primary text-lg border-radius-sm">公司主页</a>
+                <a [routerLink]="['/company']" [queryParams]="{cid: info.company.id }" target="_blank" class="comany_info_link text-center text-primary text-lg border-radius-sm">公司主页</a>
                 
             </div>
             
             <!-- 查看历史记录 -->
             <app-right-sidebar-job-history></app-right-sidebar-job-history>
-
         </div>
     </div>
 </div>

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
-import { UserLoginComponent } from './component/user-login/user-login.component';
-import { CompanyLoginComponent } from './component/company-login/company-login.component';
+import { UserLoginComponent } from './component/login/user-login/user-login.component';
+import { CompanyLoginComponent } from './component/login/company-login/company-login.component';
 import { SubTitleShowComponent } from './component/sub-title-show/sub-title-show.component';
 import { DatePickerMonthComponent } from './component/forms/date-picker-month/date-picker-month.component';
 import { DatePickerDateComponent } from './component/forms/date-picker-date/date-picker-date.component';
@@ -39,6 +39,7 @@ import { OperRecordListTplComponent } from './component/resume-manage/resume-ope
 import { OperRemarkListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-remark-list-tpl/oper-remark-list-tpl.component';
 import { OperDeliverListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-deliver-list-tpl/oper-deliver-list-tpl.component';
 import { ThreePositionTypeCascaderComponent } from './component/forms/three-position-type-cascader/three-position-type-cascader.component';
+import { ResumesListShowCComponent } from './component/position-apply/resumes-list-show-c/resumes-list-show-c.component';
 
 // #region third libs
 
@@ -73,8 +74,10 @@ const COMPONENTS = [
 ];
 
 const ENTRYCOMPONENTS = [
+  // 简历投递，成功/实名认证/选择简历
   PostDeliverySuccessComponent,
   CelebrityNotPassComponent,
+  ResumesListShowCComponent,
   // 简历操作管理 弹出层
   OperRemarkModalComponent,
   OperCollectModalComponent,

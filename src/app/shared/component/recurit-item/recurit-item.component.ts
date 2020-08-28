@@ -1,19 +1,19 @@
-import { Component, OnChanges, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-recurit-item',
   templateUrl: './recurit-item.component.html',
   styleUrls: ['./recurit-item.component.less']
 })
-export class RecuritItemComponent implements OnChanges {
+export class RecuritItemComponent implements OnInit {
   @Input() data:any;
+  environment = environment;
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor() { }
 
-  ngOnChanges(): void {
+  ngOnInit(): void {
+    console.log(this.data, 'data');
   }
 
 }

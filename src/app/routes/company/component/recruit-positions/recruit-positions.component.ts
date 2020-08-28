@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GlobalSettingsService } from '@core';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-recruit-positions',
@@ -6,16 +9,54 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recruit-positions.component.less']
 })
 export class RecruitPositionsComponent implements OnInit {
+  @Input() companyId:number;
 
   list:any[] = []; // 数据列表
   loadingData:boolean = true;
 
-  constructor() { }
+  pageConfig:any = {
+    total: 0,
+    page_size: 10,
+    page: 1
+  };
+
+  constructor(
+    public settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loadingData = false;
-      this.list = [1,2, 3, 4,5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-    }, 800);
+    // if(this.companyId) {
+      // this.getDataList();
+    // }
   }
+
+
+  getDataList() {
+    // /v1/web/com/job
+    this.loadingData = true;
+
+    const option = {
+      limit: this.pageConfig.page_size,
+      page: this.pageConfig.page
+    };
+
+    this.settingService.get(`/v1/web/com/get_info_job/${this.companyId}`, option).subscribe((res: ApiData) => {
+      console.log('getDataList', res);
+      this.loadingData = false;
+      this.list = res.data.data;
+      this.pageConfig.total = res.data.meta.pagination.total;
+    }, err => this.loadingData = false);
+
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params, 'params');
+    const { pageSize, pageIndex } = params;
+    
+    this.pageConfig['page_size'] = pageSize;
+    this.pageConfig['page'] = pageIndex;
+
+    this.getDataList();
+  }
+
 }
