@@ -6,7 +6,7 @@
                <ng-container *ngIf="i > 0">
                     <nz-divider nzType="vertical"></nz-divider>
                </ng-container>
-               <a [routerLink]="['/']" target="_blank" class="point text-grey link_name">{{ item.name }}</a>
+               <a (click)="navTo(item.url)" class="point text-grey link_name text-nowrap">{{ item.name }}</a>
            </ng-container>
         </div>
     </div>

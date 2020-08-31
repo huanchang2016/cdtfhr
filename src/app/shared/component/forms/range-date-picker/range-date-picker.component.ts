@@ -39,7 +39,11 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
   datePickerChange(date:Date[]):void {
     this.date = date;
     console.log(date, 'date change');
-    this.propagateChange([format(this.date[0], 'yyyy-MM-dd'), format(this.date[1], 'yyyy-MM-dd')])
+    let opt:any[] = [];
+    if(date.length !== 0) {
+      opt = [format(this.date[0], 'yyyy-MM-dd'), format(this.date[1], 'yyyy-MM-dd')];
+    }
+    this.propagateChange(opt);
   }
 
   registerOnChange(fn: any): void {

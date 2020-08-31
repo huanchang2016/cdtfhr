@@ -36,11 +36,18 @@
     overflow: hidden;
     transition: height 0.3s;
     &.more_actived {
-        height: 128px;
+        height: 192px;
     }
 
     nz-form-label {
         line-height: 40px;
+        min-width: 110px;
+    }
+}
+
+.over_due_position {
+    td, span, a, nz-tag {
+        color: @grey-color!important;
     }
 }
 

@@ -47,37 +47,39 @@
         // margin: 0 auto;
         .search_list__result_body {
             width: 1000px;
-            
-            .result_list_box {
-                padding: 8px;
-                margin-bottom: 9px;
-                .result_list_img_box {
-                    width: 200px;
-                    height: 105px;
-                    overflow: hidden;
-                }
-                .result_list_des_content {
-                    position: relative;
-                    left: 0;
-                    top: 0;
-                    .view-item_btn {
-                        width: 140px;
-                        height: 40px;
-                        line-height: 38px;
-                        border: 2px solid @primary-color;
-                        position: absolute;
-                        right: 8px;
-                        bottom: 8px;
-                        
-                        transition: all .3s;
+            .list_of_data_box {
+                min-height: 400px;
+                .result_list_box {
+                    padding: 8px;
+                    margin-bottom: 9px;
+                    .result_list_img_box {
+                        width: 200px;
+                        height: 105px;
+                        overflow: hidden;
+                    }
+                    .result_list_des_content {
+                        position: relative;
+                        left: 0;
+                        top: 0;
+                        .view-item_btn {
+                            width: 140px;
+                            height: 40px;
+                            line-height: 38px;
+                            border: 2px solid @primary-color;
+                            position: absolute;
+                            right: 8px;
+                            bottom: 8px;
+                            
+                            transition: all .3s;
 
-                        &:hover {
-                            color: #fff!important;
-                            background-color: @primary-color !important;
+                            &:hover {
+                                color: #fff!important;
+                                background-color: @primary-color !important;
+                            }
                         }
                     }
+                    
                 }
-                
             }
         }
         .search_list__result_right-box {

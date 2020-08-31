@@ -44,6 +44,16 @@ export class GlobalSettingsService {
     // }
   };
 
+  // 简历状态 
+  resumeStatus:Config[] = [
+    {id: 1, key: '待处理', value: '待处理' },
+    {id: 2, key: '合适', value: '合适' },
+    {id: 3, key: '面试', value: '面试' },
+    {id: 4, key: 'offer', value: 'offer' },
+    {id: 5, key: '入职', value: '入职' },
+    {id: 6, key: '淘汰', value: '淘汰' }
+  ];
+
   constructor(
     private httpClient: HttpClient
   ) {

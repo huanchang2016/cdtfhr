@@ -2,7 +2,7 @@
     <!-- {{ data.name }} -->
     <a [routerLink]="['/recruit/details', data.id]" target="_blank" class="d-flex text-lg">
         <div class="position_name text-666 flex-1 text-truncate" title="{{ data.name }}">{{ data.name }}</div>
-        <div class="position_salary text-danger text-right">{{ data.salary.value }}/月</div>
+        <div class="position_salary text-danger text-right text-nowrap">{{ data.salary.value }}/月</div>
     </a>
 
     <div class="position_address text-md py-xs text-grey">{{ data.city.name }} - {{ data.area.name }}</div>
@@ -10,7 +10,7 @@
     <nz-divider class="m0"></nz-divider>
 
     <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank" class="d-flex align-items-center company_info mt-sm">
-        <div class="company_logo text-center">
+        <div class="company_logo d-flex align-items-center justify-content-center text-center">
             <!-- <img [src]="data.logo" alt="{{ data.company.name }}"> -->
             <img [src]="environment.SERVER_URL + '/' + data.company.logo" alt="公司logo">
         </div>

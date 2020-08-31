@@ -102,8 +102,8 @@
                 {{ job_type.name }}
             </ng-container>
         </div>
-        <div>期望月薪： {{ resumeInfo.target.salary.value }} /月</div>
-        <div>求职状态： {{ resumeInfo.target.status.value }}</div>
+        <div>期望月薪： <span *ngIf="resumeInfo.target.salary">{{ resumeInfo.target.salary.value }} /月</span></div>
+        <div>求职状态： <span *ngIf="resumeInfo.target.status">{{ resumeInfo.target.status.value }}</span></div>
     </div>
 </div>
 
@@ -129,14 +129,14 @@
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ countMonth(work.start_time, work.end_time)}}
                         </p>
-                        <p>{{ work.position }} <nz-divider nzType="vertical"></nz-divider> {{ work.salary.value }}
+                        <p>{{ work.position }} <nz-divider nzType="vertical"></nz-divider> {{ work.salary?.value }}
                             /月</p>
                         <p>
                             {{ work.industry.name }}
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ work.type.value }}
+                            {{ work.type?.value }}
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ work.scale.value }}
+                            {{ work.scale?.value }}
                         </p>
                         <div class="text-666 mt-sm">工作描述：</div>
                         <div [innerHTML]="work.description | showTextAreaText"></div>

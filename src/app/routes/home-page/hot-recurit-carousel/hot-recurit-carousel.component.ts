@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '@env/environment';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-hot-recurit-carousel',
@@ -7,100 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HotRecuritCarouselComponent implements OnInit {
 
-  list:any[] = [
-    [
-      {
-        id: 1,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      },
-      {
-        id: 2,
-        title: '有灵魂 有本事 有血性 有品德',
-        sub_title: '四有军人，热血报国',
-        thumb: './assets/imgs/test/img_adv1.png',
-        link: '/passport/register/company'
-      },
-      {
-        id: 3,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      },
-      {
-        id: 4,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      },
-      {
-        id: 5,
-        title: '有灵魂 有本事 有血性 有品德',
-        sub_title: '四有军人，热血报国',
-        thumb: './assets/imgs/test/img_adv1.png',
-        link: '/passport/register/company'
-      },
-      {
-        id: 6,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      }
-    ],
-    [
-      {
-        id: 1,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv.png',
-        link: '/entrance'
-      },
-      {
-        id: 2,
-        title: '有灵魂 有本事 有血性 有品德',
-        sub_title: '四有军人，热血报国',
-        thumb: './assets/imgs/test/img_adv1.png',
-        link: '/passport/register/company'
-      },
-      {
-        id: 3,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      },
-      {
-        id: 4,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv2.png',
-        link: '/entrance'
-      },
-      {
-        id: 5,
-        title: '有灵魂 有本事 有血性 有品德',
-        sub_title: '四有军人，热血报国',
-        thumb: './assets/imgs/test/img_adv1.png',
-        link: '/passport/register/company'
-      },
-      {
-        id: 6,
-        title: '菁英网 好平台 新机遇',
-        sub_title: '提高收入，你值得更好的',
-        thumb: './assets/imgs/test/img_adv1.png',
-        link: '/entrance'
-      }
-    ]
-  ];
-
-  constructor() { }
+  list:any[] = [];
+  
+  constructor(
+    // private router: Router,
+    public settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
+    
+    this.settingService.get(`/v1/web/index/hot_job`).subscribe( (res:ApiData) => {
+      console.log(res, 'index 热门招聘 works');
+      if(res.code === 200) {
+        this.list = res.data;
+      }
+    })
+  }
+
+  navTo(url:string):void {
+    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    //   url = 'http://' + url;
+    // }
+    url = url || '/';
+    window.open(url);
   }
 
 }

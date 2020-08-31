@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-hot-recruit',
@@ -8,57 +10,47 @@ import { Component, OnInit } from '@angular/core';
 export class HotRecruitComponent implements OnInit {
 
   list:any[] = []; // 数据列表
+  total:number = 0;
+  limit:number = 10;
+  pageIndex:number = 1;
+
   loadingData:boolean = true;
 
-  constructor() {}
+  constructor(
+    public settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    this.getDataList();
+    
+  }
+  getDataList():void {
+    this.loadingData = true;
+    this.settingService.get(`/v1/web/index/latest/ad?limit=${this.limit}&page=${this.pageIndex}`).subscribe( (res:ApiData) => {
+      console.log(res, 'index 热门招聘列表 works');
       this.loadingData = false;
-      this.list = [
-        {
-          id: 1,
-          title: '石头科技2020年春季校园招聘',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv2.png',
-          link: '/entrance'
-        },
-        {
-          id: 2,
-          title: '有灵魂 有本事 有血性 有品德',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv1.png',
-          link: '/passport/register/company'
-        },
-        {
-          id: 3,
-          title: '石头科技2020年春季校园招聘',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv2.png',
-          link: '/entrance'
-        },
-        {
-          id: 4,
-          title: '石头科技2020年春季校园招聘',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv2.png',
-          link: '/entrance'
-        },
-        {
-          id: 5,
-          title: '有灵魂 有本事 有血性 有品德',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv1.png',
-          link: '/passport/register/company'
-        },
-        {
-          id: 6,
-          title: '石头科技2020年春季校园招聘',
-          date_time: '2020-05-31 18:00',
-          thumb: './assets/imgs/test/img_adv2.png',
-          link: '/entrance'
+      if(res.code === 200) {
+        this.list = res.data;
+        if(this.total === 0) {
+          this.total = res.meta.pagination.total;
         }
-      ];
-    }, 800);
+        
+        this.pageIndex = res.meta.pagination.current_page;
+      }
+    }, err => this.loadingData = false)
+  }
+
+  pageIndexChange({page}):void {
+    console.log(page, 'page changes');
+    this.pageIndex = page;
+    this.getDataList();
+  }
+
+  navTo(url:string):void {
+    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    //   url = 'http://' + url;
+    // }
+    url = url || '/';
+    window.open(url);
   }
 }

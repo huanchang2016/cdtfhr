@@ -1,4 +1,4 @@
-<nz-pagination [nzPageIndex]="currentPage" [nzTotal]="total" (nzPageIndexChange)="pageIndexChange($event)" [nzItemRender]="renderItemTemplate" nzShowQuickJumper nzSize="large"></nz-pagination>
+<nz-pagination [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="limit" (nzPageIndexChange)="pageIndexChange($event)" [nzItemRender]="renderItemTemplate" nzShowQuickJumper nzSize="large"></nz-pagination>
 <ng-template #renderItemTemplate let-type let-page="page">
     <ng-container [ngSwitch]="type">
         <a *ngSwitchCase="'page'">{{ page }}</a>

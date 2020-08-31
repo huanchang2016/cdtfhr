@@ -1,4 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-delivery-status-tpl',
@@ -14,40 +16,47 @@ export class DeliveryStatusTplComponent implements OnInit {
 
   loading: boolean = true;
 
-  constructor() { }
+  constructor(
+    public settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit() {
     if(this.data || this.data === 0) {
-      this.getDataInfo();
+      console.log(this.data);
+      if(this.data.status === 1) {
+        this.step = 0;
+      }else if(this.data.status === 2) {
+        this.step = 1;
+      }else {
+        this.step = 2;
+        this.getDataInfo();
+      }
     }
   }
 
   getDataInfo() {
     this.loading = true;
-    setTimeout(() => {
+    this.settingService.get(`/v1/web/user/interview_info/${this.data.companyJob.id}`).subscribe((res:ApiData) => {
+      console.log(res, '面试邀请信息');
       this.loading = false;
-      let status:string[] = ['投递成功', 'HR查看', '面试邀请'];
+      if(res.code === 200) {
+        this.info = res.data;
+      }
+    }, err => this.loading = false);
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   let status:string[] = ['投递成功', 'HR查看', '面试邀请'];
 
-      const status_name = status[Math.floor(Math.random() * 3)];
-      this.info = {
-        ...this.data,
-        status: {
-          id: 1,
-          name: status_name,
-          time: '2020-07-22 14:20:33'
-        }
-      }
-
-      if(this.info.status.name === '投递成功') {
-        this.step = 0;
-      }
-      if(this.info.status.name === 'HR查看') {
-        this.step = 1;
-      }
-      if(this.info.status.name === '面试邀请') {
-        this.step = 2;
-      }
-    }, 500);
+    //   const status_name = status[Math.floor(Math.random() * 3)];
+    //   this.info = {
+    //     ...this.data,
+    //     status: {
+    //       id: 1,
+    //       name: status_name,
+    //       time: '2020-07-22 14:20:33'
+    //     }
+    //   }
+    // }, 500);
   }
 
 }

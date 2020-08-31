@@ -4,7 +4,8 @@
             <div class="d-flex align-items-center">
                 <div class="search_title text-center bg-white text-primary">结果中搜索</div>
                 <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
-                    <input type="text" [(ngModel)]="search_text" nz-input placeholder="职位名/公司名" />
+                    <input type="text" [(ngModel)]="search_text" (keyup.enter)="search()" nz-input
+                        placeholder="公司名" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
                     <i class="text-primary text-lg font-weight-bold" nz-icon nzType="search"></i>
@@ -22,7 +23,7 @@
     <div class="more_search_type_wrapper" [class.more_actived]="is_more">
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="pt-lg">
             <div nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="8">
+                <div nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzFor="rangeDate">投递时间</nz-form-label>
                         <nz-form-control>
@@ -32,33 +33,68 @@
                         </nz-form-control>
                     </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8">
+                <div nz-col [nzSpan]="12">
                     <nz-form-item>
-                        <nz-form-label nzFor="work_address">工作地点</nz-form-label>
+                        <nz-form-label nzFor="industry">行业</nz-form-label>
                         <nz-form-control>
-                            <!-- <app-multiple-cascader-selected ngDefaultcontrol formControlName="work_address" [size]="'large'"
-                [placeholder]="'请点击选择工作地点'"></app-multiple-cascader-selected> -->
+                            <nz-select id="industry" formControlName="industry" nzSize="large" nzPlaceHolder="请点击选择行业">
+                                <ng-container *ngFor="let item of settingService.globalConfigOptions.industry">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                </ng-container>
+                            </nz-select>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
-                <div nz-col [nzSpan]="8">
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="work_address">工作地点</nz-form-label>
+                        <nz-form-control>
+                            <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
+                                [placeholder]="'请点击选择工作地区'"></app-three-stage-cascader>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="company_type">单位性质</nz-form-label>
+                        <nz-form-control>
+                            <nz-select id="company_type" formControlName="company_type" nzSize="large" nzPlaceHolder="请点击选择单位性质">
+                                <ng-container *ngFor="let item of settingService.companyConfigOptions.company_type">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="scale">企业规模</nz-form-label>
+                        <nz-form-control>
+                            <nz-select id="scale" formControlName="scale" nzSize="large" nzPlaceHolder="请点击选择企业规模">
+                                <ng-container *ngFor="let item of settingService.companyConfigOptions.company_scale">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzFor="status">投递状态</nz-form-label>
                         <nz-form-control>
-
                             <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择投递状态">
-                                <nz-option nzValue="大专" nzLabel="大专"></nz-option>
-                                <nz-option nzValue="本科" nzLabel="本科"></nz-option>
-                                <nz-option nzValue="研究生" nzLabel="研究生"></nz-option>
+                                <ng-container *ngFor="let item of settingService.resumeStatus">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
                             </nz-select>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
             </div>
             <div nz-row>
-                <div nz-col [nzSpan]="24">
-                    <button style="width: 140px;" nz-button [nzType]="'primary'" nzSize="large">搜索</button>
-                    <button class="ml-md" nz-button (click)="resetForm()" nzSize="large">清空条件</button>
+                <div nz-col [nzSpan]="24" class="text-center">
+                    <button style="width: 300px;" nz-button [nzType]="'primary'" nzSize="large">开始搜索</button>
+                    <button class="ml-md" nz-button (click)="resetForm($event)" nzSize="large">清空条件</button>
                 </div>
             </div>
         </form>
@@ -71,31 +107,31 @@
         <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (nzClick)="to(i)"></nz-tab>
     </nz-tabset>
 
-    <nz-table
-      nzShowSizeChanger
-      nzShowQuickJumper
-      [nzData]="listOfData"
-      [nzFrontPagination]="false"
-      [nzLoading]="loadingData"
-      [nzTotal]="pageConfig.total"
-      [nzPageSize]="pageConfig.limit"
-      [nzPageIndex]="pageConfig.page"
-      (nzQueryParams)="onQueryParamsChange($event)"
-    >
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Gender</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of listOfData">
-          <td> data.name.first }}  data.name.last }}</td>
-          <td> data.gender }}</td>
-          <td> data.email }}</td>
-        </tr>
-      </tbody>
+    <nz-table nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
+        [nzLoading]="loadingData" [nzTotal]="pageConfig.total" [nzPageSize]="pageConfig.limit"
+        [nzPageIndex]="pageConfig.page" (nzQueryParams)="onQueryParamsChange($event)">
+        <thead>
+            <tr>
+                <th>公司名称</th>
+                <th>行业</th>
+                <th>单位性质</th>
+                <th>公司地点</th>
+                <th>企业规模</th>
+                <th nzWidth="200px" class="text-center">被查看时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of listOfData">
+                <td>
+                    <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank">{{ data.company.name }}</a>
+                </td>
+                <td>{{ data.company.industry.name }}</td>
+                <td>{{ data.company.type.value }}</td>
+                <td>{{ data.company.city.name }}-{{ data.company.area.name }}</td>
+                <td>{{ data.company.scale.value }}</td>
+                <td class="text-center">{{ data.created_at }}</td>
+            </tr>
+        </tbody>
     </nz-table>
 </div>
 

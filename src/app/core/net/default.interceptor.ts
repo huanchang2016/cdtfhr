@@ -152,9 +152,9 @@ export class DefaultInterceptor implements HttpInterceptor {
     '/v1/web/com/register',
     '/v1/web/com/login',
     // 职位详情页 推荐职位接口
-    '/v1/web/jobs/recommend'
+    '/v1/web/jobs/recommend',
     // 其余为首页相关请求
-    
+    '/v1/web/index/'
   ];
   // 判断当前接口是否需要携带token, 如果存在，则返回false， 不存在则返回true
   isNotNeedTokenRequest(url:string):boolean{

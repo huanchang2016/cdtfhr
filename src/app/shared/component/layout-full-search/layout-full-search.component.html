@@ -1,5 +1,5 @@
 <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate" nzSize="large">
-    <input type="text" nz-input [(ngModel)]="inputValue" nzSize="large" />
+    <input type="text" nz-input [(ngModel)]="inputValue" placeholder="搜索关键字，快速搜索职位" nzSize="large" />
 </nz-input-group>
 <ng-template #addOnBeforeTemplate>
     <nz-select [ngModel]="'职位'" nzSize="large">

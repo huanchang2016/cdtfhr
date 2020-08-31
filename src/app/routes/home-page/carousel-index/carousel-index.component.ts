@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-carousel-index',
@@ -7,39 +9,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./carousel-index.component.less']
 })
 export class CarouselIndexComponent implements OnInit {
-  array = [1, 2, 3, 4];
-  list:any[] = [
-    {
-      id: 1,
-      title: '菁英网 好平台 新机遇',
-      sub_title: '提高收入，你值得更好的',
-      thumb: './assets/imgs/test/img_banner.png',
-      link: '/entrance',
-      type: 'zk'
-    },
-    {
-      id: 2,
-      title: '有灵魂 有本事 有血性 有品德',
-      sub_title: '四有军人，热血报国',
-      thumb: './assets/imgs/test/img_banner.png',
-      link: '/passport/register/company',
-      type: 'zp'
-    },
-    {
-      id: 3,
-      title: '菁英网 好平台 新机遇',
-      sub_title: '提高收入，你值得更好的',
-      thumb: './assets/imgs/test/img_banner.png',
-      link: '/entrance',
-      type: 'default'
-    }
-  ];
+
+  list:any[] = [];
   
   constructor(
-    private router: Router
+    private router: Router,
+    public settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
+    this.settingService.get('/v1/web/index/rotation').subscribe( (res:ApiData) => {
+      console.log(res, 'index rotation works');
+      if(res.code === 200) {
+        // this.links = res.data;
+        this.list = res.data;
+      }
+    })
+  }
+
+  navTo(url:string):void {
+    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    //   url = 'http://' + url;
+    // }
+    window.open(url);
   }
 
   goTo(url: string):void {

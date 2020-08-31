@@ -2,7 +2,7 @@
     <div class="body__content_box">
         <ng-container *ngIf="resumeInfo && !loadingData">
             <!-- 如果当前用户为 个人，则显示简历名称 和 简历操作按钮-->
-            <!-- <ng-container *ngIf="settingService.user.type === 'user'">
+            <ng-container *ngIf="settingService.user.type === 'user'">
                 <h2 class="resume-title text-center text-lg text-grey font-weight-bold">{{ resumeInfo.title }}</h2>
             
                 <div class="resume-show_content_body"> 
@@ -12,10 +12,10 @@
                 <div class="oper_btn_box text-center mt-lg">
                     <a [routerLink]="['/admin/user/resumes/edit', resumeInfo.id ]" nz-button nzType="primary" nzSize="large">编 辑</a>
                 </div>
-            </ng-container> -->
+            </ng-container>
 
             <!-- 如果是企业用户查看用户简历 -->
-            <div class="clearfix" *ngIf="settingService.user.type === 'user'">
+            <div class="clearfix" *ngIf="settingService.user.type === 'company'">
                 <div class="resume-show_oper_view_body float-left">
                     <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
                 </div>

@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-delivery-viewed-list',
@@ -28,7 +31,9 @@ export class DeliveryViewedListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public settingService: GlobalSettingsService,
+    private msg: NzMessageService
   ) {
     // this.getDataList();
   }
@@ -39,8 +44,11 @@ export class DeliveryViewedListComponent implements OnInit {
 
     this.validateForm = this.fb.group({
       rangeDate: [null],
+      industry: [null],
       work_address: [null],
-      status: [null]
+      company_type: [null],
+      status: [null],
+      scale: [null]
     });
   }
 
@@ -71,19 +79,24 @@ export class DeliveryViewedListComponent implements OnInit {
   loadingData: boolean = true;
   listOfData: any[] = [];
 
-
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-
-    console.log(this.validateForm, 'validateForm');
+  search():void {
+    this.getDataList();
   }
 
-  resetForm(): void {
+  submitForm(): void {
+    // for (const i in this.validateForm.controls) {
+    //   this.validateForm.controls[i].markAsDirty();
+    //   this.validateForm.controls[i].updateValueAndValidity();
+    // }
+
+    this.getDataList();
+  }
+
+  resetForm(e:MouseEvent): void {
+    e.preventDefault();
     this.validateForm.reset();
     this.search_text = '';
+    this.getDataList();
   }
 
 
@@ -98,19 +111,43 @@ export class DeliveryViewedListComponent implements OnInit {
   };
 
   getDataList(total: number = 10) {
-    console.log(this.pageConfig, this.validateForm.value, 'get data list works!');
+    console.log(this.pageConfig, this.validateForm.value, 'get data list works!', this.search_text);
+    const value:any = this.validateForm.value;
 
     this.loadingData = true;
-    setTimeout(() => {
+    const date:any[] = value.rangeDate;
+    const cascader:any[] = value.work_address;
+    const option:any = {
+      // 分页参数
+      limit: this.pageConfig.limit,
+      page: this.pageConfig.page,
+      // 搜索表单
+      name: this.search_text,
+      start: date && date.length !== 0 ? date[0] : '',
+      end: date && date.length !== 0 ? date[1] : '',
+      type_id: value.company_type,
+      industry_id: value.industry,
+      scale_id: value.scale,
+      city_id: cascader && cascader.length !== 0 ? cascader[1] : '',
+      area_id: cascader && cascader.length !== 0 ? cascader[2] : '',
+    };
+    console.log('option', option);
+    this.settingService.get(`/v1/web/user/view_resume_company`, option).subscribe((res:ApiData) => {
+      console.log(res, 'data list');
       this.loadingData = false;
-      this.listOfData = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-      this.pageConfig.total = 20;
-    }, 800);
+      if(res.code === 200) {
+        this.listOfData = res.data;
+        this.pageConfig.total = res.meta.pagination.total;
+      }
+    }, err => this.loadingData = false);
+    
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params);
-    const { pageSize, pageIndex, sort, filter } = params;
+    const { pageSize, pageIndex } = params;
+    this.pageConfig['limit'] = pageSize;
+    this.pageConfig['page'] = pageIndex;
     this.getDataList();
   }
 
