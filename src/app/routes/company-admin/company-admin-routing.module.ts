@@ -44,12 +44,6 @@ const routes: Routes = [
         ], component: ResumesHandleComponent
       },
       {
-        path: 'resumes/handle',
-        canActivate: [
-          ComStatusCheckGuard
-        ], component: ResumesHandleComponent
-      },
-      {
         path: 'resumes/handle/:positionId',
         canActivate: [
           ComStatusCheckGuard

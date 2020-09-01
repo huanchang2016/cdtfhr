@@ -28,11 +28,13 @@ export class DatePickerMonthComponent implements ControlValueAccessor {
 
   private propagateChange = (_: any) => { };
   
-  date:Date;
+  date:any;
 
   writeValue(obj: string): void {
     if(obj) {
       this.date = new Date(obj);
+      // console.log(date, this.dateFormat, 'xxx')
+      // this.date = format(date, this.dateFormat)
     }
   }
 

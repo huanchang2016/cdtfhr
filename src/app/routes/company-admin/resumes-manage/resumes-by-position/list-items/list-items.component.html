@@ -133,12 +133,14 @@
 
     <span class="ml-sm">已选中 <span class="text-primary">{{ setOfCheckedId.size }}</span> 份简历</span>
 
-    <span class="point oper_btn text-center btn_warning border-radius-sm mx-sm">不合适</span>
-    <span class="point oper_btn text-center btn_warning border-radius-sm mx-sm">淘汰</span>
-    <span class="point oper_btn text-center btn_warning border-radius-sm mx-sm">拒绝Offer</span>
-    <span class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
+    <span (click)="dealResume()" *ngIf="option.resume_status === 1" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">不合适</span>
+    <span (click)="dealResume()" *ngIf="option.resume_status === 2 || option.resume_status === 3" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">淘汰</span>
+    <span (click)="dealResume()" *ngIf="option.resume_status === 4" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">拒绝Offer</span>
 
-    <span class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span>
-    <span class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
+    <span (click)="dealResume()" *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
+
+    <span (click)="dealResume()" *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span>
+
+    <span (click)="dealResume()" *ngIf="option.resume_status !== 5 && option.resume_status !== 6" class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
   </div>
 </ng-template>

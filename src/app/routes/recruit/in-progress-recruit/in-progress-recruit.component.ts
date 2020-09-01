@@ -19,7 +19,7 @@ export class InProgressRecruitComponent implements OnInit {
   list: any[] = []; // 数据列表
   loadingData: boolean = true;
   total:number = 0;
-  limit:number = 2;
+  limit:number = 10;
   pageIndex:number = 1;
 
   constructor(

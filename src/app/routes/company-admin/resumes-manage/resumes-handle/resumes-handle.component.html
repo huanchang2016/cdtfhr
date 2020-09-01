@@ -34,19 +34,24 @@
             <th nzWidth="600px">职位名</th>
             <th>新收到简历</th>
             <th>简历总数</th>
-            <th>开始时间</th>
-            <th>结束时间</th>
+            <th class="text-center">开始时间</th>
+            <th class="text-center">结束时间</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of listOfData">
-            <td>awer23913-技术部门-JAVA工程师20020197</td>
+          <tr *ngFor="let item of listOfData">
             <td>
-              <a [routerLink]="['/admin/company/resumes/handle', 1]" [queryParams]="{ type: 'new' }" target="_blank">32</a>
+              <a [routerLink]="['/recruit/details', item.id]"
+                  target="_blank"
+                  class="text-666 pl-sm">{{ item.name }}
+                                      </a>
             </td>
-            <td><a [routerLink]="['/admin/company/resumes/handle', 1]" target="_blank">101</a></td>
-            <td>2020/06/20</td>
-            <td>2021/01/31</td>
+            <td class="text-center">
+              <a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.new_resume_sum }}</a>
+            </td>
+            <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.resume_sum }}</a></td>
+            <td>{{ item.start_at }}</td>
+            <td>{{ item.expires_at }}</td>
           </tr>
         </tbody>
       </nz-table>
@@ -70,19 +75,23 @@
               <th nzWidth="600px">职位名</th>
               <th>新收到简历</th>
               <th>简历总数</th>
-              <th>开始时间</th>
-              <th>结束时间</th>
+              <th class="text-center">开始时间</th>
+              <th class="text-center">结束时间</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of underlineData">
-              <td>awer23913-技术部门-JAVA工程师20020197 已下线</td>
+            <tr *ngFor="let item of underlineData">
               <td>
-                <a [routerLink]="['/admin/company/resumes/handle', 1]" [queryParams]="{ type: 'new' }" target="_blank">32</a>
+                <a [routerLink]="['/recruit/details', item.id]"
+                    target="_blank"
+                    class="text-666 pl-sm">{{ item.name }}</a>
               </td>
-              <td><a [routerLink]="['/admin/company/resumes/handle', 1]" target="_blank">101</a></td>
-              <td>2020/06/20</td>
-              <td>2021/01/31</td>
+              <td class="text-center">
+                <a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.new_resume_sum }}</a>
+              </td>
+              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.resume_sum }}</a></td>
+              <td>{{ item.start_at }}</td>
+              <td>{{ item.expires_at }}</td>
             </tr>
           </tbody>
         </nz-table>
@@ -93,8 +102,8 @@
 </nz-card>
 
 <ng-template #footerTpl>
-  <div class="text-666 text-md">
-    正在招聘 <span class="text-primary">{{ pageOptionIng.total }}</span> 个职位，
-    已下线 <span class="text-primary">{{ pageOptionUnderline.total }}</span> 个职位
+  <div class="text-666 text-md" *ngIf="positionConfig">
+    正在招聘 <span class="text-primary">{{ positionConfig.on }}</span> 个职位，
+    已下线 <span class="text-primary">{{ positionConfig.off }}</span> 个职位
   </div>
 </ng-template>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { stat } from 'fs';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resumes-handle',
@@ -18,19 +20,21 @@ export class ResumesHandleComponent implements OnInit {
   underlineData:any[] = [];
 
   pageOptionIng:any = {
-    total: 179,
+    total: 0,
     pageIndex: 1,
-    pageSize: 20
+    pageSize: 3
   };
   pageOptionUnderline:any = {
-    total: 100,
+    total: 0,
     pageIndex: 1,
-    pageSize: 10
+    pageSize: 3
   };
-  
-  constructor() { }
+  constructor(
+    public settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
+    this.getPositionConfig();
   }
 
   getDataList():void {
@@ -38,24 +42,34 @@ export class ResumesHandleComponent implements OnInit {
     const pageIndex:number = this.status === 'ing' ? this.pageOptionIng.pageIndex : this.pageOptionUnderline.pageIndex;
     const option:any = {
       page: pageIndex,
-      page_size: page_size,
-      status: this.status,
-      keywords: this.search_text
+      limit: page_size,
+      status: this.status === 'ing' ? 1 : 0,
+      name: this.search_text
     }
 
     console.log('option by searchs', option);
     
     this.loadingData = true;
-    setTimeout(() => {
+    this.settingService.post(`/v1/web/com/resume/jobs`, option).subscribe( (res:ApiData) => {
+      console.log(res, '简历收件箱  在招职位列表 works');
       this.loadingData = false;
-
-      if(this.status === 'ing') {
-        this.listOfData = new Array(15);
-      }else {
-        this.underlineData = new Array(10);
+      if(res.code === 200) {
+        const data = res.data;
+        if(this.status === 'ing') {
+          this.listOfData = data.data;
+          if(this.pageOptionIng.total === 0) {
+            this.pageOptionIng.total = data.meta.pagination.total;
+          }
+        }else {
+          this.underlineData = data.data;
+          if(this.pageOptionUnderline.total === 0) {
+            this.pageOptionUnderline.total = data.meta.pagination.total;
+          }
+        }
       }
-      
-    }, 1000);
+    }, err => this.loadingData = false)
+
+    
   }
   
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -81,6 +95,18 @@ export class ResumesHandleComponent implements OnInit {
   selectChange(status:'ing' | 'underline'):void {
     console.log(status, 'selectChange');
     this.status = status;
+  }
+
+  positionConfig: any = null;
+
+  getPositionConfig():void {
+    
+    this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe( (res:ApiData) => {
+      console.log(res, '获取在招，已下线职位数量统计');
+      if(res.code === 200) {
+       this.positionConfig = res.data;
+      }
+    })
   }
 
 }

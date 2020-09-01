@@ -25,23 +25,30 @@
 </nz-card>
 
 <div class="my-sm border-radius-sm position_info bg-white">
-    <h3 class="info_title text-grey">
-        <a [routerLink]="['/admin/company/resumes/handle']"><i class="mr-sm" nz-icon nzType="left-circle" nzTheme="outline"></i>返回查看其它职位</a>
-    </h3>
-    <div class="info_content clearfix">
-        <div class="float-left info_name">
-            <a class="text-lg" [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">awer23913-技术部门-JAVA工程师20020197</a>
-            <p class="text-grey text-md">2020/7/1 - 2020/8/1</p>
+    <ng-container *ngIf="positionInfo; else loadingPositionTpl">
+        <h3 class="info_title text-grey">
+            <a [routerLink]="['/admin/company/resumes/handle']"><i class="mr-sm" nz-icon nzType="left-circle" nzTheme="outline"></i>返回查看其它职位</a>
+        </h3>
+        <div class="info_content clearfix">
+            <div class="float-left info_name">
+                <a class="text-lg" [routerLink]="['/recruit/details', positionInfo.id]" target="_blank">{{ positionInfo.name }}</a>
+                <p class="text-grey text-md">{{ positionInfo.start_at | date: 'yyyy/MM/dd' }} - {{ positionInfo.expires_at | date: 'yyyy/MM/dd' }}</p>
+            </div>
+            <div class="border_left float-right px-md text-center">
+                <p class="text-grey">收到简历</p>
+                <span class="text-primary text-md">{{ total }}</span>
+            </div>
+            <div class="border_left float-right px-md text-center">
+                <p class="text-grey">招聘人数</p>
+                <span class="text-primary text-md">{{ positionInfo.number }}</span>
+            </div>
         </div>
-        <div class="border_left float-right px-md text-center">
-            <p class="text-grey">收到简历</p>
-            <span class="text-primary text-md">230</span>
+    </ng-container>
+    <ng-template #loadingPositionTpl>
+        <div class="loading_data_spin bg-white">
+            <nz-spin nzSimple></nz-spin>
         </div>
-        <div class="border_left float-right px-md text-center">
-            <p class="text-grey">招聘人数</p>
-            <span class="text-primary text-md">21</span>
-        </div>
-    </div>
+    </ng-template>
 </div>
 
 <nz-card class="content_wrapper mt-md mb-lg">
@@ -54,13 +61,13 @@
         
     </ng-template>
     <nz-tabset [nzTabBarExtraContent]="extraTemplate">
-        <nz-tab [nzTitle]="forDealTpl" (nzSelect)="selectChange('待处理')">
+        <nz-tab [nzTitle]="forDealTpl" (nzSelect)="selectChange(1)">
             <ng-template #forDealTpl>
                 <div class="tab-title_sub px-sm text-center">待处理 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>
             <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
         </nz-tab>
-        <nz-tab [nzTitle]="appropriateTpl" (nzSelect)="selectChange('合适')">
+        <nz-tab [nzTitle]="appropriateTpl" (nzSelect)="selectChange(2)">
             <ng-template #appropriateTpl>
                 <div class="tab-title_sub px-sm text-center">合适 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>
@@ -68,7 +75,7 @@
             <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
           </ng-template>
         </nz-tab>
-        <nz-tab [nzTitle]="interviewTpl" (nzSelect)="selectChange('面试')">
+        <nz-tab [nzTitle]="interviewTpl" (nzSelect)="selectChange(3)">
             <ng-template #interviewTpl>
                 <div class="tab-title_sub px-sm text-center">面试 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>
@@ -76,7 +83,7 @@
             <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
           </ng-template>
         </nz-tab>
-        <nz-tab [nzTitle]="offerTpl" (nzSelect)="selectChange('Offer')">
+        <nz-tab [nzTitle]="offerTpl" (nzSelect)="selectChange(4)">
             <ng-template #offerTpl>
                 <div class="tab-title_sub px-sm text-center">Offer <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>
@@ -84,7 +91,7 @@
             <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
           </ng-template>
         </nz-tab>
-        <nz-tab [nzTitle]="entryTpl" (nzSelect)="selectChange('入职')">
+        <nz-tab [nzTitle]="entryTpl" (nzSelect)="selectChange(5)">
             <ng-template #entryTpl>
                 <div class="tab-title_sub px-sm text-center">入职 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>
@@ -92,7 +99,7 @@
             <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
           </ng-template>
         </nz-tab>
-        <nz-tab [nzTitle]="eliminateTpl" (nzSelect)="selectChange('淘汰')">
+        <nz-tab [nzTitle]="eliminateTpl" (nzSelect)="selectChange(6)">
             <ng-template #eliminateTpl>
                 <div class="tab-title_sub px-sm text-center">淘汰 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
             </ng-template>

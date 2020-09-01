@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resumes-by-position',
@@ -19,28 +21,40 @@ export class ResumesByPositionComponent implements OnInit {
 
   searchOption:{ [key:string]: any } = {};
   option:{ [key:string]: any } = {
-    resume_status: '待处理'
+    resume_status: 1
   };
 
-  type: any;
+  total: any;
+
+  positionInfo:any = null;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public settingService: GlobalSettingsService
   ) {
     // 获取 最新 收到的简历 type === 'new' ?
-    this.activatedRoute.queryParams.subscribe(params => this.type = params['type']);
+    this.activatedRoute.queryParams.subscribe(params => this.total = params['total']);
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
       this.positionId = +parmas['positionId'];
       this.option['position_id'] = this.positionId;
-      console.log( 'this positionId', this.positionId)
+      this.getPositionInfo();
       // 根据职位id 获取 各个状态的简历列表
     })
   }
 
   ngOnInit(): void {
     
-    console.log(this.type, 'this type', this.searchOption)
+    console.log(this.total, 'this total 收到的简历个数', this.searchOption)
+  }
+
+  getPositionInfo():void {
+    this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res:ApiData) => {
+      console.log(res, '职位详细情况');
+      if(res.code === 200) {
+        this.positionInfo = res.data;
+      }
+    });
   }
   
   search():void { // 回车事件
@@ -60,7 +74,7 @@ export class ResumesByPositionComponent implements OnInit {
   }
 
 
-  selectChange(status:string):void {
+  selectChange(status:number):void {
     console.log(status, 'change tabs, status changed!');
     this.searchOptionConfig({ resume_status: status });
   }

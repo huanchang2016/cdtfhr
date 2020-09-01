@@ -39,13 +39,13 @@
                                 <nz-divider nzType="vertical"></nz-divider>
                                 {{ countMonth(practice.start_time, practice.end_time)}}
                             </p>
-                            <p>{{ practice.position }} <nz-divider nzType="vertical"></nz-divider> {{ practice.salary.value }} /月</p>
+                            <p>{{ practice.position }} <nz-divider nzType="vertical"></nz-divider> {{ practice.salary?.value }} /月</p>
                             <p>
-                                {{ practice.industry.name }}
+                                {{ practice.industry?.name }}
                                 <nz-divider nzType="vertical"></nz-divider>
-                                {{ practice.type.value }}
+                                {{ practice.type?.value }}
                                 <nz-divider nzType="vertical"></nz-divider>
-                                {{ practice.scale.value }}
+                                {{ practice.scale?.value }}
                             </p>
                             <div class="text-666 mt-sm">工作描述：</div>
                             <div [innerHTML]="practice.description | showTextAreaText"></div>
