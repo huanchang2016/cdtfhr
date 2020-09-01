@@ -17,7 +17,7 @@ export class FriendlyLinkComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingService.get('/v1/web/index/link').subscribe( (res:ApiData) => {
-      console.log(res, 'index friend links works');
+      // console.log(res, 'index friend links works');
       if(res.code === 200) {
         this.links = res.data;
       }

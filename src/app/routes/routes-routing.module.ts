@@ -18,19 +18,31 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LayoutAdminComponent } from '../layout/layout-admin/layout-admin.component';
 import { UserAdminGuard } from './user-admin/guard/user-admin.guard';
 import { AgreementPageComponent } from './passport/agreement-page/agreement-page.component';
+import { LoginAccountGuard } from './guard/login-account.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutDefaultComponent,
-    // canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent },
       // tslint:disable-next-line: max-line-length
-      { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
-      { path: 'recruit', loadChildren: () => import('./recruit/recruit.module').then(m => m.RecruitModule) },
-      { path: 'entrance', loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule) },
+      {
+        path: 'company',
+        canActivate: [LoginAccountGuard],
+        loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
+      },
+      {
+        path: 'recruit',
+        canActivate: [LoginAccountGuard],
+        loadChildren: () => import('./recruit/recruit.module').then(m => m.RecruitModule)
+      },
+      {
+        path: 'entrance',
+        canActivate: [LoginAccountGuard],
+        loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule)
+      },
       // 业务子模块
     ]
   },

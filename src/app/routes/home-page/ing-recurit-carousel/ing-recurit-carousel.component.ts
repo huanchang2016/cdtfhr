@@ -18,7 +18,7 @@ export class IngRecuritCarouselComponent implements OnInit {
   ngOnInit(): void {
     
     this.settingService.get(`/v1/web/index/now_job`).subscribe( (res:ApiData) => {
-      console.log(res, 'index 正在招聘 works');
+      // console.log(res, 'index 正在招聘 works');
       if(res.code === 200) {
         this.list = res.data;
       }

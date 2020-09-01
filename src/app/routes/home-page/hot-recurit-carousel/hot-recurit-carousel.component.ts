@@ -20,7 +20,7 @@ export class HotRecuritCarouselComponent implements OnInit {
   ngOnInit(): void {
     
     this.settingService.get(`/v1/web/index/hot_job`).subscribe( (res:ApiData) => {
-      console.log(res, 'index 热门招聘 works');
+      // console.log(res, 'index 热门招聘 works');
       if(res.code === 200) {
         this.list = res.data;
       }

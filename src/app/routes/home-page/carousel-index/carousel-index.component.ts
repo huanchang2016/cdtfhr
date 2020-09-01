@@ -19,9 +19,8 @@ export class CarouselIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingService.get('/v1/web/index/rotation').subscribe( (res:ApiData) => {
-      console.log(res, 'index rotation works');
+      // console.log(res, 'index rotation works');
       if(res.code === 200) {
-        // this.links = res.data;
         this.list = res.data;
       }
     })
