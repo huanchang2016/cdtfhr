@@ -20,59 +20,88 @@
     <div class="body__content_box">
         <div class="search_list__content clearfix">
             <div class="search_list__result_body float-left border-radius-sm">
-                <ng-container *ngIf="!loadingData && list.length !== 0">
+                <div class="list_of_data_box">
                     <div class="result_list_box bg-white border-radius-sm card__hover">
                         <div nz-row class="result_list_title text-grey text-sm" [nzGutter]="12">
-                            <div nz-col nzSpan="2" class="text-center"></div>
-                            <div nz-col nzSpan="4" class="text-center">职位名</div>
+                            <!-- <div nz-col nzSpan="2" class="text-center"></div> -->
+                            <div nz-col nzSpan="5" class="text-center">职位名</div>
                             <div nz-col nzSpan="4" class="text-center">工作地点</div>
                             <div nz-col nzSpan="3" class="text-center">薪资</div>
-                            <div nz-col nzSpan="6" class="text-center">公司名</div>
+                            <div nz-col nzSpan="7" class="text-center">公司名</div>
                             <div nz-col nzSpan="2" class="text-center">行业</div>
                             <div nz-col nzSpan="3" class="text-center">公司规模</div>
                         </div>
-                        
-                        <div nz-row class="text-sm result_list__row card__hover text-666 border-top"
-                            *ngFor="let item of list"
-                            [nzGutter]="12">
-                            <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
-                                <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
+                        <ng-container *ngIf="!loadingData; else loadingTpl">
+                            <ng-container *ngIf="list.length !== 0; else notAnyDataTpl">
+                                <div nz-row class="text-sm result_list__row card__hover text-666 border-top"
+                                    *ngFor="let item of list" [nzGutter]="12">
+                                    <!-- <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
+                                        <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)"
+                                            (ngModelChange)="selectedChange($event, item)"></label>
+                                    </div> -->
+                                    <div nz-col nzSpan="5" class="d-flex align-items-center">
+                                        <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)"
+                                            [nzDisabled]="item.is_delivery"
+                                            (ngModelChange)="selectedChange($event, item)"></label>
+                                        <a [routerLink]="['/recruit/details', item.id]" target="_blank"
+                                            class="text-666 pl-sm">{{ item.name }}
+                                            <ng-container *ngIf="item.is_delivery">
+                                                <nz-tag nzColor="default" class="ml-sm">已投递</nz-tag>
+                                            </ng-container>
+                                        </a>
+                                    </div>
+                                    <div nz-col nzSpan="4" class="d-flex align-items-center justify-content-center">
+                                        {{ item.city }}-{{ item.area }}</div>
+                                    <div nz-col nzSpan="3" class="text-danger d-flex align-items-center justify-content-center">{{ item.salary }}/月</div>
+                                    <div nz-col nzSpan="7" class="d-flex align-items-center justify-content-center">
+                                        <a [routerLink]="['/company']" [queryParams]="{cid: item.company.id }"
+                                            target="_blank" class="text-666">{{ item.company.name }}</a>
+                                    </div>
+                                    <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
+                                        {{ item.company.industry.name }}</div>
+                                    <div nz-col nzSpan="3" class="d-flex justify-content-center align-items-center">
+                                        {{ item.company.scale.value }}</div>
+                                </div>
+                                <div nz-row class="text-sm result_list__row text-666 border-top" [nzGutter]="12">
+                                    <div nz-col nzSpan="3" class="d-flex align-items-center">
+                                        <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked"
+                                            (ngModelChange)="onAllChecked($event)">全选</label>
+                                    </div>
+                                    <div nz-col nzSpan="21">
+                                        <span class="ml-md mr-lg">已选中 <span
+                                                class="text-primary">{{ setOfCheckedId.size }}</span>个职位</span>
+
+                                        <button nz-button nzType="primary" (click)="sendRequest()"
+                                            [disabled]="setOfCheckedId.size === 0">批量投递</button>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </ng-container>
+                        <ng-template #notAnyDataTpl>
+                            <div
+                                class="not_any_data_wrapper d-flex justify-content-center align-items-center flex-column">
+                                <div class="_img_box">
+                                    <img src="/assets/imgs/icon/img_nullnote.png" alt="无数据资源">
+                                </div>
+                                <p class="text-center text-grey py-sm">无数据</p>
+
                             </div>
-                            <div nz-col nzSpan="4" class="d-flex align-items-center">
-                                <a [routerLink]="['/recruit/details', item.id]" target="_blank" class="text-666">{{ item.name }}</a>
-                            </div>
-                            <div nz-col nzSpan="4" class="text-center d-flex align-items-center">{{ item.city.name }}-{{ item.area.name }}</div>
-                            <div nz-col nzSpan="3" class="text-danger">{{ item.salary.name }}</div>
-                            <div nz-col nzSpan="6" class="d-flex align-items-center">
-                                <a [routerLink]="['/company']" [queryParams]="{cid: item.company.id }" target="_blank" class="text-666">{{ item.company.name }}</a>
-                            </div>
-                            <div nz-col nzSpan="2" class="text-center d-flex align-items-center">{{ item.nature.name }}</div>
-                            <div nz-col nzSpan="3" class="text-center d-flex align-items-center">{{ item.peo_amount.name }}</div>
+                        </ng-template>
+                    </div>
+
+
+                    <div class="pagination_wrapper" *ngIf="total">
+                        <app-pagination-item [total]="total" [limit]="limit" [currentPage]="pageIndex"
+                            (pageIndexEmit)="pageIndexChange($event)"></app-pagination-item>
+                    </div>
+                    <ng-template #loadingTpl>
+                        <div class="loading_data_spin bg-white">
+                            <nz-spin nzSimple></nz-spin>
                         </div>
+                    </ng-template>
+                </div>
 
-                        <div nz-row class="text-sm result_list__row text-666 border-top" [nzGutter]="12">
-                            <div nz-col nzSpan="3" class="d-flex justify-content-center align-items-center">
-                                <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
-                            </div>
-                            <div nz-col nzSpan="21">
-                                <span class="ml-md mr-lg">已选中 <span class="text-primary">0</span>个职位</span>
-
-                                <button nz-button nzType="primary" (click)="sendRequest()">批量投递</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="pagination_wrapper">
-                        <app-pagination-item [total]="500"></app-pagination-item>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="loadingData">
-                    <div class="loading_data_spin bg-white">
-                        <nz-spin nzSimple></nz-spin>
-                    </div>
-                </ng-container>
             </div>
             <div class="search_list__result_right-box float-right">
                 <!-- 查看历史记录 -->

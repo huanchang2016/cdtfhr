@@ -11,7 +11,7 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./resumes-list-show-c.component.less']
 })
 export class ResumesListShowCComponent implements OnInit {
-  @Input() positionId:number;
+  @Input() positionId?:number;
   @Input() ids?:number[];
 
   validateForm!: FormGroup;

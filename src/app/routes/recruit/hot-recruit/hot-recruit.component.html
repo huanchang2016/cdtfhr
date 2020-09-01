@@ -21,21 +21,32 @@
             <div class="search_list__result_body float-left border-radius-sm">
                 <div class="list_of_data_box">
                     <ng-container *ngIf="!loadingData; else loadingTpl">
-                        <div *ngFor="let item of list" class="result_list_box bg-white border-radius-sm card__hover">
-                            <div class="d-flex">
-                                <div class="result_list_img_box d-flex justify-content-center align-items-center"><img
-                                        [src]="item.url" alt="item.name"></div>
-                                <div class="result_list_des_content flex-1 ml-md">
-                                    <h3 class="list_item_name text-666 text-lg">{{ item.name }}</h3>
-                                    <div class="list_item_date text-grey text-md py-xs pr-sm">
-                                        <span>{{ item.start_time |  date:'fullDate' }}</span>
-                                        <!-- <span [innerHTML]="item.date_time | showWeekends"></span> -->
+                        <ng-container *ngIf="list.length !== 0; else notAnyDataTpl">
+                            <div *ngFor="let item of list" class="result_list_box bg-white border-radius-sm card__hover">
+                                <div class="d-flex">
+                                    <div class="result_list_img_box d-flex justify-content-center align-items-center"><img
+                                            [src]="item.url" alt="item.name"></div>
+                                    <div class="result_list_des_content flex-1 ml-md">
+                                        <h3 class="list_item_name text-666 text-lg">{{ item.name }}</h3>
+                                        <div class="list_item_date text-grey text-md py-xs pr-sm">
+                                            <span>{{ item.start_time |  date:'fullDate' }}</span>
+                                            <!-- <span [innerHTML]="item.date_time | showWeekends"></span> -->
+                                        </div>
+                                        <a class="view-item_btn d-block border-radius-sm text-center text-md"
+                                            (click)="navTo(item.to_url)" target="_blank">前往查看</a>
                                     </div>
-                                    <a class="view-item_btn d-block border-radius-sm text-center text-md"
-                                        (click)="navTo(item.to_url)" target="_blank">前往查看</a>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
+                        <ng-template #notAnyDataTpl>
+                            <div class="not_any_data_wrapper bg-white d-flex justify-content-center align-items-center flex-column">
+                                <div class="_img_box">
+                                    <img src="/assets/imgs/icon/img_nullnote.png" alt="无数据资源">
+                                </div>
+                                <p class="text-center text-grey py-sm">无数据</p>
+                                
+                            </div>
+                        </ng-template>
                     </ng-container>
                 </div>
 

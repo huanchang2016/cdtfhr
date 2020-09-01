@@ -23,7 +23,7 @@
         overflow: hidden;
         // margin: 0 auto;
         .search_list__content_body {
-            width: 780px;
+            width: 1000px;
 
             // .search_title_name {
             //     color: #666666;
@@ -46,13 +46,26 @@
             .result_list_title {
                 line-height: 40px;
             }
-            .result_list__row {
-                // color: #666666;
-                line-height: 30px;
+            .list_of_data_box{
+                min-height: 400px;
+                .result_list__row {
+                    // color: #666666;
+                    // line-height: 30px;
+                    min-height: 30px;
+                }
             }
             .pagination_wrapper {
                 padding: 15px 0;
                 background-color: #F0F0F0;
+            }
+            
+            .not_any_data_wrapper {
+                min-height: 400px;
+                ._img_box {
+                    width: 160px;
+                    height: 154px;
+                    overflow: hidden;
+                }
             }
         }
         .search_list__result_right-box {
@@ -67,11 +80,11 @@
 }
 
 .loading_data_spin {
+    min-height: 400px;
     text-align: center;
     border-radius: 4px;
     margin-bottom: 20px;
-    padding: 30px 50px;
-    margin: 20px 0;
+    line-height: 400px;
 }
 
 // 修改单选框样式
@@ -80,6 +93,9 @@
         border-width: 2px !important;
         border-radius: 4px;
         margin: 0 4px;
+    }
+    .ant-radio-button-wrapper:not(:first-child)::before {
+        display: none!important;
     }
 
 }

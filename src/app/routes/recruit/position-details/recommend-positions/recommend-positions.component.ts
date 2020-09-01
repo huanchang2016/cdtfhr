@@ -201,7 +201,7 @@ export class RecommendPositionsComponent implements OnChanges {
       // nzViewContainerRef: this.viewContainerRef,
       // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = this.loginModal.getContentComponent();
@@ -224,10 +224,10 @@ export class RecommendPositionsComponent implements OnChanges {
       // nzViewContainerRef: this.viewContainerRef,
       // // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    const instance = this.successModal.getContentComponent();
+    // const instance = this.successModal.getContentComponent();
     this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     this.successModal.afterClose.subscribe( result => {
@@ -247,10 +247,10 @@ export class RecommendPositionsComponent implements OnChanges {
       // nzViewContainerRef: this.viewContainerRef,
       // // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    const instance = this.userCelebrityModal.getContentComponent();
+    // const instance = this.userCelebrityModal.getContentComponent();
     this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     this.userCelebrityModal.afterClose.subscribe( result => {

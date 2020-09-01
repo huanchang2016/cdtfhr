@@ -121,7 +121,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     
     let newReq:any = req.clone({ url });
     // 判断是否为配置项请求，如果是配置项请求，请求中则不添加token字段
-    const is_take_token:boolean = this.isNotNeedTokenRequest(url);
+    let is_take_token:boolean = this.isNotNeedTokenRequest(url);
+    if(url.indexOf('/v1/web/index/jobs') !== -1) {
+      is_take_token = true;
+    }
     //  如果用户已登录，那么所有接口都添加token请求
     if (localStorage.getItem('cdtfhr_token') && is_take_token) {
       const token:string = JSON.parse(localStorage.getItem('cdtfhr_token')).access_token;

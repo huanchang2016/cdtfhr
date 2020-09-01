@@ -2,7 +2,7 @@
     <div class="side__advert_content" *ngIf="!loadingData && list.length !== 0">
         <ng-container *ngFor="let item of list">
             <div class="advert__list">
-                <a [routerLink]="[item.link]" ><img [src]="item.thumb" [alt]="item.title"></a>
+                <a (click)="navTo(item.to_url)" ><img [src]="item.url" [alt]="item.name"></a>
             </div>
         </ng-container>
     </div>
