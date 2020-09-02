@@ -17,44 +17,46 @@
 <nz-card class="content_wrapper mt-md mb-lg">
   <nz-tabset>
     <nz-tab nzTitle="招聘中" (nzSelect)="selectChange('ing')">
-      <nz-table
-        nzShowSizeChanger
-        nzShowQuickJumper
-        [nzData]="listOfData"
-        [nzFrontPagination]="false"
-        [nzLoading]="loadingData"
-        [nzTotal]="pageOptionIng.total"
-        [nzPageSize]="pageOptionIng.pageSize"
-        [nzPageIndex]="pageOptionIng.pageIndex"
-        (nzQueryParams)="onQueryParamsChange($event)"
-        [nzFooter]="footerTpl"
-      >
-        <thead>
-          <tr>
-            <th nzWidth="600px">职位名</th>
-            <th>新收到简历</th>
-            <th>简历总数</th>
-            <th class="text-center">开始时间</th>
-            <th class="text-center">结束时间</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of listOfData">
-            <td>
-              <a [routerLink]="['/recruit/details', item.id]"
-                  target="_blank"
-                  class="text-666 pl-sm">{{ item.name }}
-                                      </a>
-            </td>
-            <td class="text-center">
-              <a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.new_resume_sum }}</a>
-            </td>
-            <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.resume_sum }}</a></td>
-            <td>{{ item.start_at }}</td>
-            <td>{{ item.expires_at }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
+      <ng-template nz-tab>
+        <nz-table
+          nzShowSizeChanger
+          nzShowQuickJumper
+          [nzData]="listOfData"
+          [nzFrontPagination]="false"
+          [nzLoading]="loadingData"
+          [nzTotal]="pageOptionIng.total"
+          [nzPageSize]="pageOptionIng.pageSize"
+          [nzPageIndex]="pageOptionIng.pageIndex"
+          (nzQueryParams)="onQueryParamsChange($event)"
+          [nzFooter]="footerTpl"
+        >
+          <thead>
+            <tr>
+              <th nzWidth="600px">职位名</th>
+              <th>新收到简历</th>
+              <th>简历总数</th>
+              <th class="text-center">开始时间</th>
+              <th class="text-center">结束时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listOfData">
+              <td>
+                <a [routerLink]="['/recruit/details', item.id]"
+                    target="_blank"
+                    class="text-666 pl-sm">{{ item.name }}
+                                        </a>
+              </td>
+              <td class="text-center">
+                <a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.new_resume_sum }}</a>
+              </td>
+              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
+              <td>{{ item.start_at }}</td>
+              <td>{{ item.expires_at }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
     </nz-tab>
     <nz-tab nzTitle="已下线" (nzSelect)="selectChange('underline')">
       <ng-template nz-tab>
@@ -87,9 +89,9 @@
                     class="text-666 pl-sm">{{ item.name }}</a>
               </td>
               <td class="text-center">
-                <a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.new_resume_sum }}</a>
+                <a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.new_resume_sum }}</a>
               </td>
-              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" [queryParams]="{ total: item.resume_sum }" target="_blank">{{ item.resume_sum }}</a></td>
+              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
               <td>{{ item.start_at }}</td>
               <td>{{ item.expires_at }}</td>
             </tr>

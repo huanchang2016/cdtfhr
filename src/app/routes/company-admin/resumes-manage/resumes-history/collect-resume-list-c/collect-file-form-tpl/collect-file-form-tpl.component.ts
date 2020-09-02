@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 
 @Component({
@@ -15,6 +17,7 @@ export class CollectFileFormTplComponent implements OnInit {
   
   constructor(
     private modal: NzModalRef,
+    public settingService: GlobalSettingsService,
     private msg: NzMessageService
   ) {}
 
@@ -31,16 +34,42 @@ export class CollectFileFormTplComponent implements OnInit {
       file_name = this.file_name.trim();
     }
     if(!file_name) {
-      this.msg.warning('备注信息内容未填写');
+      this.msg.warning('文件夹名称未填写');
       return;
     }
-
-
     this.submitLoading = true;
-    setTimeout(() => {
+
+    const option = {
+      name: file_name
+    }
+    if(this.data) {
+      this.edit(option);
+    }else {
+      this.create(option);
+    }
+    
+  }
+  create(option:any):void {
+    this.settingService.post('/v1/web/com/collect_tag', option).subscribe((res:ApiData) => {
       this.submitLoading = false;
-      this.destroyModal({name: '点击确认提交', data: file_name});
-    }, 1000);
+      if(res.code === 200) {
+        this.msg.success(res.message)
+        this.destroyModal({ name: option.name });
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false)
+  }
+  edit(option:any):void {
+    this.settingService.patch(`/v1/web/com/collect_tag/${this.data.id}`, option).subscribe((res:ApiData) => {
+      this.submitLoading = false;
+      if(res.code === 200) {
+        this.msg.success(res.message)
+        this.destroyModal({ name: option.name });
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false)
   }
 
   destroyModal(data?:any): void {
@@ -48,7 +77,7 @@ export class CollectFileFormTplComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('简历库，新建收藏文件夹 works: 最多同时发送5份邮件，邮箱地址请用英文“;”隔开')
+    console.log('简历库，新建收藏文件夹 works')
     if(this.data) {
       this.file_name = this.data.name;
     }

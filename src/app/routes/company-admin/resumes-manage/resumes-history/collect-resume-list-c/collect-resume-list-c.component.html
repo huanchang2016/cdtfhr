@@ -1,28 +1,33 @@
 <ng-container *ngIf="!loadingData; else lodingSpin">
-    <nz-list nzBordered [nzFooter]="collectFileAddTpl">
-        <!-- *ngFor="let item of listOfData" -->
-        <nz-list-item *ngFor="let item of listOfData">
-          <span nz-typography>
-              <span class="text-666 mr-sm">天府新区法院打字录入员</span>
-              <span class="text-666">
-                共计 <a [routerLink]="['/admin/company/resumes/history/collect', 1]" class="text-primary" target="_blank">139</a> 份简历
-              </span>
-          </span>
-          <span class="text-grey"><i nz-icon nzType="clock-circle" nzTheme="outline"></i> 更新于 2020/5/24 10:10:10</span>
-          <ul nz-list-item-actions>
-            <nz-list-item-action>
-              <a (click)="editCollectFileName({name: '天府新区法院打字录入员'})" nz-tooltip nzTooltipTitle="更新收藏夹名称"><i nz-icon nzType="edit" nzTheme="outline"></i></a>
-            </nz-list-item-action>
-          </ul>
-        </nz-list-item>
-    </nz-list>
+  <nz-list nzBordered [nzFooter]="collectFileAddTpl">
+    <!-- *ngFor="let item of listOfData" -->
+    <nz-list-item *ngFor="let item of listOfData">
+      <span nz-typography>
+        <span class="text-666 mr-sm">{{ item.name }}</span>
+        <span class="text-666">
+          共计 <a [routerLink]="['/admin/company/resumes/history/collect', item.id]" class="text-primary"
+            target="_blank">{{ item.resume_sum }}</a> 份简历
+        </span>
+      </span>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <span class="text-grey mr-md"><i nz-icon nzType="clock-circle" nzTheme="outline"></i> 更新于 {{ item.updated_at }}</span>
+          <a (click)="editCollectFileName(item)" nz-tooltip nzTooltipTitle="更新收藏夹名称"><i nz-icon
+              nzType="edit" nzTheme="outline"></i></a>
+          <i class="text-danger ml-md" (nzOnConfirm)="deleted(item.id)" (nzOnCancel)="cancel()" nz-popconfirm nzPopconfirmTitle="是否确认删除当前简历收藏夹" nzOkText="删除" nzCancelText="取消" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
+            nzTooltipTitle="删除"></i>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+  </nz-list>
 </ng-container>
 <ng-template #collectFileAddTpl>
-    <button nz-button nzType="dashed" nzBlock (click)="addCollectFile()"><i nz-icon nzType="plus" nzTheme="outline"></i> 新建收藏夹</button>
+  <button nz-button nzType="dashed" nzBlock (click)="addCollectFile()"><i nz-icon nzType="plus" nzTheme="outline"></i>
+    新建收藏夹</button>
 </ng-template>
 
 <ng-template #lodingSpin>
-    <div class="text-center py-lg">
-        <nz-spin nzSimple></nz-spin>
-    </div>
+  <div class="text-center py-lg">
+    <nz-spin nzSimple></nz-spin>
+  </div>
 </ng-template>

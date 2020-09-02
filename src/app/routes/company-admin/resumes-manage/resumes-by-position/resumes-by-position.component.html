@@ -63,48 +63,48 @@
     <nz-tabset [nzTabBarExtraContent]="extraTemplate">
         <nz-tab [nzTitle]="forDealTpl" (nzSelect)="selectChange(1)">
             <ng-template #forDealTpl>
-                <div class="tab-title_sub px-sm text-center">待处理 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">待处理 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s1 > 100 ? '99+' : totalConfig.s1 }}</nz-tag></div>
             </ng-template>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
         </nz-tab>
         <nz-tab [nzTitle]="appropriateTpl" (nzSelect)="selectChange(2)">
             <ng-template #appropriateTpl>
-                <div class="tab-title_sub px-sm text-center">合适 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">合适 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s2 > 100 ? '99+' : totalConfig.s2 }}</nz-tag></div>
             </ng-template>
           <ng-template nz-tab>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
           </ng-template>
         </nz-tab>
         <nz-tab [nzTitle]="interviewTpl" (nzSelect)="selectChange(3)">
             <ng-template #interviewTpl>
-                <div class="tab-title_sub px-sm text-center">面试 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">面试 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s3 > 100 ? '99+' : totalConfig.s3 }}</nz-tag></div>
             </ng-template>
           <ng-template nz-tab>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
           </ng-template>
         </nz-tab>
         <nz-tab [nzTitle]="offerTpl" (nzSelect)="selectChange(4)">
             <ng-template #offerTpl>
-                <div class="tab-title_sub px-sm text-center">Offer <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">Offer <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s4 > 100 ? '99+' : totalConfig.s4 }}</nz-tag></div>
             </ng-template>
           <ng-template nz-tab>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
           </ng-template>
         </nz-tab>
         <nz-tab [nzTitle]="entryTpl" (nzSelect)="selectChange(5)">
             <ng-template #entryTpl>
-                <div class="tab-title_sub px-sm text-center">入职 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">入职 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s5 > 100 ? '99+' : totalConfig.s5 }}</nz-tag></div>
             </ng-template>
           <ng-template nz-tab>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
           </ng-template>
         </nz-tab>
         <nz-tab [nzTitle]="eliminateTpl" (nzSelect)="selectChange(6)">
             <ng-template #eliminateTpl>
-                <div class="tab-title_sub px-sm text-center">淘汰 <nz-tag class="text-white ml-sm">99+</nz-tag></div>
+                <div class="tab-title_sub px-sm text-center">淘汰 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s6 > 100 ? '99+' : totalConfig.s6 }}</nz-tag></div>
             </ng-template>
           <ng-template nz-tab>
-            <app-list-items [option]="option" [itemType]="itemType"></app-list-items>
+            <app-list-items [option]="option" [itemType]="itemType" [positionId]="positionId" (totalConfigChange)="totalConfigChange()"></app-list-items>
           </ng-template>
         </nz-tab>
       </nz-tabset>

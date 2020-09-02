@@ -26,10 +26,11 @@
                             <nz-divider nzType="vertical"></nz-divider>
                             <span>招{{ info.number }}人</span>
                         </div>
-                        <button nz-button [disabled]="status === 1"
+                        <button nz-button [disabled]="status === 1 || !info.status"
                             (click)="applyPosition()" class="point apply_oper-btn bg-green text-white text-lg">
                             <i nz-icon nzType="file-text" nzTheme="outline"></i>
-                            <span class="pl-sm">{{ status ? '已投递' : '申请职位' }}</span>
+                            <span class="pl-sm" *ngIf="!info.status">职位已下线</span>
+                            <span class="pl-sm" *ngIf="info.status">{{ status ? '已投递' : '申请职位' }}</span>
                         </button>
                     </div>
                 </div>

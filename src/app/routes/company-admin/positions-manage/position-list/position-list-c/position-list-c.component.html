@@ -42,7 +42,7 @@
           <i (click)="uplineItem(item.id)" class="text-primary point" nz-icon nzType="check-circle" nzTheme="outline"
             nz-tooltip nzTooltipTitle="上线"></i>
           <nz-divider nzType="vertical"></nz-divider>
-          <i class="text-danger" (click)="showConfirm(item.id)" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
+          <i class="text-danger" nz-popconfirm nzPopconfirmTitle="是否确认删除当前职位" nzOkText="删除" nzCancelText="取消" (nzOnConfirm)="showConfirm(item.id)" (nzOnCancel)="cancel()" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
             nzTooltipTitle="删除"></i>
         </ng-container>
       </td>

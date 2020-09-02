@@ -22,12 +22,12 @@ export class ResumesHandleComponent implements OnInit {
   pageOptionIng:any = {
     total: 0,
     pageIndex: 1,
-    pageSize: 3
+    pageSize: 10
   };
   pageOptionUnderline:any = {
     total: 0,
     pageIndex: 1,
-    pageSize: 3
+    pageSize: 10
   };
   constructor(
     public settingService: GlobalSettingsService
@@ -57,14 +57,16 @@ export class ResumesHandleComponent implements OnInit {
         const data = res.data;
         if(this.status === 'ing') {
           this.listOfData = data.data;
-          if(this.pageOptionIng.total === 0) {
+          // if(this.pageOptionIng.total === 0) {
             this.pageOptionIng.total = data.meta.pagination.total;
-          }
+          this.positionConfig.on = data.meta.pagination.total;
+          // }
         }else {
           this.underlineData = data.data;
-          if(this.pageOptionUnderline.total === 0) {
+          // if(this.pageOptionUnderline.total === 0) {
             this.pageOptionUnderline.total = data.meta.pagination.total;
-          }
+          // }
+          this.positionConfig.off = data.meta.pagination.total;
         }
       }
     }, err => this.loadingData = false)

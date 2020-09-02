@@ -114,7 +114,7 @@ export class UserAdminEducationComponent implements OnInit {
           end_time: v.is_not_end ? '至今' : v.edu_end_time
         }
       });
-      const option = Object.assign({edu}, { resume_id: 18 });
+      const option = Object.assign({edu}, { resume_id: this.resumeUserInfo.id });
 
       this.submitLoading = true;
       this.globalService.post('/v1/web/user/resume/edu', option).subscribe((res:ApiData) => {

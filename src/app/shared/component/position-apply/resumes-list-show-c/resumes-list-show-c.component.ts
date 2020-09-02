@@ -65,9 +65,12 @@ export class ResumesListShowCComponent implements OnInit {
       }
 
       this.globalService.post(url, option).subscribe((res:ApiData) => {
+        this.loading = false
         if(res.code === 200) {
           // this.msg.success('投递成功');
           this.destroyModal({type: 'success' });
+        }else {
+          this.msg.warning(res.message);
         }
       }, err => this.loading = false)
 

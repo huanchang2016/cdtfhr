@@ -29,6 +29,7 @@ export class ResumeViewComponent implements OnInit {
     //  如果是从职位访问当前页面，需要展示当前简历在该职位下的投递处理进度及状态
 
     this.activatedRoute.queryParams.subscribe(params => {
+      console.log('status params', this.params);
       if(params['origin']) {
         this.params['origin'] = params['origin'];
       }

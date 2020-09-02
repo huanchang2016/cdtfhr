@@ -24,7 +24,7 @@ export class ResumesByPositionComponent implements OnInit {
     resume_status: 1
   };
 
-  total: any;
+  total: number = 0;
 
   positionInfo:any = null;
 
@@ -33,12 +33,13 @@ export class ResumesByPositionComponent implements OnInit {
     public settingService: GlobalSettingsService
   ) {
     // 获取 最新 收到的简历 type === 'new' ?
-    this.activatedRoute.queryParams.subscribe(params => this.total = params['total']);
+    // this.activatedRoute.queryParams.subscribe(params => this.total = params['total']);
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
       this.positionId = +parmas['positionId'];
       this.option['position_id'] = this.positionId;
       this.getPositionInfo();
+      this.getTotalConfig();
       // 根据职位id 获取 各个状态的简历列表
     })
   }
@@ -55,6 +56,22 @@ export class ResumesByPositionComponent implements OnInit {
         this.positionInfo = res.data;
       }
     });
+  }
+
+  totalConfig:any = null;
+  getTotalConfig():void {
+    this.settingService.post(`/v1/web/com/delivery/resume_status_count`, { job_id: this.positionId }).subscribe((res:ApiData) => {
+      console.log(res, '简历数据统计情况');
+      if(res.code === 200) {
+        this.totalConfig = res.data;
+        this.total = (Object.values(this.totalConfig) as Array<number>).reduce( (a:any, b:any) => a + b , 0);
+      }
+      console.log(this.total, this.totalConfig)
+    });
+  }
+
+  totalConfigChange():void {
+    this.getTotalConfig();
   }
   
   search():void { // 回车事件

@@ -101,11 +101,12 @@ export class UserComponent implements OnInit, OnDestroy {
       this.settingService.clearUser();
       const href:string = window.location.href;
       console.log(href, 'href', href.indexOf('/admin/') !== -1)
-      if(href.indexOf('/admin/') !== -1) {
-        this.router.navigateByUrl('/');
-      }else {
-        window.location.reload();
-      }
+      // if(href.indexOf('/admin/') !== -1) {
+      //   this.router.navigateByUrl('/');
+      // }else {
+      //   window.location.reload();
+      // }
+      this.router.navigateByUrl('/');
       
     }, err => console.log(err));
   }
