@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
+import { format } from 'date-fns';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-oper-save-modal',
@@ -9,37 +12,67 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./oper-save-modal.component.less']
 })
 export class OperSaveModalComponent implements OnInit {
-  @Input() resumeInfo:any;
+  @Input() resumeInfo: any;
 
   constructor(
     private modal: NzModalRef,
-    private msg: NzMessageService
-  ) {}
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService,
+    private http: HttpClient
+  ) { }
 
-  submitLoading:boolean = false;
+  submitLoading: boolean = false;
 
   handleCancel() {
     this.submitLoading = false;
     this.destroyModal();
   }
 
-  type:number = null;
+  type: string = null;
   handleOk() {
-    
-    if(!this.type) {
-      this.msg.warning('备注信息内容未填写');
+
+    if (!this.type) {
+      this.msg.warning('未选择简历保存格式');
       return;
     }
 
 
     this.submitLoading = true;
-    setTimeout(() => {
+    let url: string = '';
+    if (this.type === 'pdf') {
+      url = '/v1/web/com/resume/save_pdf';
+    } else {
+      url = '/v1/web/com/resume/save_word';
+    }
+    const opt: any = { resume_id: this.resumeInfo.id };
+
+    this.http.post(url, opt, {
+      responseType: "blob",
+      headers: new HttpHeaders().append("Content-Type", "application/json")
+    }).subscribe(resp => {
+      // resp: 文件流
       this.submitLoading = false;
-      this.destroyModal({name: '点击确认提交', data: this.type});
-    }, 1000);
+      this.downloadFile(resp);
+    }, err => this.submitLoading = false);
+
   }
 
-  destroyModal(data?:any): void {
+  downloadFile(data): void {
+    const blob = new Blob([data]);
+    const url = window.URL.createObjectURL(blob);
+
+    // 以动态创建a标签进行下载
+    const a = document.createElement('a');
+    const fileName = format(new Date(), 'yyyyMMddHHmmss');
+    a.href = url;
+    // a.download = fileName;
+    a.download = `${fileName}_${this.resumeInfo.name}_${this.resumeInfo.title}.${this.type}`;
+    this.msg.success('简历保存成功');
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  destroyModal(data?: any): void {
     this.modal.destroy(data);
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-download-resume-list-c',
@@ -13,7 +15,9 @@ export class DownloadResumeListCComponent implements OnInit {
 
   listOfData:any[] = [];
 
-  constructor() { }
+  constructor(
+    private settingService: GlobalSettingsService
+  ) { }
 
   // ngOnChanges() {
   //   if(this.listOfData.length !== 0) {
@@ -22,9 +26,9 @@ export class DownloadResumeListCComponent implements OnInit {
   // }
 
   pageOption:any = {
-    total: 179,
+    total: null,
     pageIndex: 1,
-    pageSize: 20
+    pageSize: 10
   };
   
   
@@ -35,44 +39,28 @@ export class DownloadResumeListCComponent implements OnInit {
     console.log(params, this.pageOption);
     this.getDataList();
   }
-  ngOnInit(): void {
-    console.log('collect list c');
-    this.getDataList();
-  }
+
+  ngOnInit(): void {}
 
   getDataList():void {
     const page_size:number = this.pageOption.pageSize;
     const pageIndex:number = this.pageOption.pageIndex;
-    const total:number = Math.ceil(Math.random() * 200);
+
     const option:any = {
       page: pageIndex,
-      page_size: page_size,
-      total: total
+      limit: page_size
     }
 
     console.log('option by searchs', option);
 
     this.loadingData = true;
-    setTimeout(() => {
+    this.settingService.get('/v1/web/com/download_resume_jobs', option).subscribe((res:ApiData) => {
+      console.log('简历库 下载记录 职位列表', res);
       this.loadingData = false;
+      // this.listOfData = res.data;
+      this.listOfData = res.data;
+      this.pageOption.total = res.meta.pagination.total;
+    }, err => this.loadingData = false)
 
-      this.listOfData = Array.from(new Array(page_size).keys()).map( v => {
-        return {
-          id: v + 1,
-          name: '产品经理-用户增长',
-          resumes_count: 90,
-          start_time: '2020-07-22 11:24:23',
-          end_time: '2020-09-22 12:00:00',
-          province: { id: 1, name: '四川' },
-          city: { id: 11, name: '成都' },
-          area: { id: 111, name: '武侯区' },
-          salary: { id: 1111, name: '15-25K' },
-          nature: { id: 11111, name: '金融' },
-          peo_amount: { id: 11111, name: '500-2000人' },
-          status: Math.random() > 0.5
-        }
-      });
-
-    }, 1000);
   }
 }

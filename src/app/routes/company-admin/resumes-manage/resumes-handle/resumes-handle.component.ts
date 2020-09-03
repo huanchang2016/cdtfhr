@@ -59,14 +59,14 @@ export class ResumesHandleComponent implements OnInit {
           this.listOfData = data.data;
           // if(this.pageOptionIng.total === 0) {
             this.pageOptionIng.total = data.meta.pagination.total;
-          this.positionConfig.on = data.meta.pagination.total;
+            this.positionConfig['on'] = data.meta.pagination.total;
           // }
         }else {
           this.underlineData = data.data;
           // if(this.pageOptionUnderline.total === 0) {
             this.pageOptionUnderline.total = data.meta.pagination.total;
           // }
-          this.positionConfig.off = data.meta.pagination.total;
+          this.positionConfig['off'] = data.meta.pagination.total;
         }
       }
     }, err => this.loadingData = false)

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-oper-remark-list-tpl',
@@ -9,9 +11,12 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 export class OperRemarkListTplComponent implements OnInit {
   @Input() resumeInfo:any;
   
-  list:any[] = [1, 2, 3,4,5,6,7,8];
+  list:any[] = [];
+  loading:boolean = true;
+
   constructor(
-    private modal: NzModalRef
+    private modal: NzModalRef,
+    private settingService: GlobalSettingsService
   ) {}
 
 
@@ -26,6 +31,11 @@ export class OperRemarkListTplComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('简历备注记录 works: 收藏当前简历， 选择收藏夹（收藏夹可以分类创建，类似分组）')
+    this.loading = true;
+    this.settingService.get(`/v1/web/com/note?resume_id=${this.resumeInfo.id}`).subscribe((res: ApiData) => {
+      console.log('获取简历备注记录列表', res);
+      this.loading = false;
+      this.list = res.data;
+    }, err => this.loading = false);
   }
 }

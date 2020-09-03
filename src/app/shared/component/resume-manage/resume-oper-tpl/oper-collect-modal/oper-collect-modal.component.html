@@ -4,10 +4,10 @@
     <div class="d-flex mt-md">
         <div style="line-height: 30px;" class="text-center px-xs">选择收藏夹<span class="text-danger">*</span></div>
         <div class="flex-1">
-            <nz-select style="width: 100%;" [(ngModel)]="type" nzPlaceHolder="选择收藏夹">
-                <nz-option [nzValue]="1" nzLabel="未归类"></nz-option>
-                <nz-option [nzValue]="2" nzLabel="收藏夹1.0"></nz-option>
-                <nz-option [nzValue]="3" nzLabel="收藏夹2.0"></nz-option>
+            <nz-select style="width: 100%;" [(ngModel)]="type" nzPlaceHolder="选择收藏夹" [nzLoading]="loadingFiles">
+                <ng-container *ngFor="let item of filesList">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                </ng-container>
             </nz-select>
         </div>
     </div>

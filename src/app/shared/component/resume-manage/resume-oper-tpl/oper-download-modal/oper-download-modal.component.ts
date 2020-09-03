@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 
 @Component({
@@ -12,27 +14,16 @@ export class OperDownloadModalComponent implements OnInit {
   @Input() resumeInfo:any;
 
   submitLoading:boolean = false;
+  loadingPositions:boolean = true;
 
-  data:any[] = [
-    {id:1},
-    {id:2},
-    {id:3},
-    {id:4},
-    {id:5},
-    {id:6},
-    {id:7},
-    {id:8},
-    {id:9},
-    {id:10},
-    {id:11},
-    {id:12},
-    {id:13},
-    {id:14}
-  ];
+  download_num:number;
+
+  list:any[] = [];
 
   constructor(
     private modal: NzModalRef,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
   ) {}
 
   beRelated = false;
@@ -51,7 +42,9 @@ export class OperDownloadModalComponent implements OnInit {
   }
 
   selectedChange(checked:any, data:any) {
-    console.log('checkbox change', checked, data);
+    if(this.setOfCheckedId.size >= this.download_num && checked) {
+      this.msg.warning('已超出最大下载次数');
+    }
     this.updateCheckedSet(data.id, checked);
   }
 
@@ -71,9 +64,18 @@ export class OperDownloadModalComponent implements OnInit {
       this.msg.warning('当前简历是否需要关联到职位未选择！');
       return;
     }
-    const requestData = this.data.filter(data => this.setOfCheckedId.has(data.id));
+    const requestData = this.list.filter(data => this.setOfCheckedId.has(data.id));
     console.log('selected item data: ', requestData);
     this.submitLoading = true;
+    // this.settingService.get(`/v1/web/com/download_resume_jobs`).subscribe((res: ApiData) => {
+    //   this.submitLoading = false;
+      // if(res.code === 200) {
+      //   this.msg.success('简历收藏成功');
+      //   this.destroyModal({ type: 'success' });
+      // }else {
+      //   this.msg.error(res.message);
+      // }
+    // }, err => this.submitLoading = false);
     setTimeout(() => {
       this.setOfCheckedId.clear();
       this.submitLoading = false;
@@ -88,7 +90,13 @@ export class OperDownloadModalComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('下载简历 works: 获取当前公司下 发布的有效职位列表，同时可以选择是否将当前简历关联到某个职位下，直接进入合适的状态');
+    // 获取 在线的职位列表
+    this.settingService.get(`/v1/web/com/all_jobs?resume_id=${this.resumeInfo.id}`).subscribe((res: ApiData) => {
+      console.log('getDataList', res);
+      this.loadingPositions = false;
+      this.list = res.data.companyJob;
+      this.download_num = res.data.download_num;
+    }, err => this.loadingPositions = false);
   }
 
 }

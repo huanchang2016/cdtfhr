@@ -14,17 +14,21 @@
                 </div>
             </ng-container>
 
-            <!-- 如果是企业用户查看用户简历 -->
+            <!-- 
+                如果是企业用户查看用户简历，分为：
+                    1. 职位下收到的简历
+                    2. 主动搜索的简历
+            -->
             <div class="clearfix" *ngIf="settingService.user.type === 'company'">
                 <div class="resume-show_oper_view_body float-left">
                     <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
                 </div>
                 <div class="float-right resume-show_oper_box">
                     <nz-affix nzOffsetTop="0">
-                        <app-resume-oper-tpl [resumeInfo]="resumeInfo"></app-resume-oper-tpl>
+                        <app-resume-oper-tpl [resumeInfo]="resumeInfo" [params]="params" [configs]="configs" (configEmitChange)="getLogConfigs()"></app-resume-oper-tpl>
                         
                         <ng-container *ngIf="params.posId">
-                            <app-resume-status-handle-process-tpl [positionId]="params.posId" [resumeInfo]="resumeInfo"></app-resume-status-handle-process-tpl>
+                            <app-resume-status-handle-process-tpl [positionId]="params.posId" [resumeInfo]="resumeInfo" [configs]="configs" (configEmitChange)="getLogConfigs()"></app-resume-status-handle-process-tpl>
                         </ng-container>
                     
                     </nz-affix>

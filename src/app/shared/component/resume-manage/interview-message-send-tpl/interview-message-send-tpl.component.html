@@ -65,13 +65,13 @@
 <form nz-form [formGroup]="validateForm">
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试地址</nz-form-label>
-      <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+      <nz-form-control [nzSpan]="20" nzErrorTip="请填写面试地址">
         <input nz-input formControlName="address" placeholder="请填写面试地址" nzSize="large" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试时间</nz-form-label>
-      <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+      <nz-form-control [nzSpan]="20" nzErrorTip="请选择面试时间">
         <nz-date-picker
             nzFormat="yyyy/MM/dd HH:mm:ss"
             [nzDisabledDate]="disabledDate"
@@ -92,22 +92,22 @@
     
     <nz-form-item>
         <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试通知</nz-form-label>
-        <nz-form-control [nzSpan]="20" nzErrorTip="userErrorTpl">
+        <nz-form-control [nzSpan]="20" nzErrorTip="请选择面试通知方式">
           <div class="d-flex mb-sm" style="line-height: 40px;">
-            <label nz-checkbox formControlName="is_email" class="mr-md" [nzDisabled]="!resumeInfo.email">
+            <label nz-checkbox formControlName="is_email" (ngModelChange)="typeChange()" class="mr-md" [nzDisabled]="!resumeInfo.email">
                 <span>邮件通知</span>
             </label>
             <div>{{ resumeInfo.email }}</div>
             <!-- <input style="width: 400px" nz-input formControlName="email" placeholder="请填写接收通知的邮件地址" nzSize="large" /> -->
           </div>
           <div class="d-flex" style="line-height: 40px;">
-            <label nz-checkbox formControlName="is_phone" class="mr-md" [nzDisabled]="!resumeInfo.phone">
+            <label nz-checkbox formControlName="is_phone" (ngModelChange)="typeChange()" class="mr-md" [nzDisabled]="!resumeInfo.phone">
                 <span>手机短信</span>
             </label>
             <div>{{ resumeInfo.phone }}</div>
             <!-- <input style="width: 400px" nz-input formControlName="phone" placeholder="请填写接收通知短信的手机号码" nzSize="large" /> -->
           </div>
-            
+        <div class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
         </nz-form-control>
       </nz-form-item>
       

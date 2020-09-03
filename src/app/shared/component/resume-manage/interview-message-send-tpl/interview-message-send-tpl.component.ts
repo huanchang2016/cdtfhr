@@ -7,6 +7,8 @@ import { environment } from '@env/environment';
 import { differenceInYears, format } from 'date-fns';
 import addDays from 'date-fns/addDays';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class InterviewMessageSendTplComponent implements OnInit {
     private fb: FormBuilder,
     private modal: NzModalRef,
     private modalSrv: NzModalService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
   ) {
     this.validateForm = this.fb.group({
       address: [null, [Validators.required]],
@@ -39,24 +42,67 @@ export class InterviewMessageSendTplComponent implements OnInit {
   }
 
   ngOnInit():void {
-    const placeholderContent:string = `${this.resumeInfo.name}，您好！您已通过${'公司名称'} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初筛，进入面试环节。请您合理安排时间准时参加面试,如有疑问，请联系HR电话${this.positionInfo ? this.positionInfo.tel : '028-80518071-599'}。`;
-    this.validateForm.patchValue({
-      content: placeholderContent
-    })
+    // const placeholderContent:string = `${this.resumeInfo.name}，您好！您已通过${} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初筛，进入面试环节。请您合理安排时间准时参加面试,如有疑问，请联系HR电话：xxx-xxxxxxxx。`;
+    // this.validateForm.patchValue({
+    //   content: placeholderContent
+    // });
+
   }
 
+  errorMsg:string = '';
+
+  typeChange():void {
+    if(!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
+      this.errorMsg = '请选择面试通知方式';
+      return;
+    }else {
+      this.errorMsg = '';
+    }
+  }
   submitForm(): void {
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    console.log(this.validateForm, '......');
-    console.log('发送通知');
-    this.submitLoading = true;
-    setTimeout(() => {
-      this.submitLoading = false;
-      this.destroyModal({ data: 'success' });
-    }, 1000);
+    console.log(this.validateForm, '......发送通知');
+
+    if(!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
+      this.errorMsg = '请选择面试通知方式';
+      return;
+    }else {
+      this.errorMsg = '';
+    }
+
+
+    if(this.validateForm.valid) {
+      const value:any = this.validateForm.value;
+
+
+      const option:any = {
+        resume_id: this.resumeInfo.id,
+        job_id: this.positionInfo.id,
+        site: value.address,
+        time: value.time,
+        content: value.content,
+        email: value.is_email ? this.resumeInfo.email : null,
+        phone: value.is_phone ? this.resumeInfo.phone : null
+      };
+
+      console.log('option, 面试邀请信息', option);
+      this.submitLoading = true;
+      this.settingService.post('/v1/web/com/resume/invite_interview', option).subscribe((res:ApiData) => {
+        console.log(res, '面试通知');
+        this.submitLoading = false;
+        this.msg.success(res.message);
+        if(res.code === 200) {
+          this.destroyModal({ type: 'success' });
+        }
+      }, err => this.submitLoading = false)
+    }
+    // setTimeout(() => {
+    //   this.submitLoading = false;
+    //   this.destroyModal({ data: 'success' });
+    // }, 1000);
   }
 
   handleCancel(): void {
@@ -71,12 +117,12 @@ export class InterviewMessageSendTplComponent implements OnInit {
       this.msg.error('通知信息填写不完整，不能预览');
       return;
     }
-    const interview_time = format(this.validateForm.value.time, 'yyyy/MM/dd HH:mm:ss');
-    const interview_addr = this.validateForm.value.address.trim();
+    // const interview_time = format(this.validateForm.value.time, 'yyyy/MM/dd HH:mm:ss');
+    // const interview_addr = this.validateForm.value.address.trim();
     const modal = this.modalSrv.create({
       nzTitle: '',
       nzContent: InterviewMessageViewTplComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzWrapClassName: 'view_modal',
       nzWidth: '360px',
       nzBodyStyle: {
@@ -87,17 +133,18 @@ export class InterviewMessageSendTplComponent implements OnInit {
       },
       nzMaskClosable: false,
       nzComponentParams: {
-        data: `${this.resumeInfo.name}，您好。天府菁英网提醒您，
-        您已通过${'公司名称'} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初
-        筛，进入面试环节。面试时间 ${interview_time}
-        ，面试地址 ${interview_addr}，请您合理安排时
-        间准时参加面试，如有疑问，请联系HR电话${this.positionInfo ? this.positionInfo.tel : '028-80518071-599'}。`
+        // data: `${this.resumeInfo.name}，您好。天府菁英网提醒您，
+        // 您已通过${'公司名称'} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初
+        // 筛，进入面试环节。面试时间 ${interview_time}
+        // ，面试地址 ${interview_addr}，请您合理安排时
+        // 间准时参加面试，如有疑问，请联系HR电话${this.positionInfo ? this.positionInfo.tel : '028-80518071-599'}。`
+        data: this.validateForm.value.content
       },
       nzFooter: null
     });
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose 转发modal] The result is:', result));
+    // modal.afterClose.subscribe(result => console.log('[afterClose 转发modal] The result is:', result));
 
   }
 

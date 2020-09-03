@@ -22,8 +22,8 @@ export class ListItemsComponent implements OnChanges {
 
   params:any = {
     origin: 'handle',
-    posId: null,
-    status: null
+    posId: null
+    // status: null
   };
 
   pageOption:any = {
@@ -52,8 +52,8 @@ export class ListItemsComponent implements OnChanges {
     if(this.loadingData) {
       return false;
     }
-    this.params.status = this.option.resume_status;
-    console.log(this.params, 'params');
+    // this.params.status = this.option.resume_status;
+    // console.log(this.params, 'params');
 
     const option:any = {
       status: this.option.resume_status,

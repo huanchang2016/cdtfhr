@@ -14,8 +14,8 @@
           <div class="user-logo">
             <div
               class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
-              <ng-container *ngIf="data.avatar;else notPhoto">
-                <img [src]="environment.SERVER_URL + '/' + data.avatar" alt="">
+              <ng-container *ngIf="data.resume.avatar;else notPhoto">
+                <img [src]="environment.SERVER_URL + '/' + data.resume.avatar" alt="">
               </ng-container>
               <ng-template #notPhoto>
                 <i nz-icon nzType="user" nzTheme="outline"></i>
@@ -25,53 +25,43 @@
         </td>
         <td>
           <div class="mb-sm">
-            <!-- [queryParams]="params" -->
-            <a [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">张三丰</a>
+            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
             <nz-divider nzType="vertical"></nz-divider>
-            <span>{{ data.sex === 1 ? '男' : '女' }}</span>
+            <span>{{ data.resume.sex }}</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span [innerHTML]="countAge('1990/11/07')"></span>
+            <span>{{ data.resume.age }}</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span [innerHTML]="countYears('2013/07/08')"></span>
+            <span>{{ data.resume.work_date }}工作经验</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span>本科</span>
+            <span>{{ data.resume.edu.level }}</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span>成都</span>
+            <span>{{ data.resume.city }}</span>
           </div>
           <p class="text-666">毕业院校
-            <span class="ml-sm text-grey">成都信息工程大学<nz-divider nzType="vertical"></nz-divider>本科</span>
+            <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu.level }}</span>
           </p>
           <p class="text-666">求职状态
-            <span class="ml-sm text-grey">离职</span>
+            <span class="ml-sm text-grey">{{ data.resume.status }}</span>
           </p>
           <p class="text-666">投递时间
-            <span class="ml-sm text-grey">2020/07/08</span>
+            <span class="ml-sm text-grey">{{ data.updated_at }}</span>
           </p>
         </td>
         <td>
           <div>
             <h3 class="text-666 text-md">工作经历</h3>
-            <p class="text-nowrap">
-              <span>2020.01 ~ 2020.08</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>成都天府新区人力资源开发服务有限公司</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>web前端开发</span>
-            </p>
-            <p class="text-nowrap">
-              <span>2020.01 ~ 2020.08</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>成都天府新区人力资源开发服务有限公司</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>web前端开发</span>
-            </p>
-            <p class="text-nowrap">
-              <span>2020.01 ~ 2020.08</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>成都天府新区人力资源开发服务有限公司</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>web前端开发</span>
-            </p>
+            <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
+              <p class="text-nowrap" *ngFor="let work of data.resume.work">
+                <span>{{ work.start_time }} ~ {{ work.end_time }}</span>
+                <nz-divider nzType="vertical"></nz-divider>
+                <span>{{ work.name }}</span>
+                <nz-divider nzType="vertical"></nz-divider>
+                <span>{{ work.position_name }}</span>
+              </p>
+            </ng-container>
+            <ng-template #notWorkTpl>
+              <p class="text-grey">无经验</p>
+            </ng-template>
           </div>
         </td>
       </tr>
@@ -101,17 +91,26 @@
       <tr *ngFor="let data of rowSelectionTable.data">
         <td>
           <!-- [queryParams]="params" -->
-          <a [routerLink]="['/fullscreen/resume/view', 18]" target="_blank">张三丰</a>
+          <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
         </td>
-        <td>性别</td>
-        <td>年龄</td>
-        <td>工作年限</td>
-        <td>学历</td>
-        <td>学校</td>
-        <td>专业</td>
-        <td>最近就职公司</td>
-        <td>最近职位</td>
-        <td>投递时间</td>
+        <td>{{ data.resume.sex }}</td>
+        <td>{{ data.resume.age }}</td>
+        <td>{{ data.resume.work_date }}</td>
+        <td>{{ data.resume.edu.level }}</td>
+        <td>{{ data.resume.edu.name }}</td>
+        <td>{{ data.resume.edu.major }}</td>
+        <td>
+          <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
+            {{ data.resume.work[0].name }}
+          </ng-container>
+          <ng-template #notWorkTpl>无经验</ng-template>
+        </td>
+        <td>
+          <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0">
+            {{ data.resume.work[0].position_name }}
+          </ng-container>
+        </td>
+        <td>{{ data.created_at }}</td>
       </tr>
     </tbody>
   </nz-table>

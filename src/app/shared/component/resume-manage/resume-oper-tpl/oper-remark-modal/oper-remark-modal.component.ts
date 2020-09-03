@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-oper-remark-modal',
@@ -10,19 +12,24 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class OperRemarkModalComponent implements OnInit {
   @Input() resumeInfo:any;
 
-  data:number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+  list:number[] = [];
   
   remark:string = null;
   
   constructor(
     private modal: NzModalRef,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
   ) {}
 
   submitLoading:boolean = false;
+  loading:boolean = false;
+
+  emitData:any = null;
 
   handleCancel() {
     this.submitLoading = false;
+    this.emitData = null;
     this.destroyModal();
   }
 
@@ -32,24 +39,44 @@ export class OperRemarkModalComponent implements OnInit {
       _remark = this.remark.trim();
     }
     if(!_remark) {
-      this.msg.warning('备注信息内容未填写');
+      this.msg.warning('备注信息内容未填写或不能为空格');
       return;
     }
-
+    const option:any = {
+      resume_id: this.resumeInfo.id,
+      note: _remark
+    }
 
     this.submitLoading = true;
-    setTimeout(() => {
+    this.settingService.post(`/v1/web/com/note/create`, option).subscribe((res:ApiData) => {
       this.submitLoading = false;
-      this.destroyModal({name: '点击确认提交'});
-    }, 1000);
+      if(res.code === 200) {
+        this.msg.success('备注信息添加成功');
+        this.emitData = { type: 'success' };
+        // this.getDataList();
+        this.destroyModal();
+      }else {
+        this.msg.error(res.message);
+        this.emitData = null;
+      }
+    }, err => this.submitLoading = false)
   }
 
-  destroyModal(data?:any): void {
-    this.modal.destroy(data);
+  destroyModal(): void {
+    this.modal.destroy(this.emitData);
   }
 
   ngOnInit(): void {
-    console.log('简历添加备注 works: 请输入备注信息， 同时展示公司下其他账号对该简历的备注信息')
+    this.getDataList();
+  }
+
+  getDataList():void {
+    this.loading = true;
+    this.settingService.get(`/v1/web/com/note?resume_id=${this.resumeInfo.id}`).subscribe((res: ApiData) => {
+      console.log('获取简历备注记录列表', res);
+      this.loading = false;
+      this.list = res.data;
+    }, err => this.loading = false);
   }
 
 }

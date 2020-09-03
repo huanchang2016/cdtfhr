@@ -141,7 +141,7 @@
     <span (click)="dealResume()" *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
 
     <!-- 设计中无已到岗状态分类，故而此处不做操作 -->
-    <span *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span>
+    <!-- <span *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span> -->
 
     <span (click)="nextStepsIn()" *ngIf="option.resume_status !== 5 && option.resume_status !== 6" class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
   </div>

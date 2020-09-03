@@ -16,43 +16,70 @@ export class ResumeViewComponent implements OnInit {
   resume_id:number;
 
   resumeInfo:any = null;
-  loadingData:boolean = true;
+  loadingData:boolean = false;
 
   // type: 'company' | 'user' = 'user';
-  params:any = {};
+  params:any = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public settingService: GlobalSettingsService
   ) {
-    // 获取 当前页面访问来源，单位处理简历时，从职位下访问过来还是其他路径，
-    //  如果是从职位访问当前页面，需要展示当前简历在该职位下的投递处理进度及状态
 
-    this.activatedRoute.queryParams.subscribe(params => {
-      console.log('status params', this.params);
-      if(params['origin']) {
-        this.params['origin'] = params['origin'];
-      }
-      if(params['posId']) {
-        this.params['posId'] = +params['posId'];
-        // 获取当前 posId 对应的职位信息及简历的状态进度
-        this.getResumeStatus();
-      }
-    });
-    
     this.activatedRoute.params.subscribe((params:Params) => {
       this.resume_id = +params['id'];
       if(this.resume_id) {
-        this.getInfo();
+        this.getParams();
       }
     })
   }
 
-  ngOnInit(): void {}
+  configs:any = {
+    collect: 0, // 是否收藏
+    log: '', // 操作记录
+    note: '', // 备注
+    status: null, // 当前简历 在 职位下的状态
+    invite: false // 如果简历状态是 3， 则需判断 是否已经邀请面试
+  }; // 备注信息
 
-  getInfo():void {
+  ngOnInit(): void {
+
+  }
+
+  getParams():void {
+    // 获取 当前页面访问来源，单位处理简历时，从职位下访问过来还是其他路径，
+    //  如果是从职位访问当前页面，需要展示当前简历在该职位下的投递处理进度及状态
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log('status params', params);
+      let url: string = '';
+      if(params) {
+        // 存在 queryParams 参数，从企业后台访问过来的 反之则未用户自身预览简历
+        url = `/v1/web/com/resume_detail/${this.resume_id}`;
+        this.params = params;
+        if(this.params.posId) {
+          this.getLogConfigs();
+        }
+      }else {
+        url = `/v1/web/user/resume/${this.resume_id}`;
+      }
+      this.getResumeInfo(url);
+    });
+
+  }
+  
+  getLogConfigs():void {
+    if(this.params.posId) {
+      const opt:any = { resume_id: this.resume_id, job_id: +this.params.posId };
+      this.settingService.post('/v1/web/com/resume/get_resume_config', opt).subscribe((res:ApiData) => {
+        console.log('get_resume_config works!', res.data);
+        this.configs ={...res.data};
+      });
+    }
+  }
+
+  getResumeInfo(url:string):void {
     this.loadingData = true;
-    this.settingService.get(`/v1/web/user/resume/${this.resume_id}`).subscribe((res:ApiData) => {
+    this.settingService.get(url).subscribe((res:ApiData) => {
       console.log('resumeInfo works!', res.data);
       this.loadingData = false;
       this.resumeInfo = res.data;

@@ -1,6 +1,7 @@
 
 export class AccountInfo {
     name: string;
+    company_name?:string;
     phone: string;
     type: 'user' | 'company';
 }

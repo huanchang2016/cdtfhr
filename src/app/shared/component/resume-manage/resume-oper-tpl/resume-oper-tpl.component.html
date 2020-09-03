@@ -6,26 +6,44 @@
     </p>
     <p class="text-grey mt-sm">
         <i class="mr-sm" nz-icon nzType="download" nzTheme="outline"></i>
-        <span>账号名称</span>
-        <span class="text-666">已于</span>
-        <span class="text-nowrap">2020/7/23 23:20:42</span>
-        <span class="text-666">下载</span>
-        <span class="text-primary point text-nowrap" (click)="viewOperRecord()">查看操作记录 ></span>
+        <ng-container *ngIf="configs?.log">
+            <span class="text-666">{{ configs?.log }} </span>
+            <span class="text-primary point text-nowrap" (click)="viewOperRecord()"> 查看操作记录 ></span>
+        </ng-container>
+        <ng-container *ngIf="!configs?.log">
+            <span class="text-grey">无操作记录</span>
+        </ng-container>
     </p>
     <p class="text-grey mt-sm">
         <i class="mr-sm" nz-icon nzType="message" nzTheme="outline"></i>
-        <span class="text-666">可以先找TA来面试一下。</span>
-        <span>账号名称 &nbsp; <span class="text-nowrap">2020/7/23 23:20:42</span></span>
-        <span class="text-primary point text-nowrap" (click)="viewRemarks()">查看更多备注 ></span>
+        <ng-container *ngIf="configs?.note">
+            <span class="text-666">{{ configs?.note }}</span>
+        <span class="text-primary point text-nowrap" (click)="viewRemarks()"> 查看更多备注 ></span>
+        </ng-container>
+        <ng-container *ngIf="!configs?.note">
+            <span class="text-grey">无备注信息</span>
+        </ng-container>
+        
     </p>
 
     <div class="oper_btn_box mt-sm">
-        <button (click)="download()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="download" nzTheme="outline"></i> 下载</button>
-        <button (click)="save()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="save" nzTheme="outline"></i> 保存</button>
-        <button (click)="collect()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="star" nzTheme="outline"></i> 收藏</button>
-        <button (click)="send()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i class="icon iconfont icon-transmit mr-sm"></i> 转发</button>
-        <button (click)="deliver()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="send" nzTheme="outline"></i> 投递记录</button>
-        <button (click)="remark()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large"><i nz-icon nzType="message" nzTheme="outline"></i> 备注</button>
+        <button *ngIf="!configs?.download" (click)="download()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i nz-icon nzType="download" nzTheme="outline"></i> 下载</button>
+
+        <button (click)="save()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i nz-icon nzType="save" nzTheme="outline"></i> 保存</button>
+
+        <button (click)="collect()" [disabled]="configs?.collect" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i nz-icon nzType="star" [nzTheme]="configs?.collect ? 'fill' : 'outline'"></i> {{ configs?.collect ? '已收藏' : '收藏' }}</button>
+        <button (click)="send()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i class="icon iconfont icon-transmit mr-sm"></i> 转发</button>
+
+        <button (click)="deliver()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i nz-icon nzType="send" nzTheme="outline"></i> 投递记录</button>
+
+        <button (click)="remark()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+            <i nz-icon nzType="message" nzTheme="outline"></i> 备注</button>
+
     </div>
     
 </div>

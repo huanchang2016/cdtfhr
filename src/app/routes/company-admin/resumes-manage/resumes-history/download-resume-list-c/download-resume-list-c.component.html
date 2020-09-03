@@ -10,12 +10,19 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of listOfData">
-            <td>awer23913-技术部门-JAVA工程师20020197</td>
+            <td>{{ data.default ? '不关联到职位' : data.job.name }}</td>
             <td>
-                <a [routerLink]="['/admin/company/resumes/history/download', 1]" target="_blank">32</a>
+                <a [routerLink]="['/admin/company/resumes/history/download', data.default ? 0 : data.job.id]" target="_blank">{{ data.resume_sum }}</a>
             </td>
             <td>
-                <span [class.text-primary]="data.status" [class.text-danger]="!data.status">简历状态</span>
+                <ng-container *ngIf="!data.default">
+                    <span [class.text-green]="data.job.status" [class.text-danger]="!data.job.status">
+                        {{ data.job.status ? '招聘中' : '已下线' }}
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="data.default">
+                    <span class="text-grey">默认</span>
+                </ng-container>
             </td>
         </tr>
     </tbody>

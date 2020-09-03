@@ -2,7 +2,14 @@
 
     <div *ngIf="settingService.user; else notLogin" class="login_wrap">
         <a nz-dropdown [nzDropdownMenu]="userMenu" class="d-flex align-items-center">
-            <span class="text-md username text-truncate">您好，{{ settingService.user.name ? settingService.user.name : settingService.user.phone }}</span>
+            <span class="text-md username text-truncate">您好，
+                <ng-container *ngIf="settingService.user.type === 'user'">
+                    {{ settingService.user.name ? settingService.user.name : settingService.user.phone }}
+                </ng-container>
+                <ng-container *ngIf="settingService.user.type === 'company'">
+                    {{ settingService.user.company_name ? settingService.user.company_name : settingService.user.name }}
+                </ng-container>
+            </span>
             <i nz-icon nzType="down" class="text-md"></i>
         </a>
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
@@ -11,7 +18,7 @@
                     <div nz-menu-item (click)="toCenter()">
                         <p class="mb-xs">
                             <i nz-icon nzType="bank" nzTheme="outline" class="mr-sm"></i>
-                            单位后台
+                            当前登录账号：<span class="text-primary">{{ settingService.user.name }}</span>
                         </p>
                     </div>
                     <div nz-menu-item (click)="editpwd()">

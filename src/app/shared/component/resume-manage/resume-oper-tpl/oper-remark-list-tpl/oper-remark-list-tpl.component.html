@@ -1,9 +1,15 @@
-<div class="wrapper_box">
-    <ng-container *ngFor="let data of list">
+<div class="wrapper_box" *ngIf="!loading">
+    <ng-container *ngFor="let item of list">
         <div class="py-sm text-md">
-            <span class="text-pirmary"> 2020/7/24 23:00:00 </span>
-            <span class="text-666">投递简历于</span>
-            <span class="text-primary">XXX公司YYYY职位</span>
+            <p class="text-666" [innerHTML]="item.note | showTextAreaText"></p>
+            <p class="text-right">
+                <span class="text-primary">{{ item.company.name }}</span>
+                <span class="text-grey">发布于</span>
+                <span class="text-primary">{{ item.created_at }}</span>
+            </p>
         </div>
     </ng-container>
+</div>
+<div *ngIf="loading" class="text-center text-lg py-lg">
+    <nz-spin nzSimple></nz-spin>
 </div>

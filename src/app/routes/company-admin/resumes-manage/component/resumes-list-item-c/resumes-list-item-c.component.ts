@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { environment } from '@env/environment';
 import { differenceInYears } from 'date-fns';
@@ -12,17 +12,18 @@ export class ResumesListItemCComponent implements OnChanges {
   @Input() itemType:string;
   @Input() dataOption:any;
   @Input() loadingData:boolean;
+  @Input() posId?:number;
 
   @Output() pageOptionChanges:EventEmitter<any> = new EventEmitter();
 
   environment = environment;
 
-  params:any = {
-    // origin: 'handle',
-    // posId: null
-  };
-
   listOfData:any[] = [];
+
+  params:any = {
+    origin: 'handle',
+    posId: null
+  };
 
   constructor() {}
 
@@ -32,11 +33,15 @@ export class ResumesListItemCComponent implements OnChanges {
     current_page: 1
   };
 
-  ngOnChanges(changes:SimpleChanges):void {
+  ngOnChanges():void {
     console.log('changes', this.dataOption)
     if(this.dataOption) {
       this.listOfData = this.dataOption.data;
-      this.pageOption = this.dataOption.meta.pagination;
+      this.pageOption = this.dataOption.pagination;
+    }
+
+    if(this.posId) {
+      this.params.posId = this.posId;
     }
   }
 

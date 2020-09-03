@@ -1,21 +1,21 @@
 <ng-container *ngIf="!loadingData; else lodingSpin">
   <nz-list nzBordered [nzFooter]="collectFileAddTpl">
-    <!-- *ngFor="let item of listOfData" -->
     <nz-list-item *ngFor="let item of listOfData">
       <span nz-typography>
         <span class="text-666 mr-sm">{{ item.name }}</span>
         <span class="text-666">
-          共计 <a [routerLink]="['/admin/company/resumes/history/collect', item.id]" class="text-primary"
-            target="_blank">{{ item.resume_sum }}</a> 份简历
+          共计 <a (click)="navTo(item.id)" class="text-primary">{{ item.resume_sum }}</a> 份简历
         </span>
       </span>
       <ul nz-list-item-actions>
         <nz-list-item-action>
           <span class="text-grey mr-md"><i nz-icon nzType="clock-circle" nzTheme="outline"></i> 更新于 {{ item.updated_at }}</span>
-          <a (click)="editCollectFileName(item)" nz-tooltip nzTooltipTitle="更新收藏夹名称"><i nz-icon
-              nzType="edit" nzTheme="outline"></i></a>
-          <i class="text-danger ml-md" (nzOnConfirm)="deleted(item.id)" (nzOnCancel)="cancel()" nz-popconfirm nzPopconfirmTitle="是否确认删除当前简历收藏夹" nzOkText="删除" nzCancelText="取消" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
-            nzTooltipTitle="删除"></i>
+          <ng-container *ngIf="!item.default">
+            <a (click)="editCollectFileName(item)" nz-tooltip nzTooltipTitle="更新收藏夹名称"><i nz-icon
+                nzType="edit" nzTheme="outline"></i></a>
+            <i class="text-danger ml-md" (nzOnConfirm)="deleted(item.id)" (nzOnCancel)="cancel()" nz-popconfirm nzPopconfirmTitle="是否确认删除当前简历收藏夹" nzOkText="删除" nzCancelText="取消" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
+              nzTooltipTitle="删除"></i>
+          </ng-container>
         </nz-list-item-action>
       </ul>
     </nz-list-item>

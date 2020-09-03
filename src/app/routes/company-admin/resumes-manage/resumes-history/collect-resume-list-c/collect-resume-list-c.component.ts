@@ -1,16 +1,17 @@
-import { Component, OnInit, Input, OnChanges, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CollectFileFormTplComponent } from './collect-file-form-tpl/collect-file-form-tpl.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-collect-resume-list-c',
   templateUrl: './collect-resume-list-c.component.html',
   styleUrls: ['./collect-resume-list-c.component.less']
 })
-export class CollectResumeListCComponent implements OnChanges, OnInit {
+export class CollectResumeListCComponent implements OnInit {
   // @Input() colsChange: boolean;
 
   loadingData: boolean = true;
@@ -20,20 +21,12 @@ export class CollectResumeListCComponent implements OnChanges, OnInit {
   constructor(
     private modal: NzModalService,
     private viewContainerRef: ViewContainerRef,
-    public msg: NzMessageService,
-    public settingService: GlobalSettingsService
+    private msg: NzMessageService,
+    private router: Router,
+    private settingService: GlobalSettingsService
   ) { }
 
-  ngOnChanges() {
-    console.log('onchanges ');
-
-    // if (this.listOfData.length !== 0) {
-      // console.log('cols changes', this.colsChange);
-    // }
-  }
-
   ngOnInit(): void {
-    console.log('collect list c');
     this.getDataList();
   }
   getDataList(): void {
@@ -41,13 +34,10 @@ export class CollectResumeListCComponent implements OnChanges, OnInit {
     this.settingService.get('/v1/web/com/collect_tag').subscribe((res:ApiData) => {
       console.log('简历库 收藏夹 文件夹', res);
       this.loadingData = false;
-      this.listOfData = res.data;
+      // this.listOfData = res.data;
+      const list:any[] = res.data;
+      this.listOfData = list.sort((a:any, b:any) => b.default - a.default );
     }, err => this.loadingData = false)
-    // setTimeout(() => {
-    //   this.loadingData = false;
-
-    //   this.listOfData = [1, 2, 3, 4, 5, 6, 7, 8]
-    // }, 1000);
   }
 
   editCollectFileName(data:any):void {
@@ -77,6 +67,10 @@ export class CollectResumeListCComponent implements OnChanges, OnInit {
       }
     });
 
+  }
+
+  navTo(id:number):void {
+    this.router.navigateByUrl(`/admin/company/resumes/history/collect/${id ? id : 0}`);
   }
 
   deleted(id:number):void {

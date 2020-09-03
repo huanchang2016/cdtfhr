@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resumes-download-list',
@@ -7,20 +9,23 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./resumes-download-list.component.less']
 })
 export class ResumesDownloadListComponent implements OnInit {
+  /****
+   *  TODO: 处理 下载记录中的职位列表
+   * 
+   * ********/
 
   is_more:boolean = false; // 展开更多搜索条件
-
-  // search_text:string = '';
-
-  // sort:'new' | 'refresh' = 'new';
+  
   itemType:'simple' | 'card' = 'card';
 
-  collectId:number;
+  positionId: number = -1;
+
+  positionInfo:any = null;
 
   searchOption:{ [key:string]: any } = {
-    sort: 'new',
+    sort: 'newest',  // newest default
     keywords: null,
-    page_size: 15,
+    limit: 10,
     page: 1
   };
 
@@ -31,13 +36,13 @@ export class ResumesDownloadListComponent implements OnInit {
   type: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private settingService: GlobalSettingsService
   ) {
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
-      this.collectId = +parmas['id'];
-      this.option['collectId'] = this.collectId;
-      console.log( 'this collectId', this.collectId)
+      this.positionId = +parmas['id'];
+      // this.getPositionInfo();
       // 根据收藏夹 id 获取 各个 文件夹内 的简历列表
     })
   }
@@ -46,6 +51,19 @@ export class ResumesDownloadListComponent implements OnInit {
     
     console.log(this.type, 'this type', this.searchOption)
     // this.getDataList();
+  }
+
+  getPositionInfo():void {
+    let opt:any = null;
+    if(this.positionId > 0) {
+      opt = { id: this.positionId };
+    }
+    this.settingService.post('/v1/web/com/download_resumes', opt).subscribe((res:ApiData) => {
+      console.log('positionInfo', res);
+      if(res.code === 200) {
+        this.positionInfo = res.data;
+      }
+    })
   }
   
   search():void { // 回车事件
@@ -67,46 +85,44 @@ export class ResumesDownloadListComponent implements OnInit {
     this.searchOptionConfig({ page: pageIndex, page_size: pageSize });
   }
 
-  searchOptionConfig(option:any = {}):void {
-    const obj = Object.assign(this.searchOption, option);
-    this.option = {...obj };
-    this.getDataList();
-  }
-
   sortValueChange():void {
     this.searchOptionConfig();
   }
 
+  searchOptionConfig(option:any = {}):void {
+    const obj = Object.assign(this.searchOption, option);
+    if(this.positionId === -1) {
+      return;
+    }
+    let opt:any = {};
+    if(this.positionId > 0) {
+      opt['job_id'] = this.positionId;
+    }
+    const config:any = { ...obj, ...opt };
+    this.getDataList(config);
+  }
+
+
   loadingData:boolean = false;
   dataOption:any = null;
 
-  getDataList() {
-    console.log('.... 获取简历列表', this.option);
-
+  getDataList(option:any) {
     this.loadingData = true;
-    setTimeout(() => {
+    this.settingService.post('/v1/web/com/download_resumes', option).subscribe((res:ApiData) => {
+      console.log(res, '简历列表。。。。。。。。。。。。。')
       this.loadingData = false;
-      this.dataOption = {
-        data: [
-          { id: 1, name: '张三1' },
-          { id: 2, name: '张三2' },
-          { id: 3, name: '张三3' },
-          { id: 4, name: '张三4' },
-          { id: 5, name: '张三5' },
-          { id: 6, name: '张三6' }
-        ],
-        meta: {
+      if(res.code === 200) {
+        this.dataOption = {
+          data: res.data,
           pagination: {
-            total: 200,
-            per_page: 10,
-            current_page: 1
+            total: res.meta.pagination.total,
+            per_page: res.meta.pagination.per_page,
+            current_page: res.meta.pagination.current_page
           }
         }
       }
-      console.log(this.dataOption, 'list')
 
-      // this.refreshCheckedStatus();
-    }, 2000);
+    }, err => this.loadingData = false)
   }
 
 

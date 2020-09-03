@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resumes-collect-list',
@@ -10,17 +12,16 @@ export class ResumesCollectListComponent implements OnInit {
 
   is_more:boolean = false; // 展开更多搜索条件
 
-  // search_text:string = '';
-
-  // sort:'new' | 'refresh' = 'new';
   itemType:'simple' | 'card' = 'card';
 
-  collectId:number;
+  collectId: number = -1;
+
+  collectFileInfo:any = null;
 
   searchOption:{ [key:string]: any } = {
-    sort: 'new',
+    sort: 'newest',  // newest default
     keywords: null,
-    page_size: 15,
+    limit: 10,
     page: 1
   };
 
@@ -31,25 +32,34 @@ export class ResumesCollectListComponent implements OnInit {
   type: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private settingService: GlobalSettingsService
   ) {
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
       this.collectId = +parmas['id'];
-      this.option['collectId'] = this.collectId;
-      console.log( 'this collectId', this.collectId)
+      this.getCollectInfo();
       // 根据收藏夹 id 获取 各个 文件夹内 的简历列表
     })
   }
 
   ngOnInit(): void {
-    
-    console.log(this.type, 'this type', this.searchOption)
-    // this.getDataList();
+
   }
-  
+  getCollectInfo():void {
+    let opt:any = null;
+    if(this.collectId > 0) {
+      opt = { id: this.collectId };
+    }
+    this.settingService.post('/v1/web/com/find_collect_tag', opt).subscribe((res:ApiData) => {
+      console.log('collectFileInfo', res);
+      if(res.code === 200) {
+        this.collectFileInfo = res.data;
+      }
+    })
+  }
+
   search():void { // 回车事件
-    console.log('search text change', this.searchOption.keywords, this.searchOption);
     if(this.searchOption.keywords) {
       this.searchOption.keywords = this.searchOption.keywords.trim();
     }
@@ -64,13 +74,20 @@ export class ResumesCollectListComponent implements OnInit {
   }
 
   pageOptionChanges({ pageSize, pageIndex }):void {
-    this.searchOptionConfig({ page: pageIndex, page_size: pageSize });
+    this.searchOptionConfig({ page: pageIndex, limit: pageSize });
   }
 
   searchOptionConfig(option:any = {}):void {
     const obj = Object.assign(this.searchOption, option);
-    this.option = {...obj };
-    this.getDataList();
+    if(this.collectId === -1) {
+      return;
+    }
+    let opt:any = {};
+    if(this.collectId > 0) {
+      opt['tag_id'] = this.collectId;
+    }
+    const config:any = { ...obj, ...opt };
+    this.getDataList(config);
   }
 
   sortValueChange():void {
@@ -80,33 +97,26 @@ export class ResumesCollectListComponent implements OnInit {
   loadingData:boolean = false;
   dataOption:any = null;
 
-  getDataList() {
-    console.log('.... 获取简历列表', this.option);
-
+  getDataList(option:any) {
+    console.log('.... 获取简历列表', option);
     this.loadingData = true;
-    setTimeout(() => {
+    
+    this.settingService.post('/v1/web/com/collect_resume', option).subscribe((res:ApiData) => {
+      console.log(res, '简历列表')
       this.loadingData = false;
-      this.dataOption = {
-        data: [
-          { id: 1, name: '张三1' },
-          { id: 2, name: '张三2' },
-          { id: 3, name: '张三3' },
-          { id: 4, name: '张三4' },
-          { id: 5, name: '张三5' },
-          { id: 6, name: '张三6' }
-        ],
-        meta: {
+      if(res.code === 200) {
+        this.dataOption = {
+          data: res.data,
           pagination: {
-            total: 200,
-            per_page: 10,
-            current_page: 1
+            total: res.meta.pagination.total,
+            per_page: res.meta.pagination.per_page,
+            current_page: res.meta.pagination.current_page
           }
         }
       }
-      console.log(this.dataOption, 'list')
 
-      // this.refreshCheckedStatus();
-    }, 2000);
+    }, err => this.loadingData = false)
+
   }
 
 

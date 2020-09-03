@@ -5,9 +5,8 @@
         <div style="line-height: 30px;" class="text-center px-xs">选择格式<span class="text-danger">*</span></div>
         <div class="flex-1">
             <nz-select style="width: 100%;" [(ngModel)]="type" nzPlaceHolder="选择保存格式">
-                <nz-option [nzValue]="1" nzLabel="PDF"></nz-option>
-                <nz-option [nzValue]="2" nzLabel="WORD"></nz-option>
-                <nz-option [nzValue]="3" nzLabel="PPT"></nz-option>
+                <nz-option [nzValue]="'pdf'" nzLabel="PDF"></nz-option>
+                <nz-option [nzValue]="'docx'" nzLabel="WORD"></nz-option>
             </nz-select>
         </div>
     </div>
