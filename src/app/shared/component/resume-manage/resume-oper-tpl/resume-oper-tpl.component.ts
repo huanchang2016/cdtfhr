@@ -102,7 +102,13 @@ export class ResumeOperTplComponent implements OnInit {
     });
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose 下载modal] The result is:', result));
+    modal.afterClose.subscribe(result => {
+      console.log('[afterClose 转发modal] The result is:', result);
+      if(result && result.type === 'success') {
+        // 操作成功后，需要重新获取 记录等信息
+        this.resetConfigs();
+      }
+    });
 
   }
 

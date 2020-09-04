@@ -30,15 +30,15 @@
     </h3>
     <div class="info_content clearfix">
         <div class="float-left info_name">
-            <a class="text-lg">职位名称</a>
+            <a class="text-lg">{{ positionInfo?.name }}</a>
             <p class="text-grey text-md">
                 <i class="mr-sm" nz-icon nzType="clock-circle" nzTheme="outline"></i>
-                <span>更新于2020/5/24 10:10:10</span>
+                <span>更新于{{ positionInfo?.update_at }}</span>
             </p>
         </div>
         <div class="border_left float-right px-md text-center">
             <p class="text-grey">下载简历</p>
-            <span class="text-primary text-md">230</span>
+            <span class="text-primary text-md">{{ positionInfo?.sum }}</span>
         </div>
     </div>
 </div>

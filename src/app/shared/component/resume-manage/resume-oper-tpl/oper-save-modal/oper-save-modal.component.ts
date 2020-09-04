@@ -39,16 +39,22 @@ export class OperSaveModalComponent implements OnInit {
 
     this.submitLoading = true;
     let url: string = '';
+    let headers: HttpHeaders;
     if (this.type === 'pdf') {
       url = '/v1/web/com/resume/save_pdf';
+      headers = new HttpHeaders().append("Content-Type", "application/pdf");
+      // headers.append('Content-Description', 'File Transfer');
+      // headers.append('Accept-Encoding', 'binary');
+      
     } else {
       url = '/v1/web/com/resume/save_word';
+      headers = new HttpHeaders().append("Content-Type", "application/json");
     }
     const opt: any = { resume_id: this.resumeInfo.id };
 
     this.http.post(url, opt, {
       responseType: "blob",
-      headers: new HttpHeaders().append("Content-Type", "application/json")
+      headers: headers
     }).subscribe(resp => {
       // resp: 文件流
       this.submitLoading = false;

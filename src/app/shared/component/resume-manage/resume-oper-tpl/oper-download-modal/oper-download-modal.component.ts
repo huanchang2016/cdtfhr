@@ -64,23 +64,28 @@ export class OperDownloadModalComponent implements OnInit {
       this.msg.warning('当前简历是否需要关联到职位未选择！');
       return;
     }
-    const requestData = this.list.filter(data => this.setOfCheckedId.has(data.id));
-    console.log('selected item data: ', requestData);
+    // const requestData = this.list.filter(data => this.setOfCheckedId.has(data.id));
+    console.log('selected item data: ', [...this.setOfCheckedId]);
+    const option:any = {
+      resume_id: this.resumeInfo.id,
+      ids: [...this.setOfCheckedId]
+    };
     this.submitLoading = true;
-    // this.settingService.get(`/v1/web/com/download_resume_jobs`).subscribe((res: ApiData) => {
-    //   this.submitLoading = false;
-      // if(res.code === 200) {
-      //   this.msg.success('简历收藏成功');
-      //   this.destroyModal({ type: 'success' });
-      // }else {
-      //   this.msg.error(res.message);
-      // }
-    // }, err => this.submitLoading = false);
-    setTimeout(() => {
-      this.setOfCheckedId.clear();
+    this.settingService.post(`/v1/web/com/resume/download_resume`, option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      this.destroyModal({name: '点击确认提交'});
-    }, 1000);
+      if(res.code === 200) {
+        this.msg.success('简历下载成功');
+        // this.setOfCheckedId.clear();
+        this.destroyModal({ type: 'success' });
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false);
+    // setTimeout(() => {
+    //   this.setOfCheckedId.clear();
+    //   this.submitLoading = false;
+    //   this.destroyModal({name: '点击确认提交'});
+    // }, 1000);
     
   }
 

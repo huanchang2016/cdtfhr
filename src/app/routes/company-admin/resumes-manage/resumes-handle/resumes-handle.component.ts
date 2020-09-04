@@ -99,7 +99,10 @@ export class ResumesHandleComponent implements OnInit {
     this.status = status;
   }
 
-  positionConfig: any = null;
+  positionConfig: any = {
+    on: null,
+    off: null
+  };
 
   getPositionConfig():void {
     

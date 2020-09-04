@@ -44,7 +44,7 @@
             <span class="ml-sm text-grey">{{ data.resume.status }}</span>
           </p>
           <p class="text-666">投递时间
-            <span class="ml-sm text-grey">{{ data.updated_at }}</span>
+            <span class="ml-sm text-grey">{{ data.created_at }}</span>
           </p>
         </td>
         <td>
@@ -91,7 +91,7 @@
       <tr *ngFor="let data of rowSelectionTable.data">
         <td>
           <!-- [queryParams]="params" -->
-          <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
+          <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank" class="text-nowrap">{{ data.resume.name }}</a>
         </td>
         <td>{{ data.resume.sex }}</td>
         <td>{{ data.resume.age }}</td>
@@ -110,7 +110,7 @@
             {{ data.resume.work[0].position_name }}
           </ng-container>
         </td>
-        <td>{{ data.created_at }}</td>
+        <td class="text-nowrap">{{ data.created_at }}</td>
       </tr>
     </tbody>
   </nz-table>

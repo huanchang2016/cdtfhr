@@ -29,7 +29,7 @@ export class ListItemsComponent implements OnChanges {
   pageOption:any = {
     total: 0,
     pageIndex: 1,
-    pageSize: 2
+    pageSize: 10
   };
 
   constructor(

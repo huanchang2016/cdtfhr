@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
@@ -10,6 +10,7 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class DownloadResumeListCComponent implements OnInit {
   // @Input() colsChange:boolean;
+  @Input() downloadPage:number;
   
   loadingData:boolean = true;
 

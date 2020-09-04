@@ -52,13 +52,11 @@ export class ResumeViewComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log('status params', params);
       let url: string = '';
-      if(params) {
+      if(this.settingService.user.type === 'company') {
         // 存在 queryParams 参数，从企业后台访问过来的 反之则未用户自身预览简历
         url = `/v1/web/com/resume_detail/${this.resume_id}`;
         this.params = params;
-        if(this.params.posId) {
-          this.getLogConfigs();
-        }
+        this.getLogConfigs();
       }else {
         url = `/v1/web/user/resume/${this.resume_id}`;
       }
@@ -68,13 +66,11 @@ export class ResumeViewComponent implements OnInit {
   }
   
   getLogConfigs():void {
-    if(this.params.posId) {
-      const opt:any = { resume_id: this.resume_id, job_id: +this.params.posId };
-      this.settingService.post('/v1/web/com/resume/get_resume_config', opt).subscribe((res:ApiData) => {
-        console.log('get_resume_config works!', res.data);
-        this.configs ={...res.data};
-      });
-    }
+    const opt:any = { resume_id: this.resume_id };
+    this.settingService.post('/v1/web/com/resume/get_resume_config', opt).subscribe((res:ApiData) => {
+      console.log('get_resume_config works!', res.data);
+      this.configs ={...res.data};
+    });
   }
 
   getResumeInfo(url:string):void {

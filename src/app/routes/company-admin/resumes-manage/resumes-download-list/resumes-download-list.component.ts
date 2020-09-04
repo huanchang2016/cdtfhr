@@ -26,7 +26,7 @@ export class ResumesDownloadListComponent implements OnInit {
     sort: 'newest',  // newest default
     keywords: null,
     limit: 10,
-    page: 1
+    page: 10
   };
 
   option:{ [key:string]: any } = {
@@ -39,10 +39,11 @@ export class ResumesDownloadListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private settingService: GlobalSettingsService
   ) {
+    // 获取当前传递过来的页码
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
       this.positionId = +parmas['id'];
-      // this.getPositionInfo();
+      this.getPositionInfo();
       // 根据收藏夹 id 获取 各个 文件夹内 的简历列表
     })
   }
@@ -56,9 +57,9 @@ export class ResumesDownloadListComponent implements OnInit {
   getPositionInfo():void {
     let opt:any = null;
     if(this.positionId > 0) {
-      opt = { id: this.positionId };
+      opt = { job_id: this.positionId };
     }
-    this.settingService.post('/v1/web/com/download_resumes', opt).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/find_download_resume_job', opt).subscribe((res:ApiData) => {
       console.log('positionInfo', res);
       if(res.code === 200) {
         this.positionInfo = res.data;

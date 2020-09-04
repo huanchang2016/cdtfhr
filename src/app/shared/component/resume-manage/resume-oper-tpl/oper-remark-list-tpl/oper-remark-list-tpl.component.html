@@ -1,6 +1,6 @@
 <div class="wrapper_box" *ngIf="!loading">
     <ng-container *ngFor="let item of list">
-        <div class="py-sm text-md">
+        <div class="py-sm text-md item_list">
             <p class="text-666" [innerHTML]="item.note | showTextAreaText"></p>
             <p class="text-right">
                 <span class="text-primary">{{ item.company.name }}</span>
