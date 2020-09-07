@@ -1,4 +1,4 @@
-<div class="content_box">
+<div class="content_box pb-md">
     <nz-table #basicTable [nzData]="listOfData" [nzLoading]="loading" nzShowPagination="false">
         <thead>
             <tr>
@@ -8,31 +8,40 @@
                 <th>最近登录</th>
                 <th>姓名</th>
                 <th>使用中</th>
+                <th>职位管理权限</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of basicTable.data">
                 <td>
-                    <span class="account_status px-xs bg-green text-xs border-radius-sm text-white">在线</span>
+                    <ng-container *ngIf="item.online; else offline">
+                        <span class="account_status px-xs bg-green text-xs border-radius-sm text-white">在线</span>
+                    </ng-container>
+                    <ng-template #offline>
+                        <span class="account_status px-xs bg-grey-dark text-xs border-radius-sm text-666">离线</span>
+                    </ng-template>
                 </td>
-                <td>gongsimingchen_1</td>
-                <td>2020/06/18 20:20:20</td>
-                <td>2020/07/18 20:20:20</td>
-                <td>江二娃</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.created_at }}</td>
+                <td>{{ item.login_at }}</td>
+                <td>{{ item.full_name }}</td>
                 <td>
-                    <nz-switch [ngModel]="true" nzCheckedChildren="是" nzUnCheckedChildren="冻结"></nz-switch>
+                    <nz-switch (click)="setDefaultStatus(item)" [(ngModel)]="item.status" [nzControl]="true" [nzLoading]="defaultItemOption[item.id]" nzCheckedChildren="是" nzUnCheckedChildren="冻结"></nz-switch>
+                </td>
+                <td>
+                    <nz-switch (click)="setPowerAuth(item)" [(ngModel)]="item.job_power" [nzControl]="true" [nzLoading]="powerOption[item.id]" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
                 </td>
                 <td>
                     <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="编辑"></i>
-                    <nz-divider nzType="vertical"></nz-divider>
+                    <!-- <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
                         nzPopconfirmTitle="是否删除当前账号？"
                         nzOkText="删除" class="text-danger"
                         (nzOnConfirm)="deleted(item)"
                         (nzOnCancel)="cancel()">
                         <i nz-icon nzType="delete" nzTheme="outline" nz-tooltip nzTooltipTitle="删除"></i>
-                    </a>
+                    </a> -->
                 </td>
             </tr>
         </tbody>

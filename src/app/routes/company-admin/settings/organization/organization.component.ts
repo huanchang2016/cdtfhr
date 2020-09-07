@@ -41,8 +41,8 @@ export class OrganizationComponent implements OnInit {
       description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(1000)]]
     });
 
-    if(this.companyDataService.comanyInfo) {
-      this.companyInfo = this.companyDataService.comanyInfo;
+    if(this.companyDataService.companyInfo) {
+      this.companyInfo = this.companyDataService.companyInfo;
     }else {
       this.companyDataService.getProfile().then( v => this.companyInfo = v );
     }
@@ -83,7 +83,7 @@ export class OrganizationComponent implements OnInit {
         if(res.code === 200) {
           this.msg.success('修改成功');
           this.companyInfo['logo'] = res.data.logo;
-          this.companyDataService.comanyInfo['logo'] = res.data.logo;
+          this.companyDataService.companyInfo['logo'] = res.data.logo;
           this.logoTplModal!.destroy();
         }
       }, err => this.logoSubmitLoading = false);
@@ -127,7 +127,7 @@ export class OrganizationComponent implements OnInit {
         if(res.code === 200) {
           this.msg.success('修改成功');
           this.companyInfo['description'] = res.data.description;
-          this.companyDataService.comanyInfo['description'] = res.data.description;
+          this.companyDataService.companyInfo['description'] = res.data.description;
           this.descriptionTplModal!.destroy();
         }else {
           this.desError = res.message;

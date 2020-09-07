@@ -82,7 +82,7 @@ export class ResumesByPositionComponent implements OnInit {
         return;
       }
     }
-    this.searchOptionConfig({ keywords: keywords });
+    this.searchOptionConfig({ name: keywords });
   }
 
   searchValueChange(option:any):void { // 更多 搜索条件发生变化

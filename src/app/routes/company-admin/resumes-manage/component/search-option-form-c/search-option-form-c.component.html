@@ -6,7 +6,7 @@
                 <nz-form-control>
 
                     <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
-                        [placeholder]="'请点击选择期望工作地'"></app-three-stage-cascader>
+                        [placeholder]="'请点击选择期望工作地'" [layer]="'second'"></app-three-stage-cascader>
                 </nz-form-control>
             </nz-form-item>
         </div>
@@ -15,7 +15,7 @@
                 <nz-form-label nzFor="stay_address">现居住地</nz-form-label>
                 <nz-form-control>
                     <app-three-stage-cascader ngDefaultcontrol formControlName="stay_address"
-                        [placeholder]="'请点击选择现居住地'"></app-three-stage-cascader>
+                        [placeholder]="'请点击选择现居住地'" [layer]="'second'"></app-three-stage-cascader>
                 </nz-form-control>
             </nz-form-item>
         </div>
@@ -60,8 +60,11 @@
             <nz-form-item>
                 <nz-form-label nzFor="update_time">简历更新</nz-form-label>
                 <nz-form-control>
-                    <app-range-date-picker-c formControlName="update_time" [placeholder]="'请点击选择简历更新时间'" [size]="'large'">
-                    </app-range-date-picker-c>
+                    <nz-select id="update_time" formControlName="update_time" nzSize="large" nzPlaceHolder="请点击选择简历更新时间">
+                        <ng-container *ngFor="let item of updatedTimeOptions">
+                            <nz-option [nzValue]="item.value" [nzLabel]="item.key"></nz-option>
+                        </ng-container>
+                    </nz-select>
                 </nz-form-control>
             </nz-form-item>
         </div>
@@ -189,7 +192,7 @@
         <div nz-col [nzSpan]="24">
             <div class="text-center">
                 <button style="width: 300px;" nz-button [nzType]="'primary'" nzSize="large">开始搜索</button>
-                <button class="ml-md" nz-button (click)="resetForm()" nzSize="large">清空条件</button>
+                <button class="ml-md" nz-button (click)="resetForm($event)" nzSize="large">清空条件</button>
             </div>
         </div>
     </div>

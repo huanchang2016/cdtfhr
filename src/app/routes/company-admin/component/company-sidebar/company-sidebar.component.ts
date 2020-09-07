@@ -17,8 +17,8 @@ export class CompanySidebarComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if(this.companyDataService.comanyInfo) {
-      this.profile = this.companyDataService.comanyInfo;
+    if(this.companyDataService.companyInfo) {
+      this.profile = this.companyDataService.companyInfo;
     }else {
       this.companyDataService.getProfile().then( v => this.profile = v );
     }

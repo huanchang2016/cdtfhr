@@ -20,7 +20,7 @@ export class ResumesCollectListComponent implements OnInit {
 
   searchOption:{ [key:string]: any } = {
     sort: 'newest',  // newest default
-    keywords: null,
+    name: null,
     limit: 10,
     page: 1
   };
@@ -60,8 +60,8 @@ export class ResumesCollectListComponent implements OnInit {
   }
 
   search():void { // 回车事件
-    if(this.searchOption.keywords) {
-      this.searchOption.keywords = this.searchOption.keywords.trim();
+    if(this.searchOption.name) {
+      this.searchOption.name = this.searchOption.name.trim();
     }
     this.searchOptionConfig();
   }

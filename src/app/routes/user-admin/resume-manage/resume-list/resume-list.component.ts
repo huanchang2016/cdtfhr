@@ -48,21 +48,27 @@ export class ResumeListComponent implements OnInit {
   isOpen:boolean = false;
   isDefault:boolean = false;
 
-  openValueChange(key:boolean, data:any) {
-    console.log(key, 'key', data, 'data', 'open your resume');
+  openValueChange(data:any) {
+    console.log(data, 'data', 'open your resume');
     const option = {
-      privacy: key ? 1 : 0
+      privacy: data.privacy ? 0 : 1
     };
     this.openItemOption[data.id] = true;
     this.settingService.post(`/v1/web/user/resume/privacy/${data.id}`, option).subscribe((res:ApiData) => {
       this.openItemOption[data.id] = false;
       this.msg.success(res.message);
-      this.updateList(res.data);
+      // this.updateList(res.data);
+      this.list = this.list.map( v => {
+        if(v.id === res.data.id) {
+          v.privacy = res.data.privacy;
+        }
+        return v;
+      });
     }, err => this.openItemOption[data.id] = false)
   }
 
-  setDefault(key:boolean, data:any) {
-    console.log(key, 'key', data, 'data', 'set default resume');
+  setDefault(data:any) {
+    console.log(data, 'data', 'set default resume');
     this.defaultItemOption[data.id] = true;
     this.settingService.post(`/v1/web/user/resume/set_default/${data.id}`).subscribe((res:ApiData) => {
       this.defaultItemOption[data.id] = false;

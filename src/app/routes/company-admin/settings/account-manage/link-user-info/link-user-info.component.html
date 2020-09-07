@@ -1,20 +1,20 @@
 <div class="link_box">
-    <ng-container *ngIf="linkInfo; else spinTpl">
+    <ng-container *ngIf="!loadingData; else spinTpl">
         <div nz-row class="info_item mb-sm">
             <div nz-col nzSpan="8" class="text-666 text-lg">姓名<i class="text-danger">*</i></div>
-            <div nz-col nzSpan="16" class="text-grey text-lg">江二娃</div>
+            <div nz-col nzSpan="16" class="text-grey text-lg">{{ linkInfo?.full_name }}</div>
         </div>
         <div nz-row class="info_item mb-sm">
             <div nz-col nzSpan="8" class="text-666 text-lg">联系人手机<i class="text-danger">*</i></div>
-            <div nz-col nzSpan="16" class="text-grey text-lg">18080800808</div>
+            <div nz-col nzSpan="16" class="text-grey text-lg">{{ linkInfo?.phone }}</div>
         </div>
         <div nz-row class="info_item mb-sm">
             <div nz-col nzSpan="8" class="text-666 text-lg">座机号码</div>
-            <div nz-col nzSpan="16" class="text-grey text-lg">028-12345678</div>
+            <div nz-col nzSpan="16" class="text-grey text-lg">{{ linkInfo?.telephone }}</div>
         </div>
         <div nz-row class="info_item mb-sm">
             <div nz-col nzSpan="8" class="text-666 text-lg">邮箱地址</div>
-            <div nz-col nzSpan="16" class="text-grey text-lg">admin@cdtfhr.com</div>
+            <div nz-col nzSpan="16" class="text-grey text-lg">{{ linkInfo?.email }}</div>
         </div>
         <div nz-row class="oper_box mb-sm mt-lg">
             <button nz-button nzType="primary" nzSize="large"

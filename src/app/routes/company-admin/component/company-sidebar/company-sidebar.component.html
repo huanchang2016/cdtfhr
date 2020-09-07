@@ -1,8 +1,8 @@
 <div class="sidebar__wrapper">
     <div class="sidebar_top_wrap">
         <div class="logo_box border-radius-half bg-grey-dark d-flex justify-content-center align-items-center">
-            <ng-container *ngIf="companyDataService.comanyInfo && companyDataService.comanyInfo.logo;else notLogoTpl">
-                <img [src]="environment.SERVER_URL + '/' + companyDataService.comanyInfo.logo" alt="">
+            <ng-container *ngIf="companyDataService.companyInfo && companyDataService.companyInfo.logo;else notLogoTpl">
+                <img [src]="environment.SERVER_URL + '/' + companyDataService.companyInfo.logo" alt="">
             </ng-container>
             <ng-template #notLogoTpl>
                 <div class="user_logo_icon text-white"><i nz-icon nzType="user" nzTheme="outline"></i></div>
@@ -11,7 +11,7 @@
         </div>
         <div class="my-sm refer-info_box text-center">
             <!-- <span class="text-danger mr-sm"><i nz-icon nzType="warning" nzTheme="outline"></i></span> -->
-            <span class="text-grey text-xs">{{ companyDataService.comanyInfo.name }}</span>
+            <span class="text-grey text-xs">{{ companyDataService.companyInfo.name }}</span>
         </div>
     </div>
 
@@ -20,10 +20,10 @@
             <!-- <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
                 <a [routerLink]="['/admin/company/home']">公司信息</a>
             </li> -->
-            <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="companyDataService.comanyInfo.status === 1">
+            <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="companyDataService.companyInfo.status === 1 && companyDataService.companyInfo.job_power">
                 <a [routerLink]="['/admin/company/positions']">职位管理</a>
             </li>
-            <li nz-submenu nzTitle="简历管理" nzOpen *ngIf="companyDataService.comanyInfo.status === 1">
+            <li nz-submenu nzTitle="简历管理" nzOpen *ngIf="companyDataService.companyInfo.status === 1">
                 <ul>
                     <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
                         <a [routerLink]="['/admin/company/resumes/search']">简历搜索</a>
@@ -41,7 +41,7 @@
                     <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
                         <a [routerLink]="['/admin/company/settings/organ']">认证信息</a>
                     </li>
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="companyDataService.comanyInfo.status === 1">
+                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="companyDataService.companyInfo.status === 1">
                         <a [routerLink]="['/admin/company/settings/account']">账号管理</a>
                     </li>
                 </ul>

@@ -6,7 +6,7 @@ import { CompanyDataService } from '../service/company-data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ComStatusCheckGuard implements CanActivate {
+export class PositionManageGuard implements CanActivate {
   constructor(
     private router: Router,
     private companyDataService: CompanyDataService
@@ -15,17 +15,11 @@ export class ComStatusCheckGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const companyInfo = this.companyDataService.companyInfo;
       if(companyInfo) {
-        if(companyInfo.status === 0) {
-          this.router.navigateByUrl('/admin/company/settings/organ');
+        if(!companyInfo.job_power) {
+          this.router.navigateByUrl('/admin/company/resumes/search');
           return false;
-        }else {
-          if(companyInfo.status === 2) {
-            this.router.navigateByUrl('/passport/register/company?tab=1');
-            return false; // 未填写资料，或者审核未通过时，需要重新填写资料
-          }
-          return companyInfo.status === 1;
         }
+        return companyInfo.job_power;
       }
   }
-  
 }

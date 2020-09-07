@@ -102,11 +102,16 @@ export class LoginComponent implements OnInit {
     this.settingService.post('/v1/web/login', opt).subscribe((res:ApiData) => {
       this.loading = false;
       console.log(res, 'login ');
-      // 登录后， 重新获取用户信息
-      this.settingService.setToken(res.data);
-      this.startupSrv.load().then((ss) => {
-        this.router.navigateByUrl('/admin/user');
-      })
+      if(res.code === 200) {
+        // 登录后， 重新获取用户信息
+        this.settingService.setToken(res.data);
+        this.startupSrv.load().then(_ => {
+          this.router.navigateByUrl('/admin/user');
+        })
+      }else {
+        this.msg.error(res.message);
+      }
+      
     }, err => this.loading = false);
   }
 
@@ -120,15 +125,20 @@ export class LoginComponent implements OnInit {
     this.settingService.post('/v1/web/com/login', opt).subscribe((res:ApiData) => {
       this.loading = false;
       console.log(res, 'login ');
+      if(res.code === 200) {
       // 登录后， 重新获取用户信息
-      this.startupSrv.load().then((ss) => {
-        this.settingService.setToken(res.data);
-        this.router.navigateByUrl('/admin/company');
-      })
+        this.startupSrv.load().then(_ => {
+          this.settingService.setToken(res.data);
+          this.router.navigateByUrl('/admin/company');
+        })
+      }else {
+        this.msg.error(res.message);
+      }
+      
     }, err => this.loading = false);
   }
 
-  count:number = 30;
+  count:number = 60;
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();

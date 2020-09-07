@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-change-password',
@@ -25,30 +27,17 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private modal: NzModalService,
     private msg: NzMessageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public settingService: GlobalSettingsService
   ) {}
 
   ngOnInit(): void {
-    this.getDataInfo();
 
     this.validateForm = this.fb.group({
       old_password: [null, [Validators.required]],
       new_password: [null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]]
     });
-  }
-
-  getDataInfo():void {
-    setTimeout(() => {
-      this.linkInfo = {
-        account_name: '江二娃',
-        phone: '13880256598',
-        tel: '028-80518071',
-        email: 'zhanghuanchang@cdtfhr.com'
-      };
-
-      this.setFormValue();
-    }, 1000);
   }
 
   updateConfirmValidator(): void {
@@ -79,15 +68,6 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
-  setFormValue():void {
-    this.validateForm.patchValue({
-      account_name: this.linkInfo.account_name,
-      old_phone: this.linkInfo.phone,
-      tel: this.linkInfo.tel,
-      email: this.linkInfo.email
-    });
-  }
-
   cancel(e:Event):void {
     e.preventDefault();
     this.submitLoading = false;
@@ -99,7 +79,6 @@ export class ChangePasswordComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, 'submit change password info');
     if(this.validateForm.valid) {
       this.destroyTplModal();
     }
@@ -107,9 +86,20 @@ export class ChangePasswordComponent implements OnInit {
 
   destroyTplModal(): void {
     this.submitLoading = true;
-    setTimeout(() => {
+    const value:any = this.validateForm.value;
+    const option:any = {
+      old_password: value.old_password,
+      password: value.new_password,
+      password_confirmation: value.checkPassword
+    };
+    this.settingService.post('/v1/web/com/reset_password', option).subscribe((res:ApiData) => {
       this.submitLoading = false;
-      this.tplModal!.destroy();
-    }, 1000);
+      if(res.code === 200) {
+        this.msg.success('修改成功');
+        this.tplModal!.destroy();
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false);
   }
 }

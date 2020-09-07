@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { CompanyDataService } from '../../service/company-data.service';
 
 @Component({
   selector: 'app-account-manage',
@@ -11,28 +12,55 @@ import { Subscription } from 'rxjs';
 export class AccountManageComponent implements OnInit, OnDestroy {
   private router$: Subscription;
 
-  tabs: any[] = [
-    {
-      key: 'info',
-      tab: '账号信息'
-    },
-    {
-      key: 'link',
-      tab: '联系人信息'
-    },
-    {
-      key: 'change-password',
-      tab: '密码修改'
-    },
-    {
-      key: 'sub-account',
-      tab: '子账号设置'
-    }
-  ];
+  tabs: any[] = [];
 
   pos = 0;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private companyDataService: CompanyDataService
+  ) {
+    if(this.companyDataService.companyInfo.is_super) {
+      this.tabs = [
+        {
+          key: 'info',
+          tab: '账号信息'
+        },
+        {
+          key: 'link',
+          tab: '联系人信息'
+        },
+        {
+          key: 'change-password',
+          tab: '密码修改'
+        },
+        {
+          key: 'sub-account',
+          tab: '子账号设置'
+        }
+      ];
+    }else {
+      this.tabs = [
+        {
+          key: 'info',
+          tab: '账号信息'
+        },
+        // {
+        //   key: 'link',
+        //   tab: '联系人信息'
+        // },
+        {
+          key: 'change-password',
+          tab: '密码修改'
+        }
+        // {
+        //   key: 'sub-account',
+        //   tab: '子账号设置'
+        // }
+      ];
+    }
+    
+  }
 
   private setActive() {
     const key = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);

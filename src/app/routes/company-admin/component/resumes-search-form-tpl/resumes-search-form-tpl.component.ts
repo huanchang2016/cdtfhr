@@ -12,6 +12,15 @@ export class ResumesSearchFormTplComponent implements OnInit {
 
   @Output() searchValueChange:EventEmitter<any> = new EventEmitter();
 
+  updatedTimeOptions:any[] = [
+    { id: 1, key: '更新时间（不限）', value: 0 },
+    { id: 2, key: '最近一周', value: 7 },
+    { id: 3, key: '最近两周', value: 14 },
+    { id: 4, key: '最近一个月', value: 30 },
+    { id: 5, key: '最近三个月', value: 90 },
+    { id: 6, key: '最近六个月', value: 180 },
+    { id: 7, key: '最近一年', value: 365 }
+  ];
   workExpOptions:Config[] = [
     { id: 1, key: '不限', value: null },
     { id: 2, key: '应届生', value: '0-1' },
@@ -96,7 +105,8 @@ export class ResumesSearchFormTplComponent implements OnInit {
     });
   }
 
-  resetForm(): void {
+  resetForm(e:MouseEvent): void {
+    e.preventDefault();
     this.validateForm.patchValue({
       keywords: null,
       is_any_key: false,
@@ -135,29 +145,28 @@ export class ResumesSearchFormTplComponent implements OnInit {
   }
 
   emit():void {
-    const option:any = {
-      keywords: null,
-      is_any_key: false,
-      work_address: null,
-      stay_address: null,
-      now_industry: null,
-      plan_industry: null,
-      status: null,
-      update_time: null,
-      age_start: null,
-      age_end: null,
-      company_name: null,
-      company_nature: null,
-      school_name: null,
-      school_major: null,
-      now_salary: null,
-      plan_salary: null,
+    const value:any = this.validateForm.value;
 
-      education: null,
-      work_exp: null,
-      customer_exp_start: null,
-      customer_exp_end: null,
-      sex: null
+    const option:any = {
+      name: value.keywords,
+      is_any_key: value.is_any_key,
+      city_id: value.work_address ? value.work_address[1] : null,
+      now_city_id: value.stay_address ? value.stay_address[1] : null,
+      industry_id: value.now_industry,
+      hope_industry_id: value.plan_industry,
+      status: value.status,
+      updated_at: value.update_time,
+      min_age: value.age_start,
+      max_age: value.age_end,
+      company_name: value.company_name,
+      company_type: value.company_type,
+      school: value.school_name,
+      major: value.school_major,
+      salary: value.now_salary,
+      hope_salary: value.plan_salary,
+      edu_id: value.education,
+      work: value.work_exp,
+      sex: value.sex
     };
     this.searchValueChange.emit(option);
   }

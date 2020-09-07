@@ -8,20 +8,20 @@ import { ApiData } from 'src/app/data/interface';
 export class CompanyDataService {
 
 
-comanyInfo:any;
+  companyInfo: any;
 
 
-constructor(
-  private settingService: GlobalSettingsService
-) {}
+  constructor(
+    private settingService: GlobalSettingsService
+  ) { }
 
-getProfile():Promise<any> {
-  return new Promise((resolve) => {
-    this.settingService.get('/v1/web/com/info').subscribe((res:ApiData) => {
-      console.log('Company DataService get Data', res.data);
-      this.comanyInfo = res.data;
-      resolve(this.comanyInfo);
+  getProfile(): Promise<any> {
+    return new Promise((resolve) => {
+      this.settingService.get('/v1/web/com/info').subscribe((res: ApiData) => {
+        console.log('Company DataService get Data', res.data);
+        this.companyInfo = res.data;
+        resolve(this.companyInfo);
+      })
     })
-  })
-}
+  }
 }

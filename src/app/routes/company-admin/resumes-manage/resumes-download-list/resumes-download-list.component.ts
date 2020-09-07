@@ -24,7 +24,7 @@ export class ResumesDownloadListComponent implements OnInit {
 
   searchOption:{ [key:string]: any } = {
     sort: 'newest',  // newest default
-    keywords: null,
+    name: null,
     limit: 10,
     page: 10
   };
@@ -68,9 +68,9 @@ export class ResumesDownloadListComponent implements OnInit {
   }
   
   search():void { // 回车事件
-    console.log('search text change', this.searchOption.keywords, this.searchOption);
-    if(this.searchOption.keywords) {
-      this.searchOption.keywords = this.searchOption.keywords.trim();
+    console.log('search text change', this.searchOption.name, this.searchOption);
+    if(this.searchOption.name) {
+      this.searchOption.name = this.searchOption.name.trim();
     }
     this.searchOptionConfig();
   }

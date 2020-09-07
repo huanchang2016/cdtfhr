@@ -1,3 +1,4 @@
+import { PositionManageGuard } from './guard/position-manage.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -27,7 +28,8 @@ const routes: Routes = [
       {
         path: 'positions',
         canActivate: [
-          ComStatusCheckGuard
+          ComStatusCheckGuard,
+          PositionManageGuard
         ], component: PositionListComponent
       },
       // { path: 'position/create', component: PositionCreateComponent },

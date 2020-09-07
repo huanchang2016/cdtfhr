@@ -18,7 +18,7 @@ export class ComAuthenticationGuard implements CanActivate {
      * comanyInfo  根据 name字段判断是否已经完成单位资料填写，如未填写，跳转到 注册页面 stepIndex = 1，完善企业信息
      *             根据status = 0 | 1， 判断是否已经通过 管理员审核，如未通过，只能跳转到系统设置 ----> 认证信息页面
      * ***/
-    const companyInfo = this.companyDataService.comanyInfo;
+    const companyInfo = this.companyDataService.companyInfo;
     if(companyInfo) {
       if(companyInfo.status === 0) {
         // this.router.navigateByUrl('/admin/company/settings/organ');

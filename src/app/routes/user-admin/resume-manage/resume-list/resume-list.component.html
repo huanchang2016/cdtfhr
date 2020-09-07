@@ -30,11 +30,11 @@
                             <div>{{ data.updated_at | date: 'HH:mm:ss'}}</div>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="data.privacy" [nzLoading]="openItemOption[data.id]" (ngModelChange)="openValueChange($event, data)"
+                            <nz-switch [(ngModel)]="data.privacy" [nzLoading]="openItemOption[data.id]" [nzControl]="true" (click)="openValueChange(data)"
                                 nzCheckedChildren="是" nzUnCheckedChildren="否"></nz-switch>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="data.is_default" [nzLoading]="defaultItemOption[data.id]" (ngModelChange)="setDefault($event, data)"
+                            <nz-switch [(ngModel)]="data.is_default" [nzLoading]="defaultItemOption[data.id]" [nzControl]="true" (click)="setDefault(data)"
                                 nzCheckedChildren="是" nzUnCheckedChildren="否" [nzDisabled]="data.is_default"></nz-switch>
                         </td>
                         <td>

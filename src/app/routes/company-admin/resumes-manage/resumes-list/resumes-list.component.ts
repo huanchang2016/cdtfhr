@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInYears } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-resumes-list',
@@ -17,38 +20,61 @@ export class ResumesListComponent implements OnInit {
     'Los Angeles battles huge wildfires.'
   ]; // 历史搜索记录
 
-  loadingData:boolean = true;
+  loadingData:boolean = false;
   listOfData:any[] = [];
 
   list:any[] = []; // 当前页得数据
 
   searchOptions:any = {
     pageIndex: 1,
-    pageSize: 15,
-    sort: 'A'  // 最新 A,  相关度 B
+    pageSize: 10,
+    sort: 'newest'  // 最新 newest,  相关度 correlation
   };
-  total = 1; // 总数
+  total:number; // 总数
+  
+  constructor(
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
+  ) {}
 
-
-  constructor() {}
-
-  getDataList(total: number = 20) {
-    this.loadingData = true;
-    setTimeout(() => {
-      this.loadingData = false;
-      this.total = 200;
-      this.listOfData = Array.from(new Array(total).keys());
-      
-    }, 800);
-  }
+  searchConfigs:any = {};
 
 
   ngOnInit(): void {
-    this.getDataList();
+    this.getHistoryRecord();
+  }
+
+  getHistoryRecord():void {
+    this.settingService.get('/v1/web/com/resume/search_log').subscribe((res:ApiData) => {
+      console.log('简历搜索历史记录', res);
+      this.historyData = res.data;
+    })
+  }
+
+  getDataList() {
+    this.loadingData = true;
+    
+    const option:any = {
+      ...this.searchConfigs,
+      sort: this.searchOptions.sort,
+      limit: this.searchOptions.pageSize,
+      page: this.searchOptions.pageIndex
+    };
+    this.loadingData = true;
+
+    this.settingService.post(`/v1/web/com/resume/search`, option).subscribe( (res:ApiData) => {
+      console.log(res, '搜索简历', option);
+      this.loadingData = false;
+      if(res.code === 200) {
+        this.listOfData = res.data;
+        this.total = res.meta.pagination.total;
+      }
+    }, err => this.loadingData = false);
   }
 
   searchValueChange(option:any):void {
     console.log('search option change', option);
+    this.searchConfigs = option;
     this.getDataList();
   }
 
