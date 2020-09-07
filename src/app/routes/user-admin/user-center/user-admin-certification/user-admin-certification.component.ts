@@ -60,7 +60,7 @@ export class UserAdminCertificationComponent implements OnInit {
 
         if(res.data.status === 1) {
           this.step = 2;
-          this.settingService.user.name = res.data.name;
+          // this.settingService.user.name = res.data.name;
         }else if(res.data.status === 2) {
           this.step = 0;
         }else {

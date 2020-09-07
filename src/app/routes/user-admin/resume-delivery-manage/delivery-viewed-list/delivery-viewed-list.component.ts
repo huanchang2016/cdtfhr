@@ -132,7 +132,7 @@ export class DeliveryViewedListComponent implements OnInit {
       area_id: cascader && cascader.length !== 0 ? cascader[2] : '',
     };
     console.log('option', option);
-    this.settingService.get(`/v1/web/user/view_resume_company`, option).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/user/view_resume_company`, option).subscribe((res:ApiData) => {
       console.log(res, 'data list');
       this.loadingData = false;
       if(res.code === 200) {

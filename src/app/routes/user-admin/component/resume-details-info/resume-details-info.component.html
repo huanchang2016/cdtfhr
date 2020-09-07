@@ -19,7 +19,11 @@
             </nz-link>
             <nz-link nzHref="#user-job-intension" [nzTitle]="intensionInfo">
                 <ng-template #intensionInfo>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="!resumeInfo.target.salary; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">求职意向</span>
                 </ng-template>
             </nz-link>
@@ -55,7 +59,11 @@
             </nz-link>
             <nz-link nzHref="#user-edu-exp" [nzTitle]="eduExpInfo">
                 <ng-template #eduExpInfo>
-                    <span class="text-green text-md"><i nz-icon nzType="check-circle" nzTheme="outline"></i></span>
+                    <ng-container *ngIf="resumeInfo.education.data.length === 0; else successIconTpl">
+                        <span class="text-danger text-md">
+                            <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                        </span>
+                    </ng-container>
                     <span class="text-md ml-xs">教育经历</span>
                 </ng-template>
             </nz-link>

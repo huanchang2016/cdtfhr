@@ -38,8 +38,8 @@
                     {{ job_type.name }}
                 </ng-container>
             </div>
-            <div>期望月薪： {{ resumeInfo.target.salary.value }} /月</div>
-            <div>求职状态： {{ resumeInfo.target.status.value }}</div>
+            <div>期望月薪： <ng-container *ngIf="resumeInfo.target.salary">{{ resumeInfo.target.salary.value }} /月</ng-container></div>
+            <div>求职状态： {{ resumeInfo.target.status?.value }}</div>
         </div>
     </div>
 </div>

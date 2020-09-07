@@ -51,8 +51,8 @@ export class UserIntensionFormTplComponent implements OnInit {
       work_address: work_address,
       industry: industry,
       job_position: job_position,
-      job_salary: this.data.target.salary.id,
-      job_status: this.data.target.status.id,
+      job_salary: this.data.target.salary ? this.data.target.salary.id : null,
+      job_status: this.data.target.status ? this.data.target.status.id : null,
       job_nature: this.job_nature
     })
   }

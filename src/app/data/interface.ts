@@ -11,6 +11,10 @@ export class userProfile {
     id_card: string;
     complete: number;
     status: 0 | 1 | 2;
+    deliver_sum: number;
+    invite_sum: number;
+    notice_sum: number;
+    avatar?: string;
 }
 export class ApiData {
     code: number;

@@ -3,6 +3,7 @@ import { UserAdminInfoFormCComponent } from '../../component/resumes-forms/user-
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-resume-create',
@@ -20,7 +21,8 @@ export class ResumeCreateComponent implements OnInit {
 
   constructor(
     private settingService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {}
@@ -30,7 +32,6 @@ export class ResumeCreateComponent implements OnInit {
   submitInfo() {
 
     this.userInfoTpl.submitForm().then( form => {
-      console.log('res,...', form);
       if(form.valid) {
         this.submitLoading = true;
 
@@ -50,14 +51,13 @@ export class ResumeCreateComponent implements OnInit {
           }else {
             continue;
           }
-          
-          
         }
 
         this.settingService.post('/v1/web/user/resume/info', userInfo).subscribe((res:ApiData) => {
           console.log(res);
           this.submitLoading = false;
           this.resumeUserInfo = res.data;
+          this.userDataService.getProfile().then();
           this.msg.success(res.message);
           ++this.step;
         }, err => this.submitLoading = false)

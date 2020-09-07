@@ -1,4 +1,5 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-user-content-top',
@@ -23,8 +24,9 @@ export class UserContentTopComponent implements OnInit {
     "周五",
     "周六"
   ];
-
-  constructor() {
+  constructor(
+    public userDataService: UserDataService
+  ) {
     const day = this.date.getDay();
     this.weekDay = this.weekends[day]
   }

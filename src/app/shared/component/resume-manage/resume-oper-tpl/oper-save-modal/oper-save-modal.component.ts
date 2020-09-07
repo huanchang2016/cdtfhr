@@ -42,7 +42,7 @@ export class OperSaveModalComponent implements OnInit {
     let headers: HttpHeaders;
     if (this.type === 'pdf') {
       url = '/v1/web/com/resume/save_pdf';
-      headers = new HttpHeaders().append("Content-Type", "application/pdf");
+      headers = new HttpHeaders().append("Content-Type", "application/json");
       // headers.append('Content-Description', 'File Transfer');
       // headers.append('Accept-Encoding', 'binary');
       

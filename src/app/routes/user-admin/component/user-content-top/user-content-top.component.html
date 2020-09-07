@@ -10,21 +10,21 @@
         <div class="base_info_list point d-flex align-items-center">
             <div class="base_info_icon_box info_icon1 border-radius-half"></div>
             <div class="base_info_des ml-sm d-flex flex-column justify-content-center">
-                <p class="text__amount text-lg text-666">0</p>
+                <p class="text__amount text-lg text-666">{{ userDataService.userProfile?.deliver_sum }}</p>
                 <p class="text-xs text-grey">我的投递</p>
             </div>
         </div>
         <div class="base_info_list point d-flex align-items-center">
             <div class="base_info_icon_box info_icon2 border-radius-half"></div>
             <div class="base_info_des ml-sm d-flex flex-column justify-content-center">
-                <p class="text__amount text-lg text-666">0</p>
+                <p class="text__amount text-lg text-666">{{ userDataService.userProfile?.invite_sum }}</p>
                 <p class="text-xs text-grey">面试邀请</p>
             </div>
         </div>
         <div class="base_info_list point d-flex align-items-center">
             <div class="base_info_icon_box info_icon3 border-radius-half"></div>
             <div class="base_info_des ml-sm d-flex flex-column justify-content-center">
-                <p class="text__amount text-lg text-666">0</p>
+                <p class="text__amount text-lg text-666">{{ userDataService.userProfile?.notice_sum }}</p>
                 <p class="text-xs text-grey">我的消息</p>
             </div>
         </div>

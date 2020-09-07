@@ -5,6 +5,7 @@ import { environment } from '@env/environment';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
+import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
 
 @Component({
   selector: 'app-user-info-form-tpl',
@@ -23,6 +24,7 @@ export class UserInfoFormTplComponent implements OnInit {
   constructor(
     private modal: NzModalRef,
     private fb: FormBuilder,
+    private userDataService: UserDataService,
     public settingService: GlobalSettingsService,
     private msg: NzMessageService
   ) {}
@@ -111,6 +113,7 @@ export class UserInfoFormTplComponent implements OnInit {
           console.log(res);
           this.loading = false;
           this.destroyModal(res.data);
+          this.userDataService.getProfile().then();
           this.msg.success('修改成功');
         }, err => this.loading = false)
 

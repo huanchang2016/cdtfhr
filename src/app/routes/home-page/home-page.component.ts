@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -30,9 +31,14 @@ export class HomePageComponent implements OnInit {
   ];
   
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  searchOptionChange(option:any):void {
+    this.router.navigateByUrl(`/recruit/home?type=${option.type}&city_id=${option.city_id}${option.keywords ? 'keywords=' + option.keywords : ''}`);
+  }
 }
