@@ -33,18 +33,30 @@ export class InProgressRecruitComponent implements OnInit {
     this.getDataList();
   }
 
+  searchOption:any = {
+    name: null,
+    city_id: null
+  };
+  searchOptionChange(option:any):void {
+   this.searchOption = option;
+   this.pageIndex = 1;
+   this.getDataList();
+  }
+
   getDataList():void {
     this.loadingData = true;
-    this.settingService.get(`/v1/web/index/jobs?limit=${this.limit}&page=${this.pageIndex}`).subscribe( (res:ApiData) => {
+
+    const option:any = {
+      name: this.searchOption['keywords'] ? this.searchOption['keywords'] : null,
+      city_id: +this.searchOption['city_id'],
+      limit: this.limit,
+      page: this.pageIndex
+    };
+    this.settingService.get(`/v1/web/jobs`, option).subscribe( (res:ApiData) => {
       console.log(res, 'index 正在招聘列表 works');
       this.loadingData = false;
       if(res.code === 200) {
         this.list = res.data;
-        // const list = res.data;
-        // this.list = list.map( v => {
-        //   v.is_delivery = true;
-        //   return v;
-        // });
         if(this.total === 0) {
           this.total = res.meta.pagination.total;
         }

@@ -24,9 +24,27 @@ export class HotRecruitComponent implements OnInit {
     this.getDataList();
     
   }
+  searchOption:any = {
+    name: null,
+    city_id: null
+  };
+  searchOptionChange(option:any):void {
+   this.searchOption = option;
+   this.pageIndex = 1;
+   this.getDataList();
+  }
+
   getDataList():void {
     this.loadingData = true;
-    this.settingService.get(`/v1/web/index/latest/ad?limit=${this.limit}&page=${this.pageIndex}`).subscribe( (res:ApiData) => {
+
+    const option:any = {
+      name: this.searchOption['keywords'] ? this.searchOption['keywords'] : null,
+      city_id: +this.searchOption['city_id'],
+      limit: this.limit,
+      page: this.pageIndex
+    };
+
+    this.settingService.get(`/v1/web/index/latest/ad`, option).subscribe( (res:ApiData) => {
       console.log(res, 'index 热门招聘列表 works');
       this.loadingData = false;
       if(res.code === 200) {

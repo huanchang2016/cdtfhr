@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { List } from 'src/app/data/interface';
 import { GlobalSettingsService } from '@core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-full-search',
@@ -10,37 +9,46 @@ import { Router } from '@angular/router';
 })
 export class LayoutFullSearchComponent implements OnInit {
 
+  @Input() Option?:any;
   @Output() searchOptionChange:EventEmitter<any> = new EventEmitter();
 
 
   type:string = 'position';
   keywords:string = '';
-  city_id: number = -1;
+  city_id: number;
   cities:List[] = [];
 
   constructor(
-    private router: Router,
-    private settingService: GlobalSettingsService
+    public settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
-    this.getCities();
+    if(this.settingService.hotCities.length !== 0) {
+      this.defaultCityValue();
+    }else {
+      this.settingService.getHotCities().then( _ => this.defaultCityValue());
+    }
+
+    if(this.Option) {
+      this.type = this.Option.type;
+      this.keywords = this.Option.keywords;
+      this.city_id = this.Option.city_id ? +this.Option.city_id : -1 ;
+    }
+  }
+  
+  defaultCityValue():void {
+    this.cities = this.settingService.hotCities;
+    if(!this.Option || !this.Option.city_id) {
+      this.city_id = this.cities[0].id;
+    }
   }
 
   search():void {
-    console.log('fullscreen search c works: ', this.type, this.keywords, this.city_id);
-    // /recruit/home
-    // this.router.navigateByUrl(`/recruit/home?type=${this.type}&keywords=${this.keywords}&city_id=${this.city_id}`);
     this.searchOptionChange.emit({
       type: this.type,
       keywords: this.keywords,
       city_id: this.city_id
     })
-  }
-
-  getCities():void {
-    // 获取城市列表
-    
   }
 
 }

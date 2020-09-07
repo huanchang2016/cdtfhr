@@ -39,6 +39,10 @@ export class HomePageComponent implements OnInit {
   }
 
   searchOptionChange(option:any):void {
-    this.router.navigateByUrl(`/recruit/home?type=${option.type}&city_id=${option.city_id}${option.keywords ? 'keywords=' + option.keywords : ''}`);
+    let url: string = `/recruit/home?type=${option.type}&city_id=${option.city_id}`;
+    if(option.keywords && option.keywords.trim()) {
+      url = url + '&keywords=' + option.keywords.trim();
+    }
+    this.router.navigateByUrl(url);
   }
 }

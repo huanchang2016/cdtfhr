@@ -46,6 +46,15 @@ export class PositionDetailsComponent implements OnInit {
       this.getStatus();
     }
   }
+
+  searchOptionChange(option:any):void {
+    let url: string = `/recruit/home?type=${option.type}&city_id=${option.city_id}`;
+    if(option.keywords && option.keywords.trim()) {
+      url = url + '&keywords=' + option.keywords.trim();
+    }
+    this.router.navigateByUrl(url);
+  }
+  
   getStatus():void {
     this.settingService.get(`/v1/web/user/delivery_job/${this.positionId}`).subscribe((res:ApiData) => {
       console.log(res, 'resume status post ');

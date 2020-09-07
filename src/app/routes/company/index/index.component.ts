@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalSettingsService } from '@core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
 import { environment } from '@env/environment';
 import { differenceInDays } from 'date-fns';
@@ -19,7 +19,8 @@ export class CompanyIndexComponent implements OnInit {
 
   constructor(
     public settingService: GlobalSettingsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
     ) {
       this.activatedRoute.queryParams.subscribe(params => {
         if(params['cid']) {
@@ -31,6 +32,14 @@ export class CompanyIndexComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  searchOptionChange(option:any):void {
+    let url: string = `/recruit/home?type=${option.type}&city_id=${option.city_id}`;
+    if(option.keywords && option.keywords.trim()) {
+      url = url + '&keywords=' + option.keywords.trim();
+    }
+    this.router.navigateByUrl(url);
   }
 
   getData():void {

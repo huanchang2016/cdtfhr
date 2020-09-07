@@ -11,6 +11,8 @@ export class GlobalSettingsService {
 
   user:AccountInfo = null;
 
+  hotCities:any[] = []; // 热门城市
+
   globalConfigOptions:{ [key:string]: any[]} = {
     province: [], // 省
     city: [], // 省
@@ -152,8 +154,8 @@ export class GlobalSettingsService {
       this.get('/v1/web/setting/resume'),
       this.get('/v1/web/setting/company')
     ).pipe(
-      map(([province, city, positionType, type, industry, resume, companyConfig]) => [province.data, city.data, positionType.data, type.data, industry.data, resume.data, companyConfig.data])
-    ).subscribe(([province, city, positionType, type, industry, resume, companyConfig]) => {
+      map(([ province, city, positionType, type, industry, resume, companyConfig]) => [ province.data, city.data, positionType.data, type.data, industry.data, resume.data, companyConfig.data])
+    ).subscribe(([ province, city, positionType, type, industry, resume, companyConfig]) => {
       this.globalConfigOptions.province = province;
       this.globalConfigOptions.city = city;
       this.globalConfigOptions.positionType = positionType; // 第一层职位类别
@@ -178,7 +180,9 @@ export class GlobalSettingsService {
           }
         });
       }
-    })
+    });
+    // 获取热门城市列表
+    this.getHotCities();
   }
 
   getCities(pid:number): Observable<any> {
@@ -187,5 +191,14 @@ export class GlobalSettingsService {
 
   getPositionType(pid:number): Observable<any> {
     return this.get(`/v1/web/setting/type?pid=${pid}`);
+  }
+
+  getHotCities():Promise<any> {
+    return new Promise((resolve) => {
+      this.get('/v1/web/index/city').subscribe((res:ApiData) => {
+        this.hotCities = res.data;
+        resolve(this.hotCities);
+      })
+    })
   }
 }

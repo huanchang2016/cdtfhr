@@ -1,7 +1,7 @@
 <div class="search__wrapper">
     <div class="body__content_box">
         <div class="search-content_wraper d-flex align-items-center">
-            <app-layout-full-search></app-layout-full-search>
+            <app-layout-full-search [Option]="paramsOption" (searchOptionChange)="searchOptionChange($event)"></app-layout-full-search>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
                 </div>
                 <ng-container *ngIf="!loadingData; else loadingTpl">
                     <div class="list_of_data_box" *ngIf="list.length !== 0; else notAnyDataTpl">
-                        <div nz-row class="text-sm result_list__row card__hover text-666 border-top"
+                        <div nz-row class="text-sm result_list__row card__hover text-666 border-top py-sm"
                             *ngFor="let item of list" [nzGutter]="12">
                             <div nz-col nzSpan="6" class="d-flex align-items-center">
                                 <a [routerLink]="['/recruit/details', item.id]" target="_blank" class="pl-sm text-666">{{ item.name }}</a>

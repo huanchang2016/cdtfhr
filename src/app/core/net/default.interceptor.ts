@@ -154,8 +154,6 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 企业
     '/v1/web/com/register',
     '/v1/web/com/login',
-    // 职位详情页 推荐职位接口
-    '/v1/web/jobs/recommend',
     // 其余为首页相关请求
     '/v1/web/index/'
   ];

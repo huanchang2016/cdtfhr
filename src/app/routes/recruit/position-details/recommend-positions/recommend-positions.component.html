@@ -28,6 +28,11 @@
             </div>
         </div>
     </ng-container>
+    <ng-container *ngIf="!loadingData && list.length === 0">
+        <div class="text-md bg-white p-lg border-radius-sm">
+            <p>暂无推荐职位</p>
+        </div>
+    </ng-container>
     <ng-container *ngIf="loadingData">
         <div class="loading_data_spin d-flex justify-content-center align-items-center bg-white">
             <nz-spin nzSimple></nz-spin>
