@@ -40,6 +40,7 @@ import { NzSliderModule } from 'ng-zorro-antd/slider'
 import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzAffixModule } from 'ng-zorro-antd/affix';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 export const SHARED_ZORRO_MODULES = [
   NzFormModule,
@@ -83,5 +84,6 @@ export const SHARED_ZORRO_MODULES = [
   NzSliderModule,
   NzTransferModule,
   NzListModule,
-  NzAffixModule
+  NzAffixModule,
+  NzEmptyModule
 ];

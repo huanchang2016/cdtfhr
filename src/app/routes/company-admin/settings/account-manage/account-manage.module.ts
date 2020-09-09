@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { SubAccountSettingsComponent } from './sub-account-settings/sub-account-settings.component';
 import { SourceInfoFormComponent } from './account-info/source-info-form/source-info-form.component';
 import { SubAccountFormCComponent } from './sub-account-settings/sub-account-form-c/sub-account-form-c.component';
+import { SourceSettingsFormTplComponent } from './account-info/source-settings-form-tpl/source-settings-form-tpl.component';
 
 const COMPONENTS = [
   AccountInfoComponent,
@@ -20,7 +21,8 @@ const COMPONENTS = [
 
 const ENTRYCOMPONENTS = [
   SourceInfoFormComponent,
-  SubAccountFormCComponent
+  SubAccountFormCComponent,
+  SourceSettingsFormTplComponent
 ];
 
 @NgModule({

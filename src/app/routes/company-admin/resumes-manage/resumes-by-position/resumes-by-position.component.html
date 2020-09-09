@@ -4,7 +4,7 @@
 
             <div class="d-flex align-items-center">
                 <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
-                    <input type="text" [(ngModel)]="search_text" (keyup.enter)="search()" nz-input placeholder="请输入关键字" />
+                    <input type="text" [(ngModel)]="option.name" (keyup.enter)="search()" nz-input placeholder="请输入关键字" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
                     <i class="text-primary text-lg font-weight-bold" nz-icon nzType="search"></i>
@@ -57,7 +57,6 @@
             <label nz-radio-button [nzValue]="'simple'"><i nz-icon nzType="menu" nzTheme="outline"></i></label>
             <label nz-radio-button [nzValue]="'card'"><i nz-icon nzType="unordered-list" nzTheme="outline"></i></label>
         </nz-radio-group>
-        
         
     </ng-template>
     <nz-tabset [nzTabBarExtraContent]="extraTemplate">

@@ -13,15 +13,17 @@ export class ResumesByPositionComponent implements OnInit {
 
   is_more:boolean = false; // 展开更多搜索条件
 
-  search_text:string = '';
+  // search_text:string = '';
 
   itemType:'simple' | 'card' = 'card';
 
   positionId:number;
 
   searchOption:{ [key:string]: any } = {};
+
   option:{ [key:string]: any } = {
-    resume_status: 1
+    name: null,
+    status: 1
   };
 
   total: number = 0;
@@ -44,10 +46,7 @@ export class ResumesByPositionComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    
-    console.log(this.total, 'this total 收到的简历个数', this.searchOption)
-  }
+  ngOnInit(): void { }
 
   getPositionInfo():void {
     this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res:ApiData) => {
@@ -75,31 +74,24 @@ export class ResumesByPositionComponent implements OnInit {
   }
   
   search():void { // 回车事件
-    console.log('search text change', this.search_text, this.searchOption);
-    const keywords:string = this.search_text ? this.search_text.trim() : null;
-    if(this.searchOption.keywords) {
-      if(keywords === this.searchOption.keywords) {
-        return;
-      }
-    }
-    this.searchOptionConfig({ name: keywords });
+    this.searchOptionConfig();
   }
 
   searchValueChange(option:any):void { // 更多 搜索条件发生变化
-    console.log('more search option change', option, 'search_text', this.search_text);
-    this.searchOptionConfig(option);
+    this.searchOption = { ...option };
+    this.searchOptionConfig();
   }
-
-
   selectChange(status:number):void {
-    console.log(status, 'change tabs, status changed!');
-    this.searchOptionConfig({ resume_status: status });
+    this.option.status = status;
+    this.searchOptionConfig();
   }
 
-  searchOptionConfig(option:any = {}):void {
-    const obj = Object.assign(this.searchOption, option);
+  // 合并后的搜索条件
+  // mergeOption:any = {};
+  searchOptionConfig():void {
+    const obj = Object.assign(this.searchOption, this.option);
     this.option = {...obj };
-    console.log('....', this.option, option);
+    console.log('....', this.option);
   }
 
 

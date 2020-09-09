@@ -20,7 +20,7 @@ import { SaveResumeListCComponent } from './resumes-manage/resumes-history/save-
 import { SendResumeListCComponent } from './resumes-manage/resumes-history/send-resume-list-c/send-resume-list-c.component';
 import { JoinusResumeListCComponent } from './resumes-manage/resumes-history/joinus-resume-list-c/joinus-resume-list-c.component';
 import { ResumesListColsCComponent } from './component/resumes-list-cols-c/resumes-list-cols-c.component';
-import { ResumesSearchFormTplComponent } from './component/resumes-search-form-tpl/resumes-search-form-tpl.component';
+import { ResumesSearchFormTplComponent } from './resumes-manage/component/resumes-search-form-tpl/resumes-search-form-tpl.component';
 import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
 import { ListItemsComponent } from './resumes-manage/resumes-by-position/list-items/list-items.component';
 import { SearchOptionFormCComponent } from './resumes-manage/component/search-option-form-c/search-option-form-c.component';
@@ -28,7 +28,7 @@ import { CollectFileFormTplComponent } from './resumes-manage/resumes-history/co
 import { ResumesListItemCComponent } from './resumes-manage/component/resumes-list-item-c/resumes-list-item-c.component';
 import { ResumesCollectListComponent } from './resumes-manage/resumes-collect-list/resumes-collect-list.component';
 import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-list/resumes-download-list.component';
-import { ComAuthenticationGuard } from './guard/com-authentication.guard';
+// import { ComAuthenticationGuard } from './guard/com-authentication.guard';
 
 
 const COMPONENTS = [

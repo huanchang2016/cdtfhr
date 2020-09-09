@@ -1,0 +1,239 @@
+<div class="source_cate_box">
+    <div class="d-flex justify-content-around">
+        <div class="source_item_box">
+            <div class="source_item_icon icon_postrelease mb-md"></div>
+            <div class="source_item_introduce">
+                <div class="text-center mb-sm text-666 text-md">职位发布 &nbsp;<i nz-tooltip nzTooltipTitle="职位发布说明提示信息"
+                        nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">已发布数</span>
+                    <span class="text-primary float-right">{{ sourceInfo?.job.use }}</span>
+                </div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">剩余数</span>
+                    <span class="text-primary float-right">
+                        <ng-container *ngIf="sourceInfo">
+                            {{ sourceInfo.job.total === -1 ? '不限' : sourceInfo.job.remain }}
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="source_item_box">
+            <div class="source_item_icon icon_resumedownload mb-md"></div>
+            <div class="source_item_introduce">
+                <div class="text-center mb-sm text-666 text-md">简历下载 &nbsp;<i nz-tooltip nzTooltipTitle="简历下载说明提示信息"
+                        nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">已下载数</span>
+                    <span class="text-primary float-right">{{ sourceInfo?.resume.use }}</span>
+                </div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">剩余数</span>
+                    <span class="text-primary float-right">
+                        <ng-container *ngIf="sourceInfo">
+                            {{ sourceInfo.resume.total === -1 ? '不限' : sourceInfo.resume.remain }}
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="source_item_box">
+            <div class="source_item_icon icon_message mb-md"></div>
+            <div class="source_item_introduce">
+                <div class="text-center mb-sm text-666 text-md">短信通知 &nbsp;<i nz-tooltip nzTooltipTitle="短信通知说明提示信息"
+                        nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">已使用数</span>
+                    <span class="text-primary float-right">{{ sourceInfo?.message.use }}</span>
+                </div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">剩余数</span>
+                    <span class="text-primary float-right">
+                        <ng-container *ngIf="sourceInfo">
+                            {{ sourceInfo.message.total === -1 ? '不限' : sourceInfo.message.remain }}
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="source_item_box">
+            <div class="source_item_icon icon_refresh mb-md"></div>
+            <div class="source_item_introduce">
+                <div class="text-center mb-sm text-666 text-md text-center">刷新次数 &nbsp;<i nz-tooltip
+                        nzTooltipTitle="刷新次数说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">已使用数</span>
+                    <span class="text-primary float-right">{{ sourceInfo?.update.use }}</span>
+                </div>
+                <div class="clearfix">
+                    <span class="text-grey text-xs float-left">剩余数</span>
+                    <span class="text-primary float-right">
+                        <ng-container *ngIf="sourceInfo">
+                            {{ sourceInfo.update.total === -1 ? '不限' : sourceInfo.update.remain }}
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nz-tabset>
+    <nz-tab nzTitle="分配资源">
+        <div class="form-box">
+            <div class="form-title text-grey" nz-row>
+                <div nz-col nzSpan="6" class="text-center">账号/姓名</div>
+                <div nz-col nzSpan="4">资源</div>
+                <div nz-col nzSpan="6">可用/已分配</div>
+                <div nz-col nzSpan="8">新分配资源</div>
+            </div>
+            <div class="form-item_box">
+                <div class="form-item_content py-sm text-666" nz-row *ngFor="let item of list">
+                    <div nz-col nzSpan="6" class="justify-content-center flex-column">
+                        <div>{{ item.name }}</div>
+                        <div>{{ item.full_name }}</div>
+                    </div>
+                    <div nz-col nzSpan="4" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <span class="source_label">简历下载</span>
+                        </div>
+
+                        <div>
+                            <span class="source_label">短信通知</span>
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="6" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <span class="source_label"> {{ item.resume.remain }} / {{ item.resume.total }}</span> <!--简历下载-->
+                        </div>
+
+                        <div>
+                            <span class="source_label"> {{ item.message.remain }} / {{ item.message.total }}</span>  <!--短信通知发送-->
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="8" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <ng-container *ngIf="downloadTotal > 0">
+                                <nz-input-number (nzBlur)="downloadAccountBlur()" [(ngModel)]="item.resume.account"
+                                    [nzMin]="1" [nzMax]="item.resume.max_number"></nz-input-number>
+                                <span class="source_label"> / {{ item.resume.max_number }}</span>
+                            </ng-container>
+                            <ng-container *ngIf="downloadTotal < 0">
+                                <nz-input-number (nzBlur)="downloadAccountBlur()" [(ngModel)]="item.resume.account" [nzMin]="1"></nz-input-number>
+                            </ng-container>
+                        </div>
+                        <div>
+                            <ng-container *ngIf="messageTotal > 0">
+                                <nz-input-number (nzBlur)="msgAccountBlur()" [(ngModel)]="item.message.account" [nzMin]="1"
+                                    [nzMax]="item.message.max_number"></nz-input-number>
+                                <span class="source_label"> / {{ item.message.max_number }}</span>
+                            </ng-container>
+                            <ng-container *ngIf="messageTotal < 0">
+                                <nz-input-number (nzBlur)="msgAccountBlur()" [(ngModel)]="item.message.account" [nzMin]="1"></nz-input-number>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-button d-flex justify-content-around py-lg">
+                <button (click)="closeModal()" nz-button nzType="default" nzSize="large">关闭</button>
+                <button (click)="sharedSubmit()" [nzLoading]="sharedLoading" nz-button nzType="primary" nzSize="large">确认分配</button>
+            </div>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="回收资源">
+        <div class="form-box">
+            <div class="form-title" nz-row>
+                <div nz-col nzSpan="6" class="text-center">账号/姓名</div>
+                <div nz-col nzSpan="4">资源</div>
+                <div nz-col nzSpan="6">可用/已分配</div>
+                <div nz-col nzSpan="8">资源回收</div>
+            </div>
+            <div class="form-item_box">
+                <div class="form-item_content py-sm text-666" nz-row *ngFor="let item of list">
+                    <div nz-col nzSpan="6" class="justify-content-center">
+                        <div>{{ item.name }}</div>
+                        <div>{{ item.full_name }}</div>
+                    </div>
+                    <div nz-col nzSpan="4" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <span class="source_label">简历下载</span>
+                        </div>
+
+                        <div>
+                            <span class="source_label">短信通知</span>
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="6" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <span class="source_label"> {{ item.resume.remain }} / {{ item.resume.total }}</span> <!--简历下载-->
+                        </div>
+
+                        <div>
+                            <span class="source_label"> {{ item.message.remain }} / {{ item.message.total }}</span>  <!--短信通知发送-->
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="8" class="source_slider_box flex-column justify-content-around">
+                        <div>
+                            <nz-input-number [(ngModel)]="item.resume.recover_account" [nzMin]="1"
+                                [nzMax]="item.resume.remain"></nz-input-number>
+                            <span class="source_label"> / {{ item.resume.remain }}</span>
+                        </div>
+                        <div>
+                            <nz-input-number [(ngModel)]="item.message.recover_account" [nzMin]="1" [nzMax]="item.message.remain"></nz-input-number>
+                            <span class="source_label"> / {{ item.message.remain }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-button d-flex justify-content-around py-lg">
+                <button (click)="closeModal()" nz-button nzType="default" nzSize="large">关闭</button>
+                <button (click)="recoverSubmit()" [nzLoading]="recoverLoading" nz-button nzType="primary" nzSize="large">确认回收</button>
+            </div>
+        </div>
+    </nz-tab>
+</nz-tabset>
+
+<!-- <div class="form-box">
+    <div class="form-title text-grey" nz-row>
+        <div nz-col nzSpan="4" class="text-center">账号/姓名</div>
+        <div nz-col nzSpan="14">资源</div>
+        <div nz-col nzSpan="3">持有次数</div>
+        <div nz-col nzSpan="3">不限次数</div>
+    </div>
+    <div class="form-item_box">
+        <div class="form-item_content py-sm text-666" nz-row *ngFor="let item of list">
+            <div nz-col nzSpan="4" class="justify-content-center">{{ item.name }}</div>
+            <div nz-col nzSpan="14" class="source_slider_box flex-column justify-content-around">
+                <div class="d-flex">
+                    <span class="d-block source_label">简历下载</span>
+                    <div class="flex-1">
+                        <nz-slider [nzMin]="1" [nzMax]="200" [(ngModel)]="item.download.account" [nzDisabled]="item.download.is_not_limit"></nz-slider>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <span class="d-block source_label">短信通知</span>
+                    <div class="flex-1">
+                        <nz-slider [nzMin]="1" [nzMax]="200" [(ngModel)]="item.msg.account" [nzDisabled]="item.msg.is_not_limit"></nz-slider>
+                    </div>
+                </div>
+            </div>
+            <div nz-col nzSpan="3" class="flex-column justify-content-around">
+                <div><nz-input-number [(ngModel)]="item.download.account" [nzDisabled]="item.download.is_not_limit" [nzMin]="1" [nzMax]="200" [ngStyle]="{ marginLeft: '16px' }"></nz-input-number></div>
+                <div><nz-input-number [(ngModel)]="item.msg.account" [nzDisabled]="item.msg.is_not_limit" [nzMin]="1" [nzMax]="200" [ngStyle]="{ marginLeft: '16px' }"></nz-input-number></div>
+            </div>
+            <div nz-col nzSpan="3" class="flex-column justify-content-around">
+                <div><label nz-checkbox [(ngModel)]="item.download.is_not_limit">不限</label></div>
+                <div><label nz-checkbox [(ngModel)]="item.msg.is_not_limit">不限</label></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-button d-flex justify-content-around py-lg">
+        <button (click)="closeModal()" nz-button nzType="default" nzSize="large">关闭</button>
+        <button (click)="submit()" nz-button nzType="primary" nzSize="large">应用</button>
+    </div>
+</div> -->

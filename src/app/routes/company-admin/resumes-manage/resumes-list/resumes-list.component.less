@@ -1,5 +1,14 @@
+@import './../../../../../styles/base-color.less';
+
+.item_content {
+    &:hover {
+        color: @primary-color;
+    }
+}
+
 :host ::ng-deep {
     .history_record {
+        height: 100%;
         .ant-card-body {
             padding: 0;
         }

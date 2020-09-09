@@ -5,6 +5,7 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CompanyDataService } from '../../../service/company-data.service';
+import { SourceSettingsFormTplComponent } from './source-settings-form-tpl/source-settings-form-tpl.component';
 
 @Component({
   selector: 'app-account-info',
@@ -17,6 +18,8 @@ export class AccountInfoComponent implements OnInit {
 
   sourceInfo:any;
 
+  accountInfo:any;
+
   constructor(
     private modal: NzModalService,
     private msg: NzMessageService,
@@ -26,11 +29,23 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     // 企业 主账号才可以获取资源分配信息
-    if(this.companyDataService.companyInfo.is_super) {
+    // if(this.companyDataService.companyInfo.is_super) {
       this.getDataInfo();
-    }
+    // }
+
+    this.getAccountInfo();
   }
 
+  getAccountInfo():void {
+    this.settingService.get('/v1/web/com/account_info').subscribe((res:ApiData) => {
+      console.log('获取账号时效等信息', res);
+      if(res.code === 200) {
+        this.accountInfo = res.data;
+      }else {
+        this.msg.error(res.message);
+      }
+    });
+  }
   getDataInfo():void {
     this.settingService.get('/v1/web/com/account_source').subscribe((res:ApiData) => {
       console.log('获取资源分配信息', res);
@@ -47,14 +62,15 @@ export class AccountInfoComponent implements OnInit {
 
     this.tplModal = this.modal.create({
       nzTitle: '资源分配设置',
-      nzContent: SourceInfoFormComponent,
+      // nzContent: SourceInfoFormComponent,
+      nzContent: SourceSettingsFormTplComponent,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '0'
       },
       nzMaskClosable: false,
       nzComponentParams: {
-        data: null
+        sourceInfo: this.sourceInfo
       },
       nzFooter: null
     });
@@ -64,6 +80,7 @@ export class AccountInfoComponent implements OnInit {
     // Return a result when closed
     this.tplModal.afterClose.subscribe(result => {
       console.log('[afterClose] The result is:', result)
+      this.getDataInfo();
     });
   }
 

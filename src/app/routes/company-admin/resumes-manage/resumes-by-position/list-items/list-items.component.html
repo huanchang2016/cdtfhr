@@ -33,7 +33,7 @@
           </div>
         </td>
         <td>
-          <div class="mb-sm">
+          <div class="mb-sm text-nowrap">
             <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.resume.sex }}</span>
@@ -60,12 +60,12 @@
           <div>
             <h3 class="text-666 text-md">工作经历</h3>
             <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
-              <p class="text-nowrap" *ngFor="let work of data.resume.work">
-                <span>{{ work.start_time }} ~ {{ work.end_time }}</span>
+              <p *ngFor="let work of data.resume.work">
+                <span>{{ work.start_time | date: 'yyyy/MM/dd' }} ~ {{ work.end_time | date: 'yyyy/MM/dd' }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
-                <span>{{ work.name }}</span>
+                <span class="text-nowrap">{{ work.name }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
-                <span>{{ work.position_name }}</span>
+                <span class="text-nowrap">{{ work.position_name }}</span>
               </p>
             </ng-container>
             <ng-template #notWorkTpl>

@@ -12,13 +12,9 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ResumesListComponent implements OnInit {
 
-  historyData = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.'
-  ]; // 历史搜索记录
+  historyData = []; // 历史搜索记录
+  historyLoading: boolean = true;
+  resetSearchOption:any = null;
 
   loadingData:boolean = false;
   listOfData:any[] = [];
@@ -45,10 +41,110 @@ export class ResumesListComponent implements OnInit {
   }
 
   getHistoryRecord():void {
-    this.settingService.get('/v1/web/com/resume/search_log').subscribe((res:ApiData) => {
+    this.historyLoading = true;
+    this.settingService.post('/v1/web/com/resume/search_log').subscribe((res:ApiData) => {
+      this.historyLoading = false;
       console.log('简历搜索历史记录', res);
       this.historyData = res.data;
-    })
+    }, err => this.historyLoading = false)
+  }
+
+  concatSearchValue(item:any):string {
+    // step 1  先过滤条件中 value 为空的值
+    const option:any = {};
+    let val:string = '';
+    for (const key in item) {
+      if (Object.prototype.hasOwnProperty.call(item, key)) {
+        const element = item[key];
+        if(element) {
+          // option[key] = item[key];
+          switch (key) {
+            case 'name':
+              val += element;
+              break;
+            case 'city':
+              val += `+${element.name}+${element.province.name}`;
+              break;
+            case 'now_city':
+              val += `+${element.name}+${element.province.name}`;
+              break;
+            case 'industry':
+              val += `+${element.name}`;
+              break;
+            case 'hope_industry':
+              val += `+${element.name}`;
+              break;
+            case 'status_data':
+              val += `+${element.name}`;
+              break;
+            case 'updated_at':
+              val += `+${this.selectRefreshReusmeKey(element)}`;
+              break;
+            case 'min_age':
+              if(item['max_age'] > 0) {
+                val += `+${element}至${item['max_age']}岁`;
+              }else {
+                val += `+${element}岁以上`;
+              }
+              
+              break;
+            // case 'max_age':
+            //   val += `+${element}岁`;
+            //   break;
+            case 'company_name':
+              val += `+${element}`;
+              break;
+            case 'company_type_data':
+              val += `+${element.name}`;
+              break;
+            case 'school':
+              val += `+${element}`;
+              break;
+            case 'major':
+              val += `+${element}`;
+              break;
+            case 'salary_data':
+              val += `+${element.name}/月`;
+              break;
+            case 'hope_salary_data':
+              val += `+${element.name}/月`;
+              break;
+            case 'edu_data':
+              val += `+${element.name}`;
+              break;
+            case 'work':
+              if(element === '10-0') {
+                val += '10年以上';
+              }else {
+                val += `+${element}年`;
+              }
+              break;
+            case 'sex':
+              val += `+${element}`;
+              break;
+            case 'sort':
+              if(element === "newest") {
+                val += '+最新';
+              }else {
+                val += `+相关度`;
+              }
+              break;
+
+            default:
+              break;
+          }
+        }
+      }
+    }
+
+    if(val.length > 20) {
+      val = val.slice(0, 20) + '......';
+    }
+    return val;
+  }
+
+  selectRefreshReusmeKey(day:number): string { // 匹配简历更新时间
+    return this.settingService.updatedTimeOptions.filter( v => v.value === day)[0].key;
   }
 
   getDataList() {
@@ -68,22 +164,26 @@ export class ResumesListComponent implements OnInit {
       if(res.code === 200) {
         this.listOfData = res.data;
         this.total = res.meta.pagination.total;
+        // 搜索后，需要重新获取 搜索记录
+        this.getHistoryRecord();
       }
     }, err => this.loadingData = false);
   }
 
   searchValueChange(option:any):void {
     console.log('search option change', option);
-    this.searchConfigs = option;
-    this.getDataList();
+    if(option.name) { // 关键字必填才可以搜索
+      this.searchConfigs = option;
+      this.getDataList();
+    }else {
+      this.listOfData = [];
+      this.total = 0;
+    }
+    
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params, 'params');
-    // const { pageSize, pageIndex, sort, filter } = params;
-    // const currentSort = sort.find(item => item.value !== null);
-    // const sortField = (currentSort && currentSort.key) || null;
-    // const sortOrder = (currentSort && currentSort.value) || null;
     
   }
 
@@ -92,7 +192,9 @@ export class ResumesListComponent implements OnInit {
   }
 
   historyClick(data:any):void {
-    console.log('点击历史搜索jil ', data)
+    console.log('点击历史搜索jil ', data);
+    this.resetSearchOption = { ...data };
+    this.searchOptions.sort = data.sort;
   }
 
   countYears(t:string):number { // 计算 t  至今的时间段（多少年）

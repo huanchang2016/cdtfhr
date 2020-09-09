@@ -38,10 +38,10 @@ export class ListItemsComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes:SimpleChanges):void {
-    console.log('changes', this.option, changes, changes.option, changes.option !== undefined && this.option.position_id)
+    console.log('changes', this.option, changes, changes.option, changes.option !== undefined && this.positionId)
     if(changes.option !== undefined && this.positionId) {
-      this.getDataList();
       this.params.posId = this.positionId;
+      this.getDataList();
     }
   }
 
@@ -49,14 +49,11 @@ export class ListItemsComponent implements OnChanges {
   loadingData:boolean = false;
 
   getDataList() {
-    if(this.loadingData) {
-      return false;
-    }
-    // this.params.status = this.option.resume_status;
-    // console.log(this.params, 'params');
+    
 
     const option:any = {
-      status: this.option.resume_status,
+      // status: this.option.resume_status,
+      ...this.option,
       job_id: this.positionId,
       limit: this.pageOption.pageSize,
       page: this.pageOption.pageIndex
@@ -64,7 +61,7 @@ export class ListItemsComponent implements OnChanges {
     this.loadingData = true;
 
     this.settingService.post(`/v1/web/com/delivery/resume`, option).subscribe( (res:ApiData) => {
-      console.log(res, '通过职位获取 在招的简历列表 works');
+      console.log(res, '通过职位获取 在招的简历列表 works, 搜索条件 ==> ', option);
       this.loadingData = false;
       if(res.code === 200) {
         this.listOfData = res.data;

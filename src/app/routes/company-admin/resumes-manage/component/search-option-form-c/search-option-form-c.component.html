@@ -61,7 +61,7 @@
                 <nz-form-label nzFor="update_time">简历更新</nz-form-label>
                 <nz-form-control>
                     <nz-select id="update_time" formControlName="update_time" nzSize="large" nzPlaceHolder="请点击选择简历更新时间">
-                        <ng-container *ngFor="let item of updatedTimeOptions">
+                        <ng-container *ngFor="let item of globalService.updatedTimeOptions">
                             <nz-option [nzValue]="item.value" [nzLabel]="item.key"></nz-option>
                         </ng-container>
                     </nz-select>
@@ -73,9 +73,9 @@
                 <nz-form-label nzFor="age_start">年龄区间</nz-form-label>
                 <nz-form-control>
                     <div class="d-flex justify-content-between align-items-center">
-                        <nz-input-number formControlName="age_start" [nzMin]="0" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
+                        <nz-input-number formControlName="age_start" [nzMin]="18" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
                         <span class="mx-sm">-</span>
-                        <nz-input-number formControlName="age_end" [nzMin]="0" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
+                        <nz-input-number formControlName="age_end" [nzMin]="18" [nzMax]="99" [nzStep]="1" nzSize="large"></nz-input-number>
                         岁
                     </div>
                 </nz-form-control>

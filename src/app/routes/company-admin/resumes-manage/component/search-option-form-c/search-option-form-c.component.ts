@@ -11,23 +11,13 @@ import { Config } from 'src/app/data/interface';
 export class SearchOptionFormCComponent implements OnInit {
 
   @Output() searchValueChange:EventEmitter<any> = new EventEmitter();
-
-  updatedTimeOptions:any[] = [
-    { id: 1, key: '更新时间（不限）', value: 0 },
-    { id: 2, key: '最近一周', value: 7 },
-    { id: 3, key: '最近两周', value: 14 },
-    { id: 4, key: '最近一个月', value: 30 },
-    { id: 5, key: '最近三个月', value: 90 },
-    { id: 6, key: '最近六个月', value: 180 },
-    { id: 7, key: '最近一年', value: 365 }
-  ];
-
   workExpOptions:Config[] = [
     { id: 1, key: '不限', value: null },
     { id: 2, key: '应届生', value: '0-1' },
     { id: 3, key: '1-3年', value: '1-3' },
     { id: 4, key: '3-5年', value: '3-5' },
-    { id: 5, key: '5-10年', value: '5-10' }
+    { id: 5, key: '5-10年', value: '5-10' },
+    { id: 6, key: '10年以上', value: '10-0' }
   ];
   
   isCustomer:boolean = false; // 是否自定义查询
@@ -144,6 +134,13 @@ export class SearchOptionFormCComponent implements OnInit {
     // }
 
     console.log(this.validateForm, 'validateForm');
+
+    if(this.validateForm.value.age_start && this.validateForm.value.age_end) {
+      this.validateForm.patchValue({
+        age_start: Math.min(this.validateForm.value.age_start, this.validateForm.value.age_end),
+        age_end: Math.max(this.validateForm.value.age_start, this.validateForm.value.age_end)
+      });
+    }
     this.emit();
   }
 
@@ -151,18 +148,16 @@ export class SearchOptionFormCComponent implements OnInit {
     const value:any = this.validateForm.value;
 
     const option:any = {
-      name: value.keywords,
-      is_any_key: value.is_any_key,
       city_id: value.work_address ? value.work_address[1] : null,
       now_city_id: value.stay_address ? value.stay_address[1] : null,
       industry_id: value.now_industry,
       hope_industry_id: value.plan_industry,
-      status: value.status,
+      job_status: value.status,
       updated_at: value.update_time,
       min_age: value.age_start,
       max_age: value.age_end,
       company_name: value.company_name,
-      company_type: value.company_type,
+      company_type: value.company_nature,
       school: value.school_name,
       major: value.school_major,
       salary: value.now_salary,

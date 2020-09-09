@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { Config } from 'src/app/data/interface';
@@ -8,35 +9,37 @@ import { Config } from 'src/app/data/interface';
   templateUrl: './resumes-search-form-tpl.component.html',
   styleUrls: ['./resumes-search-form-tpl.component.less']
 })
-export class ResumesSearchFormTplComponent implements OnInit {
+export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
+
+  @Input() resetSearchOption:any;
 
   @Output() searchValueChange:EventEmitter<any> = new EventEmitter();
-
-  updatedTimeOptions:any[] = [
-    { id: 1, key: '更新时间（不限）', value: 0 },
-    { id: 2, key: '最近一周', value: 7 },
-    { id: 3, key: '最近两周', value: 14 },
-    { id: 4, key: '最近一个月', value: 30 },
-    { id: 5, key: '最近三个月', value: 90 },
-    { id: 6, key: '最近六个月', value: 180 },
-    { id: 7, key: '最近一年', value: 365 }
-  ];
+ 
   workExpOptions:Config[] = [
     { id: 1, key: '不限', value: null },
     { id: 2, key: '应届生', value: '0-1' },
     { id: 3, key: '1-3年', value: '1-3' },
     { id: 4, key: '3-5年', value: '3-5' },
-    { id: 5, key: '5-10年', value: '5-10' }
+    { id: 5, key: '5-10年', value: '5-10' },
+    { id: 6, key: '10年以上', value: '10-0' }
   ];
+
   isCustomer:boolean = false; // 是否自定义查询
 
   validateForm!: FormGroup;
   
   constructor(
     public globalService: GlobalSettingsService,
+    private msg: NzMessageService,
     private fb: FormBuilder
   ) {
     console.log(this.globalService.globalConfigOptions, 'configs');
+  }
+
+  ngOnChanges():void {
+    if(this.resetSearchOption && this.validateForm) {
+      this.patchFormValue(this.resetSearchOption);
+    }
   }
 
   ngOnInit(): void {
@@ -66,6 +69,45 @@ export class ResumesSearchFormTplComponent implements OnInit {
     });
   }
 
+  patchFormValue(item:any):void {
+    if(item.work) {
+      const _work:any[] = this.workExpOptions.filter(v => v.value === item.work);
+      if(_work.length === 0) {
+        const lastEl:Config = this.workExpOptions[this.workExpOptions.length - 1];
+        this.workExpOptions.push({
+          id: lastEl.id + 1,
+          key: `${item.work}年`,
+          value: item.work
+        });
+      }
+    }
+    this.validateForm.patchValue({
+      keywords: item.name,
+      is_any_key: item.is_any_key,
+      work_address: item.city ? [item.city.province.id, item.city.id] : null,
+      stay_address: item.now_city ? [item.now_city.province.id, item.now_city.id] : null,
+      now_industry: item.industry_id,
+      plan_industry: item.hope_industry_id,
+      status: item.status,
+      update_time: item.updated_at,
+      age_start: item.min_age,
+      age_end: item.max_age,
+      company_name: item.company_name,
+      company_nature: item.company_type_data ? item.company_type_data.id : null,
+      school_name: item.school,
+      school_major: item.major,
+      now_salary: item.salary,
+      plan_salary: item.hope_salary,
+
+      education: item.edu_id,
+      work_exp: item.work, // 判断当前配置里面是否 为自定义数据
+      customer_exp_start: item.customer_exp_start,
+      customer_exp_end: item.customer_exp_end,
+      sex: item.sex
+    });
+
+    this.emit();
+  }
 
   customerExpSettings():void {
     console.log('自定义工作经验', this.validateForm);
@@ -141,7 +183,18 @@ export class ResumesSearchFormTplComponent implements OnInit {
     // }
 
     console.log(this.validateForm, 'validateForm');
-    this.emit();
+    if(!this.validateForm.get('keywords').value) {
+      this.msg.error('搜索简历时，关键字为必填项！');
+      return;
+    }else {
+      if(this.validateForm.value.age_start && this.validateForm.value.age_end) {
+        this.validateForm.patchValue({
+          age_start: Math.min(this.validateForm.value.age_start, this.validateForm.value.age_end),
+          age_end: Math.max(this.validateForm.value.age_start, this.validateForm.value.age_end)
+        });
+      }
+      this.emit();
+    }
   }
 
   emit():void {
@@ -159,7 +212,7 @@ export class ResumesSearchFormTplComponent implements OnInit {
       min_age: value.age_start,
       max_age: value.age_end,
       company_name: value.company_name,
-      company_type: value.company_type,
+      company_type: value.company_nature,
       school: value.school_name,
       major: value.school_major,
       salary: value.now_salary,

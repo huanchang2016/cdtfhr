@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CompanyAdminLayoutComponent } from './company-admin-layout/company-admin-layout.component';
-import { CompanyAdminHomeComponent } from './company-center/company-admin-home/company-admin-home.component';
+// import { CompanyAdminHomeComponent } from './company-center/company-admin-home/company-admin-home.component';
 import { PositionListComponent } from './positions-manage/position-list/position-list.component';
-import { PositionCreateComponent } from './positions-manage/position-create/position-create.component';
+// import { PositionCreateComponent } from './positions-manage/position-create/position-create.component';
 import { ResumesListComponent } from './resumes-manage/resumes-list/resumes-list.component';
 import { ResumesHandleComponent } from './resumes-manage/resumes-handle/resumes-handle.component';
 // 简历库

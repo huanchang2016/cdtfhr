@@ -55,6 +55,16 @@ export class GlobalSettingsService {
     {id: 5, key: '入职', value: '入职' },
     {id: 6, key: '淘汰', value: '淘汰' }
   ];
+  // 简历更新 时间配置
+  updatedTimeOptions:any[] = [
+    { id: 1, key: '更新时间（不限）', value: 0 },
+    { id: 2, key: '最近一周', value: 7 },
+    { id: 3, key: '最近两周', value: 14 },
+    { id: 4, key: '最近一个月', value: 30 },
+    { id: 5, key: '最近三个月', value: 90 },
+    { id: 6, key: '最近六个月', value: 180 },
+    { id: 7, key: '最近一年', value: 365 }
+  ];
 
   constructor(
     private httpClient: HttpClient

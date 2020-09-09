@@ -1,89 +1,109 @@
 <div class="content_body_box">
-    <ng-container *ngIf="companyDataService.companyInfo.is_super">
-        <app-sub-title-show [title]="'资源信息'"></app-sub-title-show>
-        <div class="source_info_box">
-            <div class="d-flex">
-                <div class="source_item_box">
-                    <div class="source_item_icon icon_postrelease mb-md"></div>
-                    <div class="source_item_introduce">
-                        <div class="text-center mb-sm text-666 text-md">职位发布 &nbsp;<i nz-tooltip nzTooltipTitle="职位发布说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">已发布数</span>
-                            <span class="text-primary float-right">30</span>
-                        </div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">剩余数</span>
-                            <span class="text-primary float-right">56</span>
-                        </div>
-                        <div class="border-right-el bg-grey-dark"></div>
+    <app-sub-title-show [title]="'资源信息'"></app-sub-title-show>
+    <div class="source_info_box">
+        <div class="d-flex">
+            <div class="source_item_box">
+                <div class="source_item_icon icon_postrelease mb-md"></div>
+                <div class="source_item_introduce">
+                    <div class="text-center mb-sm text-666 text-md">职位发布 &nbsp;<i nz-tooltip nzTooltipTitle="职位发布说明提示信息"
+                            nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">已发布数</span>
+                        <span class="text-primary float-right">{{ sourceInfo?.job.use }}</span>
                     </div>
-                </div>
-                <div class="source_item_box">
-                    <div class="source_item_icon icon_resumedownload mb-md"></div>
-                    <div class="source_item_introduce">
-                        <div class="text-center mb-sm text-666 text-md">简历下载 &nbsp;<i nz-tooltip nzTooltipTitle="简历下载说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">已下载数</span>
-                            <span class="text-primary float-right">30</span>
-                        </div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">剩余数</span>
-                            <span class="text-primary float-right">56</span>
-                        </div>
-                        <div class="border-right-el bg-grey-dark"></div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">剩余数</span>
+                        <span class="text-primary float-right">
+                            <ng-container *ngIf="sourceInfo">
+                                {{ sourceInfo.job.total === -1 ? '不限' : sourceInfo.job.remain }}
+                            </ng-container>
+                        </span>
                     </div>
+                    <div class="border-right-el bg-grey-dark"></div>
                 </div>
-                <div class="source_item_box">
-                    <div class="source_item_icon icon_message mb-md"></div>
-                    <div class="source_item_introduce">
-                        <div class="text-center mb-sm text-666 text-md">短信通知 &nbsp;<i nz-tooltip nzTooltipTitle="短信通知说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">已使用数</span>
-                            <span class="text-primary float-right">30</span>
-                        </div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">剩余数</span>
-                            <span class="text-primary float-right">99999999</span>
-                        </div>
-                        <div class="border-right-el bg-grey-dark"></div>
+            </div>
+            <div class="source_item_box">
+                <div class="source_item_icon icon_resumedownload mb-md"></div>
+                <div class="source_item_introduce">
+                    <div class="text-center mb-sm text-666 text-md">简历下载 &nbsp;<i nz-tooltip nzTooltipTitle="简历下载说明提示信息"
+                            nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">已下载数</span>
+                        <span class="text-primary float-right">{{ sourceInfo?.resume.use }}</span>
                     </div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">剩余数</span>
+                        <span class="text-primary float-right">
+                            <ng-container *ngIf="sourceInfo">
+                                {{ sourceInfo.resume.total === -1 ? '不限' : sourceInfo.resume.remain }}
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="border-right-el bg-grey-dark"></div>
                 </div>
-                <div class="source_item_box">
-                    <div class="source_item_icon icon_refresh mb-md"></div>
-                    <div class="source_item_introduce">
-                        <div class="text-center mb-sm text-666 text-md text-center">刷新次数 &nbsp;<i nz-tooltip nzTooltipTitle="刷新次数说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">已使用数</span>
-                            <span class="text-primary float-right">30</span>
-                        </div>
-                        <div class="clearfix">
-                            <span class="text-grey text-xs float-left">剩余数</span>
-                            <span class="text-primary float-right">不限</span>
-                        </div>
+            </div>
+            <div class="source_item_box">
+                <div class="source_item_icon icon_message mb-md"></div>
+                <div class="source_item_introduce">
+                    <div class="text-center mb-sm text-666 text-md">短信通知 &nbsp;<i nz-tooltip nzTooltipTitle="短信通知说明提示信息"
+                            nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">已使用数</span>
+                        <span class="text-primary float-right">{{ sourceInfo?.message.use }}</span>
+                    </div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">剩余数</span>
+                        <span class="text-primary float-right">
+                            <ng-container *ngIf="sourceInfo">
+                                {{ sourceInfo.message.total === -1 ? '不限' : sourceInfo.message.remain }}
+                            </ng-container>
+                        </span>
+                    </div>
+                    <div class="border-right-el bg-grey-dark"></div>
+                </div>
+            </div>
+            <div class="source_item_box">
+                <div class="source_item_icon icon_refresh mb-md"></div>
+                <div class="source_item_introduce">
+                    <div class="text-center mb-sm text-666 text-md text-center">刷新次数 &nbsp;<i nz-tooltip
+                            nzTooltipTitle="刷新次数说明提示信息" nz-icon nzType="exclamation-circle" nzTheme="fill"></i></div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">已使用数</span>
+                        <span class="text-primary float-right">{{ sourceInfo?.update.use }}</span>
+                    </div>
+                    <div class="clearfix">
+                        <span class="text-grey text-xs float-left">剩余数</span>
+                        <span class="text-primary float-right">
+                            <ng-container *ngIf="sourceInfo">
+                                {{ sourceInfo.update.total === -1 ? '不限' : sourceInfo.update.remain }}
+                            </ng-container>
+                        </span>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <ng-container *ngIf="companyDataService.companyInfo.is_super">
             <div class="d-flex justify-content-around source_info_oper mt-lg">
                 <button disabled nz-button nzType="default" nzSize="large">购买资源（暂不开放）</button>
                 <button (click)="sourceChange()" nz-button nzType="primary" nzSize="large">资源分配</button>
             </div>
-        </div>
-    </ng-container>
-    
+        </ng-container>
+    </div>
+
     <app-sub-title-show [title]="'账号时效'"></app-sub-title-show>
     <div class="account_des_box my-lg px-md">
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">账号有效期</div>
-            <div nz-col nzSpan="18" class="text-grey">2023年10月1日 23:10:10</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.use_time | date: 'yyyy年MM月dd日 HH:mm:ss' }}</div>
         </div>
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">最近登录</div>
-            <div nz-col nzSpan="18" class="text-grey">2020年10月1日 23:10:10</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.login_at | date: 'yyyy年MM月dd日 HH:mm:ss' }}</div>
         </div>
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">注册时间</div>
-            <div nz-col nzSpan="18" class="text-grey">2020年1月1日 23:10:10</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.created_at | date: 'yyyy年MM月dd日 HH:mm:ss' }}</div>
         </div>
     </div>
 
@@ -91,15 +111,15 @@
     <div class="account_des_box my-lg px-md">
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">招聘顾问</div>
-            <div nz-col nzSpan="18" class="text-grey">某女士</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.full_name }}</div>
         </div>
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">联系方式</div>
-            <div nz-col nzSpan="18" class="text-grey">028-12345678</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.phone }}</div>
         </div>
         <div nz-row>
             <div nz-col nzSpan="6" class="text-666">工作时间</div>
-            <div nz-col nzSpan="18" class="text-grey">工作日 9:00~18:00</div>
+            <div nz-col nzSpan="18" class="text-grey">{{ accountInfo?.work_time }}</div>
         </div>
     </div>
 
