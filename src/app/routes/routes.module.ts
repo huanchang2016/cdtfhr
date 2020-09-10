@@ -3,7 +3,7 @@ import { SharedModule } from '@shared';
 
 import { RouteRoutingModule } from './routes-routing.module';
 // single pages
-import { UserLockComponent } from './passport/lock/lock.component';
+// import { UserLockComponent } from './passport/lock/lock.component';
 // passport pages
 import { LoginComponent } from './passport/login/login.component';
 import { UserRegisterComponent } from './passport/register/user/user.component';
@@ -18,17 +18,15 @@ import { CarouselIndexComponent } from './home-page/carousel-index/carousel-inde
 import { HotRecuritCarouselComponent } from './home-page/hot-recurit-carousel/hot-recurit-carousel.component';
 import { IngRecuritCarouselComponent } from './home-page/ing-recurit-carousel/ing-recurit-carousel.component';
 import { FriendlyLinkComponent } from './home-page/friendly-link/friendly-link.component';
-import { AgreementPageComponent } from './passport/agreement-page/agreement-page.component';
 
 const COMPONENTS = [
   // passport pages
   LoginComponent,
   UserRegisterComponent,
   CompanyRegisterComponent,
-  AgreementPageComponent,
-  HomePageComponent,
+  HomePageComponent
   // single pages
-  UserLockComponent,
+  // UserLockComponent,
 ];
 const COMPONENTS_NOROUNT = [
   // 企业注册 分布表单

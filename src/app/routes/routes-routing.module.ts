@@ -11,13 +11,11 @@ import { LoginComponent } from './passport/login/login.component';
 import { UserRegisterComponent } from './passport/register/user/user.component';
 import { CompanyRegisterComponent } from './passport/register/company/company.component';
 // single pages
-import { UserLockComponent } from './passport/lock/lock.component';
+// import { UserLockComponent } from './passport/lock/lock.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
 // Admin pages
 import { LayoutAdminComponent } from '../layout/layout-admin/layout-admin.component';
-import { UserAdminGuard } from './user-admin/guard/user-admin.guard';
-import { AgreementPageComponent } from './passport/agreement-page/agreement-page.component';
 import { LoginAccountGuard } from './guard/login-account.guard';
 
 const routes: Routes = [
@@ -44,6 +42,10 @@ const routes: Routes = [
         loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule)
       },
       // 业务子模块
+      {
+        path: 'about',
+        loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
+      }
     ]
   },
   // 全屏布局
@@ -71,9 +73,8 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent, data: { title: '登录' } },
       { path: 'register/user', component: UserRegisterComponent, data: { title: '个人注册' } },
-      { path: 'register/company', component: CompanyRegisterComponent, data: { title: '企业注册' } },
-      { path: 'register/agreement', component: AgreementPageComponent, data: { title: '企业注册' } },
-      { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },
+      { path: 'register/company', component: CompanyRegisterComponent, data: { title: '企业注册' } }
+      // { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },
     ]
   },
   // 单页不包裹Layout
