@@ -21,13 +21,13 @@ import { SendResumeListCComponent } from './resumes-manage/resumes-history/send-
 import { JoinusResumeListCComponent } from './resumes-manage/resumes-history/joinus-resume-list-c/joinus-resume-list-c.component';
 import { ResumesListColsCComponent } from './component/resumes-list-cols-c/resumes-list-cols-c.component';
 import { ResumesSearchFormTplComponent } from './resumes-manage/component/resumes-search-form-tpl/resumes-search-form-tpl.component';
-import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
-import { ListItemsComponent } from './resumes-manage/resumes-by-position/list-items/list-items.component';
 import { SearchOptionFormCComponent } from './resumes-manage/component/search-option-form-c/search-option-form-c.component';
 import { CollectFileFormTplComponent } from './resumes-manage/resumes-history/collect-resume-list-c/collect-file-form-tpl/collect-file-form-tpl.component';
 import { ResumesListItemCComponent } from './resumes-manage/component/resumes-list-item-c/resumes-list-item-c.component';
 import { ResumesCollectListComponent } from './resumes-manage/resumes-collect-list/resumes-collect-list.component';
 import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-list/resumes-download-list.component';
+import { ResumesGetListComponent } from './resumes-manage/resumes-get-list/resumes-get-list.component';
+import { ListItemsCComponent } from './resumes-manage/resumes-get-list/list-items-c/list-items-c.component';
 // import { ComAuthenticationGuard } from './guard/com-authentication.guard';
 
 
@@ -40,7 +40,7 @@ const COMPONENTS = [
   ResumesListComponent,
   // 简历管理
   ResumesHandleComponent,
-  ResumesByPositionComponent, // 通过职位获取简历
+  ResumesGetListComponent, // 通过职位获取简历
   ResumesHistoryComponent, // 简历库
   ResumesCollectListComponent, // 简历库收藏简历列表
   ResumesDownloadListComponent, // 简历库 简历下载列表
@@ -62,7 +62,7 @@ const ENTRYCOMPONENTS = [
   JoinusResumeListCComponent,
   // 简历列表，显示列内容
   ResumesListColsCComponent,
-  ListItemsComponent,
+  ListItemsCComponent,
   ResumesListItemCComponent, // 将简历列表展示 修改未共享组件
   SearchOptionFormCComponent,
   // 新建收藏夹

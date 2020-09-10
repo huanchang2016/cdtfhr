@@ -66,7 +66,10 @@ export class ResumeViewComponent implements OnInit {
   }
   
   getLogConfigs():void {
-    const opt:any = { resume_id: this.resume_id };
+    let opt:any = { resume_id: this.resume_id };
+    if(this.params.posId) {
+      opt['job_id'] = this.params.posId;
+    }
     this.settingService.post('/v1/web/com/resume/get_resume_config', opt).subscribe((res:ApiData) => {
       console.log('get_resume_config works!', res.data);
       this.configs ={...res.data};
@@ -80,11 +83,6 @@ export class ResumeViewComponent implements OnInit {
       this.loadingData = false;
       this.resumeInfo = res.data;
     }, err => this.loadingData = false);
-  }
-
-  // 获取简历在职位下的处理状态
-  getResumeStatus():void {
-    console.log('获取简历在职位下的处理进度及状态');
   }
 
 }

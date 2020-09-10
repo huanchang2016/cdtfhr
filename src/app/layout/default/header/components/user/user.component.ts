@@ -64,9 +64,9 @@ export class UserComponent implements OnInit, OnDestroy {
     // Return a result when closed
     this.userModal.afterClose.subscribe( result => {
       console.log(result, 'close modal')
-      if(result.type === 'success') {
+      // if(result.type === 'success') {
         
-      }
+      // }
     });
 
   }

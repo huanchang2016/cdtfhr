@@ -57,15 +57,17 @@ export class UserAdminCertificationComponent implements OnInit {
       this.settingService.post('/v1/web/user/authenticate', this.validateForm.value).subscribe((res:ApiData) => {
         this.submitLoading = false;
         this.userDataService.getProfile();
-
-        if(res.data.status === 1) {
-          this.step = 2;
-          // this.settingService.user.name = res.data.name;
-        }else if(res.data.status === 2) {
-          this.step = 0;
-        }else {
-          this.step = 1;
+        if(res.data) {
+          if(res.data.status === 1) {
+            this.step = 2;
+            // this.settingService.user.name = res.data.name;
+          }else if(res.data.status === 2) {
+            this.step = 0;
+          }else {
+            this.step = 1;
+          }
         }
+        
       }, err => this.submitLoading = false)
     }
   }

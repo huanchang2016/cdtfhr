@@ -61,7 +61,7 @@ export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
     let end:string = null;
     this.values = [];
     if(this.start_month) {
-      start = format(this.start_month, 'yyyy-MM');
+      start = format(this.start_month, 'yyyy-MM-dd');
       this.values[0] = start;
       if(this.is_now) {
         end = '至今';
@@ -69,7 +69,7 @@ export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
         this.values[1] = end;
       }
       if(!this.is_now && this.end_month) {
-        end = format(this.end_month, 'yyyy-MM');
+        end = format(this.end_month, 'yyyy-MM-dd');
         this.values[1] = end;
       }
 

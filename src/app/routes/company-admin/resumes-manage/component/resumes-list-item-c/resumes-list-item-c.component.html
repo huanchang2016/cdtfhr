@@ -33,12 +33,12 @@
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.resume.work_date }}工作经验</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span>{{ data.resume.edu.level }}</span>
+            <span>{{ data.resume.edu?.level }}</span>
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.resume.city }}</span>
           </div>
           <p class="text-666">毕业院校
-            <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu.level }}</span>
+            <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu?.level }}</span>
           </p>
           <p class="text-666">求职状态
             <span class="ml-sm text-grey">{{ data.resume.status }}</span>
@@ -52,7 +52,7 @@
             <h3 class="text-666 text-md">工作经历</h3>
             <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
               <p class="text-nowrap" *ngFor="let work of data.resume.work">
-                <span>{{ work.start_time }} ~ {{ work.end_time }}</span>
+                <span>{{ work.start_time | date: 'yyyy/MM/dd' }} ~ {{ work.end_time | date: 'yyyy/MM/dd' }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
                 <span>{{ work.name }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
@@ -96,7 +96,7 @@
         <td>{{ data.resume.sex }}</td>
         <td>{{ data.resume.age }}</td>
         <td>{{ data.resume.work_date }}</td>
-        <td>{{ data.resume.edu.level }}</td>
+        <td>{{ data.resume.edu?.level }}</td>
         <td>{{ data.resume.edu.name }}</td>
         <td>{{ data.resume.edu.major }}</td>
         <td>
@@ -119,6 +119,6 @@
 
 <ng-template #footerTpl>
   <div class="text-666 text-md d-flex align-items-center">
-    <span class="text-666">总共 <span class="text-primary">1,000,000,000</span> 份简历</span>
+    <span class="text-666">总共 <span class="text-primary">{{ pageOption.total }}</span> 份简历</span>
   </div>
 </ng-template>

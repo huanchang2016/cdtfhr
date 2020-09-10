@@ -4,6 +4,7 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
+import { UserDataService } from '../../../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-other-info',
@@ -18,6 +19,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private userDataService: UserDataService,
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
     private route: Router
@@ -330,8 +332,14 @@ export class UserAdminOtherInfoComponent implements OnInit {
         this.submitLoading = true;
         this.globalService.post('/v1/web/user/resume/other', option).subscribe((res:ApiData) => {
           this.submitLoading = false;
-          this.msg.success(res.message);
-          this.route.navigateByUrl(`/fullscreen/resume/view/${this.resumeUserInfo.id}`);
+          if(res.code === 200) {
+            this.msg.success(res.message);
+            this.userDataService.getProfile().then();
+            this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
+          }else {
+            this.msg.error(res.message);
+          }
+          
         }, err => this.submitLoading = false)
       
     }

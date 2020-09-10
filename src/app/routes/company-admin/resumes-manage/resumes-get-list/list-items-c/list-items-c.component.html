@@ -1,0 +1,154 @@
+<div *ngIf="Config.itemType === 'card'">
+    <nz-table
+      #cardTableTpl
+      nzShowSizeChanger
+      nzShowQuickJumper
+      nzBordered
+      [nzData]="listOfData"
+      [nzFrontPagination]="false"
+      [nzLoading]="loadingData"
+      [nzTotal]="pageOption.total"
+      [nzPageSize]="pageOption.limit"
+      [nzPageIndex]="pageOption.page"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      (nzPageSizeChange)="pageSizeChange($event)"
+      [nzFooter]="footerTpl">
+      <!-- (nzQueryParams)="onQueryParamsChange($event)" -->
+      <thead>
+        <tr>
+          <th colspan="4" class="text-center">简历概述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of cardTableTpl.data">
+          <td width="60px" style="border-right: 0;" [nzChecked]="setOfCheckedId.has(data.resume.id)" (nzCheckedChange)="onItemChecked(data.resume.id, $event)"></td>
+          <td width="100px" style="padding-left: 0;">
+            <div class="user-logo">
+                <div class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
+                    <ng-container *ngIf="data.resume.avatar;else notPhoto">
+                        <img [src]="environment.SERVER_URL + '/' + data.resume.avatar" alt="">
+                    </ng-container>
+                    <ng-template #notPhoto>
+                        <i nz-icon nzType="user" nzTheme="outline"></i>
+                    </ng-template>
+                </div>
+            </div>
+          </td>
+          <td width="300px">
+            <div class="mb-sm text-nowrap">
+              <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>{{ data.resume.sex }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>{{ data.resume.age }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>{{ data.resume.work_date }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>{{ data.resume.edu?.level }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>{{ data.resume.city }}</span>
+            </div>
+            <p class="text-666">毕业院校 
+              <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu?.level }}</span>
+            </p>
+            <p class="text-666">求职状态 
+              <span class="ml-sm text-grey">{{ data.resume.status }}</span>
+            </p>
+            <p class="text-666">投递时间 
+              <span class="ml-sm text-grey">{{ data.created_at }}</span>
+            </p>
+          </td>
+          <td>
+            <div>
+              <h3 class="text-666 text-md">工作经历</h3>
+              <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
+                <p *ngFor="let work of data.resume.work">
+                  <span>{{ work.start_time | date: 'yyyy/MM' }} ~ {{ work.end_time | date: 'yyyy/MM' }}</span>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <span class="text-nowrap">{{ work.name }}</span>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <span class="text-nowrap">{{ work.position_name }}</span>
+                </p>
+              </ng-container>
+              <ng-template #notWorkTpl>
+                <p class="text-grey">无经验</p>
+              </ng-template>
+              
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  
+  <div *ngIf="Config.itemType === 'simple'">
+    <nz-table #rowSelectionTable nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
+      [nzLoading]="loadingData" [nzTotal]="pageOption.total" [nzPageSize]="pageOption.limit"
+      [nzPageIndex]="pageOption.page"
+      (nzPageIndexChange)="pageIndexChange($event)"
+      (nzPageSizeChange)="pageSizeChange($event)"
+      [nzFooter]="footerTpl">
+      <!-- (nzQueryParams)="onQueryParamsChange($event)" -->
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>年龄</th>
+          <th>工作年限</th>
+          <th>学历</th>
+          <th>学校</th>
+          <th>专业</th>
+          <th>最近就职公司</th>
+          <th>最近职位</th>
+          <th>投递时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td class="text-left text-nowrap" [nzChecked]="setOfCheckedId.has(data.resume.id)"
+            (nzCheckedChange)="onItemChecked(data.resume.id, $event)"> &nbsp; 
+            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
+          </td>
+          <td>{{ data.resume.sex }}</td>
+          <td>{{ data.resume.age }}</td>
+          <td>{{ data.resume.work_date }}</td>
+          <td>{{ data.resume.edu?.level }}</td>
+          <td>{{ data.resume.edu.name }}</td>
+          <td>{{ data.resume.edu.major }}</td>
+          <td>
+            <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
+              {{ data.resume.work[0].name }}
+            </ng-container>
+            <ng-template #notWorkTpl>无经验</ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0">
+              {{ data.resume.work[0].position_name }}
+            </ng-container>
+          </td>
+          <td>{{ data.created_at }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  
+  
+  <ng-template #footerTpl>
+    <div class="text-666 text-md d-flex align-items-center" *ngIf="Config">
+      <label nz-checkbox [(ngModel)]="checked" [nzIndeterminate]="indeterminate"
+        (ngModelChange)="onAllChecked($event)"></label>
+  
+      <span class="ml-sm">已选中 <span class="text-primary">{{ setOfCheckedId.size }}</span> 份简历</span>
+  
+      <span (click)="dealResume()" *ngIf="Config.status === 1" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">不合适</span>
+      <span (click)="dealResume()" *ngIf="Config.status === 2 || Config.status === 3" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">淘汰</span>
+      <span (click)="dealResume()" *ngIf="Config.status === 4" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">拒绝Offer</span>
+  
+      <span (click)="dealResume()" *ngIf="Config.status === 5" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
+  
+      <!-- 设计中无已到岗状态分类，故而此处不做操作 -->
+      <!-- <span *ngIf="Config.status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span> -->
+  
+      <span (click)="nextStepsIn()" *ngIf="Config.status !== 5 && Config.status !== 6" class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
+    </div>
+  </ng-template>
