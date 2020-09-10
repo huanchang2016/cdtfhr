@@ -56,10 +56,16 @@ export class ResumeCreateComponent implements OnInit {
         this.settingService.post('/v1/web/user/resume/info', userInfo).subscribe((res:ApiData) => {
           console.log(res);
           this.submitLoading = false;
-          this.resumeUserInfo = res.data;
-          this.userDataService.getProfile().then();
-          this.msg.success(res.message);
-          ++this.step;
+          if(res.code === 200) {
+            this.resumeUserInfo = res.data;
+            this.userDataService.getProfile().then();
+            ++this.step;
+            this.msg.success(res.message);
+          }else {
+            this.msg.error(res.message);
+          }
+          
+
         }, err => this.submitLoading = false)
         
       }

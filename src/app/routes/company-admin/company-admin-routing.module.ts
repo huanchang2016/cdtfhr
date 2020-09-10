@@ -14,9 +14,9 @@ import { ResumesCollectListComponent } from './resumes-manage/resumes-collect-li
 import { ResumesDownloadListComponent } from './resumes-manage/resumes-download-list/resumes-download-list.component';
 
 import { OrganizationComponent } from './settings/organization/organization.component';
-import { ResumesByPositionComponent } from './resumes-manage/resumes-by-position/resumes-by-position.component';
 import { ComAuthenticationGuard } from './guard/com-authentication.guard';
 import { ComStatusCheckGuard } from './guard/com-status-check.guard';
+import { ResumesGetListComponent } from './resumes-manage/resumes-get-list/resumes-get-list.component';
 
 const routes: Routes = [
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
         path: 'resumes/handle/:positionId',
         canActivate: [
           ComStatusCheckGuard
-        ], component: ResumesByPositionComponent
+        ], component: ResumesGetListComponent
       },
       {
         path: 'resumes/history',

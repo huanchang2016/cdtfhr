@@ -1,19 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
-  selector: 'app-resumes-by-position',
-  templateUrl: './resumes-by-position.component.html',
-  styleUrls: ['./resumes-by-position.component.less']
+  selector: 'app-resumes-get-list',
+  templateUrl: './resumes-get-list.component.html',
+  styleUrls: ['./resumes-get-list.component.less']
 })
-export class ResumesByPositionComponent implements OnInit {
+export class ResumesGetListComponent implements OnInit {
 
   is_more:boolean = false; // 展开更多搜索条件
 
-  // search_text:string = '';
+  keywords:string = '';
 
   itemType:'simple' | 'card' = 'card';
 
@@ -21,12 +20,15 @@ export class ResumesByPositionComponent implements OnInit {
 
   searchOption:{ [key:string]: any } = {};
 
-  option:{ [key:string]: any } = {
-    name: null,
-    status: 1
-  };
+  status:number = 0;
 
-  total: number = 0;
+  total: number = 0; // 所有状态对应的 简历 总数
+
+  pageOption:any = {
+    total: 1,
+    limit: 10,
+    page: 1
+  }
 
   positionInfo:any = null;
 
@@ -34,19 +36,19 @@ export class ResumesByPositionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public settingService: GlobalSettingsService
   ) {
-    // 获取 最新 收到的简历 type === 'new' ?
-    // this.activatedRoute.queryParams.subscribe(params => this.total = params['total']);
     // 获取当前的职位 id
     this.activatedRoute.params.subscribe((parmas:Params) => {
       this.positionId = +parmas['positionId'];
-      this.option['position_id'] = this.positionId;
       this.getPositionInfo();
       this.getTotalConfig();
       // 根据职位id 获取 各个状态的简历列表
+      this.searchOptionConfig();
     })
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    
+  }
 
   getPositionInfo():void {
     this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res:ApiData) => {
@@ -71,35 +73,60 @@ export class ResumesByPositionComponent implements OnInit {
 
   totalConfigChange():void {
     this.getTotalConfig();
+    this.searchOptionConfig(); // 简历操作成功后，需要重新获取数据
   }
   
   search():void { // 回车事件
-    console.log('search ...00000000')
     this.searchOptionConfig();
   }
 
   searchValueChange(data:any):void { // 更多 搜索条件发生变化
     this.searchOption = { ...data.data };
-    console.log('search ...1111111')
     if(data.isReset) {
-      console.log('search ...4444')
-      this.option.name = '';
+      this.keywords = '';
     }
     
     this.searchOptionConfig();
   }
-  selectChange(status:number):void {
-    this.option.status = status;
-    console.log('search ...222222222222')
-    // this.searchOptionConfig();
+
+  tabIndexChange(status:number):void {
+    this.status = status;
+    this.searchOptionConfig();
   }
 
   // 合并后的搜索条件
-  // mergeOption:any = {};
   searchOptionConfig():void {
-    console.log('search ...333333')
-    const obj = Object.assign({}, this.option, this.searchOption);
-    this.option = {...obj };
+    const obj = {
+      name: this.keywords,
+      status: this.status + 1,
+      job_id: this.positionId,
+      ...this.pageOption,
+      ...this.searchOption
+    }
+    this.getDataList(obj);
+  }
+
+  listOfData:any[] = [];
+  loadingData:boolean = false;
+
+  getDataList(option:any) {
+    this.loadingData = true;
+    this.listOfData = [];
+    this.settingService.post(`/v1/web/com/delivery/resume`, option).subscribe( (res:ApiData) => {
+      this.loadingData = false;
+      if(res.code === 200) {
+        this.listOfData = res.data;
+        this.pageOption.total = res.meta.pagination.total;
+        
+      }
+    }, err => this.loadingData = false);
+  }
+
+  paginationChanges({ pageSize, pageIndex }):void {
+    this.pageOption.limit = pageSize;
+    this.pageOption.page = pageIndex;
+
+    this.searchOptionConfig();
   }
 
   showMoreSearch():void {
