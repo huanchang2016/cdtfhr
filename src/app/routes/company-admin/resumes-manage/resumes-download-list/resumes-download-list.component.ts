@@ -75,11 +75,14 @@ export class ResumesDownloadListComponent implements OnInit {
     this.searchOptionConfig();
   }
 
-  searchValueChange(option:any):void { // 更多 搜索条件发生变化
-    console.log('more search option change', option);
+  searchValueChange(data:any):void { // 更多 搜索条件发生变化
+    console.log('more search option change', data);
     // 重置搜索条件时，分页数据应该重置 为  第一页
     this.searchOption.page = 1;
-    this.searchOptionConfig(option);
+    if(data.isReset) {
+      this.searchOption.name = '';
+    }
+    this.searchOptionConfig(data.data);
   }
 
   pageOptionChanges({ pageSize, pageIndex }):void {

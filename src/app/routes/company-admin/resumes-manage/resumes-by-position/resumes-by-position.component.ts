@@ -74,26 +74,33 @@ export class ResumesByPositionComponent implements OnInit {
   }
   
   search():void { // 回车事件
+    console.log('search ...00000000')
     this.searchOptionConfig();
   }
 
-  searchValueChange(option:any):void { // 更多 搜索条件发生变化
-    this.searchOption = { ...option };
+  searchValueChange(data:any):void { // 更多 搜索条件发生变化
+    this.searchOption = { ...data.data };
+    console.log('search ...1111111')
+    if(data.isReset) {
+      console.log('search ...4444')
+      this.option.name = '';
+    }
+    
     this.searchOptionConfig();
   }
   selectChange(status:number):void {
     this.option.status = status;
-    this.searchOptionConfig();
+    console.log('search ...222222222222')
+    // this.searchOptionConfig();
   }
 
   // 合并后的搜索条件
   // mergeOption:any = {};
   searchOptionConfig():void {
-    const obj = Object.assign(this.searchOption, this.option);
+    console.log('search ...333333')
+    const obj = Object.assign({}, this.option, this.searchOption);
     this.option = {...obj };
-    console.log('....', this.option);
   }
-
 
   showMoreSearch():void {
     this.is_more = !this.is_more;

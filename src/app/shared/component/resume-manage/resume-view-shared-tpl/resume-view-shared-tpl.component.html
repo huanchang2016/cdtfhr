@@ -29,11 +29,13 @@
                     <span>{{ resumeInfo.marriage.value }}</span>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span>现居住于
-                        <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
-                            {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
-                        </ng-container>
-                        <ng-container *ngIf="resumeInfo.work_province.name === resumeInfo.work_city.name">
-                            {{ resumeInfo.work_province.name }}
+                        <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">
+                            <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
+                                {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
+                            </ng-container>
+                            <ng-container *ngIf="resumeInfo.work_province.name === resumeInfo.work_city.name">
+                                {{ resumeInfo.work_province.name }}
+                            </ng-container>
                         </ng-container>
                     </span>
                     <nz-divider nzType="vertical"></nz-divider>
@@ -44,11 +46,13 @@
                         <nz-divider nzType="vertical"></nz-divider>
                     </span>
                     <span>
-                        <ng-container *ngIf="resumeInfo.registered_province.name !== resumeInfo.registered_city.name">
-                            {{ resumeInfo.registered_province.name + resumeInfo.registered_city.name }}
-                        </ng-container>
-                        <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
-                            {{ resumeInfo.registered_province.name }}
+                        <ng-container *ngIf="resumeInfo.registered_province && resumeInfo.registered_city">
+                            <ng-container *ngIf="resumeInfo.registered_province.name !== resumeInfo.registered_city.name">
+                                {{ resumeInfo.registered_province.name + resumeInfo.registered_city.name }}
+                            </ng-container>
+                            <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
+                                {{ resumeInfo.registered_province.name }}
+                            </ng-container>
                         </ng-container>
                         户口
                     </span>

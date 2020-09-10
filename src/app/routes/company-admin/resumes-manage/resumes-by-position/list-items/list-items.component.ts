@@ -26,8 +26,8 @@ export class ListItemsComponent implements OnChanges {
     // status: null
   };
 
+  total: number = 0;
   pageOption:any = {
-    total: 0,
     pageIndex: 1,
     pageSize: 10
   };
@@ -38,8 +38,8 @@ export class ListItemsComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes:SimpleChanges):void {
-    console.log('changes', this.option, changes, changes.option, changes.option !== undefined && this.positionId)
-    if(changes.option !== undefined && this.positionId) {
+    if(changes.option && this.positionId && this.option && this.option.status) {
+      console.log(this.option, 'cccccccccc')
       this.params.posId = this.positionId;
       this.getDataList();
     }
@@ -49,8 +49,6 @@ export class ListItemsComponent implements OnChanges {
   loadingData:boolean = false;
 
   getDataList() {
-    
-
     const option:any = {
       // status: this.option.resume_status,
       ...this.option,
@@ -65,7 +63,7 @@ export class ListItemsComponent implements OnChanges {
       this.loadingData = false;
       if(res.code === 200) {
         this.listOfData = res.data;
-        this.pageOption.total = res.meta.pagination.total;
+        this.total = res.meta.pagination.total;
         
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
@@ -75,11 +73,13 @@ export class ListItemsComponent implements OnChanges {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params);
-    const { pageSize, pageIndex } = params;
-    this.pageOption.pageIndex = pageIndex;
-    this.pageOption.pageSize = pageSize;
+    // const { pageSize, pageIndex } = params;
+    // this.pageOption.pageIndex = pageIndex;
+    // this.pageOption.pageSize = pageSize;
+    if(this.option) {
+      this.getDataList();
+    }
     
-    this.getDataList();
   }
 
   checked = false;

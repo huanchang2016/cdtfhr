@@ -7,7 +7,7 @@
     [nzData]="listOfData"
     [nzFrontPagination]="false"
     [nzLoading]="loadingData"
-    [nzTotal]="pageOption.total"
+    [nzTotal]="total"
     [nzPageSize]="pageOption.pageSize"
     [nzPageIndex]="pageOption.pageIndex"
     (nzQueryParams)="onQueryParamsChange($event)"
@@ -20,7 +20,7 @@
     <tbody>
       <tr *ngFor="let data of cardTableTpl.data">
         <td width="60px" style="border-right: 0;" [nzChecked]="setOfCheckedId.has(data.resume.id)" (nzCheckedChange)="onItemChecked(data.resume.id, $event)"></td>
-        <td style="padding-left: 0;">
+        <td width="100px" style="padding-left: 0;">
           <div class="user-logo">
               <div class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
                   <ng-container *ngIf="data.resume.avatar;else notPhoto">
@@ -32,7 +32,7 @@
               </div>
           </div>
         </td>
-        <td>
+        <td width="300px">
           <div class="mb-sm text-nowrap">
             <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
             <nz-divider nzType="vertical"></nz-divider>
@@ -42,12 +42,12 @@
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.resume.work_date }}</span>
             <nz-divider nzType="vertical"></nz-divider>
-            <span>{{ data.resume.edu.level }}</span>
+            <span>{{ data.resume.edu?.level }}</span>
             <nz-divider nzType="vertical"></nz-divider>
             <span>{{ data.resume.city }}</span>
           </div>
           <p class="text-666">毕业院校 
-            <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu.level }}</span>
+            <span class="ml-sm text-grey">{{ data.resume.edu.name }}<nz-divider nzType="vertical"></nz-divider>{{ data.resume.edu?.level }}</span>
           </p>
           <p class="text-666">求职状态 
             <span class="ml-sm text-grey">{{ data.resume.status }}</span>
@@ -61,7 +61,7 @@
             <h3 class="text-666 text-md">工作经历</h3>
             <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
               <p *ngFor="let work of data.resume.work">
-                <span>{{ work.start_time | date: 'yyyy/MM/dd' }} ~ {{ work.end_time | date: 'yyyy/MM/dd' }}</span>
+                <span>{{ work.start_time | date: 'yyyy/MM' }} ~ {{ work.end_time | date: 'yyyy/MM' }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
                 <span class="text-nowrap">{{ work.name }}</span>
                 <nz-divider nzType="vertical"></nz-divider>
@@ -81,7 +81,7 @@
 
 <div *ngIf="itemType === 'simple'">
   <nz-table #rowSelectionTable nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
-    [nzLoading]="loadingData" [nzTotal]="pageOption.total" [nzPageSize]="pageOption.pageSize"
+    [nzLoading]="loadingData" [nzTotal]="total" [nzPageSize]="pageOption.pageSize"
     [nzPageIndex]="pageOption.pageIndex" (nzQueryParams)="onQueryParamsChange($event)" [nzFooter]="footerTpl">
     <thead>
       <tr>
@@ -106,7 +106,7 @@
         <td>{{ data.resume.sex }}</td>
         <td>{{ data.resume.age }}</td>
         <td>{{ data.resume.work_date }}</td>
-        <td>{{ data.resume.edu.level }}</td>
+        <td>{{ data.resume.edu?.level }}</td>
         <td>{{ data.resume.edu.name }}</td>
         <td>{{ data.resume.edu.major }}</td>
         <td>
@@ -128,21 +128,21 @@
 
 
 <ng-template #footerTpl>
-  <div class="text-666 text-md d-flex align-items-center">
+  <div class="text-666 text-md d-flex align-items-center" *ngIf="option">
     <label nz-checkbox [(ngModel)]="checked" [nzIndeterminate]="indeterminate"
       (ngModelChange)="onAllChecked($event)"></label>
 
     <span class="ml-sm">已选中 <span class="text-primary">{{ setOfCheckedId.size }}</span> 份简历</span>
 
-    <span (click)="dealResume()" *ngIf="option.resume_status === 1" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">不合适</span>
-    <span (click)="dealResume()" *ngIf="option.resume_status === 2 || option.resume_status === 3" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">淘汰</span>
-    <span (click)="dealResume()" *ngIf="option.resume_status === 4" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">拒绝Offer</span>
+    <span (click)="dealResume()" *ngIf="option.status === 1" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">不合适</span>
+    <span (click)="dealResume()" *ngIf="option.status === 2 || option.status === 3" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">淘汰</span>
+    <span (click)="dealResume()" *ngIf="option.status === 4" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">拒绝Offer</span>
 
-    <span (click)="dealResume()" *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
+    <span (click)="dealResume()" *ngIf="option.status === 5" class="point oper_btn text-center btn_warning border-radius-sm mx-sm">未到岗</span>
 
     <!-- 设计中无已到岗状态分类，故而此处不做操作 -->
-    <!-- <span *ngIf="option.resume_status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span> -->
+    <!-- <span *ngIf="option.status === 5" class="point oper_btn text-center btn_success border-radius-sm mr-sm">已到岗</span> -->
 
-    <span (click)="nextStepsIn()" *ngIf="option.resume_status !== 5 && option.resume_status !== 6" class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
+    <span (click)="nextStepsIn()" *ngIf="option.status !== 5 && option.status !== 6" class="point oper_btn text-center btn_success border-radius-sm mr-sm">进入下一阶段</span>
   </div>
 </ng-template>

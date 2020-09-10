@@ -124,7 +124,7 @@ export class SearchOptionFormCComponent implements OnInit {
       customer_exp_end: null,
       sex: null
     });
-    this.emit();
+    this.emit(true);
   }
 
   submitForm(): void {
@@ -144,7 +144,7 @@ export class SearchOptionFormCComponent implements OnInit {
     this.emit();
   }
 
-  emit():void {
+  emit(reset:boolean = false):void {
     const value:any = this.validateForm.value;
 
     const option:any = {
@@ -166,6 +166,6 @@ export class SearchOptionFormCComponent implements OnInit {
       work: value.work_exp,
       sex: value.sex
     };
-    this.searchValueChange.emit(option);
+    this.searchValueChange.emit({ data: option, isReset: reset});
   }
 }
