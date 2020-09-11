@@ -8,7 +8,7 @@ declare var BMap: any;
   styleUrls: ['./position-address-map.component.less']
 })
 export class PositionAddressMapComponent implements OnChanges, OnInit {
-  @Input() city:string = '成都市';
+  @Input() city?:string = '成都市';
   @Input() address:string;
 
   constructor() { }
