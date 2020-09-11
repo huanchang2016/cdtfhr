@@ -104,8 +104,8 @@
 </nz-card>
 
 <ng-template #footerTpl>
-  <div class="text-666 text-md" *ngIf="positionConfig">
-    正在招聘 <span class="text-primary">{{ positionConfig.on }}</span> 个职位，
-    已下线 <span class="text-primary">{{ positionConfig.off }}</span> 个职位
+  <div class="text-666 text-md" *ngIf="companyDataService.positionConfig">
+    正在招聘 <span class="text-primary">{{ companyDataService.positionConfig.on }}</span> 个职位，
+    已下线 <span class="text-primary">{{ companyDataService.positionConfig.off }}</span> 个职位
   </div>
 </ng-template>

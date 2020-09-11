@@ -1,4 +1,5 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
+import { CompanyDataService } from '../../service/company-data.service';
 
 @Component({
   selector: 'app-company-content-top',
@@ -23,9 +24,14 @@ export class CompanyContentTopComponent implements OnInit {
     "周六"
   ];
 
-  constructor() {
+  constructor(
+    public companyDataService: CompanyDataService
+  ) {
     const day = this.date.getDay();
-    this.weekDay = this.weekends[day]
+    this.weekDay = this.weekends[day];
+    if(!this.companyDataService.positionConfig) {
+      this.companyDataService.getPositionConfig().then();
+    }
   }
 
   ngOnInit(): void {

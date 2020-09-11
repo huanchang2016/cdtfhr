@@ -3,6 +3,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { stat } from 'fs';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { CompanyDataService } from '../../service/company-data.service';
 
 @Component({
   selector: 'app-resumes-handle',
@@ -30,11 +31,16 @@ export class ResumesHandleComponent implements OnInit {
     pageSize: 10
   };
   constructor(
+    public companyDataService: CompanyDataService,
     public settingService: GlobalSettingsService
-  ) { }
+  ) {
+    if(!this.companyDataService.positionConfig) {
+      this.companyDataService.getPositionConfig().then();
+    }
+  }
 
   ngOnInit(): void {
-    this.getPositionConfig();
+    // this.getPositionConfig();
   }
 
   getDataList():void {
@@ -104,14 +110,14 @@ export class ResumesHandleComponent implements OnInit {
     off: null
   };
 
-  getPositionConfig():void {
+  // getPositionConfig():void {
     
-    this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe( (res:ApiData) => {
-      console.log(res, '获取在招，已下线职位数量统计');
-      if(res.code === 200) {
-       this.positionConfig = res.data;
-      }
-    })
-  }
+  //   this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe( (res:ApiData) => {
+  //     console.log(res, '获取在招，已下线职位数量统计');
+  //     if(res.code === 200) {
+  //      this.positionConfig = res.data;
+  //     }
+  //   })
+  // }
 
 }

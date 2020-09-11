@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { PositionFormComponent } from './position-form/position-form.component';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { GlobalSettingsService } from '@core';
-import { ApiData } from 'src/app/data/interface';
+import { CompanyDataService } from '../../service/company-data.service';
 
 @Component({
   selector: 'app-position-list',
@@ -12,11 +10,6 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class PositionListComponent implements OnInit {
   tabIndex: 0 | 1 = 0;
-
-  // searchOption:any = {
-  //   name: null,
-  //   status: 1
-  // };
 
   keywords:string;
   searchOption:any = null;
@@ -27,15 +20,10 @@ export class PositionListComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private msg: NzMessageService,
-    private settingService: GlobalSettingsService
-    // private viewContainerRef: ViewContainerRef
+    public companyDataService: CompanyDataService
   ) { }
 
-  ngOnInit(): void {
-
-    // this.getDataList();
-  }
+  ngOnInit(): void { }
 
   search(): void {
     console.log(this.searchOption, 'searchOption text info');
@@ -46,7 +34,6 @@ export class PositionListComponent implements OnInit {
   changeTab({index}):void {
     console.log(index, 'change tabs, status changed!');
     this.tabIndex = index;
-    // this.searchOption.status = index === 0 ? 1 : 0;
   }
 
   create(): void {
