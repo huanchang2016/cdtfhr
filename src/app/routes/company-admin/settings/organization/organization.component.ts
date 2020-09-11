@@ -32,7 +32,10 @@ export class OrganizationComponent implements OnInit {
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
     private companyDataService: CompanyDataService
-  ) { }
+  ) {
+    this.settingService.setTitle('企业信息认证-天府菁英网');
+  }
+
   ngOnInit(): void {
     this.validateLogoForm = this.fb.group({
       logo: [null, Validators.required]

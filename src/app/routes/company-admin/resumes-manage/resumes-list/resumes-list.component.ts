@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInYears } from 'date-fns';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
@@ -29,9 +28,10 @@ export class ResumesListComponent implements OnInit {
   total:number; // 总数
   
   constructor(
-    private msg: NzMessageService,
     private settingService: GlobalSettingsService
-  ) {}
+  ) {
+    this.settingService.setTitle('简历搜索-简历管理-天府菁英网');
+  }
 
   searchConfigs:any = {};
 

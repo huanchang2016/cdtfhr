@@ -5,11 +5,11 @@
     </div>
     <div class="position_status_box d-flex justify-content-around align-items-center">
       <div class="position_status_type_box">
-        <div class="text-lg text-primary text-center">8</div>
+        <div class="text-lg text-primary text-center">{{ companyDataService.positionConfig?.on }}</div>
         <div class="text-md text-grey text-center">招聘中</div>
       </div>
       <div class="position_status_type_box">
-        <div class="text-lg text-danger text-center">50</div>
+        <div class="text-lg text-danger text-center">{{ companyDataService.positionConfig?.off }}</div>
         <div class="text-md text-grey text-center">已下线</div>
       </div>
       <div style="opacity: 0;">已过期</div>
@@ -43,13 +43,7 @@
       <ng-template nz-tab>
         <div class="tab_content_body">
           <div *ngIf="tabIndex === 0">
-            <!-- <ng-container *ngIf="loadingData">
-                        <nz-spin></nz-spin>
-                    </ng-container>
-                    <ng-container *ngIf="!loadingData"> -->
-            <!-- [listOfData]="listOfData" [paginationOption]="paginationOption" -->
             <app-position-list-c [searchOption]="searchOption" [status]="'ing'"></app-position-list-c>
-            <!-- </ng-container> -->
           </div>
         </div>
       </ng-template>
@@ -62,15 +56,8 @@
       </ng-template>
       <div class="tab_content_body">
         <div *ngIf="tabIndex === 1">
-          <!-- <ng-container *ngIf="loadingData">
-                    <nz-spin></nz-spin>
-                </ng-container>
-                <ng-container *ngIf="!loadingData"> -->
-          <!-- [listOfData]="listOfData" -->
           <app-position-list-c [searchOption]="searchOption" [status]="'under-line'"></app-position-list-c>
-          <!-- </ng-container> -->
         </div>
-
       </div>
     </nz-tab>
   </nz-tabset>

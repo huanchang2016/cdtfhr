@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.settingService.setTitle('用户登录-天府菁英网');
   }
 
   get userName() {

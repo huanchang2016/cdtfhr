@@ -28,9 +28,6 @@ export class HotRecuritCarouselComponent implements OnInit {
   }
 
   navTo(url:string):void {
-    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
-    //   url = 'http://' + url;
-    // }
     url = url || '/';
     window.open(url);
   }

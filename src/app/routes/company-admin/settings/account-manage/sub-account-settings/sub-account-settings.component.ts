@@ -23,7 +23,9 @@ export class SubAccountSettingsComponent implements OnInit {
     private modal: NzModalService,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('子账号管理-账号管理-天府菁英网');
+  }
 
   ngOnInit(): void {
 

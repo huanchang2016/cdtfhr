@@ -5,7 +5,6 @@ import { filter } from 'rxjs/operators';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { GlobalSettingsService } from '@core';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
@@ -32,9 +31,9 @@ export class DeliveryViewedListComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    public settingService: GlobalSettingsService,
-    private msg: NzMessageService
+    public settingService: GlobalSettingsService
   ) {
+    this.settingService.setTitle('简历被查看-投递职位列表-我的投递-个人中心-天府菁英网');
     // this.getDataList();
   }
 

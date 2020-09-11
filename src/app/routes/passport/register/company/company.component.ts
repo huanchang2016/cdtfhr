@@ -18,6 +18,7 @@ export class CompanyRegisterComponent implements OnInit {
     private companyDataService: CompanyDataService,
     public transferSrv: TransferService
   ) {
+    
      // tab
      this.activatedRoute.queryParams.subscribe(params => {
       if(params['tab']) {

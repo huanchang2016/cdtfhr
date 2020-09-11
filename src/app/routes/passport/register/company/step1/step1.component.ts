@@ -21,7 +21,9 @@ export class Step1Component implements OnInit {
     public transferSrv: TransferService,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
-  ) {}
+  ) {
+    this.settingService.setTitle('企业用户注册-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

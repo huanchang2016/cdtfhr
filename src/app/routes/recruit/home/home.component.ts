@@ -32,7 +32,7 @@ export class RecruitHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.settingService.setTitle('职位搜索-职位列表-天府菁英网');
   }
 
   paramsOption:any = {};

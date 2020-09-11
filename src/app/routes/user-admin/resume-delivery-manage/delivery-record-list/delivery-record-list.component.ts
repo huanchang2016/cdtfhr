@@ -37,7 +37,9 @@ export class DeliveryRecordListComponent implements OnInit {
     private fb: FormBuilder,
     public settingService: GlobalSettingsService,
     private msg: NzMessageService
-  ) { }
+  ) {
+    this.settingService.setTitle('职位投递记录-我的投递-个人中心-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.router$ = this.router.events.pipe(filter(e => e instanceof ActivationEnd)).subscribe(() => this.setActive());

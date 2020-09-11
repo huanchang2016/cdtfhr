@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { InterviewMessageSendTplComponent } from '../interview-message-send-tpl/interview-message-send-tpl.component';
 import { GlobalSettingsService } from '@core';
@@ -22,7 +22,7 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private viewContainerRef: ViewContainerRef,
+    // private viewContainerRef: ViewContainerRef,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
   ) { }

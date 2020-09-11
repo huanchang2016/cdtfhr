@@ -18,7 +18,9 @@ export class HotRecruitComponent implements OnInit {
 
   constructor(
     public settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('热门招聘-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.getDataList();

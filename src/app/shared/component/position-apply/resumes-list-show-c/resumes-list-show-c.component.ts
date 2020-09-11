@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
+import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
 
 @Component({
   selector: 'app-resumes-list-show-c',
@@ -24,7 +25,8 @@ export class ResumesListShowCComponent implements OnInit {
     private modal: NzModalRef,
     private fb: FormBuilder,
     public globalService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private userDataService: UserDataService
   ) {
     this.loadingData = true;
     this.globalService.get('/v1/web/user/resumes').subscribe((res:ApiData) => {
@@ -68,6 +70,9 @@ export class ResumesListShowCComponent implements OnInit {
         this.loading = false
         if(res.code === 200) {
           // this.msg.success('投递成功');
+          
+          // 刷新简历投递记录
+          this.userDataService.getProfile().then();
           this.destroyModal({type: 'success' });
         }else {
           this.msg.warning(res.message);

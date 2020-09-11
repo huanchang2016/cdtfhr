@@ -27,7 +27,9 @@ export class InProgressRecruitComponent implements OnInit {
     private msg: NzMessageService,
     public settingService: GlobalSettingsService,
     private userDataService: UserDataService
-  ) { }
+  ) {
+    this.settingService.setTitle('招聘中职位-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.getDataList();

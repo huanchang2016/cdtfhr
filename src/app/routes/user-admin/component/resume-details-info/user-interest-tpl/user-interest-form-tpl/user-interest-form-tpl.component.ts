@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';

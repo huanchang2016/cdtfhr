@@ -38,7 +38,9 @@ export class PositionListCComponent implements OnChanges {
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
     // private viewContainerRef: ViewContainerRef
-  ) { }
+  ) {
+    this.settingService.setTitle('职位管理-天府菁英网');
+  }
 
   ngOnChanges(): void {
     if(this.searchOption) {

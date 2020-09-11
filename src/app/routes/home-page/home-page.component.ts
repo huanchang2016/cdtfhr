@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalSettingsService } from '@core';
 
 @Component({
   selector: 'app-home-page',
@@ -32,10 +33,12 @@ export class HomePageComponent implements OnInit {
   
 
   constructor(
-    private router: Router
+    private router: Router,
+    private settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
+    this.settingService.setTitle('天府菁英网');
   }
 
   searchOptionChange(option:any):void {

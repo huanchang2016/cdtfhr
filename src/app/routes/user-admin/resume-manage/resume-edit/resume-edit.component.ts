@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
 
 @Component({
   selector: 'app-resume-edit',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumeEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private settingService: GlobalSettingsService
+  ) {
+    this.settingService.setTitle('修改简历-简历管理-个人中心-天府菁英网');
+  }
 
   ngOnInit(): void {
   }

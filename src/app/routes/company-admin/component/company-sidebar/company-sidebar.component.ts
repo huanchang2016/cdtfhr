@@ -8,7 +8,6 @@ import { environment } from '@env/environment';
   styleUrls: ['./company-sidebar.component.less']
 })
 export class CompanySidebarComponent implements OnInit {
-  profile:any = null;
   environment = environment;
 
   constructor(
@@ -17,10 +16,8 @@ export class CompanySidebarComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if(this.companyDataService.companyInfo) {
-      this.profile = this.companyDataService.companyInfo;
-    }else {
-      this.companyDataService.getProfile().then( v => this.profile = v );
+    if(!this.companyDataService.companyInfo) {
+      this.companyDataService.getProfile().then();
     }
   }
 }

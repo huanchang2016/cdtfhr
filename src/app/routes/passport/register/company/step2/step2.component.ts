@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransferService } from '../transfer.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { interval } from 'rxjs';
@@ -28,7 +28,7 @@ export class Step2Component implements OnChanges, OnInit {
     public transferSrv: TransferService,
     public settingService: GlobalSettingsService
   ) {
-   
+   this.settingService.setTitle('企业用户信息完善-天府菁英网');
   }
 
   ngOnChanges():void {
@@ -134,6 +134,8 @@ export class Step2Component implements OnChanges, OnInit {
 
   resetForm() {
     console.log('reset form value', this.companyInfo);
+    this.settingService.setTitle(`${this.companyInfo.name}-企业用户信息完善-天府菁英网`);
+
     const cascader:number[] = [this.companyInfo.province.id, this.companyInfo.city.id, this.companyInfo.area.id ]
     this.validateForm.patchValue({
       companyname: this.companyInfo.name,

@@ -22,7 +22,9 @@ export class ResumeListComponent implements OnInit {
     private modal: NzModalService,
     private settingService: GlobalSettingsService,
     private msg: NzMessageService
-  ) {}
+  ) {
+    this.settingService.setTitle('我的简历-简历管理-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.getDataList();

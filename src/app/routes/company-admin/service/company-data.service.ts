@@ -10,6 +10,7 @@ export class CompanyDataService {
 
   companyInfo: any;
 
+  positionConfig: any;
 
   constructor(
     private settingService: GlobalSettingsService
@@ -24,4 +25,14 @@ export class CompanyDataService {
       })
     })
   }
+  getPositionConfig(): Promise<any> {
+    return new Promise((resolve) => {
+      this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe( (res:ApiData) => {
+        console.log(res, '获取在招，已下线职位数量统计');
+         this.positionConfig = res.data;
+         resolve(this.positionConfig)
+      })
+    })
+  }
+  
 }

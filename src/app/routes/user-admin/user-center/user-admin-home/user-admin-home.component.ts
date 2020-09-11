@@ -16,7 +16,9 @@ export class UserAdminHomeComponent implements OnInit {
 
   constructor(
     private settingService: GlobalSettingsService 
-  ) { }
+  ) {
+    this.settingService.setTitle(`个人中心-天府菁英网`);
+  }
 
   ngOnInit(): void {
     // 

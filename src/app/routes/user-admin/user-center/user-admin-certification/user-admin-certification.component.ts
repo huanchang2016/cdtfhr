@@ -22,7 +22,9 @@ export class UserAdminCertificationComponent implements OnInit {
     private fb: FormBuilder,
     public userDataService: UserDataService,
     private settingService: GlobalSettingsService
-  ) {}
+  ) {
+    this.settingService.setTitle('实名认证-个人中心-天府菁英网');
+  }
 
   ngOnInit(): void {
     if(!this.userDataService.userProfile) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
 
 @Component({
   selector: 'app-link',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LinkComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
+    this.settingService.setTitle('天府菁英网-联系我们');
   }
-
 }

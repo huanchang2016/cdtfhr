@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';

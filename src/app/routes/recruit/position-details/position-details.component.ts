@@ -42,7 +42,7 @@ export class PositionDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.settingService.user) {
+    if(this.settingService.user.type === 'user') {
       this.getStatus();
     }
   }
@@ -67,6 +67,8 @@ export class PositionDetailsComponent implements OnInit {
       console.log(res, 'get Position details Data');
       this.loadingData = false;
       this.info = res.data;
+
+      this.settingService.setTitle(`${this.info.name}-职位查看-天府菁英网`);
     });
     
     

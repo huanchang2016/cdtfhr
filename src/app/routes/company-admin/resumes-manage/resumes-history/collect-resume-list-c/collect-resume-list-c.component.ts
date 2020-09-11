@@ -24,7 +24,9 @@ export class CollectResumeListCComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('收藏夹-简历库-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.getDataList();

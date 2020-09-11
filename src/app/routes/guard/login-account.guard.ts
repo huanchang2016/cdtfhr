@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -9,7 +9,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class LoginAccountGuard implements CanActivate {
   constructor(
-    private router: Router,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
   ) { }

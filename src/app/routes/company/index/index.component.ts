@@ -48,6 +48,7 @@ export class CompanyIndexComponent implements OnInit {
       this.loading = false;
       console.log(res, 'company info works！');
       this.info = res.data.data;
+      this.settingService.setTitle(`${this.info.name}-公司主页-天府菁英网`)
     }, err => this.loading = false)
   }
 

@@ -55,6 +55,8 @@ export class ResumesCollectListComponent implements OnInit {
       console.log('collectFileInfo', res);
       if(res.code === 200) {
         this.collectFileInfo = res.data;
+
+        this.settingService.setTitle(`${this.collectFileInfo.name}-简历库收藏夹-天府菁英网`);
       }
     })
   }

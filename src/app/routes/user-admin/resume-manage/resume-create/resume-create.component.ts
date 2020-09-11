@@ -23,7 +23,9 @@ export class ResumeCreateComponent implements OnInit {
     private settingService: GlobalSettingsService,
     private msg: NzMessageService,
     private userDataService: UserDataService
-  ) {}
+  ) {
+    this.settingService.setTitle('新增简历-我的简历-个人中心-天府菁英网');
+  }
 
   ngOnInit(): void {}
 

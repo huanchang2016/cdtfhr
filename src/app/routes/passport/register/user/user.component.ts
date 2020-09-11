@@ -25,7 +25,9 @@ export class UserRegisterComponent implements OnInit {
     private msg: NzMessageService,
     private router: Router,
     private settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('个人用户注册-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

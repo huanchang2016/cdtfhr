@@ -5,7 +5,6 @@ import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
-import { Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
@@ -27,8 +26,7 @@ export class UserLoginComponent {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
-    private startupSrv: StartupService,
-    private router: Router
+    private startupSrv: StartupService
   ) {}
 
   ngOnInit(): void {
