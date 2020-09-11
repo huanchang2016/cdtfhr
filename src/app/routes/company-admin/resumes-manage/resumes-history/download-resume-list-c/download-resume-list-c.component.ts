@@ -18,7 +18,9 @@ export class DownloadResumeListCComponent implements OnInit {
 
   constructor(
     private settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('简历下载列表-简历库-天府菁英网');
+  }
 
   // ngOnChanges() {
   //   if(this.listOfData.length !== 0) {

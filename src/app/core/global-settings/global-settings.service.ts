@@ -3,6 +3,9 @@ import { AccountInfo, ApiData, Config } from 'src/app/data/interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
+// import { CompanyDataService } from 'src/app/routes/company-admin/service/company-data.service';
+// import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,9 +70,11 @@ export class GlobalSettingsService {
   ];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private title: Title
+    // private userDataService: UserDataService,
+    // private companyDataService: CompanyDataService
   ) {
-    // this.getGlobalConfigs();
     this.getConfigs();
   }
 
@@ -117,14 +122,10 @@ export class GlobalSettingsService {
   delete(url:string, option?:any):Observable<any> {
     return this.httpClient.delete(url, option);
   }
-
-  getBytoken(url:string, option?:any):Observable<any> {
-    return this.httpClient.get(url, option);
+  
+  setTitle(title:string):void {
+    this.title.setTitle(title);
   }
-  postBytoken(url:string, option?:any):Observable<any> {
-    return this.httpClient.post(url, option);
-  }
-  // tslint:disable-next-line: semicolon
 
   setToken(token: any) {
     this.setItem('cdtfhr_token', token);
@@ -150,8 +151,9 @@ export class GlobalSettingsService {
   clearUser(): void {
     localStorage.removeItem('cdtfhr_user');
     localStorage.removeItem('cdtfhr_token');
-    // localStorage.clear();
-
+    // 清除用户信息
+    // this.userDataService.userProfile = null;
+    // this.companyDataService.companyInfo = null;
   }
   
   getConfigs():void {

@@ -8,7 +8,7 @@ declare var BMap: any;
   styleUrls: ['./position-address-map.component.less']
 })
 export class PositionAddressMapComponent implements OnChanges, OnInit {
-
+  @Input() city:string = '成都市';
   @Input() address:string;
 
   constructor() { }
@@ -41,7 +41,7 @@ export class PositionAddressMapComponent implements OnChanges, OnInit {
           const infoWindow = new BMap.InfoWindow(this.address, opts);  // 创建信息窗口对象 
           map.openInfoWindow(infoWindow, map.getCenter());
         }
-    }, "成都市");
+    }, this.city);
   }
 
 }

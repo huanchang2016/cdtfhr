@@ -29,9 +29,7 @@ export class ResumesDownloadListComponent implements OnInit {
     page: 10
   };
 
-  option:{ [key:string]: any } = {
-    
-  };
+  option:{ [key:string]: any } = { };
 
   type: any;
 
@@ -63,6 +61,8 @@ export class ResumesDownloadListComponent implements OnInit {
       console.log('positionInfo', res);
       if(res.code === 200) {
         this.positionInfo = res.data;
+
+        this.settingService.setTitle(`${this.positionInfo.name}-简历库下载记录-天府菁英网`);
       }
     })
   }

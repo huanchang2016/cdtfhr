@@ -1,10 +1,10 @@
-import { Component, Input, ViewContainerRef, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { InterviewMessageViewTplComponent } from '../interview-message-view-tpl/interview-message-view-tpl.component';
 import { environment } from '@env/environment';
-import { differenceInYears, format } from 'date-fns';
+import { differenceInYears } from 'date-fns';
 import addDays from 'date-fns/addDays';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { GlobalSettingsService } from '@core';
@@ -25,7 +25,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
   submitLoading: boolean = false;
 
   constructor(
-    private viewContainerRef: ViewContainerRef,
+    // private viewContainerRef: ViewContainerRef,
     private fb: FormBuilder,
     private modal: NzModalRef,
     private modalSrv: NzModalService,

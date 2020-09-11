@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Router } from '@angular/router';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
@@ -26,9 +25,10 @@ export class UserAdminBindAccountComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private router: Router,
     public settingService: GlobalSettingsService
-  ) { }
+  ) {
+    this.settingService.setTitle('账号绑定-手机号码更换-个人中心-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

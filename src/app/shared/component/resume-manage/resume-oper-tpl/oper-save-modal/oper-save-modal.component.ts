@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { GlobalSettingsService } from '@core';
-import { ApiData } from 'src/app/data/interface';
 import { format } from 'date-fns';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -17,7 +15,6 @@ export class OperSaveModalComponent implements OnInit {
   constructor(
     private modal: NzModalRef,
     private msg: NzMessageService,
-    private settingService: GlobalSettingsService,
     private http: HttpClient
   ) { }
 

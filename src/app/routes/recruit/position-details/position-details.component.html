@@ -64,7 +64,7 @@
                                         </span>
                                     </ng-template>
                                     <div class="address_map_body">
-                                       <app-position-address-map [address]="info.address"></app-position-address-map>
+                                       <app-position-address-map [city]="info.city.name + '市'" [address]="info.address"></app-position-address-map>
                                     </div>
                                 </nz-collapse-panel>
                                 <ng-template #addressExtra>

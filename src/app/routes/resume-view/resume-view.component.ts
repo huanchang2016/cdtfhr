@@ -82,6 +82,7 @@ export class ResumeViewComponent implements OnInit {
       console.log('resumeInfo works!', res.data);
       this.loadingData = false;
       this.resumeInfo = res.data;
+      this.settingService.setTitle(`${this.resumeInfo.title}-${this.resumeInfo.name}-简历预览-天府菁英网`);
     }, err => this.loadingData = false);
   }
 

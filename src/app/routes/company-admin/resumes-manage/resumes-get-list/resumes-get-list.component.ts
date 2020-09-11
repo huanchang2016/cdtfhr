@@ -55,6 +55,7 @@ export class ResumesGetListComponent implements OnInit {
       console.log(res, '职位详细情况');
       if(res.code === 200) {
         this.positionInfo = res.data;
+        this.settingService.setTitle(`收到的简历-${this.positionInfo.name}-天府菁英网`);
       }
     });
   }

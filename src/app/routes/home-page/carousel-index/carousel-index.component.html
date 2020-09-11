@@ -26,7 +26,7 @@
                             </a>
                         </ng-container> -->
                         <!-- *ngIf="item.type === 'default'" -->
-                        <ng-container>
+                        <ng-container *ngIf="item.url">
                             <a class="default-btn" (click)="navTo(item.url)" nz-button nzType="primary">前往查看</a>
                         </ng-container>
                     </div>

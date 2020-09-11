@@ -29,7 +29,9 @@ export class ChangePasswordComponent implements OnInit {
     private msg: NzMessageService,
     private fb: FormBuilder,
     public settingService: GlobalSettingsService
-  ) {}
+  ) {
+    this.settingService.setTitle('修改密码-账号管理-天府菁英网');
+  }
 
   ngOnInit(): void {
 

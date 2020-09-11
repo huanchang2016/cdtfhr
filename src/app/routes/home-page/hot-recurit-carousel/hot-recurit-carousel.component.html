@@ -1,6 +1,6 @@
 <div class="hot_recurit__wrapper pt-md">
     <div class="hot_recurit_content body__content_box">
-        <app-sub-title-show [title]="'热门招聘'" [url]="'/recruit/hot'"></app-sub-title-show>
+        <app-sub-title-show [title]="'热门招聘'" [url]="list.length !== 0 ? '/recruit/hot' : ''"></app-sub-title-show>
         <div class="hot_carousel_wrapper">
             <div class="carousel__wrapper">
                 <nz-carousel nzAutoPlay nzEffect="scrollx">

@@ -25,7 +25,9 @@ export class AccountInfoComponent implements OnInit {
     private msg: NzMessageService,
     public settingService: GlobalSettingsService,
     public companyDataService: CompanyDataService
-  ) { }
+  ) {
+    this.settingService.setTitle('账号资源分配-账号管理-天府菁英网');
+  }
 
   ngOnInit(): void {
     // 企业 主账号才可以获取资源分配信息

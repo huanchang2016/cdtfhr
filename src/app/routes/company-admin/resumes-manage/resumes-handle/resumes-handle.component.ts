@@ -34,6 +34,7 @@ export class ResumesHandleComponent implements OnInit {
     public companyDataService: CompanyDataService,
     public settingService: GlobalSettingsService
   ) {
+    this.settingService.setTitle('简历收件箱-简历管理-天府菁英网');
     if(!this.companyDataService.positionConfig) {
       this.companyDataService.getPositionConfig().then();
     }

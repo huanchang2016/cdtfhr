@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
-import { Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
@@ -23,10 +21,8 @@ export class CompanyLoginComponent {
   constructor(
     private modal: NzModalRef,
     private fb: FormBuilder,
-    private msg: NzMessageService,
     private settingService: GlobalSettingsService,
-    private startupSrv: StartupService,
-    private router: Router
+    private startupSrv: StartupService
   ) {}
 
   ngOnInit(): void {

@@ -29,7 +29,9 @@ export class LinkUserInfoComponent implements OnInit {
     private msg: NzMessageService,
     private fb: FormBuilder,
     private settingService: GlobalSettingsService
-  ) {}
+  ) {
+    this.settingService.setTitle('联系人信息-账号管理-天府菁英网');
+  }
 
   ngOnInit(): void {
     this.getDataInfo();
