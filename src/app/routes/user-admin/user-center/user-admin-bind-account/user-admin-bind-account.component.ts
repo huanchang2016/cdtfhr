@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-bind-account',
@@ -12,9 +13,9 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./user-admin-bind-account.component.less']
 })
 export class UserAdminBindAccountComponent implements OnInit {
-  
-  is_get_old_captcha:boolean = false;
-  is_get_new_captcha:boolean = false;
+
+  is_get_old_captcha: boolean = false;
+  is_get_new_captcha: boolean = false;
 
   validateForm: FormGroup;
 
@@ -25,14 +26,19 @@ export class UserAdminBindAccountComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private msg: NzMessageService,
-    public settingService: GlobalSettingsService
+    public settingService: GlobalSettingsService,
+    private userDataService: UserDataService
   ) {
     this.settingService.setTitle('账号绑定-手机号码更换-个人中心-天府菁英网');
   }
 
   ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm():void {
     this.validateForm = this.fb.group({
-      old_phone: [ { value: this.settingService.user.phone, disabled: true }],
+      old_phone: [{ value: this.settingService.user.phone, disabled: true }],
       old_code: [null, [Validators.required]],
       phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
       code: [null, [Validators.required]]
@@ -44,6 +50,7 @@ export class UserAdminBindAccountComponent implements OnInit {
       return;
     } else {
       this.reloading = true;
+      this.createForm();
     }
   }
 
@@ -55,30 +62,37 @@ export class UserAdminBindAccountComponent implements OnInit {
 
     console.log(this.validateForm);
 
+    if (this.validateForm.get('phone').value === this.validateForm.get('old_phone').value) {
+      this.msg.error('修改手机号码不能与原号码相同');
+      return;
+    }
+
     if (this.validateForm.valid) {
       console.log(this.validateForm.value, 'rebind Info');
       this.loading = true;
       this.settingService.post('/v1/web/user/binding', this.validateForm.value).subscribe((res: ApiData) => {
         this.loading = this.reloading = false;
-        this.msg.success(res.message);
-        this.settingService.user.phone = this.validateForm.get('phone').value;
-        this.validateForm.patchValue({
-          old_phone: this.validateForm.get('old_phone').value
-        })
+        if (res.code === 200) {
+          this.msg.success(res.message);
+          this.userDataService.getProfile().then();
+        } else {
+          this.msg.error(res.message);
+        }
+
       }, err => this.loading = this.reloading = false)
 
     }
   }
 
-  old_count:number = 60;
+  old_count: number = 60;
 
   getOldCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const user_phone = this.validateForm.get('old_phone');
-    if(this.is_get_old_captcha) {
+    if (this.is_get_old_captcha) {
       this.msg.success('验证码已发送');
       return;
-    }else {
+    } else {
       this.settingService.post('/v1/web/send_binding_old_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
         this.is_get_old_captcha = true;
         this.msg.success('发送成功');
@@ -95,13 +109,13 @@ export class UserAdminBindAccountComponent implements OnInit {
       x => {
         this.old_count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.is_get_old_captcha = false;
       });
   }
 
-  new_count:number = 60;
+  new_count: number = 60;
 
   getNewCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -109,22 +123,28 @@ export class UserAdminBindAccountComponent implements OnInit {
     console.log('user_phone, new', user_phone);
     this.validateForm.controls['phone'].markAsDirty();
     this.validateForm.controls['phone'].updateValueAndValidity();
-    
-    if(!user_phone.valid) {
+
+    if (!user_phone.valid) {
       return;
     }
-    if(user_phone.value === this.validateForm.get('old_phone').value) {
+    if (user_phone.value === this.validateForm.get('old_phone').value) {
       this.msg.error('修改手机号码不能与原号码相同');
       return;
     }
-    if(this.is_get_new_captcha) {
+    if (this.is_get_new_captcha) {
       this.msg.success('验证码已发送');
       return;
-    }else {
+    } else {
       this.settingService.post('/v1/web/send_binding_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.is_get_new_captcha = true;
-        this.msg.success('发送成功');
-        this.counterNew();
+        if (res.code === 200) {
+          this.is_get_new_captcha = true;
+          this.msg.success('发送成功');
+          this.counterNew();
+        } else {
+          this.msg.error(res.message)
+          this.is_get_new_captcha = false;
+        }
+
       }, err => this.is_get_new_captcha = false)
     }
   }
@@ -137,7 +157,7 @@ export class UserAdminBindAccountComponent implements OnInit {
       x => {
         this.new_count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.is_get_new_captcha = false;
       });

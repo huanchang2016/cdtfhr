@@ -22,7 +22,6 @@ import { RangeDatePickerComponent } from './component/forms/range-date-picker/ra
 import { RangeMonthPickerComponent } from './component/forms/range-month-picker/range-month-picker.component';
 import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
 import { UploadFilePhotoComponent } from './component/forms/upload-file-photo/upload-file-photo.component';
-import { TestInputAccessComponent } from './component/forms/test-input-access/test-input-access.component';
 // 简历预览 公共部分
 import { ResumeViewSharedTplComponent } from './component/resume-manage/resume-view-shared-tpl/resume-view-shared-tpl.component';
 // 简历操作管理
@@ -67,7 +66,6 @@ const COMPONENTS = [
   RangeDatePickerComponent,
   RangeMonthPickerComponent,
   PositionAddressMapComponent,
-  TestInputAccessComponent,
   ResumeViewSharedTplComponent,
   ResumeOperTplComponent,
   ResumeStatusHandleProcessTplComponent

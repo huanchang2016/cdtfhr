@@ -1,6 +1,6 @@
 <div class="recommend_positions_title">
     <app-sub-title-show [title]="'推荐职位'"></app-sub-title-show>
-    <div class="recommend_positions_opper_wrapper d-flex justify-content-between align-items-center">
+    <div *ngIf="!loadingData && list.length !== 0" class="recommend_positions_opper_wrapper d-flex justify-content-between align-items-center">
         <span class="update_recommend_positions point" (click)="updateList()">
             <i nz-icon [nzType]="'sync'" [nzSpin]="loadingData"></i>
             换一批

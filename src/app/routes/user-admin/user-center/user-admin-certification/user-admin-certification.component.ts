@@ -27,7 +27,12 @@ export class UserAdminCertificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!this.userDataService.userProfile) {
+    
+    if(this.userDataService.userProfile) {
+      if(this.userDataService.userProfile.status === 1) {
+        this.step = 2;
+      }
+    }else {
       this.settingService.get('/v1/web/user/profile').subscribe((res:ApiData) => {
         console.log('UserAdminCertificationComponent get Data', res.data);
         this.userDataService.userProfile = res.data;
@@ -35,9 +40,6 @@ export class UserAdminCertificationComponent implements OnInit {
           this.step = 2;
         }
       })
-    }
-    if(this.userDataService.userProfile && this.userDataService.userProfile.status === 1) {
-      this.step = 2;
     }
     
     this.validateForm = this.fb.group({

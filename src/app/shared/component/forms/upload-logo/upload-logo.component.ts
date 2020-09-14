@@ -67,6 +67,8 @@ export class UploadLogoComponent implements ControlValueAccessor {
     console.log(obj);
     if(obj) {
       this.avatarUrl = environment.SERVER_URL + '/' + obj;
+    }else {
+      this.avatarUrl = '';
     }
   }
 

@@ -66,6 +66,8 @@ export class MultipleCascaderSelectedComponent implements OnChanges, ControlValu
     console.log(obj, 'multiple .....')
     if(obj) {
       this.values = obj;
+    }else {
+      this.values = [];
     }
   }
 
