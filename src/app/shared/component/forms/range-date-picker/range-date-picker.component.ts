@@ -33,6 +33,8 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
   writeValue(obj: string[]): void {
     if(obj) {
       this.date = [new Date(obj[0]), new Date(obj[1])];
+    }else {
+      this.date = [];
     }
   }
 

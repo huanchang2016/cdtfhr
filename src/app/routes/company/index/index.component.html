@@ -53,7 +53,8 @@
                     <nz-tab [nzTitle]="recruit">
                         <ng-template #recruit>
                             <span>招聘职位</span>
-                            <span class="badge_count text-md bg-primary border-radius-sm text-white px-xs ml-sm">{{ info.job_sum }}</span>
+                            <!-- <span class="badge_count text-md border-radius-sm px-sm ml-sm">{{ info.job_sum }}</span> -->
+                            <nz-tag class="badge_count text-white ml-sm">{{ info.job_sum > 100 ? '99+' : info.job_sum }}</nz-tag>
                         </ng-template>
 
                         <app-recruit-positions [companyId]="companyId"></app-recruit-positions>

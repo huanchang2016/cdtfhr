@@ -39,6 +39,8 @@ export class ThreePositionTypeCascaderComponent implements ControlValueAccessor 
     if (obj) {
       this.values = obj;
       console.log('this.values', obj)
+    }else {
+      this.values = [];
     }
   }
 

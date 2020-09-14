@@ -53,6 +53,8 @@ export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
         this.end_month = new Date(obj[1]);
       }
       this.values = obj;
+    }else {
+      this.values = [];
     }
   }
 

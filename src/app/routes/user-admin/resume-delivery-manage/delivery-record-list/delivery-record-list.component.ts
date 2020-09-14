@@ -96,6 +96,7 @@ export class DeliveryRecordListComponent implements OnInit {
     e.preventDefault();
     this.validateForm.reset();
     this.search_text = '';
+    this.getDataList();
   }
 
   showMoreSearch(): void {
@@ -127,6 +128,7 @@ export class DeliveryRecordListComponent implements OnInit {
       // type_id: value.company_type,
       // industry_id: value.industry,
       // scale_id: value.scale,
+      status: value.status,
       city_id: cascader && cascader.length !== 0 ? cascader[1] : '',
       area_id: cascader && cascader.length !== 0 ? cascader[2] : '',
     };

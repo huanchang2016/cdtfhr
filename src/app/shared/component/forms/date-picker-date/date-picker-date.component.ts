@@ -33,6 +33,8 @@ export class DatePickerDateComponent implements ControlValueAccessor {
   writeValue(obj: string): void {
     if(obj) {
       this.date = new Date(obj);
+    }else {
+      this.date = null;
     }
   }
 

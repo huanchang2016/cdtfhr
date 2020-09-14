@@ -42,9 +42,9 @@
     padding-top: 10px;
     padding-bottom: 10px;
 
-    .badge_count {
-        line-height: 30px;
-    }
+    // .badge_count {
+    //     line-height: 30px;
+    // }
 
     
 }
@@ -62,5 +62,15 @@
     }
     .ant-tabs-content {
         min-height: 400px;
+    }
+    nz-tag.badge_count {
+        border: 0;
+        background-color: @grey-color;
+    }
+    .ant-tabs-tab-active {
+        nz-tag.badge_count {
+            border: 0;
+            background-color: @primary-color;
+        }
     }
 }
