@@ -39,7 +39,7 @@ export class LayoutFullSearchComponent implements OnInit {
   defaultCityValue():void {
     this.cities = this.settingService.hotCities;
     if(!this.Option || !this.Option.city_id) {
-      this.city_id = this.cities[0].id;
+      this.city_id = this.cities.length !== 0 ? this.cities[0].id : null;
     }
   }
 
