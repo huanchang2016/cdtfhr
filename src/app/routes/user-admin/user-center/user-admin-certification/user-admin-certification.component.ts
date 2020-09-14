@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { UserDataService } from '../../service/user-data.service';
 
@@ -20,6 +21,7 @@ export class UserAdminCertificationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private msg: NzMessageService,
     public userDataService: UserDataService,
     private settingService: GlobalSettingsService
   ) {
@@ -61,7 +63,7 @@ export class UserAdminCertificationComponent implements OnInit {
       this.settingService.post('/v1/web/user/authenticate', this.validateForm.value).subscribe((res:ApiData) => {
         this.submitLoading = false;
         this.userDataService.getProfile();
-        if(res.data) {
+        if(res.code === 200 && res.data) {
           if(res.data.status === 1) {
             this.step = 2;
             // this.settingService.user.name = res.data.name;
@@ -70,6 +72,8 @@ export class UserAdminCertificationComponent implements OnInit {
           }else {
             this.step = 1;
           }
+        }else {
+          this.msg.error(res.message);
         }
         
       }, err => this.submitLoading = false)

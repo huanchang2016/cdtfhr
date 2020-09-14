@@ -36,6 +36,14 @@ export class EducationExpFormTplComponent implements OnInit {
       is_not_end: [false] // 根据 是否毕业 确定  毕业时间是否为必填项
     })
 
+    this.validateForm.get('edu_end_time').valueChanges.subscribe( date => {
+      if(date && this.validateForm.get('is_not_end').value) {
+        this.validateForm.patchValue({
+          is_not_end: false
+        });
+      }
+    })
+
     if(this.data) {
       this.setForm();
     }
@@ -49,11 +57,11 @@ export class EducationExpFormTplComponent implements OnInit {
       edu_record: this.data.education.id,
       edu_major: this.data.major,
       edu_start_time: this.data.start_time,
-      edu_end_time: this.data.end_time === '至今' ? null : this.data.end_time,
-      is_not_end: this.data.end_time === '至今' ? true : false
+      edu_end_time: this.data.end_time,
+      is_not_end: !this.data.end_time ? true : false
     })
 
-    this.isNotEndChange(this.data.end_time === '至今');
+    this.isNotEndChange(!this.data.end_time);
   }
 
 
@@ -72,7 +80,7 @@ export class EducationExpFormTplComponent implements OnInit {
         major: object.edu_major,
         education_id: object.edu_record,
         start_time: object.edu_start_time,
-        end_time: object.is_not_end ? '至今' : object.edu_end_time
+        end_time: object.is_not_end ? '' : object.edu_end_time
       };
 
       console.log(option, 'project exp submit');
@@ -107,6 +115,9 @@ export class EducationExpFormTplComponent implements OnInit {
   
   isNotEndChange(required: boolean): void {
     if (required) {
+      this.validateForm.patchValue({
+        edu_end_time: null  // 毕业时间  至今
+      });
       this.validateForm.get('edu_end_time')!.clearValidators();
       this.validateForm.get('edu_end_time')!.markAsPristine();
     } else {

@@ -18,7 +18,7 @@
                         <!-- <td></td> -->
                         <td>
                             {{ data.title }}
-                            <span *ngIf="data.is_default === 1"
+                            <span *ngIf="data.is_default"
                                 class="px-sm py-xs bg-danger text-white text-xs border-radius-sm">默认</span>
                         </td>
                         <td class="text-666">
@@ -49,7 +49,7 @@
 
                                     <a class="mx-sm" [routerLink]="['/admin/user/resumes/edit', data.id]"><i nz-icon
                                             nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="修改简历"></i></a>
-                                    <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前简历" nzPopconfirmPlacement="bottom"
+                                    <a  *ngIf="!data.is_default" nz-popconfirm nzPopconfirmTitle="您是否确认删除当前简历" nzPopconfirmPlacement="bottom"
                                         (nzOnConfirm)="deleted(data)" (nzOnCancel)="cancel()" class="text-danger">
                                         <i nz-icon nzType="delete" nzTheme="outline" nz-tooltip nzTooltipTitle="删除简历"></i>
                                     </a>

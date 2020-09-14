@@ -34,8 +34,8 @@
                         <div class="text-sm">
                             <p>
                                 {{ education.start_time | date: 'yyyy.MM' }} - 
-                                <ng-container *ngIf="education.end_time !== '至今'">{{ education.end_time | date: 'yyyy.MM' }}</ng-container>
-                                <ng-container *ngIf="education.end_time === '至今'">至今</ng-container>
+                                <ng-container *ngIf="education.end_time">{{ education.end_time | date: 'yyyy.MM' }}</ng-container>
+                                <ng-container *ngIf="!education.end_time">至今</ng-container>
                                 <nz-divider nzType="vertical"></nz-divider>
                                 {{ education.major }}
                                 <nz-divider nzType="vertical"></nz-divider>

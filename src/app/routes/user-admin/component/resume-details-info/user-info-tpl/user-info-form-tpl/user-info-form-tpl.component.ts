@@ -6,6 +6,7 @@ import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-user-info-form-tpl',
@@ -44,6 +45,14 @@ export class UserInfoFormTplComponent implements OnInit {
       avatar: [null]
     });
 
+    this.validateForm.get('work_date').valueChanges.subscribe( date => {
+      if(date && this.validateForm.get('is_not_work').value) {
+        this.validateForm.patchValue({
+          is_not_work: false
+        });
+      }
+    })
+
     if(this.data) {
       this.setForm();
     }
@@ -67,6 +76,9 @@ export class UserInfoFormTplComponent implements OnInit {
 
   isNotWorkChange(required: boolean): void {
     if (required) {
+      this.validateForm.patchValue({
+        work_date: null  // 无工作经验，将参加工作时间置空
+      });
       this.validateForm.get('work_date')!.clearValidators();
       this.validateForm.get('work_date')!.markAsPristine();
     } else {
@@ -88,13 +100,17 @@ export class UserInfoFormTplComponent implements OnInit {
         let userInfo:FormData = new FormData();
         const object = this.validateForm.value;
         for (const key in object) {
-          if(object[key]) {
             if(key === 'registered_residence') {
               userInfo.append('registered_province_id', object[key][0]);
               userInfo.append('registered_city_id', object[key][1]);
             }else if(key === 'address_city') {
               userInfo.append('work_province_id', object[key][0]);
               userInfo.append('work_city_id', object[key][1]);
+            } else if (key === 'work_date') {
+              const work_date:string = object['is_not_work'] ? '' : object[key];
+              userInfo.append('work_date', work_date);
+            }else if(key === 'is_not_work') {
+              continue;
             } else if(key === 'avatar') {
               if(typeof object[key] === 'string') {
                 continue
@@ -104,9 +120,6 @@ export class UserInfoFormTplComponent implements OnInit {
             } else {
               userInfo.append(key, object[key]);
             }
-          }else {
-            continue;
-          }
         }
 
         this.settingService.post(`/v1/web/user/resume_info/${this.data.id}`, userInfo).subscribe((res:ApiData) => {
