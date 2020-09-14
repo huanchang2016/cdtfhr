@@ -136,8 +136,12 @@ export class ResumeListComponent implements OnInit {
   deleted(data:any) {
     console.log('deleted data', data);
     this.settingService.delete(`/v1/web/user/resume/${data.id}`).subscribe((res:ApiData) => {
-      this.list = this.list.filter(v => v.id !== data.id);
-      this.msg.success(res.message);
+      if(res.code === 200) {
+        this.list = this.list.filter(v => v.id !== data.id);
+        this.msg.success(res.message);
+      }else {
+        this.msg.error(res.message);
+      }
     });
   }
 

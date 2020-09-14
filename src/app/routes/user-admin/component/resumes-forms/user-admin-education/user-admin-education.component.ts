@@ -111,7 +111,7 @@ export class UserAdminEducationComponent implements OnInit {
           major: v.edu_major,
           education_id: v.edu_record,
           start_time: v.edu_start_time,
-          end_time: v.is_not_end ? '至今' : v.edu_end_time
+          end_time: v.is_not_end ? '' : v.edu_end_time
         }
       });
       const option = Object.assign({edu}, { resume_id: this.resumeUserInfo.id });
