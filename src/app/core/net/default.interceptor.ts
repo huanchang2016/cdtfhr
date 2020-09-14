@@ -131,7 +131,7 @@ export class DefaultInterceptor implements HttpInterceptor {
       newReq.headers = newReq.headers.set('Authorization', 'Bearer '+ token);
     }
     return next.handle(newReq).pipe(
-        retry(3),
+        retry(1),
         mergeMap((event: any) => {
             // 允许统一对请求错误处理
             if (event instanceof HttpResponseBase) {
