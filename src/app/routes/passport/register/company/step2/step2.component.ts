@@ -61,7 +61,7 @@ export class Step2Component implements OnChanges, OnInit {
 
     });
 
-    if(this.companyInfo) {
+    if(this.companyInfo && this.companyInfo.name) {
       this.resetForm();
     }
     
@@ -105,7 +105,7 @@ export class Step2Component implements OnChanges, OnInit {
       obj.append('email', value.user_email ? value.user_email : '');
 
       this.loading = true;
-      if(this.companyInfo) {
+      if(this.companyInfo && this.companyInfo.name) {
         this.editInfo(obj);
       }else {
         this.createInfo(obj);

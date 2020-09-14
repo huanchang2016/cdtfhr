@@ -25,7 +25,7 @@ export class ComAuthenticationGuard implements CanActivate {
         return true;
       }else {
         if(!companyInfo.name || companyInfo.status === 2) {
-          this.router.navigateByUrl('/passport/register/company?tab=1');
+          this.router.navigateByUrl('/passport/register/company');
           return false; // 未填写资料，或者审核未通过时，需要重新填写资料
         }
         return companyInfo.status === 1;
@@ -38,7 +38,7 @@ export class ComAuthenticationGuard implements CanActivate {
           return true;
         }else {
           if(!data.name || data.status === 2) {
-            this.router.navigateByUrl('/passport/register/company?tab=1');
+            this.router.navigateByUrl('/passport/register/company');
             return false; // 未填写资料，或者审核未通过时，需要重新填写资料
           }
           return data.status === 1;
