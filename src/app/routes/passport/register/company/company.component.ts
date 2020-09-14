@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferService } from './transfer.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyDataService } from 'src/app/routes/company-admin/service/company-data.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class CompanyRegisterComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private companyDataService: CompanyDataService,
     public transferSrv: TransferService
   ) {
@@ -31,24 +32,37 @@ export class CompanyRegisterComponent implements OnInit {
   }
 
   getDataInfo():void {
-    this.companyDataService.getProfile().then(data => {
-      console.log('company AuthenticationGuard get Data', data);
-      if(data) {
-        this.companyInfo = data;
-        if(this.companyInfo.status === 0) {
-          this.transferSrv.step = 2;
-        }else {
-          this.transferSrv.step = 1;
-        }
+
+    if(this.companyDataService.companyInfo) {
+      this.companyInfo = this.companyDataService.companyInfo;
+      if(this.companyInfo.status === 0) {
+        this.transferSrv.step = 2;
+      }if(this.companyInfo.status === 1) {
+        this.router.navigateByUrl('/admin/company');
       }else {
         this.transferSrv.step = 1;
       }
-    })
+    }else {
+      this.companyDataService.getProfile().then(data => {
+        if(data) {
+          this.companyInfo = {...data};
+          if(this.companyInfo.status === 0) {
+            this.transferSrv.step = 2;
+          }if(this.companyInfo.status === 1) {
+            this.router.navigateByUrl('/admin/company');
+          }else {
+            this.transferSrv.step = 1;
+          }
+        }else {
+          this.transferSrv.step = 1;
+        }
+      })
+    }
   }
 
   companyInfoChange(data:any):void {
     if(data) {
-      this.companyInfo = data;
+      this.companyInfo = {...data};
       if(this.companyInfo.status === 0) {
         this.transferSrv.step = 2;
       }else {

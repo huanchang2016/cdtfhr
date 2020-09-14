@@ -32,9 +32,11 @@ export class Step2Component implements OnChanges, OnInit {
   }
 
   ngOnChanges():void {
-    if(this.companyInfo && this.validateForm) {
-      this.resetForm();
-    }
+    // console.log(22222222222222222, this.companyInfo, this.validateForm)
+    // if(this.companyInfo && this.validateForm) {
+    //   console.log(11111111111)
+    //   this.resetForm();
+    // }
   }
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class Step2Component implements OnChanges, OnInit {
       user_email: [null, Validators.email ]
 
     });
+
+    if(this.companyInfo) {
+      this.resetForm();
+    }
     
   }
 
@@ -95,8 +101,8 @@ export class Step2Component implements OnChanges, OnInit {
       obj.append('full_name', value.user_name);
       obj.append('phone', value.user_phone);
       obj.append('verify_code', value.check_number);
-      obj.append('telephone', value.zj_tel);
-      obj.append('email', value.user_email);
+      obj.append('telephone', value.zj_tel ? value.zj_tel : '');
+      obj.append('email', value.user_email ? value.user_email : '');
 
       this.loading = true;
       if(this.companyInfo) {
@@ -112,7 +118,7 @@ export class Step2Component implements OnChanges, OnInit {
         this.loading = false;
         // 资料填写后，直接跳转到下一步，进行公司信息展示
         this.companyInfoChange.emit(res.data);
-        ++this.transferSrv.step;
+        // ++this.transferSrv.step;
       }, err => this.loading = false);
   }
   editInfo(obj:any):void {
@@ -121,7 +127,7 @@ export class Step2Component implements OnChanges, OnInit {
         this.loading = false;
         // 资料填写后，直接跳转到下一步，进行公司信息展示
         this.companyInfoChange.emit(res.data);
-        ++this.transferSrv.step;
+        // ++this.transferSrv.step;
       }, err => this.loading = false);
   }
 

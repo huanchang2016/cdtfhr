@@ -1,4 +1,4 @@
-<nz-alert *ngIf="companyInfo && companyInfo.status === 2" [nzType]="'error'" [nzMessage]="companyInfo.note" [nzShowIcon]="true" class="mb-sm"></nz-alert>
+<nz-alert *ngIf="companyInfo && companyInfo.status === 2" [nzType]="'error'" [nzMessage]="companyInfo.note ? companyInfo.note : '审核未通过，请重新填写'" [nzShowIcon]="true" class="mb-sm"></nz-alert>
 <app-sub-title-show [title]="'公司信息'"></app-sub-title-show>
 <div class="form-box">
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
