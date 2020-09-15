@@ -168,6 +168,7 @@ export class RecommendPositionsComponent implements OnChanges {
     const resumeModal = this.modal.create({
       nzTitle: '选择投递简历',
       nzContent: ResumesListShowCComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -196,6 +197,7 @@ export class RecommendPositionsComponent implements OnChanges {
     this.loginModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -219,6 +221,7 @@ export class RecommendPositionsComponent implements OnChanges {
     this.successModal = this.modal.create({
       nzTitle: null,
       nzContent: PostDeliverySuccessComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -242,6 +245,7 @@ export class RecommendPositionsComponent implements OnChanges {
     this.userCelebrityModal = this.modal.create({
       nzTitle: null,
       nzContent: CelebrityNotPassComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,

@@ -16,7 +16,7 @@
             
             <app-user-admin-info-form-c #userInfoTpl></app-user-admin-info-form-c>
 
-            <div class="next-steps__btn mt-lg"><button (click)="submitInfo()" nzBlock nz-button nzType="primary" nzSize="large">下一步</button></div>
+            <div class="next-steps__btn mt-lg"><button (click)="submitInfo()" [nzLoading]="submitLoading" nzBlock nz-button nzType="primary" nzSize="large">下一步</button></div>
 
           </ng-container>
 

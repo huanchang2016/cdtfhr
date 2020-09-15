@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
+import { CelebrityNotPassComponent } from '../celebrity-not-pass/celebrity-not-pass.component';
 
 @Component({
   selector: 'app-resumes-list-show-c',
@@ -24,6 +25,7 @@ export class ResumesListShowCComponent implements OnInit {
   constructor(
     private modal: NzModalRef,
     private fb: FormBuilder,
+    private modalSrv: NzModalService,
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
     private userDataService: UserDataService
@@ -41,7 +43,6 @@ export class ResumesListShowCComponent implements OnInit {
     this.validateForm = this.fb.group({
       resume_id: [null, [Validators.required]]
     });
-
   }
 
   submitForm():any {
@@ -74,13 +75,38 @@ export class ResumesListShowCComponent implements OnInit {
           // 刷新简历投递记录
           this.userDataService.getProfile().then();
           this.destroyModal({type: 'success' });
+        }else if(res.code === 999) { // 未通过实名认证
+          this.celebrityNotPass();
         }else {
           this.msg.warning(res.message);
         }
       }, err => this.loading = false)
-
     }
-
+  }
+  
+  userCelebrityModal:any = null;
+  // 未通过实名认证
+  celebrityNotPass() {
+    this.userCelebrityModal = this.modalSrv.create({
+      nzTitle: null,
+      nzContent: CelebrityNotPassComponent,
+      nzMaskClosable: false,
+      nzWidth: 455,
+      nzStyle: { top: '250px' },
+      // nzViewContainerRef: this.viewContainerRef,
+      // // nzGetContainer: () => document.body,
+      
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    // const instance = this.userCelebrityModal.getContentComponent();
+    // this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    this.userCelebrityModal.afterClose.subscribe( result => {
+      if(result && result.type === 'success') {
+        // nothing to do .
+      }
+    });
   }
 
   cancel(e: MouseEvent): void {

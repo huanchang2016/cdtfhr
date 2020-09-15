@@ -133,7 +133,6 @@ export class UserInfoFormTplComponent implements OnInit {
             this.msg.error(res.message);
           }
         }, err => this.loading = false)
-
     }
     
   }

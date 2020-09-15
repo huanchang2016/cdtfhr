@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
+import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
 
 @Component({
   selector: 'app-user-intension-form-tpl',
@@ -21,7 +22,8 @@ export class UserIntensionFormTplComponent implements OnInit {
     private modal: NzModalRef,
     private fb: FormBuilder,
     public globalService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private userDataService: UserDataService
   ) {}
 
 
@@ -86,8 +88,13 @@ export class UserIntensionFormTplComponent implements OnInit {
       this.globalService.post(`/v1/web/user/resume_target/${this.data.id}`, option).subscribe((res:ApiData) => {
         console.log(res);
         this.loading = false;
-        this.destroyModal(res.data);
-        this.msg.success('修改成功');
+        if(res.code === 200) {
+          this.destroyModal(res.data);
+          this.userDataService.getProfile().then();
+          this.msg.success('修改成功');
+        }else {
+          this.msg.error(res.message);
+        }
       }, err => this.loading = false)
     }
     

@@ -39,6 +39,7 @@ import { OperRemarkListTplComponent } from './component/resume-manage/resume-ope
 import { OperDeliverListTplComponent } from './component/resume-manage/resume-oper-tpl/oper-deliver-list-tpl/oper-deliver-list-tpl.component';
 import { ThreePositionTypeCascaderComponent } from './component/forms/three-position-type-cascader/three-position-type-cascader.component';
 import { ResumesListShowCComponent } from './component/position-apply/resumes-list-show-c/resumes-list-show-c.component';
+import { DatePickerMonthBirthdyComponent } from './component/forms/date-picker-month-birthdy/date-picker-month-birthdy.component';
 
 // #region third libs
 
@@ -54,6 +55,7 @@ const COMPONENTS = [
   SubTitleShowComponent,
   // 复用表单组件
   DatePickerMonthComponent,
+  DatePickerMonthBirthdyComponent,
   DatePickerDateComponent,
   ThreeStageCascaderComponent,
   ThreePositionTypeCascaderComponent,

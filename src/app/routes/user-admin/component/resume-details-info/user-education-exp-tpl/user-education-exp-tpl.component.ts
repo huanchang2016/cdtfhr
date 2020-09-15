@@ -4,6 +4,7 @@ import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { EducationExpFormTplComponent } from './education-exp-form-tpl/education-exp-form-tpl.component';
+import { UserDataService } from '../../../service/user-data.service';
 
 @Component({
   selector: 'app-user-education-exp-tpl',
@@ -19,7 +20,8 @@ export class UserEducationExpTplComponent implements OnInit {
   constructor(
     private modal: NzModalService,
     private globalService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private userDataService: UserDataService
     // private viewContainerRef: ViewContainerRef
   ) {}
 
@@ -39,6 +41,9 @@ export class UserEducationExpTplComponent implements OnInit {
     this.globalService.delete(`/v1/web/user/resume_edu/${data.id}`).subscribe((res: ApiData) => {
       this.msg.success(res.message);
       this.list = this.list.filter( v => v.id !== data.id);
+      if(this.list.length === 0) {
+        this.userDataService.getProfile().then();
+      }
     });
   }
   cancel():void {}
@@ -72,6 +77,9 @@ export class UserEducationExpTplComponent implements OnInit {
           this.list = this.list.map( v => v.id === data.data.id ? data.data : v);
         }else {
           this.list.push(data.data);
+          if(this.list.length === 1) {
+            this.userDataService.getProfile().then();
+          }
         }
       }
     });

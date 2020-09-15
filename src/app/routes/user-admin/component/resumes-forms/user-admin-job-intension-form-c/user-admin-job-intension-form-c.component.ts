@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { UserDataService } from '../../../service/user-data.service';
 
 @Component({
   selector: 'app-user-admin-job-intension-form-c',
@@ -21,7 +22,8 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public globalService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -56,8 +58,13 @@ export class UserAdminJobIntensionFormCComponent implements OnInit {
       this.submitLoading = true;
       this.globalService.post('/v1/web/user/resume/all_work/intent', option).subscribe((res:ApiData) => {
         this.submitLoading = false;
-        this.msg.success(res.message);
-        this.steps('next');
+        if(res.code === 200) {
+          this.msg.success(res.message);
+          this.userDataService.getProfile().then();
+          this.steps('next');
+        }else {
+          this.msg.error(res.message);
+        }
       }, err => this.submitLoading = false)
     }
     

@@ -16,8 +16,8 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzRequired nzFor="birthday">出生日期</nz-form-label>
-        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期">
-            <app-date-picker-month formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-month>
+        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期，年龄必须在16岁以上">
+            <app-date-picker-month-birthdy formControlName="birthday" [placeholder]="'年龄必须在16岁以上'" [size]="'large'"></app-date-picker-month-birthdy>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>

@@ -80,6 +80,7 @@ export class CollectResumeListCComponent implements OnInit {
       if(res.code === 200) {
         this.msg.success('删除成功');
         this.listOfData = this.listOfData.filter( v => v.id !== id);
+        this.getDataList();
       }
     })
   }

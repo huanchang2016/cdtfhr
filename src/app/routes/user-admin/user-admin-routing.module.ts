@@ -37,19 +37,19 @@ const routes: Routes = [
       {
         path: 'resumes',
         canActivate: [
-          AuthenticationGuard
+          // AuthenticationGuard
         ], component: ResumeListComponent
       },
       {
         path: 'resumes/add',
         canActivate: [
-          AuthenticationGuard
+          // AuthenticationGuard
         ], component: ResumeCreateComponent
       },
       {
         path: 'resumes/edit/:id',
         canActivate: [
-          AuthenticationGuard
+          // AuthenticationGuard
         ], component: ResumeEditComponent
       },
       {

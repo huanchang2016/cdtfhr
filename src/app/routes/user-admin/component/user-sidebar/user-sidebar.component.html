@@ -10,9 +10,9 @@
                 <div class="user_logo_icon text-white"><i nz-icon nzType="user" nzTheme="outline"></i></div>
             </ng-template>
         </div>
-        <div class="my-sm refer-info_box text-center" *ngIf="total !== 0">
+        <div class="my-sm refer-info_box text-center" *ngIf="userDataService.userProfile?.complete === 0 || userDataService.userProfile?.status === 0">
             <span class="text-danger mr-sm"><i nz-icon nzType="warning" nzTheme="outline"></i></span>
-            <span class="text-grey text-xs"><strong class="text-primary">{{ total }}</strong> 条信息需要完善</span>
+            <span class="text-grey text-xs"><strong class="text-primary">{{ 2 - userDataService.userProfile.complete - (userDataService.userProfile.status !== 1 ? 0 : 1) }}</strong> 条信息需要完善</span>
         </div>
     </div>
 
@@ -25,14 +25,14 @@
                         <a [routerLink]="['/admin/user/home']">个人主页</a>
                     </li>
                     <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
-                        <a [routerLink]="['/admin/user/certification']">实名认证 <span *ngIf="userDataService.userProfile?.status === 0" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
+                        <a [routerLink]="['/admin/user/certification']">实名认证 <span *ngIf="userDataService.userProfile?.status !== 1" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
                     </li>
                     <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="userDataService.userProfile?.status === 1">
                         <a [routerLink]="['/admin/user/bind']">账号绑定</a>
                     </li>
                 </ul>
             </li>
-            <li nz-submenu nzTitle="简历管理" nzOpen *ngIf="userDataService.userProfile?.status === 1">
+            <li nz-submenu nzTitle="简历管理" nzOpen>
                 <ul>
                     <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
                         <a [routerLink]="['/admin/user/resumes']">我的简历 <span *ngIf="userDataService.userProfile?.complete === 0" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>

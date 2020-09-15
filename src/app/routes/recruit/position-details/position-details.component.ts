@@ -96,21 +96,16 @@ export class PositionDetailsComponent implements OnInit {
     if(this.userDataService.userProfile) {
       if(this.userDataService.userProfile.status !== 1) {
         // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user xxxxxxxxxxxx')
         this.celebrityNotPass();
       }else {
-        console.log('yi denglu ,  jinru toudi jianli liucheng');
         this.chooseResumePost();
       }
     }else {
       this.userDataService.getProfile().then( data => {
         if(data.status !== 1) {
           // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user uyyyyyyyyyyyyyyyyyy')
-
           this.celebrityNotPass();
         }else {
-          console.log('yi denglu ,  jinru toudi jianli liucheng..............');
           this.chooseResumePost();
         }
       })
@@ -122,6 +117,7 @@ export class PositionDetailsComponent implements OnInit {
     const resumeModal = this.modal.create({
       nzTitle: '选择投递简历',
       nzContent: ResumesListShowCComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -149,12 +145,13 @@ export class PositionDetailsComponent implements OnInit {
     this.loginModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
       // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = this.loginModal.getContentComponent();
@@ -174,12 +171,13 @@ export class PositionDetailsComponent implements OnInit {
     this.successModal = this.modal.create({
       nzTitle: null,
       nzContent: PostDeliverySuccessComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
       // // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = this.successModal.getContentComponent();
@@ -198,16 +196,17 @@ export class PositionDetailsComponent implements OnInit {
     this.userCelebrityModal = this.modal.create({
       nzTitle: null,
       nzContent: CelebrityNotPassComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
       // // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    const instance = this.userCelebrityModal.getContentComponent();
-    this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // const instance = this.userCelebrityModal.getContentComponent();
+    // this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     this.userCelebrityModal.afterClose.subscribe( result => {
       if(result && result.type === 'success') {

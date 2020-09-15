@@ -66,6 +66,7 @@ export class UserAdminCertificationComponent implements OnInit {
   }
 
   checkStepStatus(data:any):void {
+    console.log('data', data)
     if(data.status === 1) {
       this.step = 2;
       this.status = 'finish';
@@ -73,7 +74,7 @@ export class UserAdminCertificationComponent implements OnInit {
       this.step = 0;
       this.status = 'error';
     }else {
-      this.step = 1;
+      this.step = 0;
       this.status = 'process';
     }
   }

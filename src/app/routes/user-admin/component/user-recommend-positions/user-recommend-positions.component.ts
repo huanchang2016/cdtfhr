@@ -108,6 +108,7 @@ export class UserRecommendPositionsComponent implements OnInit {
     const resumeModal = this.modal.create({
       nzTitle: '选择投递简历',
       nzContent: ResumesListShowCComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -140,6 +141,7 @@ export class UserRecommendPositionsComponent implements OnInit {
     this.successModal = this.modal.create({
       nzTitle: null,
       nzContent: PostDeliverySuccessComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,

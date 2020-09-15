@@ -1,5 +1,5 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-    <nz-form-item *ngIf="!loadingData && resumes.length !== 0;else notResumes">
+    <nz-form-item *ngIf="!loadingData && resumes.length !== 0">
         <!-- <nz-form-label [nzSpan]="5" nzRequired>培训机构</nz-form-label> -->
         <nz-form-control nzErrorTip="请选择您的简历">
             <!-- <input nz-input  placeholder="请填写培训机构名称" type="text" /> -->
@@ -12,11 +12,16 @@
               </nz-radio-group>
         </nz-form-control>
     </nz-form-item>
-    <ng-template #notResumes>
+    <ng-container *ngIf="!loadingData && resumes.length === 0">
+        <div class="text-center p-lg">
+            无简历信息
+        </div>
+    </ng-container>
+    <ng-container *ngIf="loadingData && resumes.length === 0">
         <div class="text-center p-lg">
             <nz-spin nzSimple></nz-spin>
         </div>
-    </ng-template>
+    </ng-container>
     
     <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
         <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取消</button>

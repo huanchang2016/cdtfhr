@@ -27,10 +27,10 @@ export class OperCollectModalComponent implements OnInit {
     this.destroyModal();
   }
 
-  type:number = null;
+  type:number = -1;
 
   handleOk() {
-    if(!this.type) {
+    if(this.type === -1) {
       this.msg.warning('未选择收藏夹');
       return;
     }

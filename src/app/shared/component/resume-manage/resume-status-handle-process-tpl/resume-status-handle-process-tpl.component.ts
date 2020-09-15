@@ -87,6 +87,7 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '通知面试',
       nzContent: InterviewMessageSendTplComponent,
+      nzMaskClosable: false,
       // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzComponentParams: {

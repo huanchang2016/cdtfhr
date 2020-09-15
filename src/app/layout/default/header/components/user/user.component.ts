@@ -33,6 +33,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.companyModal = this.modal.create({
       nzTitle: null,
       nzContent: CompanyLoginComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
@@ -51,6 +52,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
+      nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
       // nzViewContainerRef: this.viewContainerRef,
