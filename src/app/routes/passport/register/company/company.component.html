@@ -1,19 +1,29 @@
 <div class="register-box">
 
+  <ng-container *ngIf="transferSrv.step > -1; else loadiStepsTpl">
     <nz-steps [nzCurrent]="transferSrv.step" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
-        <nz-step nzTitle="账号信息"></nz-step>
-        <nz-step nzTitle="公司信息"></nz-step>
-        <nz-step nzTitle="等待审核"></nz-step>
-        <nz-step nzTitle="注册成功"></nz-step>
-      </nz-steps>
-  
-      <div class="steps-content">
-          
-        <app-step1 *ngIf="transferSrv.step == 0"></app-step1>
-        <app-step2 *ngIf="transferSrv.step == 1" [companyInfo]="companyInfo" (companyInfoChange)="companyInfoChange($event)"></app-step2>
-        <app-step3 *ngIf="transferSrv.step == 2" [companyInfo]="companyInfo"></app-step3>
-        <app-step4 *ngIf="transferSrv.step == 3"></app-step4>
-      </div>
+      <nz-step nzTitle="账号信息"></nz-step>
+      <nz-step nzTitle="公司信息"></nz-step>
+      <nz-step nzTitle="等待审核"></nz-step>
+      <nz-step nzTitle="注册成功"></nz-step>
+    </nz-steps>
+
+    <div class="steps-content">
+
+      <app-step1 *ngIf="transferSrv.step == 0"></app-step1>
+      <app-step2 *ngIf="transferSrv.step == 1" [companyInfo]="companyInfo"
+        (companyInfoChange)="companyInfoChange($event)"></app-step2>
+      <app-step3 *ngIf="transferSrv.step == 2" [companyInfo]="companyInfo"></app-step3>
+      <app-step4 *ngIf="transferSrv.step == 3"></app-step4>
+    </div>
+  </ng-container>
+
+  <ng-template #loadiStepsTpl>
+    <div class="text-center">
+      <nz-spin nzSimple [nzIndicator]="indicatorTemplate"> </nz-spin>
+    </div>
+    <ng-template #indicatorTemplate><i style="font-size: 36px;" nz-icon nzType="loading"></i></ng-template>
+  </ng-template>
 </div>
 
 
