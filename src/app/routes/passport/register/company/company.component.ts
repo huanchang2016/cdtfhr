@@ -33,6 +33,8 @@ export class CompanyRegisterComponent implements OnInit {
   ngOnInit(): void {
     if(this.settingService.getToken()) {
       this.getDataInfo();
+    }else {
+      this.transferSrv.step = 0;
     }
   }
 
