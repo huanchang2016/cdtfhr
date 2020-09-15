@@ -59,7 +59,7 @@ export class PositionListComponent implements OnInit {
     // Return a result when closed
     modal.afterClose.subscribe(result => {
       console.log('result', result);
-      if(result && this.searchOption.status === 1) {
+      if(result && this.tabIndex === 0) {
         this.search();
       }
     });

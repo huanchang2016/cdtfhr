@@ -4,6 +4,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
+import { CompanyDataService } from '../../../service/company-data.service';
 
 @Component({
   selector: 'app-position-form',
@@ -30,6 +31,7 @@ export class PositionFormComponent implements OnInit {
     private fb: FormBuilder,
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
+    private companyDataService: CompanyDataService,
     private modal: NzModalRef
   ) { }
 
@@ -121,6 +123,7 @@ export class PositionFormComponent implements OnInit {
       console.log(res);
       if(res.code === 200) {
         this.msg.success('添加成功');
+        this.companyDataService.getPositionConfig().then();
         this.destoryModal(res.data)
       }else {
         this.error = res.message;

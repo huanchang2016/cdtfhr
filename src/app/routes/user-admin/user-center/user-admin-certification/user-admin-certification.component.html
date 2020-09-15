@@ -1,76 +1,84 @@
 <div class="user-admin_content_body border-radius-sm bg-white p-md">
   <div class="steps_wrapper">
-    <nz-steps [nzCurrent]="step" nzSize="large" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
-      <nz-step [nzTitle]="'采集信息'"></nz-step>
-      <nz-step [nzTitle]="'信息审核'"></nz-step>
-      <nz-step [nzTitle]="'认证完成'"></nz-step>
+    <ng-container *ngIf="status; else loadingStatus">
+      <nz-steps [nzCurrent]="step" nzSize="large" [nzStatus]="status" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
+        <nz-step [nzTitle]="'采集信息'"></nz-step>
+        <nz-step [nzTitle]="'信息审核'"></nz-step>
+        <nz-step [nzTitle]="'认证完成'"></nz-step>
 
-    </nz-steps>
-    <div class="steps-content">
-      <div class="failed_status text-center text-danger text-md" *ngIf="userDataService.userProfile && userDataService.userProfile.status === 2">认证失败！请重新填写认证信息。</div>
-      <app-sub-title-show [title]="'实名认证'"></app-sub-title-show>
-      <div>
-        <ng-container *ngIf="step === 0">
-          <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzRequired nzFor="name">姓名</nz-form-label>
-              <nz-form-control [nzSpan]="18" nzErrorTip="请填写您的真实姓名">
-                <input nzSize="large" nz-input formControlName="name" id="name" placeholder="请填写您的真实姓名" />
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzFor="id_card" nzRequired>身份证</nz-form-label>
-              <nz-form-control [nzSpan]="18" nzErrorTip="请填写您的身份证号码，格式不正确">
-                <input nzSize="large" nz-input id="id_card" formControlName="id_card" placeholder="请填写您的身份证号码" />
-              </nz-form-control>
-            </nz-form-item>
+      </nz-steps>
+      <div class="steps-content">
+        <div class="failed_status text-center text-danger text-md" *ngIf="userDataService.userProfile && userDataService.userProfile.status === 2">认证失败！请重新填写认证信息。</div>
+        <app-sub-title-show [title]="'实名认证'"></app-sub-title-show>
+        <div>
+          <ng-container *ngIf="step === 0">
+            <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired nzFor="name">姓名</nz-form-label>
+                <nz-form-control [nzSpan]="18" nzErrorTip="请填写您的真实姓名">
+                  <input nzSize="large" nz-input formControlName="name" id="name" placeholder="请填写您的真实姓名" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="id_card" nzRequired>身份证</nz-form-label>
+                <nz-form-control [nzSpan]="18" nzErrorTip="请填写您的身份证号码，格式不正确">
+                  <input nzSize="large" nz-input id="id_card" formControlName="id_card" placeholder="请填写您的身份证号码" />
+                </nz-form-control>
+              </nz-form-item>
 
-            <nz-form-item nz-row>
-              <nz-form-control [nzSpan]="24" class="text-center">
-                <button class="submit-btn" nz-button nzType="primary" [nzLoading]="submitLoading">确认提交</button>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-        </ng-container>
+              <nz-form-item nz-row>
+                <nz-form-control [nzSpan]="24" class="text-center">
+                  <button class="submit-btn" nz-button nzType="primary" [nzLoading]="submitLoading">确认提交</button>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </ng-container>
 
-        <ng-container *ngIf="step === 1">
-          <form nz-form>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzRequired>姓名</nz-form-label>
-              <nz-form-control [nzSpan]="18">
-                <div class="show-text-input">{{ userDataService.userProfile.name }}</div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzRequired>身份证</nz-form-label>
-              <nz-form-control [nzSpan]="18">
-                <div class="show-text-input">{{ userDataService.userProfile.id_card }}</div>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-          <div class="warning-refer refer-box text-center text-lg px-lg">审核中，请耐心等待！</div>
-        </ng-container>
+          <ng-container *ngIf="step === 1">
+            <form nz-form>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>姓名</nz-form-label>
+                <nz-form-control [nzSpan]="18">
+                  <div class="show-text-input">{{ userDataService.userProfile.name }}</div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>身份证</nz-form-label>
+                <nz-form-control [nzSpan]="18">
+                  <div class="show-text-input">{{ userDataService.userProfile.id_card }}</div>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+            <div class="warning-refer refer-box text-center text-lg px-lg">审核中，请耐心等待！</div>
+          </ng-container>
 
-        <ng-container *ngIf="step === 2">
-          <form nz-form>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzRequired>姓名</nz-form-label>
-              <nz-form-control [nzSpan]="18">
-                <div class="show-text-input">{{ userDataService.userProfile.name }}</div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="6" nzRequired>身份证</nz-form-label>
-              <nz-form-control [nzSpan]="18">
-                <div class="show-text-input">{{ userDataService.userProfile.id_card }}</div>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-          <div class="refer-box text-primary text-center text-lg px-lg"><i class="text-lg" nz-icon nzType="check-circle" nzTheme="outline"></i> 您已完成实名认证</div>
-        </ng-container>
-        
+          <ng-container *ngIf="step === 2">
+            <form nz-form>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>姓名</nz-form-label>
+                <nz-form-control [nzSpan]="18">
+                  <div class="show-text-input">{{ userDataService.userProfile.name }}</div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>身份证</nz-form-label>
+                <nz-form-control [nzSpan]="18">
+                  <div class="show-text-input">{{ userDataService.userProfile.id_card }}</div>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+            <div class="refer-box text-primary text-center text-lg px-lg"><i class="text-lg" nz-icon nzType="check-circle" nzTheme="outline"></i> 您已完成实名认证</div>
+          </ng-container>
+          
+        </div>
       </div>
-    </div>
+    </ng-container>
+
+    <ng-template #loadingStatus>
+      <div class="text-center py-lg" style="line-height: 400px;">
+        <nz-spin nzSimple></nz-spin>
+      </div>
+    </ng-template>
   </div>
 
 </div>

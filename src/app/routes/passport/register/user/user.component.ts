@@ -4,7 +4,7 @@ import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
-import { GlobalSettingsService } from '@core';
+import { GlobalSettingsService, StartupService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
@@ -24,6 +24,7 @@ export class UserRegisterComponent implements OnInit {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private router: Router,
+    private startupSrv: StartupService,
     private settingService: GlobalSettingsService
   ) {
     this.settingService.setTitle('个人用户注册-天府菁英网');
@@ -60,9 +61,16 @@ export class UserRegisterComponent implements OnInit {
       this.settingService.post('/v1/web/register', this.validateForm.value).subscribe((res: ApiData) => {
         console.log(res, 'register');
         this.loading = false;
-        // 注册成功后，处理用户数据及token，并前往实名认证页面 完成实名认证
-        this.settingService.setToken(res.data);
-        this.router.navigateByUrl('/admin/user/certification');
+        if(res.code === 200) {
+          // 注册成功后，处理用户数据及token，并前往实名认证页面 完成实名认证
+          this.settingService.setToken(res.data);
+          this.startupSrv.load().then(_ => {
+            this.router.navigateByUrl('/admin/user/certification');
+          });
+        }else {
+          this.msg.error(res.message);
+        }
+        
       }, err => this.loading = false)
     }
   }

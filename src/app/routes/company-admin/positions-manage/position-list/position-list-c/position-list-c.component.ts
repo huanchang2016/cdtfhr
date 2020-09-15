@@ -5,6 +5,7 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CompanyDataService } from '../../../service/company-data.service';
 
 @Component({
   selector: 'app-position-list-c',
@@ -36,6 +37,7 @@ export class PositionListCComponent implements OnChanges {
   constructor(
     private modal: NzModalService,
     private msg: NzMessageService,
+    private companyDataService: CompanyDataService,
     private settingService: GlobalSettingsService
     // private viewContainerRef: ViewContainerRef
   ) {
@@ -216,6 +218,7 @@ export class PositionListCComponent implements OnChanges {
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
+        this.companyDataService.getPositionConfig().then();
       }
     }, err => this.loading = false);
   }
@@ -229,6 +232,7 @@ export class PositionListCComponent implements OnChanges {
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
+        this.companyDataService.getPositionConfig().then();
       }
     });
   }
@@ -252,6 +256,7 @@ export class PositionListCComponent implements OnChanges {
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
+        this.companyDataService.getPositionConfig().then();
       }
     });
   }

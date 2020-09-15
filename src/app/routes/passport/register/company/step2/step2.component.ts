@@ -116,18 +116,27 @@ export class Step2Component implements OnChanges, OnInit {
     this.settingService.post('/v1/web/com/info', obj).subscribe((res: ApiData) => {
         console.log(res, '/v1/web/com/info company info create  post');
         this.loading = false;
-        // 资料填写后，直接跳转到下一步，进行公司信息展示
-        this.companyInfoChange.emit(res.data);
-        // ++this.transferSrv.step;
+        if(res.code === 200) {
+          // 资料填写后，直接跳转到下一步，进行公司信息展示
+          this.companyInfoChange.emit(res.data);
+          // ++this.transferSrv.step;
+        } else {
+          this.msg.error(res.message);
+        }
+        
       }, err => this.loading = false);
   }
   editInfo(obj:any):void {
     this.settingService.post('/v1/web/com/update_info', obj).subscribe((res: ApiData) => {
         console.log(res, '/v1/web/com/info company info edit    patch');
         this.loading = false;
-        // 资料填写后，直接跳转到下一步，进行公司信息展示
-        this.companyInfoChange.emit(res.data);
-        // ++this.transferSrv.step;
+        if(res.code === 200) {
+          // 资料填写后，直接跳转到下一步，进行公司信息展示
+          this.companyInfoChange.emit(res.data);
+          // ++this.transferSrv.step;
+        } else {
+          this.msg.error(res.message);
+        }
       }, err => this.loading = false);
   }
 
