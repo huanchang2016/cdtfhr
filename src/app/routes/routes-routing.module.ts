@@ -53,7 +53,9 @@ const routes: Routes = [
       path: 'fullscreen',
       component: LayoutFullScreenComponent,
       children: [
-        { path: 'resume', loadChildren: () => import('./resume-view/resume-view.module').then( m => m.ResumeViewModule )}
+        { path: 'resume',
+        canActivate: [LoginAccountGuard],
+        loadChildren: () => import('./resume-view/resume-view.module').then( m => m.ResumeViewModule )}
       ]
   },
 

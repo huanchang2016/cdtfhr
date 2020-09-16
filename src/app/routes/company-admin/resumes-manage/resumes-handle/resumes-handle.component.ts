@@ -50,7 +50,7 @@ export class ResumesHandleComponent implements OnInit {
     const option:any = {
       page: pageIndex,
       limit: page_size,
-      status: this.status === 'ing' ? 1 : 0,
+      status: this.status === 'ing' ? 1 : 2,
       name: this.search_text
     }
 

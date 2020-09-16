@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, UrlTree } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -10,6 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class LoginAccountGuard implements CanActivate {
   constructor(
     private msg: NzMessageService,
+    private router: Router,
     private settingService: GlobalSettingsService
   ) { }
   
@@ -25,6 +26,7 @@ export class LoginAccountGuard implements CanActivate {
     }else {
       // this.router.navigateByUrl('/passport/register/company?tab=1');
       this.msg.warning('您需要登录后才可以查看该页面内容');
+      this.router.navigateByUrl('/passport/login');
       return false;
     }
   }

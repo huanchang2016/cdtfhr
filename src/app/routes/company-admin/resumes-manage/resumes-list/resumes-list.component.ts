@@ -183,12 +183,17 @@ export class ResumesListComponent implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params, 'params');
-    
+    console.log(params, 'params xxxxxxxxxxxxxx');
+    if(this.searchConfigs.name) {
+      this.getDataList();
+    }
   }
 
   sortChange():void {
     console.log('%csort type changed!','color: #f00', this.searchOptions);
+    if(this.searchConfigs.name) {
+      this.getDataList();
+    }
   }
 
   historyClick(data:any):void {

@@ -126,9 +126,9 @@ export class LoginComponent implements OnInit {
       this.loading = false;
       console.log(res, 'login ');
       if(res.code === 200) {
-      // 登录后， 重新获取用户信息
+        // 登录后， 重新获取用户信息
+        this.settingService.setToken(res.data);
         this.startupSrv.load().then(_ => {
-          this.settingService.setToken(res.data);
           this.router.navigateByUrl('/admin/company');
         })
       }else {

@@ -87,7 +87,8 @@ export class AccountInfoComponent implements OnInit {
   }
 
   updateAccountInfo():void {
-    console.log('updateAccountInfo 更新账户信息')
+    console.log('updateAccountInfo 更新账户信息');
+    this.getDataInfo();
   }
   
 }

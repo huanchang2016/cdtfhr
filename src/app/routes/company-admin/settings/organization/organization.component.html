@@ -68,7 +68,7 @@
             </div>
 
             <div nz-row class="mb-sm" class="is_edit_box">
-                <a *ngIf="companyInfo.status === 1" class="edit_btn text-md"
+                <a *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn text-md"
                     (click)="editLogo(tplLogoTitle, tplLogoContent, tplLogoFooter)"><i nz-icon nzType="edit"
                         nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司LOGO<span class="text-danger">*</span></div>
@@ -78,7 +78,7 @@
             </div>
 
             <div nz-row class="mb-sm" class="is_edit_box">
-                <a *ngIf="companyInfo.status === 1" class="edit_btn text-md"
+                <a *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn text-md"
                     (click)="editDescription(tplDescriptionTitle, tplDescriptionContent, tplDescriptionFooter)"><i
                         nz-icon nzType="edit" nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司简介<span class="text-danger">*</span></div>

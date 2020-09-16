@@ -53,6 +53,10 @@ export class OrganizationComponent implements OnInit {
 
   editLogo(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     console.log('edit company Info logo');
+    if(!this.companyInfo.is_super) {
+      this.msg.warning('无权限操作');
+      return;
+    }
     this.validateLogoForm.patchValue({
       logo: this.companyInfo.logo
     });
@@ -77,7 +81,7 @@ export class OrganizationComponent implements OnInit {
     }
 
     console.log(this.validateLogoForm, 'logo');
-    if(this.validateLogoForm.valid) {
+    if(this.validateLogoForm.valid && this.companyInfo.is_super) {
       this.logoSubmitLoading = true;
       let obj:FormData = new FormData();
       obj.append('logo', this.validateLogoForm.get('logo').value);
@@ -97,6 +101,10 @@ export class OrganizationComponent implements OnInit {
 
   editDescription(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     console.log('edit company Info description');
+    if(!this.companyInfo.is_super) {
+      this.msg.warning('无权限操作');
+      return;
+    }
     this.validateDescForm.patchValue({
       description: this.companyInfo.description
     });
@@ -122,7 +130,7 @@ export class OrganizationComponent implements OnInit {
     }
 
     console.log(this.validateDescForm, 'description');
-    if(this.validateDescForm.valid) {
+    if(this.validateDescForm.valid && this.companyInfo.is_super) {
       this.descriptionSubmitLoading = true;
       this.settingService.post('/v1/web/com/update_info_desc', this.validateDescForm.value).subscribe((res: ApiData) => {
         this.descriptionSubmitLoading = false;
