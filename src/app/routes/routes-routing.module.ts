@@ -44,19 +44,25 @@ const routes: Routes = [
       // 业务子模块
       {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then( m => m.AboutModule)
+        loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
       }
     ]
   },
   // 全屏布局
   {
-      path: 'fullscreen',
-      component: LayoutFullScreenComponent,
-      children: [
-        { path: 'resume',
+    path: 'fullscreen',
+    component: LayoutFullScreenComponent,
+    children: [
+      {
+        path: 'resume',
         canActivate: [LoginAccountGuard],
-        loadChildren: () => import('./resume-view/resume-view.module').then( m => m.ResumeViewModule )}
-      ]
+        loadChildren: () => import('./resume-view/resume-view.module').then(m => m.ResumeViewModule)
+      },
+      {
+        path: 'exception',
+        loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule)
+      }
+    ]
   },
 
   // user admin
@@ -73,22 +79,23 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
-      { path: '', loadChildren: () => import('./passport/passport.module').then( m => m.PassportModule ) }
+      { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule) }
     ]
   },
   // 单页不包裹Layout
-  { path: '**', redirectTo: 'exception/404' },
+
+  { path: '**', redirectTo: 'fullscreen/exception/404' },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       routes, {
-        useHash: environment.useHash,
-        // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
-        // Pls refer to https://ng-alain.com/components/reuse-tab
-        scrollPositionRestoration: 'top',
-      }
+      useHash: environment.useHash,
+      // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
+      // Pls refer to https://ng-alain.com/components/reuse-tab
+      scrollPositionRestoration: 'top',
+    }
     )],
   exports: [RouterModule],
 })

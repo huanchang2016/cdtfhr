@@ -92,11 +92,15 @@ export class DefaultInterceptor implements HttpInterceptor {
         this.goTo('/passport/login');
         break;
       case 403:
+        this.notification.error(`请求失败`, CODEMESSAGE[ev.status]);
+        break;
       case 404:
+        this.notification.error(`请求失败`, CODEMESSAGE[ev.status]);
+        this.goTo(`/fullscreen/exception/${ev.status}`);
         break;
       case 500:
         this.notification.error(`请求失败`, CODEMESSAGE[ev.status]);
-        // this.goTo(`/exception/${ev.status}`);
+        // this.goTo(`/fullscreen/exception/${ev.status}`);
         break;
       default:
         if (ev instanceof HttpErrorResponse) {
