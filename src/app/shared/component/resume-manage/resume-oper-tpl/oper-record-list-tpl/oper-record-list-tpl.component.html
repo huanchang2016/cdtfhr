@@ -1,11 +1,16 @@
 <div class="wrapper_box" *ngIf="!loading">
-    <ng-container *ngFor="let data of logs">
-        <div class="py-sm text-md">
-            <span class="text-primary"> {{ data.company }} </span>
-            <span class="text-666">于{{ data.created_at }} </span>
-            <span class="text-grey" [innerHTML]="data.desc | showTextAreaText"></span>
-        </div>
+    <ng-container *ngIf="logs.length !== 0;else emptyListOfData">
+        <ng-container *ngFor="let data of logs">
+            <div class="py-sm text-md">
+                <span class="text-primary"> {{ data.company }} </span>
+                <span class="text-666">于{{ data.created_at }} </span>
+                <span class="text-grey" [innerHTML]="data.desc | showTextAreaText"></span>
+            </div>
+        </ng-container>
     </ng-container>
+    <ng-template #emptyListOfData>
+        <div class="text-center py-lg text-grey">无操作记录</div>
+    </ng-template>
 </div>
 <div *ngIf="loading" class="text-center text-lg py-lg">
     <nz-spin nzSimple></nz-spin>

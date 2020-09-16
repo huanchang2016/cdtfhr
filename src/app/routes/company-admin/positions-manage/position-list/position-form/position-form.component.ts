@@ -68,7 +68,7 @@ export class PositionFormComponent implements OnInit {
       if(!this.data) {
         const option = {
           name: value.position_name,
-          number: +value.recruiters,
+          number: value.recruiters,
           job_type_1_id: value.job_category[0],
           job_type_2_id: value.job_category[1],
           job_type_3_id: value.job_category[2],
@@ -89,7 +89,7 @@ export class PositionFormComponent implements OnInit {
       }else {
         const obj = {
           // name: value.position_name,
-          number: +value.recruiters,
+          number: value.recruiters,
           // job_type_1_id: value.job_category[0],
           // job_type_2_id: value.job_category[1],
           // job_type_3_id: value.job_category[2],
@@ -107,11 +107,6 @@ export class PositionFormComponent implements OnInit {
         };
         this.edit(obj);
 
-      }
-      
-
-      if(this.data) {
-      }else {
       }
     }
   }

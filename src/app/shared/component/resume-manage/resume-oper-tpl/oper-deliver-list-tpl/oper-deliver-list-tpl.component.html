@@ -1,11 +1,16 @@
 <div class="wrapper_box" *ngIf="!loading">
-    <ng-container *ngFor="let item of list">
-        <div class="py-sm text-md">
-            <span class="text-pirmary"> {{ item.created_at }} </span>
-            <span class="text-666">投递简历于</span>
-            <a [routerLink]="['/recruit/details', item.job.id]" target="_blank">{{ item.job.name }}</a>
-        </div>
+    <ng-container *ngIf="list.length !== 0;else emptyListOfData">
+        <ng-container *ngFor="let item of list">
+            <div class="py-sm text-md">
+                <span class="text-pirmary"> {{ item.created_at }} </span>
+                <span class="text-666">投递简历于</span>
+                <a [routerLink]="['/recruit/details', item.job.id]" target="_blank">{{ item.job.name }}</a>
+            </div>
+        </ng-container>
     </ng-container>
+    <ng-template #emptyListOfData>
+        <div class="text-center py-lg text-grey">无投递记录</div>
+    </ng-template>
 </div>
 <div *ngIf="loading" class="text-center text-lg py-lg">
     <nz-spin nzSimple></nz-spin>

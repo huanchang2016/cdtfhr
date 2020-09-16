@@ -23,10 +23,14 @@
                     <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span [innerHTML]="countYears(resumeInfo.work_date)"></span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <span>{{ resumeInfo.birthday | date: 'yyyy年MM月' }}</span>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <span>{{ resumeInfo.marriage.value }}</span>
+                    <ng-container *ngIf="resumeInfo.birthday">
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ resumeInfo.birthday | date: 'yyyy年MM月' }}</span>
+                    </ng-container>
+                    <ng-container *ngIf="resumeInfo.marriage">
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span>{{ resumeInfo.marriage.value }}</span>
+                    </ng-container>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span>现居住于
                         <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">

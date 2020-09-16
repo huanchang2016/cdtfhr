@@ -81,12 +81,6 @@ export class OperDownloadModalComponent implements OnInit {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
-    // setTimeout(() => {
-    //   this.setOfCheckedId.clear();
-    //   this.submitLoading = false;
-    //   this.destroyModal({name: '点击确认提交'});
-    // }, 1000);
-    
   }
 
   destroyModal(data?:any): void {
