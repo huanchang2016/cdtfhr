@@ -58,7 +58,7 @@ export class PositionListCComponent implements OnChanges {
 
     const option = {
       name: this.searchOption ? this.searchOption.name : null,
-      status: this.status === 'ing' ? 1 : 0,
+      status: this.status === 'ing' ? 1 : 2,
       limit: this.pageConfig.page_size,
       page: this.pageConfig.page
     };

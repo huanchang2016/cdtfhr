@@ -151,12 +151,12 @@ export class UserRecommendPositionsComponent implements OnInit {
       nzFooter: null
     });
     // const instance = this.successModal.getContentComponent();
-    this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.successModal.afterClose.subscribe(result => {
-      if (result && result.type === 'success') {
+    // this.successModal.afterClose.subscribe(result => {
+    //   if (result && result.type === 'success') {
 
-      }
-    });
+    //   }
+    // });
   }
 }

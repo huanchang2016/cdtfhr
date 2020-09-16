@@ -25,7 +25,7 @@
                             <div *ngFor="let item of list" class="result_list_box bg-white border-radius-sm card__hover">
                                 <div class="d-flex">
                                     <div class="result_list_img_box d-flex justify-content-center align-items-center"><img
-                                            [src]="item.url" alt="item.name"></div>
+                                            [src]="item.url" [alt]="item.name"></div>
                                     <div class="result_list_des_content flex-1 ml-md">
                                         <h3 class="list_item_name text-666 text-lg">{{ item.name }}</h3>
                                         <div class="list_item_date text-grey text-md py-xs pr-sm">

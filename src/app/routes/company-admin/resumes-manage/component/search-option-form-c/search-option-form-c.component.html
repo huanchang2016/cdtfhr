@@ -23,7 +23,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="now_industry">目前行业</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="now_industry" formControlName="now_industry" nzSize="large" nzPlaceHolder="请点击选择目前行业">
+                    <nz-select nzAllowClear id="now_industry" formControlName="now_industry" nzSize="large" nzPlaceHolder="请点击选择目前行业">
                         <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
                         </ng-container>
@@ -35,7 +35,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="plan_industry">期望行业</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="plan_industry" formControlName="plan_industry" nzSize="large" nzPlaceHolder="请点击选择期望行业">
+                    <nz-select nzAllowClear id="plan_industry" formControlName="plan_industry" nzSize="large" nzPlaceHolder="请点击选择期望行业">
                         <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
                         </ng-container>
@@ -48,7 +48,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="status">求职状态</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择求职状态">
+                    <nz-select nzAllowClear id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择求职状态">
                         <ng-container *ngFor="let item of globalService.resumeConfigOptions.status">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                         </ng-container>
@@ -60,7 +60,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="update_time">简历更新</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="update_time" formControlName="update_time" nzSize="large" nzPlaceHolder="请点击选择简历更新时间">
+                    <nz-select nzAllowClear id="update_time" formControlName="update_time" nzSize="large" nzPlaceHolder="请点击选择简历更新时间">
                         <ng-container *ngFor="let item of globalService.updatedTimeOptions">
                             <nz-option [nzValue]="item.value" [nzLabel]="item.key"></nz-option>
                         </ng-container>
@@ -94,7 +94,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="company_nature">企业性质</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="company_nature" formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择企业性质">
+                    <nz-select nzAllowClear id="company_nature" formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择企业性质">
                         <ng-container *ngFor="let item of globalService.companyConfigOptions.company_type">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                         </ng-container>
@@ -122,7 +122,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="now_salary">目前月薪</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="now_salary" formControlName="now_salary" nzSize="large" nzPlaceHolder="请点击选择目前月薪">
+                    <nz-select nzAllowClear id="now_salary" formControlName="now_salary" nzSize="large" nzPlaceHolder="请点击选择目前月薪">
                         <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                         </ng-container>
@@ -134,7 +134,7 @@
             <nz-form-item>
                 <nz-form-label nzFor="plan_salary">期望月薪</nz-form-label>
                 <nz-form-control>
-                    <nz-select id="plan_salary" formControlName="plan_salary" nzSize="large" nzPlaceHolder="请点击选择期望月薪">
+                    <nz-select nzAllowClear id="plan_salary" formControlName="plan_salary" nzSize="large" nzPlaceHolder="请点击选择期望月薪">
                         <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
                             <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                         </ng-container>

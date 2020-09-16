@@ -27,7 +27,7 @@
                         <nz-divider nzType="vertical"></nz-divider>
                         <span>{{ resumeInfo.birthday | date: 'yyyy年MM月' }}</span>
                     </ng-container>
-                    <ng-container *ngIf="resumeInfo.marriage">
+                    <ng-container *ngIf="resumeInfo.marriage.value">
                         <nz-divider nzType="vertical"></nz-divider>
                         <span>{{ resumeInfo.marriage.value }}</span>
                     </ng-container>
