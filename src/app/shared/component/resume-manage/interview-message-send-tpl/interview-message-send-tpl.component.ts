@@ -9,6 +9,7 @@ import addDays from 'date-fns/addDays';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { format } from 'date-fns';
 
 
 @Component({
@@ -89,7 +90,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
         resume_id: this.resumeInfo.id,
         job_id: this.positionInfo.id,
         site: value.address,
-        time: value.time,
+        time: format(value.time, 'yyyy-MM-dd HH:mm:ss'),
         content: value.content,
         type: type
         // email: value.is_email ? this.resumeInfo.email : null,
