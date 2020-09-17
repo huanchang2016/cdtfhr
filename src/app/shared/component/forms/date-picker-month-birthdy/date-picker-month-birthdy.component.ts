@@ -21,6 +21,8 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
   ]
 })
 export class DatePickerMonthBirthdyComponent implements ControlValueAccessor {
+  
+  // 根据需求修改了出生日期的上传格式
 
   @Input() placeholder?:string = '请选择日期';
   @Input() size?:string = 'large';
@@ -29,12 +31,12 @@ export class DatePickerMonthBirthdyComponent implements ControlValueAccessor {
   
   constructor() {
     const today:Date = new Date();
-    this.defaultDateValue = new Date(`${today.getFullYear() - 16}/${today.getMonth() + 1}`);
+    this.defaultDateValue = new Date(`${today.getFullYear() - 16}/${today.getMonth() + 1}/${today.getDate()}`);
   }
 
-  dateFormat:string = 'yyyy/MM';
+  dateFormat:string = 'yyyy/MM/dd';
 
-  private propagateChange = (_: any) => { };
+  private propagateChange = (_: any) => {};
   
   date:any;
 

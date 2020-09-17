@@ -119,13 +119,13 @@ export class InterviewMessageSendTplComponent implements OnInit {
 
 
   view(): void { // 保存
-    console.log('预览通知信息, 表单填写验证通过可以预览', this.validateForm);
+    console.log('预览通知信息, 表单填写验证通过可以预览', this.validateForm, this.positionInfo);
     if (!this.validateForm.valid) {
       this.msg.error('通知信息填写不完整，不能预览');
       return;
     }
-    // const interview_time = format(this.validateForm.value.time, 'yyyy/MM/dd HH:mm:ss');
-    // const interview_addr = this.validateForm.value.address.trim();
+    const interview_time = format(this.validateForm.value.time, 'yyyy/MM/dd HH:mm');
+    const interview_addr = this.validateForm.value.address.trim();
     const modal = this.modalSrv.create({
       nzTitle: '',
       nzContent: InterviewMessageViewTplComponent,
@@ -140,19 +140,18 @@ export class InterviewMessageSendTplComponent implements OnInit {
       },
       nzMaskClosable: false,
       nzComponentParams: {
-        // data: `${this.resumeInfo.name}，您好。天府菁英网提醒您，
-        // 您已通过${'公司名称'} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初
-        // 筛，进入面试环节。面试时间 ${interview_time}
-        // ，面试地址 ${interview_addr}，请您合理安排时
-        // 间准时参加面试，如有疑问，请联系HR电话${this.positionInfo ? this.positionInfo.tel : '028-80518071-599'}。`
-        data: this.validateForm.value.content
+        data: `
+          【天府菁英网】${this.resumeInfo.name}，
+          您好。天府菁英网提醒您，
+          您已通过${this.positionInfo.company.name}公司-${this.positionInfo.name}岗位的简历初筛，
+          进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，面试邀请内容：${this.validateForm.value.content}。`
+        // data: this.validateForm.value.content
       },
       nzFooter: null
     });
     // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     // modal.afterClose.subscribe(result => console.log('[afterClose 转发modal] The result is:', result));
-
   }
 
   destroyModal(data?: any): void {

@@ -19,7 +19,7 @@
                         <td>
                             {{ data.title }}
                             <span *ngIf="data.is_default"
-                                class="px-sm py-xs bg-danger text-white text-xs border-radius-sm">默认</span>
+                                class="px-sm py-xs bg-danger text-white text-nowrap text-xs border-radius-sm">默认</span>
                         </td>
                         <td class="text-666">
                             <div>{{ data.created_at | date: 'yyyy/MM/dd'}}</div>
