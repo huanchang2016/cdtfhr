@@ -76,7 +76,14 @@ export class InterviewMessageSendTplComponent implements OnInit {
 
     if(this.validateForm.valid) {
       const value:any = this.validateForm.value;
-
+      
+      /****
+       * 通知面试方式
+       * 1. 邮件
+       * 2. 短信
+       * 3. 邮件 和  短信
+       ******/
+      const type: 1 | 2 | 3 = (value.is_email && value.is_phone) ? 3 : (value.is_email ? 1 : 2);
 
       const option:any = {
         resume_id: this.resumeInfo.id,
@@ -84,8 +91,9 @@ export class InterviewMessageSendTplComponent implements OnInit {
         site: value.address,
         time: value.time,
         content: value.content,
-        email: value.is_email ? this.resumeInfo.email : null,
-        phone: value.is_phone ? this.resumeInfo.phone : null
+        type: type
+        // email: value.is_email ? this.resumeInfo.email : null,
+        // phone: value.is_phone ? this.resumeInfo.phone : null
       };
 
       console.log('option, 面试邀请信息', option);
@@ -93,16 +101,14 @@ export class InterviewMessageSendTplComponent implements OnInit {
       this.settingService.post('/v1/web/com/resume/invite_interview', option).subscribe((res:ApiData) => {
         console.log(res, '面试通知');
         this.submitLoading = false;
-        this.msg.success(res.message);
         if(res.code === 200) {
+          this.msg.success(res.message);
           this.destroyModal({ type: 'success' });
+        }else {
+          this.msg.error(res.message);
         }
       }, err => this.submitLoading = false)
     }
-    // setTimeout(() => {
-    //   this.submitLoading = false;
-    //   this.destroyModal({ data: 'success' });
-    // }, 1000);
   }
 
   handleCancel(): void {
