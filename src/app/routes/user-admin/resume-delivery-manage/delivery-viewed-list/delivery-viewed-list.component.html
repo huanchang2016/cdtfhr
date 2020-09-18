@@ -125,7 +125,7 @@
                 <td>
                     <a [routerLink]="['/company']" [queryParams]="{cid: data.company.id }" target="_blank">{{ data.company.name }}</a>
                 </td>
-                <td>{{ data.company.industry.name }}</td>
+                <td>{{ data.company.industry?.name }}</td>
                 <td>{{ data.company.type.value }}</td>
                 <td>{{ data.company.city.name }}-{{ data.company.area.name }}</td>
                 <td>{{ data.company.scale.value }}</td>

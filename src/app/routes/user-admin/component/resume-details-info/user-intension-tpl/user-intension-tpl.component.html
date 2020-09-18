@@ -30,7 +30,7 @@
             <div>期望从事行业： 
                 <ng-container *ngFor="let industry of resumeInfo.target.industry; let industry_idx = index">
                     <nz-divider nzType="vertical" *ngIf="industry_idx !== 0"></nz-divider>
-                    {{ industry.name }}
+                    {{ industry?.name }}
                 </ng-container>
             </div>
             <div>期望职业： 
