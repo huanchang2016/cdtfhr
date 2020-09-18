@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { EducationExpFormTplComponent } from './education-exp-form-tpl/education-exp-form-tpl.component';
 import { UserDataService } from '../../../service/user-data.service';
+import { ResumeSectionDeletedModalComponent } from '../../resume-section-deleted-modal/resume-section-deleted-modal.component';
 
 @Component({
   selector: 'app-user-education-exp-tpl',
@@ -81,6 +82,33 @@ export class UserEducationExpTplComponent implements OnInit {
             this.userDataService.getProfile().then();
           }
         }
+      }
+    });
+  }
+  deletedModal(data:any):void {
+    const modal = this.modal.create({
+      nzTitle: '提示',
+      nzContent: ResumeSectionDeletedModalComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '400px',
+      nzBodyStyle: {
+        padding: '24px'
+      },
+      nzMaskClosable: false,
+      // nzGetContainer: () => document.body,
+      nzComponentParams: {
+        
+      },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    // const instance = modal.getContentComponent();
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => {
+      console.log('[afterClose] The result is:', result)
+      if(result ===  true) {
+        this.deleted(data);
       }
     });
   }

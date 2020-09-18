@@ -47,6 +47,7 @@ import { ResumeTitleTplComponent } from './component/resume-title-tpl/resume-tit
 import { UserAdminHomeGuard } from './guard/user-admin-home.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { UserAdminGuard } from './guard/user-admin.guard';
+import { ResumeSectionDeletedModalComponent } from './component/resume-section-deleted-modal/resume-section-deleted-modal.component';
 
 
 const GUARDS = [
@@ -105,7 +106,9 @@ const ENTRYCOMPONENTS = [
   UserLanguageTplComponent, // 其它语言能力
   UserLanguageFormTplComponent,
   UserInterestTplComponent, // 兴趣爱好
-  UserInterestFormTplComponent
+  UserInterestFormTplComponent,
+  // 删除某段信息弹出层
+  ResumeSectionDeletedModalComponent
 ];
 
 @NgModule({

@@ -29,7 +29,7 @@ export class UserCommentFormTplComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      self_evalution: [null]
+      self_evalution: [null, Validators.maxLength(300)]
     });
 
     if(this.data) {
@@ -74,5 +74,12 @@ export class UserCommentFormTplComponent implements OnInit {
 
   destroyModal(data:any = null): void {
     this.modal.destroy({ data: data });
+  }
+
+  get getSelfCommentLength():number {
+    if(this.validateForm.get('self_evalution').value) {
+      return this.validateForm.get('self_evalution').value.length;
+    }
+    return 0;
   }
 }

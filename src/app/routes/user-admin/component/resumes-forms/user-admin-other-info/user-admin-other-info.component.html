@@ -45,7 +45,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>责任描述</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请填写项目中的责任描述">
-                            <textarea formControlName="projectDescription" nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" placeholder="请输入内容"></textarea>
+                            <textarea formControlName="projectDescription" nz-input [nzAutosize]="{ minRows: 10, maxRows: 14 }" placeholder="请输入内容"></textarea>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -85,21 +85,22 @@
                         </a>
                     </div>
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="5" nzRequired>培训机构</nz-form-label>
-                        <nz-form-control [nzSpan]="19" nzErrorTip="请填写培训机构名称">
-                            <input nz-input formControlName="trainOrganization" placeholder="请填写培训机构名称" type="text" nzSize="large" />
+                        <nz-form-label [nzSpan]="5" nzRequired>培训内容</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入培训内容">
+                            <!-- <textarea formControlName="trainContent" nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" placeholder="请输入培训内容"></textarea> -->
+                            <input nz-input formControlName="trainContent" placeholder="请输入培训内容" type="text" nzSize="large" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" class="train_name_box">培训机构</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入培训机构">
+                            <input nz-input formControlName="trainOrganization" placeholder="请输入培训机构" type="text" nzSize="large" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>培训时间</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请选择培训起止时间">
                             <app-range-month-picker [isNow]="false" formControlName="trainRangeDate" [placeholder]="['请选择何时开始', '请选择何时结束']" [size]="'large'"></app-range-month-picker>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSpan]="5" nzRequired>培训内容</nz-form-label>
-                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入培训内容">
-                            <textarea formControlName="trainContent" nz-input [nzAutosize]="{ minRows: 2, maxRows: 6 }" placeholder="请输入培训内容"></textarea>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -228,16 +229,22 @@
         <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
         <nz-form-item class="mt-md">
             <nz-form-label [nzSpan]="5" nzFor="self_comment">自我评价</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请填写自我评价">
-                <textarea formControlName="self_comment" nz-input [nzAutosize]="{ minRows: 4, maxRows: 8 }" placeholder="请输入内容"></textarea>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写自我评价，内容不超过300字">
+                <div class="text_area_count_limit">
+                    <textarea formControlName="self_comment" nz-input [nzAutosize]="{ minRows: 10,maxRows: 20 }" placeholder="请输入内容"></textarea>
+                    <div class="limit_count text-grey" [class.text-danger]="getSelfCommentLength > 300">{{ getSelfCommentLength }} / 300</div>
+                </div>
             </nz-form-control>
         </nz-form-item>
 
         <app-sub-title-show [title]="'兴趣爱好'"></app-sub-title-show>
         <nz-form-item class="mt-md">
             <nz-form-label [nzSpan]="5" nzFor="self_interest">兴趣爱好</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请填写兴趣爱好">
-                <textarea formControlName="self_interest" nz-input [nzAutosize]="{ minRows: 4, maxRows: 8 }" placeholder="请输入内容"></textarea>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写兴趣爱好，内容不超过300字">
+                <div class="text_area_count_limit">
+                    <textarea formControlName="self_interest" nz-input [nzAutosize]="{ minRows: 10,maxRows: 20 }" placeholder="请输入内容"></textarea>
+                    <div class="limit_count text-grey" [class.text-danger]="getSelfInterestLength > 300">{{ getSelfInterestLength }} / 300</div>
+                </div>
             </nz-form-control>
         </nz-form-item>
 

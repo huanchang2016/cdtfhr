@@ -34,7 +34,6 @@ export class ResumeCreateComponent implements OnInit {
   submitInfo() {
 
     this.userInfoTpl.submitForm().then(object => {
-      this.submitLoading = true;
 
       let userInfo: FormData = new FormData();
       
@@ -46,6 +45,7 @@ export class ResumeCreateComponent implements OnInit {
         } else if (key === 'address_city') {
           userInfo.append('work_province_id', object[key][0]);
           userInfo.append('work_city_id', object[key][1]);
+          userInfo.append('work_area_id', object[key][2]);
         } else if (key === 'work_date') {
           const work_date:string = object['is_not_work'] ? '' : object[key];
           userInfo.append('work_date', work_date);
@@ -55,6 +55,8 @@ export class ResumeCreateComponent implements OnInit {
           userInfo.append(key, object[key]);
         }
       }
+
+      this.submitLoading = true;
 
       this.settingService.post('/v1/web/user/resume/info', userInfo).subscribe((res: ApiData) => {
         console.log(res);

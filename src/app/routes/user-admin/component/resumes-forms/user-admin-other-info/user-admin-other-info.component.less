@@ -25,10 +25,29 @@
         }
     }
 }
+.text_area_count_limit {
+    position: relative;
+
+    .limit_count {
+        position: absolute;
+        right: 8px;
+        bottom: 0;
+    }
+}
+
 
 
 nz-form-label {
     line-height: 40px;
     font-size: 18px;
     text-align: left;
+}
+:host ::ng-deep {
+    .train_name_box label::before {
+        display: inline-block;
+        width: 6px;
+        margin-right: 4px;
+        font-size: 14px;
+        content: ' ';
+    }
 }

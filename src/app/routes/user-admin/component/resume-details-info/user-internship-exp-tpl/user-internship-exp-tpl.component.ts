@@ -5,6 +5,7 @@ import { GlobalSettingsService } from '@core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 import { UserInternshipExpFormTplComponent } from './user-internship-exp-form-tpl/user-internship-exp-form-tpl.component';
+import { ResumeSectionDeletedModalComponent } from '../../resume-section-deleted-modal/resume-section-deleted-modal.component';
 
 
 @Component({
@@ -80,7 +81,33 @@ export class UserInternshipExpTplComponent implements OnInit {
       }
     });
   }
-
+  deletedModal(data:any):void {
+    const modal = this.modal.create({
+      nzTitle: '提示',
+      nzContent: ResumeSectionDeletedModalComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '400px',
+      nzBodyStyle: {
+        padding: '24px'
+      },
+      nzMaskClosable: false,
+      // nzGetContainer: () => document.body,
+      nzComponentParams: {
+        
+      },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    // const instance = modal.getContentComponent();
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => {
+      console.log('[afterClose] The result is:', result)
+      if(result ===  true) {
+        this.deleted(data);
+      }
+    });
+  }
   
   countMonth(left_time:string, right_time:string):string {
     // 计算两个日期之间相差多少年月，结果如： 2年1个月

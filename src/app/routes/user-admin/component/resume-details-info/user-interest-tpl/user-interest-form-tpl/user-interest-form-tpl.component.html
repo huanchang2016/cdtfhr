@@ -2,7 +2,10 @@
     <nz-form-item class="mt-md">
         <!-- <nz-form-label [nzSpan]="5" nzFor="hobby">兴趣爱好</nz-form-label> -->
         <nz-form-control [nzSpan]="24" nzErrorTip="请填写兴趣爱好">
-            <textarea formControlName="hobby" nz-input [nzAutosize]="{ minRows: 4, maxRows: 8 }" placeholder="请输入内容"></textarea>
+            <div class="text_area_count_limit">
+                <textarea formControlName="hobby" nz-input [nzAutosize]="{ minRows: 10,maxRows: 20 }" placeholder="请输入内容"></textarea>
+                <div class="limit_count text-grey" [class.text-danger]="getSelfInterestLength > 300">{{ getSelfInterestLength }} / 300</div>
+            </div>
         </nz-form-control>
     </nz-form-item>
     

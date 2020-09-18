@@ -28,7 +28,7 @@ export class UserTrainExpFormTplComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       trainContent: [null, [Validators.required]],
-      trainOrganization: [null, [Validators.required]],
+      trainOrganization: [null],
       trainRangeDate: [null, [Validators.required]]
     })
 

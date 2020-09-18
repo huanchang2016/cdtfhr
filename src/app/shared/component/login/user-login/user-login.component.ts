@@ -53,14 +53,19 @@ export class UserLoginComponent {
         this.loading = false;
         console.log(res, 'login ');
         // this.router.navigateByUrl('/admin/user');
-        this.settingService.setToken(res.data);
-        // 登录后， 重新获取用户信息
-        this.startupSrv.load().then((ss) => {
-          this.destroyModal({ type: 'success'});
-          window.document.location.reload();
-          // if(this.currentUrl.indexOf('/home'))
-          // this.router.navigateByUrl('/admin/user');
-        })
+        if(res.code === 200) {
+          this.settingService.setToken(res.data);
+          // 登录后， 重新获取用户信息
+          this.startupSrv.load().then((ss) => {
+            this.destroyModal({ type: 'success'});
+            window.document.location.reload();
+            // if(this.currentUrl.indexOf('/home'))
+            // this.router.navigateByUrl('/admin/user');
+          })
+        }else {
+          this.msg.error(res.message);
+        }
+        
       }, err => this.loading = false);
 
     }

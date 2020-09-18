@@ -67,4 +67,11 @@ export class UserInterestFormTplComponent implements OnInit {
   destroyModal(data:any = null): void {
     this.modal.destroy({ data: data });
   }
+  
+  get getSelfInterestLength():number {
+    if(this.validateForm.get('hobby').value) {
+      return this.validateForm.get('hobby').value.length;
+    }
+    return 0;
+  }
 }

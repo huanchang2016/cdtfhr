@@ -39,7 +39,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       trainExp: this.fb.array([
         this.fb.group({
           trainContent: [null, [Validators.required]],
-          trainOrganization: [null, [Validators.required]],
+          trainOrganization: [null],
           trainRangeDate: [null, [Validators.required]]
         })
       ]),
@@ -60,8 +60,8 @@ export class UserAdminOtherInfoComponent implements OnInit {
       ]),
       // is_internship: [true, [Validators.required]],
 
-      self_comment: [null],
-      self_interest: [null]
+      self_comment: [null, Validators.maxLength(300)],
+      self_interest: [null, Validators.maxLength(300)]
     });
 
     this.validateForm.get('is_projectExp').valueChanges.subscribe( (is_exp:boolean) => {
@@ -113,7 +113,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
     if (type === 'trainExp') {
       groupArray.push(
         this.fb.group({
-          trainOrganization: [null, [Validators.required]],
+          trainOrganization: [null],
           trainRangeDate: [null, [Validators.required]],
           trainContent: [null, [Validators.required]]
         })
@@ -344,6 +344,21 @@ export class UserAdminOtherInfoComponent implements OnInit {
       
     }
     
+  }
+
+  
+  get getSelfCommentLength():number {
+    if(this.validateForm.get('self_comment').value) {
+      return this.validateForm.get('self_comment').value.length;
+    }
+    return 0;
+  }
+  
+  get getSelfInterestLength():number {
+    if(this.validateForm.get('self_interest').value) {
+      return this.validateForm.get('self_interest').value.length;
+    }
+    return 0;
   }
 
 }

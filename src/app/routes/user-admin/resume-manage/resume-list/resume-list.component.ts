@@ -133,17 +133,39 @@ export class ResumeListComponent implements OnInit {
     });
   }
 
-  deleted(data:any) {
-    console.log('deleted data', data);
-    this.settingService.delete(`/v1/web/user/resume/${data.id}`).subscribe((res:ApiData) => {
+  isVisible:boolean = false;
+  delData:any = null;
+  showModal(data:any): void {
+    this.delData = data;
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.deleted();
+  }
+
+  deletedLoading:boolean = false;
+  deleted() {
+    console.log('deleted data', this.delData);
+    this.deletedLoading = true;
+    this.settingService.delete(`/v1/web/user/resume/${this.delData.id}`).subscribe((res:ApiData) => {
+      this.deletedLoading = false;
       if(res.code === 200) {
-        this.list = this.list.filter(v => v.id !== data.id);
+        this.isVisible = false;
+        this.list = this.list.filter(v => v.id !== this.delData.id);
         this.msg.success(res.message);
+        this.handleCancel();
       }else {
         this.msg.error(res.message);
       }
     });
   }
+
+  handleCancel(): void {
+    this.isVisible = false;
+    this.delData = null;
+  }
+
 
   cancel():void {}
 }

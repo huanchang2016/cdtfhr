@@ -24,7 +24,7 @@ export class UserAdminInfoFormCComponent implements OnInit {
       registered_residence: [null, [Validators.required]], // 户口所在地 [registered_province_id, registered_city_id]
       work_date: [null, [Validators.required]],
       is_not_work: [false], // 根据 是否工作 确定  工作时间是否为必填项
-      address_city: [null, [Validators.required]], // 现居住城市 [work_province_id, work_city_id]
+      address_city: [null, [Validators.required]], // 现居住地 [work_province_id, work_city_id]
       email: [null, [Validators.email, Validators.required]],
       avatar: [null]
     });

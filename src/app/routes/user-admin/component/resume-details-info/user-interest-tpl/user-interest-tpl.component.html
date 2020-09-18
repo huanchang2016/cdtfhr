@@ -4,8 +4,9 @@
         <div class="edit-box">
             <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
             <ng-template #rightTextTpl>
-                <div class="text-sm text-primary point" (click)="editInfo()">
-                    <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                <div class="text-sm edit_icon_box d-flex align-items-center text-primary point" (click)="editInfo()">
+                    <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                    <span class="resume_info_edit_icon mr-sm"></span>
                     编辑
                 </div>
             </ng-template>

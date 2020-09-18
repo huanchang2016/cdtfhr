@@ -1,7 +1,7 @@
 <div class="resume-show_sub_content_box">
     <div class="resume-show-sub-title-box">
         <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
-        <div class="edit-box">
+        <!-- <div class="edit-box">
             <nz-divider [nzText]="rightTextTpl" nzOrientation="right" nzDashed></nz-divider>
             <ng-template #rightTextTpl>
                 <div class="text-sm text-primary point" (click)="add()">
@@ -9,25 +9,36 @@
                     新增
                 </div>
             </ng-template>
-        </div>
+        </div> -->
     </div>
 
     <div class="resume-show_content_body my-sm py-sm px-md">
         <div *ngIf="list.length !== 0; else notExpTpl">
-            <ng-container *ngFor="let work of list">
-                <div class="item_card_box mb-md">
+            <ng-container *ngFor="let work of list; let i = index">
+                <div class="item_card_box mb-md" [class.item_cart_last_box]="i !== list.length - 1">
                     <div class="item_card_title_box">
                         <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ work.name }}</h4>
                         <nz-divider class="item_title_divider" nzDashed></nz-divider>
                         <div class="item_oper_box bg-white">
-                            <span class="text-sm text-primary point" (click)="edit(work)">
-                                <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i>
+                            <span class="text-sm edit_icon_box d-flex align-items-center text-primary point" (click)="edit(work)">
+                                <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                                <span class="resume_info_edit_icon edit_icon mr-sm"></span>
                                 编辑
                             </span>
-                            <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前工作经历" (nzOnConfirm)="deleted(work)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
+                            <span class="text-sm edit_icon_box d-flex align-items-center text-danger point mt-md" (click)="deletedModal(work)">
+                                <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                                <span class="resume_info_edit_icon del_icon mr-sm"></span>
+                                删除
+                            </span>
+                            <span *ngIf="i === list.length - 1" class="text-sm edit_icon_box d-flex align-items-center text-green point mt-md" (click)="add()">
+                                <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                                <span class="resume_info_edit_icon add_icon mr-sm"></span>
+                                新增一段
+                            </span>
+                            <!-- <a nz-popconfirm nzPopconfirmTitle="您是否确认删除当前工作经历" (nzOnConfirm)="deleted(work)" (nzOnCancel)="cancel()" class="ml-md text-sm text-danger" nzPopconfirmPlacement="topRight">
                                 <i class="text-md" nz-icon nzType="delete" nzTheme="outline"></i>
                                 删除
-                            </a>
+                            </a> -->
                         </div>
                     </div>
                     <div class="item_card_body text-grey">
@@ -56,7 +67,14 @@
         </div>
 
         <ng-template #notExpTpl>
-            <div class="text-grey text-md">暂无工作经历</div>
+            <div class="text-grey text-md is_not_data_box">
+                <span>暂无工作经历</span>
+                <span class="text-sm edit_icon_box d-flex align-items-center text-green point float-right" (click)="add()">
+                    <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                    <span class="resume_info_edit_icon add_icon mr-sm"></span>
+                    新增一段
+                </span>
+            </div>
         </ng-template>
         
     </div>

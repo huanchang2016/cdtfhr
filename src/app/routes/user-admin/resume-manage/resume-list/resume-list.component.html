@@ -5,41 +5,63 @@
             <nz-table #basicTable [nzData]="list" nzFrontPagination="false" nzShowPagination="false">
                 <thead>
                     <tr>
+                        <th></th>
                         <th nzWidth="280px">简历名称</th>
-                        <th>创建时间</th>
-                        <th>最近更新</th>
+                        <th class="text-center">创建时间</th>
+                        <th class="text-center">最近更新</th>
                         <th>简历公开</th>
                         <th>默认简历</th>
-                        <th nzWidth="140px" class="text-center">操作</th>
+                        <th nzWidth="230px" class="text-center">操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let data of basicTable.data; let i = index">
-                        <!-- <td></td> -->
                         <td>
-                            {{ data.title }}
                             <span *ngIf="data.is_default"
                                 class="px-sm py-xs bg-danger text-white text-nowrap text-xs border-radius-sm">默认</span>
                         </td>
-                        <td class="text-666">
+                        <td>
+                            {{ data.title }}
+                        </td>
+                        <td class="text-666 text-center">
                             <div>{{ data.created_at | date: 'yyyy/MM/dd'}}</div>
                             <div>{{ data.created_at | date: 'HH:mm:ss'}}</div>
                         </td>
-                        <td class="text-666">
+                        <td class="text-666 text-center">
                             <div>{{ data.updated_at | date: 'yyyy/MM/dd'}}</div>
                             <div>{{ data.updated_at | date: 'HH:mm:ss'}}</div>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="data.privacy" [nzLoading]="openItemOption[data.id]" [nzControl]="true" (click)="openValueChange(data)"
-                                nzCheckedChildren="是" nzUnCheckedChildren="否"></nz-switch>
+                            <nz-switch [(ngModel)]="data.privacy" [nzLoading]="openItemOption[data.id]"
+                                [nzControl]="true" (click)="openValueChange(data)" nzCheckedChildren="是"
+                                nzUnCheckedChildren="否"></nz-switch>
                         </td>
                         <td>
-                            <nz-switch [(ngModel)]="data.is_default" [nzLoading]="defaultItemOption[data.id]" [nzControl]="true" (click)="setDefault(data)"
-                                nzCheckedChildren="是" nzUnCheckedChildren="否" [nzDisabled]="data.is_default"></nz-switch>
+                            <nz-switch [(ngModel)]="data.is_default" [nzLoading]="defaultItemOption[data.id]"
+                                [nzControl]="true" (click)="setDefault(data)" nzCheckedChildren="是"
+                                nzUnCheckedChildren="否" [nzDisabled]="data.is_default"></nz-switch>
                         </td>
                         <td>
-                            <div class="oper_box_wrapper">
-                                <div class="oper-list text-lg text-nowrap text-center">
+                            <div class="oper_box_wrapper d-flex align-items-center justify-content-around">
+                                <div class="oper-list text-center point" (click)="editResumeName(data)">
+                                    <span class="rename"></span>
+                                    <p class="text-primary text-xs">重命名</p>
+                                </div>
+                                <a class="d-block oper-list text-center"
+                                    [routerLink]="['/fullscreen/resume/view', data.id]" target="_blank">
+                                    <span class="view"></span>
+                                    <p class="text-primary text-xs">预览</p>
+                                </a>
+                                <a class="oper-list text-center" [routerLink]="['/admin/user/resumes/edit', data.id]">
+                                    <span class="edit"></span>
+                                    <p class="text-primary text-xs">编辑</p>
+                                </a>
+                                <div class="oper-list text-center point" (click)="showModal(data)">
+                                    <span class="del"></span>
+                                    <p class="text-danger text-xs">删除</p>
+                                </div>
+
+                                <!-- <div class="oper-list text-lg text-nowrap text-center">
                                     <span class="text-primary mr-sm point" (click)="editResumeName(data)" nz-tooltip nzTooltipTitle="修改简历名称">
                                         <i nz-icon nzType="exception" nzTheme="outline"></i>
                                     </span>
@@ -49,12 +71,13 @@
 
                                     <a class="mx-sm" [routerLink]="['/admin/user/resumes/edit', data.id]"><i nz-icon
                                             nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="修改简历"></i></a>
+
                                     <a  *ngIf="!data.is_default" nz-popconfirm nzPopconfirmTitle="您是否确认删除当前简历" nzPopconfirmPlacement="bottom"
                                         (nzOnConfirm)="deleted(data)" (nzOnCancel)="cancel()" class="text-danger">
                                         <i nz-icon nzType="delete" nzTheme="outline" nz-tooltip nzTooltipTitle="删除简历"></i>
                                     </a>
 
-                                </div>
+                                </div> -->
                             </div>
                         </td>
                     </tr>
@@ -62,7 +85,8 @@
             </nz-table>
 
             <div class="add_resumes_btn_box">
-                <a [routerLink]="['/admin/user/resumes/add']" nz-button nzBlock nzType="link" nzSize="large"><i nz-icon nzType="plus-circle" nzTheme="outline"></i> 新增简历</a>
+                <a [routerLink]="['/admin/user/resumes/add']" nz-button nzBlock nzType="link" nzSize="large"><i nz-icon
+                        nzType="plus-circle" nzTheme="outline"></i> 新增简历</a>
             </div>
         </div>
     </ng-container>
@@ -85,3 +109,14 @@
         </div>
     </ng-container>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+    <p class="text-666 text-center text-lg">是否删除此简历？</p>
+    <p class="text-grey text-center">删除简历后将无法恢复。</p>
+
+    <div class="d-flex justify-content-around pt-lg mt-lg">
+        <button [nzLoading]="deletedLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
+            nzSize="large">删除</button>
+        <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+    </div>
+</nz-modal>
