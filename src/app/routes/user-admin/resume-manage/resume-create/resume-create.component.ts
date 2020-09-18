@@ -4,6 +4,8 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserDataService } from '../../service/user-data.service';
+import { Observable } from 'rxjs';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-resume-create',
@@ -22,6 +24,7 @@ export class ResumeCreateComponent implements OnInit {
   constructor(
     private settingService: GlobalSettingsService,
     private msg: NzMessageService,
+    private modalService: NzModalService,
     private userDataService: UserDataService
   ) {
     this.settingService.setTitle('新增简历-我的简历-个人中心-天府菁英网');
@@ -82,4 +85,5 @@ export class ResumeCreateComponent implements OnInit {
       --this.step;
     }
   }
+
 }

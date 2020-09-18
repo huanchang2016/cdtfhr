@@ -10,6 +10,7 @@ import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.com
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { UserAdminGuard } from './guard/user-admin.guard';
 import { UserAdminHomeGuard } from './guard/user-admin-home.guard';
+import { LeaveResumeInfoGuard } from './guard/leave-resume-info.guard';
 
 
 const routes: Routes = [
@@ -44,7 +45,11 @@ const routes: Routes = [
         path: 'resumes/add',
         canActivate: [
           // AuthenticationGuard
-        ], component: ResumeCreateComponent
+        ],
+        // canDeactivate: [
+        //   LeaveResumeInfoGuard
+        // ],
+        component: ResumeCreateComponent
       },
       {
         path: 'resumes/edit/:id',

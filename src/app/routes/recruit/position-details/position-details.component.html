@@ -103,7 +103,7 @@
 
                 <p class="company_info_name text-center text-666 py-md">{{ info.company.name }}</p>
                 <div class="company_info_type text-grey text-center">
-                   {{ info.company.industry.name }} <br> {{ info.company.type.value }}
+                   {{ info.company.industry?.name }} <br> {{ info.company.type?.value }}
                 </div>
                 <div class="company_info_amount text-grey-dark text-center pt-sm pb-md">{{ info.company.scale.value }}</div>
 

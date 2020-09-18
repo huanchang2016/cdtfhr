@@ -2,7 +2,7 @@
 <p class="text-grey text-center">删除i段数据将无法恢复。</p>
 
 <div class="d-flex justify-content-around pt-lg mt-lg">
-    <button [nzLoading]="deletedLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
+    <button (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
         nzSize="large">删除</button>
     <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
 </div>

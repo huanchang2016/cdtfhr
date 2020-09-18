@@ -48,6 +48,7 @@ import { UserAdminHomeGuard } from './guard/user-admin-home.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { UserAdminGuard } from './guard/user-admin.guard';
 import { ResumeSectionDeletedModalComponent } from './component/resume-section-deleted-modal/resume-section-deleted-modal.component';
+import { ResumeLeaveComponentModalComponent } from './component/resume-leave-component-modal/resume-leave-component-modal.component';
 
 
 const GUARDS = [
@@ -114,7 +115,8 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS
+    ...ENTRYCOMPONENTS,
+    ResumeLeaveComponentModalComponent
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS
