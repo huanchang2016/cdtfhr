@@ -42,9 +42,13 @@ export class ListItemsCComponent implements OnChanges, OnInit {
 
   ngOnChanges():void {
     console.log('On Changes', this.Config, this.loadingData, this.pageOption, this.listOfData);
-    if(!this.loadingData && this.listOfData.length !== 0) {
+    if(!this.loadingData) {
       this.setOfCheckedId.clear();
-      this.refreshCheckedStatus();
+      if(this.listOfData.length !== 0) {
+        this.refreshCheckedStatus();
+      }else {
+        this.checked = false;
+      }
     }
   }
   ngOnInit() {
@@ -84,9 +88,6 @@ export class ListItemsCComponent implements OnChanges, OnInit {
 
   refreshCheckedStatus(): void {
     this.checked = this.listOfData.every(item => this.setOfCheckedId.has(item.resume.id));
-    if(this.setOfCheckedId.size === 0) {
-      this.checked = false;
-    }
     this.indeterminate = this.listOfData.some(item => this.setOfCheckedId.has(item.resume.id)) && !this.checked;
   }
 
@@ -112,7 +113,11 @@ export class ListItemsCComponent implements OnChanges, OnInit {
   // 简历处理  方法 调用   淘汰   不合适  offer  下一阶段等
   submitLoading:boolean = false;
   dealResume():void {
-    if(this.submitLoading || this.setOfCheckedId.size === 0) {
+    if(this.setOfCheckedId.size === 0) {
+      this.msg.error('选择简历不能为空');
+      return;
+    }
+    if(this.submitLoading) {
       return;
     }
     const option = {
@@ -132,7 +137,11 @@ export class ListItemsCComponent implements OnChanges, OnInit {
   }
   
   nextStepsIn():void {
-    if(this.submitLoading || this.setOfCheckedId.size === 0) {
+    if(this.setOfCheckedId.size === 0) {
+      this.msg.error('选择简历不能为空');
+      return;
+    }
+    if(this.submitLoading) {
       return;
     }
     const option = {
