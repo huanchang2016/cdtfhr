@@ -6,6 +6,8 @@ import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { ForgotPasswordFormComponent } from 'src/app/shared/component/login/forgot-password-form/forgot-password-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -13,8 +15,6 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./change-password.component.less']
 })
 export class ChangePasswordComponent implements OnInit {
-
-  linkInfo:any = null;
 
   tplModal?: NzModalRef;
   submitLoading = false;
@@ -28,6 +28,7 @@ export class ChangePasswordComponent implements OnInit {
     private modal: NzModalService,
     private msg: NzMessageService,
     private fb: FormBuilder,
+    private router: Router,
     public settingService: GlobalSettingsService
   ) {
     this.settingService.setTitle('修改密码-账号管理-天府菁英网');
@@ -66,7 +67,7 @@ export class ChangePasswordComponent implements OnInit {
       nzContent: tplContent,
       nzFooter: null,
       nzMaskClosable: false,
-      nzOnOk: () => console.log('Click ok')
+      // nzOnOk: () => console.log('Click ok')
     });
   }
 
@@ -98,10 +99,47 @@ export class ChangePasswordComponent implements OnInit {
       this.submitLoading = false;
       if(res.code === 200) {
         this.msg.success('修改成功');
-        this.tplModal!.destroy();
+        this.resetPasswordSuccess();
       }else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
+  }
+
+  userModal:any = null;
+  fogetPassword():void {
+    // 忘记密码
+    console.log('忘记密码');
+      this.userModal = this.modal.create({
+        nzTitle: '忘记密码',
+        nzContent: ForgotPasswordFormComponent,
+        nzMaskClosable: false,
+        nzWidth: '800px',
+        nzBodyStyle: {
+          padding: '24px 100px 30px'
+        },
+        nzComponentParams: {},
+        // nzViewContainerRef: this.viewContainerRef,
+        // nzGetContainer: () => document.body,
+        
+        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+        nzFooter: null
+      });
+      // const instance = this.userModal.getContentComponent();
+      // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+      // Return a result when closed
+      this.userModal.afterClose.subscribe( result => {
+        console.log(result, 'close modal')
+        if(result && result.type === 'success') {
+          this.resetPasswordSuccess();
+        }
+      });
+  }
+
+  resetPasswordSuccess():void {
+    this.modal.closeAll();
+    this.settingService.clearUser();
+    this.settingService.user = null;
+    this.router.navigateByUrl('/passport/login');
   }
 }

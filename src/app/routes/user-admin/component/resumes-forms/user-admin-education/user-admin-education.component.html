@@ -2,32 +2,42 @@
     <form nz-form [formGroup]="validateForm">
         <div formArrayName="eduExp">
             <div *ngFor="let projectItem of eduExpArrayControls; let edu_i = index" [formGroupName]="edu_i.toString()">
-                <div class="more_info_oper_" *ngIf="eduExpArrayControls.length > 1">
-                    <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-                    <ng-template #dividerText>
-                        <span class="text-grey">第{{ edu_i + 1 }}段教育经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-                    </ng-template>
-                    <a
-                        nz-popconfirm
-                        nzPopconfirmTitle="是否确定删除当前教育经历？"
-                        nzPopconfirmPlacement="bottom"
-                        (nzOnConfirm)="deleted(edu_i, 'eduExp')"
-                        (nzOnCancel)="cancel()"
-                        class="text-danger delete_btn border-radius-sm bg-white"
-                        >
-                        <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-                    </a>
-                </div>
+                <ng-container *ngIf="eduExpArrayControls.length > 1">
+                    <div class="more_info_oper_" *ngIf="edu_i !== 0">
+                        <div class="dashed_border"></div>
+                        <p class="text-grey-dark">第{{ edu_i + 1 }}段教育经历</p>
+                        <div
+                            (click)="deletedModal(edu_i, 'eduExp')"
+                            class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                            >
+                            <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                        </div>
+                        <!-- <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ edu_i + 1 }}段教育经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前教育经历？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deletedModal(edu_i, 'eduExp')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a> -->
+                    </div>
+                </ng-container>
                 <nz-form-item>
                     <nz-form-label [nzSpan]="5" nzFor="school_name" nzRequired>学校名称</nz-form-label>
                     <nz-form-control [nzSpan]="19" nzErrorTip="请输入学校名称，例如：四川大学">
-                        <input nz-input id="school_name" formControlName="school_name" nzSize="large" placeholder="请输入学校名称，例如：四川大学" />
+                        <input nz-input formControlName="school_name" nzSize="large" placeholder="请输入学校名称，例如：四川大学" />
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSpan]="5" nzFor="edu_record" nzRequired>学历</nz-form-label>
                     <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择学历">
-                        <nz-select id="edu_record" formControlName="edu_record" nzSize="large" nzPlaceHolder="请点击选择学历">
+                        <nz-select formControlName="edu_record" nzSize="large" nzPlaceHolder="请点击选择学历">
                             <ng-container *ngFor="let item of globalService.resumeConfigOptions.education">
                                 <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                             </ng-container>
@@ -37,7 +47,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSpan]="5" nzFor="edu_major" nzRequired>专业</nz-form-label>
                     <nz-form-control [nzSpan]="19" nzErrorTip="请输入专业，例如：计算机科学与技术">
-                        <input nz-input id="edu_major" formControlName="edu_major" nzSize="large" placeholder="请输入专业，例如：计算机科学与技术" />
+                        <input nz-input formControlName="edu_major" nzSize="large" placeholder="请输入专业，例如：计算机科学与技术" />
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -68,6 +78,6 @@
 
     <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
         <button class="next_btn" (click)="submitForm()" [nzLoading]="submitLoading" nz-button nzType="primary" nzSize="large">下一步</button>
-        <!-- <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button> -->
+        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
     </div>
 </div>

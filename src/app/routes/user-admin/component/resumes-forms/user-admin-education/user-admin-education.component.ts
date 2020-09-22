@@ -4,6 +4,11 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserDataService } from '../../../service/user-data.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ResumeSectionDeletedModalComponent } from '../../resume-section-deleted-modal/resume-section-deleted-modal.component';
+import { debounceTime } from 'rxjs/operators';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-user-admin-education',
@@ -13,11 +18,14 @@ import { UserDataService } from '../../../service/user-data.service';
 export class UserAdminEducationComponent implements OnInit {
   @Input() resumeUserInfo:any;
 
+  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
+  @Output() resumeInfoChange:EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
   constructor(
+    private modal: NzModalService,
     private fb: FormBuilder,
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
@@ -38,6 +46,37 @@ export class UserAdminEducationComponent implements OnInit {
       ])
     });
 
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
+
+    if(this.resumeUserInfo && this.resumeUserInfo.education) {
+      const data:any[] = this.resumeUserInfo.education.data;
+      if(data && data.length !== 0) {
+        this.resetForm(data);
+      }
+    }
+  }
+  resetForm(list:any[]) {
+    console.log(this.resumeUserInfo, 'resetForm 教育经历');
+    const eduArr:any[] = this.validateForm.get('eduExp').value;
+    list.forEach( (el, index) => {
+      if(index > 0 && eduArr.length < list.length) {
+        // 表单组元素长度 小于 数据长度时新增
+        this.add('eduExp');
+      }
+    });
+    this.validateForm.patchValue({
+      eduExp: list.map( (v, index) => {
+        this.isNotEndChange(!v.end_time, index);
+        return {
+          school_name: v.name,
+          edu_record: v.education.id,
+          edu_major: v.major,
+          edu_start_time: v.start_time,
+          edu_end_time: v.end_time,
+          is_not_end: !v.end_time ? true : false
+        }
+      })
+    })
   }
   
 
@@ -77,7 +116,6 @@ export class UserAdminEducationComponent implements OnInit {
 
   deleted(index: number, type:string): void {
     const groupArray:FormArray = this.validateForm.get(type) as FormArray;
-
     groupArray.removeAt(index);
   }
 
@@ -108,21 +146,26 @@ export class UserAdminEducationComponent implements OnInit {
       const eduExp:any[] = this.validateForm.get('eduExp').value;
 
       const edu:any[] = eduExp.map( v => {
+        const start_time = format(new Date(v.edu_start_time), 'yyyy-MM-dd');
+        const end_time = v.is_not_end ? '' : format(new Date(v.edu_end_time), 'yyyy-MM-dd');
         return {
           name: v.school_name,
           major: v.edu_major,
           education_id: v.edu_record,
-          start_time: v.edu_start_time,
-          end_time: v.is_not_end ? '' : v.edu_end_time
+          start_time: start_time,
+          end_time: end_time
         }
       });
+
       const option = Object.assign({edu}, { resume_id: this.resumeUserInfo.id });
 
       this.submitLoading = true;
       this.globalService.post('/v1/web/user/resume/edu', option).subscribe((res:ApiData) => {
         this.submitLoading = false;
         if(res.code === 200) {
-          this.msg.success(res.message);
+          this.msg.success('保存成功');
+          // this.resumeUserInfo = res.data;
+          this.resumeInfoChange.emit(res.data);
           this.userDataService.getProfile().then();
           this.steps('next');
         }else {
@@ -134,5 +177,31 @@ export class UserAdminEducationComponent implements OnInit {
     }
     
   }
-
+  deletedModal(index: number, type:string):void {
+    const modal = this.modal.create({
+      nzTitle: '提示',
+      nzContent: ResumeSectionDeletedModalComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '400px',
+      nzBodyStyle: {
+        padding: '24px'
+      },
+      nzMaskClosable: false,
+      // nzGetContainer: () => document.body,
+      nzComponentParams: {
+        
+      },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    // const instance = modal.getContentComponent();
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => {
+      console.log('[afterClose] The result is:', result)
+      if(result ===  true) {
+        this.deleted(index, type);
+      }
+    });
+  }
 }

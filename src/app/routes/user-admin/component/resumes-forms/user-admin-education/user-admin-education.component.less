@@ -4,8 +4,11 @@
     padding-top: 30px;
     
     .more_info_oper_ {
-        margin-top: 30px;
-        position: relative;
+        margin-top: 48px;
+        height: 80px;
+        // position: relative;
+        border-top: 3px dashed #BFC1C4;
+        padding-top: 8px;
 
         &:nth-of-type(1) {
             margin-top: 0;
@@ -13,9 +16,20 @@
         .delete_btn {
             padding: 2px 6px;
             border: 2px solid @danger-color;
-            position: absolute;
-            right: 0;
-            top: 0;
+            float: right;
+            // position: absolute;
+            // right: 0;
+            // top: 0;
+            display: flex;
+            align-items: center;
+            .deleted_icon {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                overflow: hidden;
+                background: url('/assets/imgs/icon/btn_del1.png') no-repeat center center;
+                background-size: contain;
+            }
         }
     }
 

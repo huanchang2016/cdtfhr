@@ -1,1 +1,9 @@
-<p>resume-leave-component-modal works!</p>
+<div class="modal__body_wrapper">
+    <p class="text-666 text-center text-lg">是否离开页面？</p>
+    <p class="text-grey text-center">当前简历已存为草稿。</p>
+
+    <div class="modal-oper_btn_box d-flex justify-content-around align-items-center mt-lg">
+        <button nz-button nzSize="large" nzType="primary" (click)="handleCancel()">继续填写</button>
+        <button nz-button nzSize="large" nzType="default" (click)="handleOk()">关闭页面</button>
+    </div>
+</div>

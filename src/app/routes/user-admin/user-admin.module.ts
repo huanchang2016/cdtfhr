@@ -49,6 +49,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
 import { UserAdminGuard } from './guard/user-admin.guard';
 import { ResumeSectionDeletedModalComponent } from './component/resume-section-deleted-modal/resume-section-deleted-modal.component';
 import { ResumeLeaveComponentModalComponent } from './component/resume-leave-component-modal/resume-leave-component-modal.component';
+import { UserAdminWorkAndintensionFormCComponent } from './component/resumes-forms/user-admin-work-andintension-form-c/user-admin-work-andintension-form-c.component';
+import { UserResumesCreateSuccessTplComponent } from './component/resumes-forms/user-resumes-create-success-tpl/user-resumes-create-success-tpl.component';
 
 
 const GUARDS = [
@@ -78,6 +80,8 @@ const ENTRYCOMPONENTS = [
   UserAdminInfoFormCComponent,
   // 教育经历
   UserAdminEducationComponent,
+  // 工作与求职
+  UserAdminWorkAndintensionFormCComponent,
   // 工作经历
   UserAdminWorkExpComponent,
   // 实习经历
@@ -109,14 +113,15 @@ const ENTRYCOMPONENTS = [
   UserInterestTplComponent, // 兴趣爱好
   UserInterestFormTplComponent,
   // 删除某段信息弹出层
-  ResumeSectionDeletedModalComponent
+  ResumeSectionDeletedModalComponent,
+  UserResumesCreateSuccessTplComponent,
+  ResumeLeaveComponentModalComponent
 ];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS,
-    ResumeLeaveComponentModalComponent
+    ...ENTRYCOMPONENTS
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

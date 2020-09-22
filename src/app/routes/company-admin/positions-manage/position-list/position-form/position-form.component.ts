@@ -81,7 +81,7 @@ export class PositionFormComponent implements OnInit {
           education_id: value.education,
           work_experience_id: value.work_exp,
           description: value.description,
-          email: value.user_email,
+          email: value.user_email ? value.user_email : '',
           date: value.duration_time
         };
         this.create(option);
@@ -102,7 +102,7 @@ export class PositionFormComponent implements OnInit {
           education_id: value.education,
           work_experience_id: value.work_exp,
           description: value.description,
-          email: value.user_email,
+          email: value.user_email ? value.user_email : '',
           date: value.duration_time
         };
         this.edit(obj);

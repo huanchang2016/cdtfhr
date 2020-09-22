@@ -2,7 +2,7 @@
     <form nz-form [formGroup]="validateForm">
         <nz-form-item>
             <nz-form-label [nzSpan]="5" nzFor="name" nzRequired>姓名</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的真实姓名">
+            <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的真实姓名，只填写汉字">
                 <input nz-input id="name" formControlName="name" nzSize="large" placeholder="请填写您的真实姓名" />
             </nz-form-control>
         </nz-form-item>
@@ -19,7 +19,7 @@
             <nz-form-label [nzSpan]="5" nzRequired nzFor="birthday">出生日期</nz-form-label>
             <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择您的出生日期，年龄必须在16岁以上">
                 <!-- <app-date-picker-month formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-month> -->
-                <app-date-picker-month-birthdy formControlName="birthday" [placeholder]="'年龄必须在16岁以上'" [size]="'large'"></app-date-picker-month-birthdy>
+                <app-date-picker-month-birthdy formControlName="birthday" [placeholder]="'请点击选择您的出生日期'" [size]="'large'"></app-date-picker-month-birthdy>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -35,7 +35,7 @@
         <nz-form-item>
             <nz-form-label [nzSpan]="5" nzFor="registered_residence" nzRequired>户口所在地</nz-form-label>
             <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的户口所在地">
-                <app-three-stage-cascader formControlName="registered_residence" [layer]="'second'" [Size]="'large'" placeholder="请填写您的户口所在地"></app-three-stage-cascader>
+                <app-three-stage-cascader formControlName="registered_residence" [layer]="'second'" [Size]="'large'" placeholder="请点击选择对应城市"></app-three-stage-cascader>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -53,8 +53,8 @@
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="5" nzFor="address_city" nzRequired>现居住地</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请填写您的现居住地">
-                <app-three-stage-cascader formControlName="address_city" [Size]="'large'" placeholder="请填写您的现居住地"></app-three-stage-cascader>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择对应地区">
+                <app-three-stage-cascader formControlName="address_city" [Size]="'large'" placeholder="请点击选择对应地区"></app-three-stage-cascader>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>

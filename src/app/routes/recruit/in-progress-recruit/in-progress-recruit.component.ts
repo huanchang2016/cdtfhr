@@ -202,7 +202,7 @@ export class InProgressRecruitComponent implements OnInit {
     // const instance = this.loginModal.getContentComponent();
     // this.loginModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.loginModal.afterClose.subscribe( result =>  console.log(result, 'close modal') );
+    // this.loginModal.afterClose.subscribe( result =>  console.log(result, 'close modal') );
 
   }
   // 简历投递成功
@@ -220,7 +220,7 @@ export class InProgressRecruitComponent implements OnInit {
       nzFooter: null
     });
     // const instance = this.successModal.getContentComponent();
-    this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     this.successModal.afterClose.subscribe( result => {
       if(result && result.type === 'success') {
@@ -244,13 +244,13 @@ export class InProgressRecruitComponent implements OnInit {
       nzFooter: null
     });
     // const instance = this.userCelebrityModal.getContentComponent();
-    this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.userCelebrityModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-        // nothing to do .
-      }
-    });
+    // this.userCelebrityModal.afterClose.subscribe( result => {
+    //   if(result && result.type === 'success') {
+    //     // nothing to do .
+    //   }
+    // });
   }
   
 }

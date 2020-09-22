@@ -7,7 +7,7 @@
       <th class="text-center">收到简历数</th>
       <th class="text-center">开始时间</th>
       <th class="text-center">结束时间</th>
-      <th class="text-center">操作</th>
+      <th nzWidth="170px" class="text-center">操作</th>
     </tr>
   </thead>
   <tbody>
@@ -22,28 +22,73 @@
       <td class="text-center">{{ item.start_at | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
       <td class="text-center">{{ item.expires_at | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
       <td class="oper_box text-nowrap text-center">
+
         <ng-container *ngIf="status === 'ing'">
-          <a [routerLink]="['/recruit/details', item.id]" target="_blank"><i nz-icon nzType="eye" nzTheme="outline" nz-tooltip nzTooltipTitle="预览"></i></a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <i (click)="refreshItem(item)" class="text-primary point" nz-icon nzType="sync"
+          <div class="oper_box_wrapper d-flex align-items-center justify-content-around">
+            <div class="oper-list text-center point" (click)="refreshItem(item)">
+                <span class="refresh"></span>
+                <p class="text-primary text-xs">刷新</p>
+            </div>
+            <!-- <a class="d-block oper-list text-center"
+                [routerLink]="['/fullscreen/resume/view', data.id]" target="_blank">
+                <span class="view"></span>
+                <p class="text-primary text-xs">预览</p>
+            </a> -->
+            <div class="oper-list text-center" (click)="edit(item)">
+                <span class="edit"></span>
+                <p class="text-primary text-xs">修改</p>
+            </div>
+            <div class="oper-list text-center point" nz-popconfirm nzPopconfirmTitle="是否下线当前的职位？" nzOkText="下线"
+               (nzOnConfirm)="disabled(item.id)" (nzOnCancel)="cancel()">
+                <span class="down"></span>
+                <p class="text-primary text-xs">下线</p>
+            </div>
+          </div>
+
+          <!-- <a [routerLink]="['/recruit/details', item.id]" target="_blank"><i nz-icon nzType="eye" nzTheme="outline" nz-tooltip nzTooltipTitle="预览"></i></a>
+          <nz-divider nzType="vertical"></nz-divider> -->
+          <!-- <i (click)="refreshItem(item)" class="text-primary point" nz-icon nzType="sync"
             [nzSpin]="freshLoadingOption[item.id]" nzTheme="outline" nz-tooltip nzTooltipTitle="刷新"></i>
-          <nz-divider nzType="vertical"></nz-divider>
-          <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip
+          <nz-divider nzType="vertical"></nz-divider> -->
+          <!-- <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip
             nzTooltipTitle="编辑"></i>
           <nz-divider nzType="vertical"></nz-divider>
           <a nz-popconfirm class="text-danger" nzPopconfirmTitle="是否下线当前的职位？" nzOkText="下线" nz-tooltip
             nzTooltipTitle="下线" (nzOnConfirm)="disabled(item.id)" (nzOnCancel)="cancel()"><i nz-icon nzType="stop"
-              nzTheme="outline"></i></a>
+              nzTheme="outline"></i></a> -->
         </ng-container>
+
+
         <ng-container *ngIf="status === 'under-line'">
-          <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip
+
+          <div class="oper_box_wrapper d-flex align-items-center justify-content-around">
+            <div class="oper-list text-center" (click)="edit(item)">
+                <span class="edit"></span>
+                <p class="text-primary text-xs">修改</p>
+            </div>
+            <div class="oper-list text-center point" (click)="uplineItem(item.id)">
+                <span class="up"></span>
+                <p class="text-primary text-xs">上线</p>
+            </div>
+            <!-- <a class="d-block oper-list text-center"
+                [routerLink]="['/fullscreen/resume/view', data.id]" target="_blank">
+                <span class="view"></span>
+                <p class="text-primary text-xs">预览</p>
+            </a> -->
+            <div class="oper-list text-center point" (click)="showModal(item.id)">
+                <span class="del"></span>
+                <p class="text-danger text-xs">删除</p>
+            </div>
+          </div>
+
+          <!-- <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip
             nzTooltipTitle="编辑"></i>
           <nz-divider nzType="vertical"></nz-divider>
           <i (click)="uplineItem(item.id)" class="text-primary point" nz-icon nzType="check-circle" nzTheme="outline"
             nz-tooltip nzTooltipTitle="上线"></i>
           <nz-divider nzType="vertical"></nz-divider>
           <i class="text-danger" nz-popconfirm nzPopconfirmTitle="是否确认删除当前职位" nzOkText="删除" nzCancelText="取消" (nzOnConfirm)="showConfirm(item.id)" (nzOnCancel)="cancel()" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
-            nzTooltipTitle="删除"></i>
+            nzTooltipTitle="删除"></i> -->
         </ng-container>
       </td>
     </tr>
@@ -60,16 +105,16 @@
             <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading"
               (click)="refreshAll()">批量刷新</button>
 
-            <a nz-button nzType="link" class="ml-md" [disabled]="setOfCheckedId.size === 0" nzDanger nz-popconfirm
+            <button nz-button nzType="primary" class="ml-md" [disabled]="setOfCheckedId.size === 0" nz-popconfirm
               nzPopconfirmTitle="是否下线选择的职位？" nzOkText="下线" (nzOnConfirm)="disabledAll()"
-              (nzOnCancel)="cancel()">批量下线</a>
+              (nzOnCancel)="cancel()">批量下线</button>
           </ng-container>
 
           <ng-container *ngIf="status === 'under-line'">
             <button nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" [nzLoading]="loading"
               (click)="upLineSubmit()">批量上线</button>
-            <a nz-button nzType="link" class="ml-md" [disabled]="setOfCheckedId.size === 0" nzDanger
-              (click)="showConfirm()">批量删除</a>
+            <button nz-button nzType="primary" class="ml-md" [disabled]="setOfCheckedId.size === 0"
+              (click)="showModal()">批量删除</button>
 
           </ng-container>
 
@@ -79,3 +124,16 @@
     </tr>
   </tbody>
 </nz-table>
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false">
+  <p class="text-666 text-center text-lg">是否将此招聘信息删除？</p>
+  <p class="text-grey text-center">删除后，此职业下的简历也会被删除。</p>
+  <p class="text-grey text-center">（加入收藏夹的除外）</p>
+
+  <div class="d-flex justify-content-around pt-lg mt-lg">
+      <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+      <button [nzLoading]="deletedLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
+          nzSize="large">删除</button>
+  </div>
+</nz-modal>

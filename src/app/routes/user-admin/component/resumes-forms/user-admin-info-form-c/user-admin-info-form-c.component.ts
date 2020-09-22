@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalSettingsService } from '@core';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-admin-info-form-c',
@@ -10,6 +11,10 @@ import { GlobalSettingsService } from '@core';
 export class UserAdminInfoFormCComponent implements OnInit {
   validateForm!: FormGroup;
 
+  @Input() resumeUserInfo:any;
+
+  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
+
   constructor(
     private fb: FormBuilder,
     public globalService: GlobalSettingsService
@@ -17,7 +22,7 @@ export class UserAdminInfoFormCComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.pattern(/[\u4E00-\u9FA5]{1,}/)]],
       sex: [null, [Validators.required]],
       birthday: [null, [Validators.required]],
       marriage_id: [null, [Validators.required]],
@@ -35,8 +40,31 @@ export class UserAdminInfoFormCComponent implements OnInit {
           is_not_work: false
         });
       }
-    })
+    });
+
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
+    
+    console.log('start reset info', this.resumeUserInfo)
+    if(this.resumeUserInfo) {
+      this.resetForm();
+    }
   }
+  resetForm():void {
+    console.log('resetForm 个人信息', this.resumeUserInfo);
+    this.validateForm.patchValue({
+      name: this.resumeUserInfo.name,
+      sex: this.resumeUserInfo.sex,
+      birthday: this.resumeUserInfo.birthday,
+      marriage_id: this.resumeUserInfo.marriage.id,
+      registered_residence: [this.resumeUserInfo.registered_province.id, this.resumeUserInfo.registered_city.id],
+      work_date: this.resumeUserInfo.work_date,
+      is_not_work: this.resumeUserInfo.work_date ? false : true,
+      address_city: [this.resumeUserInfo.work_province.id, this.resumeUserInfo.work_city.id, this.resumeUserInfo.work_area?.id],
+      email: this.resumeUserInfo.email,
+      avatar: this.resumeUserInfo.avatar
+    });
+  }
+
   isNotWorkChange(required: boolean): void {
     if (required) {
       this.validateForm.patchValue({
@@ -62,11 +90,6 @@ export class UserAdminInfoFormCComponent implements OnInit {
         resolve(this.validateForm.value);
       });
     }
-    
-    
   }
-
-  
-
 
 }

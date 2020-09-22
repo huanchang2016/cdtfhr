@@ -1,3 +1,5 @@
+@import './../../../../../../../styles/base-color.less';
+
 nz-form-label {
     line-height: 40px;
 }
@@ -7,4 +9,18 @@ nz-alert {
 
 .login-form-button {
     width: 140px;
+}
+
+.show_password {
+    line-height: 40px;
+}
+.reset_password {
+    line-height: 26px;
+    height: 30px;
+    overflow: hidden;
+    border: 2px solid @primary-color;
+    &:hover {
+        background-color: @primary-color;
+        color: #fff!important;
+    }
 }

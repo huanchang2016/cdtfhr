@@ -2,10 +2,10 @@
     <div class="steps_wrapper">
       <nz-steps [nzCurrent]="step" nzSize="large" nzDirection="horizontal" [nzProgressDot]="nzProgressDot">
         <nz-step [nzTitle]="'个人信息'"></nz-step>
-        <nz-step [nzTitle]="'求职意向'"></nz-step>
         <nz-step [nzTitle]="'教育经历'"></nz-step>
-        <nz-step [nzTitle]="'工作经历'"></nz-step>
-        <nz-step [nzTitle]="'实习经历'"></nz-step>
+        <nz-step [nzTitle]="'工作与求职'"></nz-step>
+        <!-- <nz-step [nzTitle]="'工作经历'"></nz-step>
+        <nz-step [nzTitle]="'实习经历'"></nz-step> -->
         <nz-step [nzTitle]="'其它'"></nz-step>
   
       </nz-steps>
@@ -13,28 +13,27 @@
         <div>
           <ng-container *ngIf="step === 0">
             <app-sub-title-show [title]="'个人信息'"></app-sub-title-show>
-            
-            <app-user-admin-info-form-c #userInfoTpl></app-user-admin-info-form-c>
+            <app-user-admin-info-form-c #userInfoTpl [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)"></app-user-admin-info-form-c>
 
             <div class="next-steps__btn mt-lg"><button (click)="submitInfo()" [nzLoading]="submitLoading" nzBlock nz-button nzType="primary" nzSize="large">下一步</button></div>
 
           </ng-container>
-
-          <ng-container *ngIf="step === 1">
-            <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
-            
-            <app-user-admin-job-intension-form-c [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c>
-
-          </ng-container>
   
-          <ng-container *ngIf="step === 2">
+          <ng-container *ngIf="step === 1">
             <app-sub-title-show [title]="'教育经历'"></app-sub-title-show>
             
-            <app-user-admin-education [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-education>
+            <app-user-admin-education [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)" (resumeInfoChange)="resumeInfoChange($event)" (stepsChange)="stepsChange($event)"></app-user-admin-education>
             
           </ng-container>
+
+          <ng-container *ngIf="step === 2">
+            <!-- <app-sub-title-show [title]="'求职意向'"></app-sub-title-show> -->
+            <app-user-admin-work-andintension-form-c [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)" (resumeInfoChange)="resumeInfoChange($event)" (stepsChange)="stepsChange($event)"></app-user-admin-work-andintension-form-c>
+            <!-- <app-user-admin-job-intension-form-c [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c> -->
+
+          </ng-container>
   
-          <ng-container *ngIf="step === 3">
+          <!-- <ng-container *ngIf="step === 3">
             <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
             
             <app-user-admin-work-exp [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-work-exp>
@@ -46,11 +45,11 @@
 
             <app-user-admin-internship-exp [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-internship-exp>
             
-          </ng-container>
+          </ng-container> -->
 
-          <ng-container *ngIf="step === 5">
+          <ng-container *ngIf="step === 3">
             
-            <app-user-admin-other-info [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-other-info>
+            <app-user-admin-other-info [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)" (resumeInfoChange)="resumeInfoChange($event)" (stepsChange)="stepsChange($event)"></app-user-admin-other-info>
             
           </ng-container>
         </div>
@@ -62,3 +61,4 @@
   <ng-template #nzProgressDot>
     <div class="steps_status border-radius-half"></div>
   </ng-template>
+

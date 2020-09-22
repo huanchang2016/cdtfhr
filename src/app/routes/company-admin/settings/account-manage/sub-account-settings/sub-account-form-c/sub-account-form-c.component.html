@@ -1,35 +1,47 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-    <nz-form-item *ngIf="data">
+    <!-- <nz-form-item *ngIf="data">
         <nz-alert nzType="info" nzMessage="如果不修改密码，则不填写账户密码和确认密码" nzCloseText="关闭" nzShowIcon></nz-alert>
-    </nz-form-item>
+    </nz-form-item> -->
     <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="account_name">账户名称</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="请填写账户名称">
             <input nz-input formControlName="account_name" id="account_name" placeholder="账号可以由字符、数字和字母" nzSize="large" />
         </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
-        <nz-form-label class="text-left" nzSpan="6" nzFor="password" [nzRequired]="!data">账户密码</nz-form-label>
-        <nz-form-control nzSpan="18" nzErrorTip="请输入账户密码，由8~12位字符构成，含数字和字母">
-            <input nz-input type="password" id="password" formControlName="password"
-                (ngModelChange)="updateConfirmValidator()" nzSize="large" placeholder="密码由8~12位字符构成，含数字和字母" />
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label class="text-left" nzSpan="6" nzFor="checkPassword" [nzRequired]="!data">确认密码</nz-form-label>
-        <nz-form-control nzSpan="18" [nzErrorTip]="errorTpl">
-            <input nz-input type="password" formControlName="checkPassword" id="checkPassword" nzSize="large" placeholder="请再次输入密码" />
-            <ng-template #errorTpl let-control>
-                <ng-container *ngIf="control.hasError('required')">
-                    请再次输入确认密码
-                </ng-container>
-                <ng-container *ngIf="control.hasError('confirm')">
-                    两次输入的密码不相同
-                </ng-container>
-            </ng-template>
-        </nz-form-control>
-    </nz-form-item>
-    
+    <ng-container *ngIf="!data">
+        <nz-form-item>
+            <nz-form-label class="text-left" nzSpan="6" nzFor="password" [nzRequired]="!data">账户密码</nz-form-label>
+            <nz-form-control nzSpan="18" nzErrorTip="请输入账户密码，由8~12位字符构成，含数字和字母">
+                <input nz-input type="password" id="password" formControlName="password"
+                    (ngModelChange)="updateConfirmValidator()" nzSize="large" placeholder="密码由8~12位字符构成，含数字和字母" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label class="text-left" nzSpan="6" nzFor="checkPassword" [nzRequired]="!data">确认密码</nz-form-label>
+            <nz-form-control nzSpan="18" [nzErrorTip]="errorTpl">
+                <input nz-input type="password" formControlName="checkPassword" id="checkPassword" nzSize="large" placeholder="请再次输入密码" />
+                <ng-template #errorTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        请再次输入确认密码
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('confirm')">
+                        两次输入的密码不相同
+                    </ng-container>
+                </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    </ng-container>
+    <ng-container *ngIf="data">
+        <nz-form-item>
+            <nz-form-label class="text-left" nzSpan="6" nzFor="password" nzRequired>账户密码</nz-form-label>
+            <nz-form-control nzSpan="18">
+                <div class="show_password d-flex align-items-center">
+                    <span class="text-grey">*********</span>
+                    <div (click)="showResetModal()" class="reset_password login-form-button point border-radius-sm text-center text-md ml-lg text-primary">密码重置</div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </ng-container>
     <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="user_member_name">员工姓名</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="请填写员工姓名">
@@ -59,3 +71,14 @@
         </nz-form-control>
     </nz-form-item>
 </form>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false">
+    <p class="text-666 text-center text-lg">是否重置账号<span class="text-primary">{{ data.name }}</span>的密码？</p>
+    <p class="text-grey text-center">重置后的初始密码为123456。</p>
+
+    <div class="d-flex justify-content-around pt-lg mt-lg">
+        <button [nzLoading]="resetLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
+            nzSize="large">重置</button>
+        <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+    </div>
+</nz-modal>

@@ -26,7 +26,7 @@ const COMPONENTS_NOROUNT = [
   imports: [ SharedModule, RouteRoutingModule ],
   declarations: [
     ...COMPONENTS,
-    ...COMPONENTS_NOROUNT,
+    ...COMPONENTS_NOROUNT
   ],
 })
 export class RoutesModule {}

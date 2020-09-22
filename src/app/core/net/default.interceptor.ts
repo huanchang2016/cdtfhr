@@ -160,6 +160,9 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 企业
     '/v1/web/com/register',
     '/v1/web/com/login',
+    // 忘记密码验证码发送
+    '/v1/web/send_reset_code',
+    '/v1/web/find_account',
     // 其余为首页相关请求
     '/v1/web/index/'
   ];

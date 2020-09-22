@@ -33,7 +33,11 @@
                     <nz-switch (click)="setPowerAuth(item)" [(ngModel)]="item.job_power" [nzControl]="true" [nzLoading]="powerOption[item.id]" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
                 </td>
                 <td>
-                    <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="编辑"></i>
+                    <!-- <i (click)="edit(item)" class="text-primary point" nz-icon nzType="edit" nzTheme="outline" nz-tooltip nzTooltipTitle="编辑"></i> -->
+                    <div class="oper-list text-center" (click)="edit(item)">
+                        <span class="edit"></span>
+                        <p class="text-primary text-xs">编辑</p>
+                    </div>
                     <!-- <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
                         nzPopconfirmTitle="是否删除当前账号？"

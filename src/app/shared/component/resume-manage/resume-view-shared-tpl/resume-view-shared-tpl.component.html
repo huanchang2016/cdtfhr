@@ -339,5 +339,11 @@
     <!-- 兴趣爱好 -->
 
     <app-sub-title-show [title]="'兴趣爱好'"></app-sub-title-show>
-    <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText"></div>
+    <ng-template #notHobby>
+        <span class="text-grey pl-md">暂无兴趣爱好</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.hobby; else notHobby">
+        <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText"></div>
+    </div>
+    
 </div>

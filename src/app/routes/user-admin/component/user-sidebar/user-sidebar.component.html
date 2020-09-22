@@ -17,32 +17,39 @@
     </div>
 
     <div class="sidebar__menu_wraper">
-        <ul nz-menu nzMode="inline">
-            <li nz-submenu nzTitle="个人中心" nzOpen>
-                <ul>
-                    <!-- 用户完成实名认证 和 填写简历 之前，只显示  实名认证菜单 -->
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="userDataService.userProfile?.status === 1 && userDataService.userProfile?.complete === 1">
-                        <a [routerLink]="['/admin/user/home']">个人主页</a>
-                    </li>
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
-                        <a [routerLink]="['/admin/user/certification']">实名认证 <span *ngIf="userDataService.userProfile?.status !== 1" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
-                    </li>
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="userDataService.userProfile?.status === 1">
-                        <a [routerLink]="['/admin/user/bind']">账号绑定</a>
-                    </li>
-                </ul>
-            </li>
-            <li nz-submenu nzTitle="简历管理" nzOpen>
-                <ul>
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item>
-                        <a [routerLink]="['/admin/user/resumes']">我的简历 <span *ngIf="userDataService.userProfile?.complete === 0" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
-                    </li>
-                    <li routerLinkActive="ant-menu-item-selected" nz-menu-item *ngIf="userDataService.userProfile?.status === 1 && userDataService.userProfile?.complete === 1">
-                        <a [routerLink]="['/admin/user/delivery']">投递记录</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <ng-container *ngIf="profile; else loadingSidebarTpl">
+            <ul nz-menu nzMode="inline">
+                <li nz-submenu nzTitle="个人中心" nzOpen>
+                    <ul>
+                        <!-- 用户完成实名认证 和 填写简历 之前，只显示  实名认证菜单 -->
+                        <li routerLinkActive="ant-menu-item-selected" nz-menu-item [nzMatchRouter]="true" *ngIf="userDataService.userProfile?.status === 1 && userDataService.userProfile?.complete === 1">
+                            <a [routerLink]="['/admin/user/home']">个人主页</a>
+                        </li>
+                        <li routerLinkActive="ant-menu-item-selected" nz-menu-item [nzMatchRouter]="true">
+                            <a [routerLink]="['/admin/user/certification']">实名认证 <span *ngIf="userDataService.userProfile?.status !== 1" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
+                        </li>
+                        <li routerLinkActive="ant-menu-item-selected" nz-menu-item [nzMatchRouter]="true" *ngIf="userDataService.userProfile?.status === 1">
+                            <a [routerLink]="['/admin/user/bind']">账号绑定</a>
+                        </li>
+                    </ul>
+                </li>
+                <li nz-submenu nzTitle="简历管理" nzOpen>
+                    <ul>
+                        <li routerLinkActive="ant-menu-item-selected" nz-menu-item [nzMatchRouter]="true">
+                            <a [routerLink]="['/admin/user/resumes']">我的简历 <span *ngIf="userDataService.userProfile?.complete === 0" class="text-danger"> <i class="m0" nz-icon nzType="warning" nzTheme="fill"></i><span class="text-xs">待完善</span></span></a>
+                        </li>
+                        <li routerLinkActive="ant-menu-item-selected" nz-menu-item [nzMatchRouter]="true" *ngIf="userDataService.userProfile?.status === 1 && userDataService.userProfile?.complete === 1">
+                            <a [routerLink]="['/admin/user/delivery']">投递记录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </ng-container>
+        <ng-template #loadingSidebarTpl>
+            <div class="py-lg text-center">
+                <nz-spin nzSimple></nz-spin>
+            </div>
+        </ng-template>
     </div>
 
 </div>

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
 import { UserLoginComponent } from './component/login/user-login/user-login.component';
 import { CompanyLoginComponent } from './component/login/company-login/company-login.component';
+import { ForgotPasswordFormComponent } from './component/login/forgot-password-form/forgot-password-form.component';
 import { SubTitleShowComponent } from './component/sub-title-show/sub-title-show.component';
 import { DatePickerMonthComponent } from './component/forms/date-picker-month/date-picker-month.component';
 import { DatePickerDateComponent } from './component/forms/date-picker-date/date-picker-date.component';
@@ -50,8 +51,6 @@ const THIRDMODULES = [];
 // #region your componets & directives
 
 const COMPONENTS = [
-  UserLoginComponent,
-  CompanyLoginComponent,
   SubTitleShowComponent,
   // 复用表单组件
   DatePickerMonthComponent,
@@ -74,6 +73,10 @@ const COMPONENTS = [
 ];
 
 const ENTRYCOMPONENTS = [
+  // 忘记密码/登录
+  UserLoginComponent,
+  CompanyLoginComponent,
+  ForgotPasswordFormComponent,
   // 简历投递，成功/实名认证/选择简历
   PostDeliverySuccessComponent,
   CelebrityNotPassComponent,
@@ -115,7 +118,8 @@ const DIRECTIVES = [
     // your components
     ...COMPONENTS,
     ...ENTRYCOMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
+    ForgotPasswordFormComponent
   ],
   exports: [
     CommonModule,

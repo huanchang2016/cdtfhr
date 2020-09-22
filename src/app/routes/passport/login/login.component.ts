@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     public msg: NzMessageService,
   ) {
     this.form = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(4)]],
+      name: [null, [Validators.required, Validators.minLength(3)]],
       password: [null, Validators.required],
 
       phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],

@@ -14,22 +14,34 @@
         <ng-container *ngIf="validateForm.get('is_projectExp').value">
             <div formArrayName="projectExp">
                 <div *ngFor="let projectItem of projectExpArrayControls; let pro_i = index" [formGroupName]="pro_i.toString()">
-                    <div class="more_info_oper_" *ngIf="projectExpArrayControls.length > 1">
-                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-                        <ng-template #dividerText>
-                            <span class="text-grey">第{{ pro_i + 1 }}段项目经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-                        </ng-template>
-                        <a
-                            nz-popconfirm
-                            nzPopconfirmTitle="是否确定删除当前项目经历？"
-                            nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="deleted(pro_i, 'projectExp')"
-                            (nzOnCancel)="cancel()"
-                            class="text-danger delete_btn border-radius-sm bg-white"
-                            >
-                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-                        </a>
-                    </div>
+                    <ng-container *ngIf="projectExpArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="pro_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ pro_i + 1 }}段项目经历</p>
+                            <div
+                                (click)="deletedModal(pro_i, 'projectExp')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+
+                        <!-- <div class="more_info_oper_" *ngIf="projectExpArrayControls.length > 1">
+                            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                            <ng-template #dividerText>
+                                <span class="text-grey">第{{ pro_i + 1 }}段项目经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                            </ng-template>
+                            <a
+                                nz-popconfirm
+                                nzPopconfirmTitle="是否确定删除当前项目经历？"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="deleted(pro_i, 'projectExp')"
+                                (nzOnCancel)="cancel()"
+                                class="text-danger delete_btn border-radius-sm bg-white"
+                                >
+                                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                            </a> -->
+                        </div>
+                    </ng-container>
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>项目名称</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请输入项目名称">
@@ -68,22 +80,33 @@
         <ng-container *ngIf="validateForm.get('is_trainExp').value">
             <div formArrayName="trainExp">
                 <div *ngFor="let projectItem of trainExpArrayControls; let train_i = index" [formGroupName]="train_i.toString()">
-                    <div class="more_info_oper_" *ngIf="trainExpArrayControls.length > 1">
-                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-                        <ng-template #dividerText>
-                            <span class="text-grey">第{{ train_i + 1 }}段培训经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-                        </ng-template>
-                        <a
-                            nz-popconfirm
-                            nzPopconfirmTitle="是否确定删除当前培训经历？"
-                            nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="deleted(train_i, 'trainExp')"
-                            (nzOnCancel)="cancel()"
-                            class="text-danger delete_btn border-radius-sm bg-white"
-                            >
-                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-                        </a>
-                    </div>
+                    <ng-container *ngIf="trainExpArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="train_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ train_i + 1 }}段培训经历</p>
+                            <div
+                                (click)="deletedModal(train_i, 'trainExp')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+                        <!-- <div class="more_info_oper_" *ngIf="trainExpArrayControls.length > 1">
+                            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                            <ng-template #dividerText>
+                                <span class="text-grey">第{{ train_i + 1 }}段培训经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                            </ng-template>
+                            <a
+                                nz-popconfirm
+                                nzPopconfirmTitle="是否确定删除当前培训经历？"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="deleted(train_i, 'trainExp')"
+                                (nzOnCancel)="cancel()"
+                                class="text-danger delete_btn border-radius-sm bg-white"
+                                >
+                                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                            </a> -->
+                        </div>
+                    </ng-container>
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>培训内容</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请输入培训内容">
@@ -123,22 +146,34 @@
         <ng-container *ngIf="validateForm.get('is_certificate').value">
             <div formArrayName="certificates">
                 <div *ngFor="let projectItem of certificatesArrayControls; let certificate_i = index" [formGroupName]="certificate_i.toString()">
-                    <div class="more_info_oper_" *ngIf="certificatesArrayControls.length > 1">
-                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-                        <ng-template #dividerText>
-                            <span class="text-grey">第{{ certificate_i + 1 }}个证书 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-                        </ng-template>
-                        <a
-                            nz-popconfirm
-                            nzPopconfirmTitle="是否确定删除当前证书信息？"
-                            nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="deleted(certificate_i, 'certificates')"
-                            (nzOnCancel)="cancel()"
-                            class="text-danger delete_btn border-radius-sm bg-white"
-                            >
-                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-                        </a>
-                    </div>
+                    <ng-container *ngIf="certificatesArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="certificate_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ certificate_i + 1 }}个证书</p>
+                            <div
+                                (click)="deletedModal(certificate_i, 'certificates')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+
+                        <!-- <div class="more_info_oper_" *ngIf="certificatesArrayControls.length > 1">
+                            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                            <ng-template #dividerText>
+                                <span class="text-grey">第{{ certificate_i + 1 }}个证书 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                            </ng-template>
+                            <a
+                                nz-popconfirm
+                                nzPopconfirmTitle="是否确定删除当前证书信息？"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="deleted(certificate_i, 'certificates')"
+                                (nzOnCancel)="cancel()"
+                                class="text-danger delete_btn border-radius-sm bg-white"
+                                >
+                                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                            </a> -->
+                        </div>
+                    </ng-container>
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>证书名称</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请输入获得证书的名称">
@@ -171,22 +206,33 @@
         <ng-container *ngIf="validateForm.get('is_language').value">
             <div formArrayName="languages">
                 <div *ngFor="let projectItem of languagesArrayControls; let language_i = index" [formGroupName]="language_i.toString()">
-                    <div class="more_info_oper_" *ngIf="languagesArrayControls.length > 1">
-                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
-                        <ng-template #dividerText>
-                            <span class="text-grey">第{{ language_i + 1 }}项语言能力 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
-                        </ng-template>
-                        <a
-                            nz-popconfirm
-                            nzPopconfirmTitle="是否确定删除当前语言能力？"
-                            nzPopconfirmPlacement="bottom"
-                            (nzOnConfirm)="deleted(language_i, 'languages')"
-                            (nzOnCancel)="cancel()"
-                            class="text-danger delete_btn border-radius-sm bg-white"
-                            >
-                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
-                        </a>
-                    </div>
+                    <ng-container *ngIf="languagesArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="language_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ language_i + 1 }}项语言能力</p>
+                            <div
+                                (click)="deletedModal(language_i, 'languages')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+                        <!-- <div class="more_info_oper_" *ngIf="languagesArrayControls.length > 1">
+                            <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                            <ng-template #dividerText>
+                                <span class="text-grey">第{{ language_i + 1 }}项语言能力 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                            </ng-template>
+                            <a
+                                nz-popconfirm
+                                nzPopconfirmTitle="是否确定删除当前语言能力？"
+                                nzPopconfirmPlacement="bottom"
+                                (nzOnConfirm)="deleted(language_i, 'languages')"
+                                (nzOnCancel)="cancel()"
+                                class="text-danger delete_btn border-radius-sm bg-white"
+                                >
+                                <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                            </a> -->
+                        </div>
+                    </ng-container>
                     <nz-form-item>
                         <nz-form-label [nzSpan]="5" nzRequired>外语语种</nz-form-label>
                         <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择语种">
@@ -252,7 +298,7 @@
 
     <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
         <button class="next_btn" (click)="submitForm()" nz-button [nzLoading]="submitLoading" nzType="primary" nzSize="large">完成</button>
-        <!-- <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button> -->
+        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
     </div>
 
 </div>

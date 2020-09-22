@@ -162,7 +162,12 @@ export class ResumesListComponent implements OnInit {
       console.log(res, '搜索简历', option);
       this.loadingData = false;
       if(res.code === 200) {
-        this.listOfData = res.data;
+        const list:any[] = res.data;
+        if(this.searchOptions.sort === 'correlation') {
+          this.listOfData = list.sort((a:any, b:any) => b.correlation - a.correlation);
+        }else {
+          this.listOfData = list;
+        }
         this.total = res.meta.pagination.total;
         // 搜索后，需要重新获取 搜索记录
         this.getHistoryRecord();

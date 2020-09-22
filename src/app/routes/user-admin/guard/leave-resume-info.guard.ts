@@ -11,8 +11,11 @@ export class LeaveResumeInfoGuard implements CanDeactivate<ResumeCreateComponent
   canDeactivate(component: ResumeCreateComponent,
                   route: ActivatedRouteSnapshot,
                   state: RouterStateSnapshot): Observable<boolean> | boolean {
-        // return component.leaveTip();
-        return false;
+                    let val:boolean = false;
+
+                    return component.leaveTip();
+                    
+
   }
   
 }

@@ -1,0 +1,301 @@
+<div class="form-container">
+    <form nz-form [formGroup]="validateForm">
+        <app-sub-title-show [title]="'求职意向'"></app-sub-title-show>
+        <nz-form-item class="mt-lg">
+            <nz-form-label [nzSpan]="5" nzFor="work_address" nzRequired>工作地区</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的工作地区，最多可以选择三个选项">
+                <app-multiple-cascader-selected ngDefaultcontrol formControlName="work_address" [layer]="'second'" [type]="'city'" [size]="'large'"
+                    [placeholder]="'请点击选择期望的工作地区'"></app-multiple-cascader-selected>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="industry" nzRequired>期望行业</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的行业">
+                <nz-select id="industry" formControlName="industry" nzSize="large" nzMode="multiple" nzPlaceHolder="请点击选择期望的行业">
+                    <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                    </ng-container>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="job_position" nzRequired>期望职业</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望职业">
+                <app-multiple-cascader-selected ngDefaultcontrol formControlName="job_position" [layer]="'three'" [type]="'position_type'" [size]="'large'"
+                    [placeholder]="'请点击选择期望职业'"></app-multiple-cascader-selected>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="job_salary" nzRequired>期望月薪</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的月薪区间">
+                <nz-select id="job_salary" formControlName="job_salary" nzSize="large" nzPlaceHolder="请点击选择期望的月薪区间">
+                    <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                    </ng-container>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="job_status" nzRequired>求职状态</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择求职状态">
+                <nz-select id="job_status" formControlName="job_status" nzSize="large" nzPlaceHolder="请点击选择求职状态">
+                    <ng-container *ngFor="let item of globalService.resumeConfigOptions.status">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                    </ng-container>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="5" nzFor="job_nature" nzRequired>工作性质</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择工作性质">
+                <nz-checkbox-wrapper id="job_nature" style="width: 100%; line-height: 40px;" (nzOnChange)="log($event)">
+                    <div nz-row>
+                        <div nz-col nzSpan="8" *ngFor="let item of globalService.resumeConfigOptions.target_type">
+                            <label nz-checkbox [nzValue]="item.id" [nzChecked]="job_nature.indexOf(item.id) !== -1">{{ item.value }}</label>
+                        </div>
+                    </div>
+                </nz-checkbox-wrapper>
+            </nz-form-control>
+        </nz-form-item>
+        <div class="mt-lg mb-lg">
+            <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
+        </div>
+        <!-- <nz-form-item class="mt-md">
+            <nz-form-label [nzSpan]="5" nzFor="is_work" nzRequired>工作情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择工作情况">
+                <nz-radio-group style="line-height: 40px;" id="is_work" formControlName="is_work">
+                    <label nz-radio [nzValue]="true">有工作经验</label>
+                    <label nz-radio [nzValue]="false">暂无工作经验</label>
+                    </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item> -->
+        <!-- <ng-container *ngIf="validateForm.get('is_work').value"> -->
+            <div formArrayName="workExp">
+                <div *ngFor="let projectItem of workExpArrayControls; let work_i = index" [formGroupName]="work_i.toString()">
+                    <!-- <div class="more_info_oper_" *ngIf="workExpArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ work_i + 1 }}段工作经历 <i nz-icon nzType="arrow-down" nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a
+                            nz-popconfirm
+                            nzPopconfirmTitle="是否确定删除当前工作经历？"
+                            nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(work_i, 'workExp')"
+                            (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white"
+                            >
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div> -->
+                    <ng-container *ngIf="workExpArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="work_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ work_i + 1 }}段工作经历</p>
+                            <div
+                                (click)="deletedModal(work_i, 'workExp')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_name" nzRequired>公司名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入公司名称">
+                            <input nz-input formControlName="company_name" nzSize="large" placeholder="请输入公司名称" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_industry" nzRequired>所属行业</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择从事行业">
+                            <nz-select formControlName="company_industry" nzSize="large" nzPlaceHolder="请点击选择从事行业">
+                                <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_scale" nzRequired>公司规模</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司规模">
+                            <nz-select formControlName="company_scale" nzSize="large" nzPlaceHolder="请点击选择公司规模">
+                                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_scale">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_nature" nzRequired>公司性质</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司性质">
+                            <nz-select formControlName="company_nature" nzSize="large" nzPlaceHolder="请点击选择公司性质">
+                                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_type">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="position_name" nzRequired>职位名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入职位名称">
+                            <input nz-input formControlName="position_name" nzSize="large" placeholder="请输入职位名称" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="work_range_date" nzRequired>在职时间</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择在职时间段">
+                            <app-range-month-picker [isNow]="false" formControlName="work_range_date" [placeholder]="['请选择何时入职', '请选择何时离职']" [size]="'large'"></app-range-month-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="range_salary" nzRequired>税前月薪</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择月薪区间">
+                            <nz-select formControlName="range_salary" nzSize="large" nzPlaceHolder="请点击选择月薪区间">
+                                <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="work_description" nzRequired>工作描述</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请填写工作内容描述">
+                            <textarea nz-input formControlName="work_description" placeholder="请输入内容" [nzAutosize]="{ minRows: 10, maxRows: 16 }" nzSize="large"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('workExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段工作经历</button>
+            </div>
+        <!-- </ng-container> -->
+
+        <div class="mt-lg">
+            <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
+        </div>
+        <nz-form-item class="mt-lg">
+            <nz-form-label [nzSpan]="5" nzFor="is_internship" nzRequired>实习情况</nz-form-label>
+            <nz-form-control [nzSpan]="19" nzErrorTip="请选择实习情况">
+                <nz-radio-group style="line-height: 40px;" formControlName="is_internship">
+                    <label nz-radio [nzValue]="true">有实习经验</label>
+                    <label nz-radio [nzValue]="false">暂无实习经历</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <ng-container *ngIf="validateForm.get('is_internship').value">
+            <div formArrayName="internshipExp">
+                <div *ngFor="let projectItem of internshipExpArrayControls; let internship_i = index"
+                    [formGroupName]="internship_i.toString()">
+                    <ng-container *ngIf="internshipExpArrayControls.length > 1">
+                        <div class="more_info_oper_" *ngIf="internship_i !== 0">
+                            <div class="dashed_border"></div>
+                            <p class="text-grey-dark">第{{ internship_i + 1 }}段实习经历</p>
+                            <div
+                                (click)="deletedModal(internship_i, 'internshipExp')"
+                                class="text-danger delete_btn border-radius-sm bg-white point text-right"
+                                >
+                                <i class="deleted_icon"></i> <span class="text-xs">删除</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="more_info_oper_" *ngIf="internshipExpArrayControls.length > 1">
+                        <nz-divider [nzText]="dividerText" nzOrientation="left" nzDashed></nz-divider>
+                        <ng-template #dividerText>
+                            <span class="text-grey">第{{ internship_i + 1 }}段实习经历 <i nz-icon nzType="arrow-down"
+                                    nzTheme="outline"></i></span>
+                        </ng-template>
+                        <a nz-popconfirm nzPopconfirmTitle="是否确定删除当前实习经历？" nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="deleted(internship_i, 'internshipExp')" (nzOnCancel)="cancel()"
+                            class="text-danger delete_btn border-radius-sm bg-white">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i> <span class="text-xs">删除</span>
+                        </a>
+                    </div> -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_name" nzRequired>公司名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入公司名称">
+                            <input nz-input id="company_name" formControlName="company_name" nzSize="large"
+                                placeholder="请输入公司名称" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_industry" nzRequired>所属行业</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择从事行业">
+                            <nz-select formControlName="company_industry" nzSize="large"
+                                nzPlaceHolder="请点击选择从事行业">
+                                <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_scale" nzRequired>公司规模</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司规模">
+                            <nz-select formControlName="company_scale" nzSize="large"
+                                nzPlaceHolder="请点击选择公司规模">
+                                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_scale">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="company_nature" nzRequired>公司性质</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择公司性质">
+                            <nz-select formControlName="company_nature" nzSize="large"
+                                nzPlaceHolder="请点击选择公司性质">
+                                <ng-container *ngFor="let item of globalService.companyConfigOptions.company_type">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="position_name" nzRequired>职位名称</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请输入职位名称">
+                            <input nz-input formControlName="position_name" nzSize="large"
+                                placeholder="请输入职位名称" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="work_range_date" nzRequired>在职时间</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择在职时间段">
+                            <app-range-month-picker [isNow]="false" formControlName="work_range_date"
+                                [placeholder]="['请选择何时入职', '请选择何时离职']" [size]="'large'"></app-range-month-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="range_salary" nzRequired>税前月薪</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择月薪区间">
+                            <nz-select formControlName="range_salary" nzSize="large"
+                                nzPlaceHolder="请点击选择月薪区间">
+                                <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                                    <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
+                                </ng-container>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="5" nzFor="work_description" nzRequired>工作描述</nz-form-label>
+                        <nz-form-control [nzSpan]="19" nzErrorTip="请填写工作内容描述">
+                            <textarea nz-input formControlName="work_description"
+                                placeholder="请输入内容" [nzAutosize]="{ minRows: 10, maxRows: 16 }" nzSize="large"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="add_obj_btn mt-sm mb-lg">
+                <button (click)="add('internshipExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm"
+                        nz-icon nzType="plus" nzTheme="outline"></i> 增加一段实习经历</button>
+            </div>
+        </ng-container>
+
+    </form>
+
+    <div class="steps_control_btn d-flex justify-content-around align-items-center my-lg">
+        <button class="next_btn" (click)="submitForm()" nz-button [nzLoading]="submitLoading" nzType="primary" nzSize="large">下一步</button>
+        <button class="prev_btn" (click)="steps('prev')" nz-button nzType="default" nzSize="large">返回上一步</button>
+    </div>
+
+</div>

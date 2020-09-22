@@ -151,23 +151,6 @@ export class PositionListCComponent implements OnChanges {
     });
   }
 
-  showConfirm(id?:number): void {
-    this.confirmModal = this.modal.confirm({
-      nzTitle: '是否将此招聘信息删除？',
-      nzContent: '删除后，职位下对应接收的简历也会被删除。加入收藏夹的除外',
-      nzOkType: 'danger',
-      nzOnOk: () => {
-        if(id) {
-          this.deletedPositions({ ids: [id]});
-        }else {
-          const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-          const ids:any = requestData.map( v => v.id);
-          this.deletedPositions({ids: ids});
-        }
-      },
-      nzOnCancel: () => {}
-    });
-  }
 
   refreshItem(data:any):void {
     // 刷新职位
@@ -225,16 +208,22 @@ export class PositionListCComponent implements OnChanges {
 
   deletedPositions(opt:any):void {
     console.log('批量删除职位');
+    this.deletedLoading = true;
     this.settingService.post(`/v1/web/com/resume/delete_jobs`, opt).subscribe((res:ApiData) => {
       console.log(res);
+      this.deletedLoading = false;
       if(res.code === 200) {
         this.msg.success('职位删除成功');
+        this.isVisible = false;
+        this.delPositionId = null;
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
+      }else {
+        this.msg.error(res.message);
       }
-    });
+    }, err => this.deletedLoading = false);
   }
 
   disabled(id:number):void {
@@ -261,5 +250,50 @@ export class PositionListCComponent implements OnChanges {
     });
   }
 
+  isVisible:boolean = false;
+  delPositionId:any = null;
+
+  showModal(id?:number): void {
+    this.isVisible = true;
+    if(id) {
+      this.delPositionId = id;
+    }
+  }
+
+  handleOk(): void {
+    // 删除职位
+    if(this.isVisible && this.delPositionId) {
+      this.deletedPositions({ ids: [this.delPositionId] });
+    }else {
+      const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
+      const ids:any = requestData.map( v => v.id);
+      this.deletedPositions({ids: ids});
+    }
+  }
+  
+  // showConfirm(id?:number): void {
+  //   this.confirmModal = this.modal.confirm({
+  //     nzTitle: '是否将此招聘信息删除？',
+  //     nzContent: '删除后，职位下对应接收的简历也会被删除。加入收藏夹的除外',
+  //     nzOkType: 'danger',
+  //     nzOnOk: () => {
+  //       if(id) {
+  //         this.deletedPositions({ ids: [id]});
+  //       }else {
+  //         const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
+  //         const ids:any = requestData.map( v => v.id);
+  //         this.deletedPositions({ids: ids});
+  //       }
+  //     },
+  //     nzOnCancel: () => {}
+  //   });
+  // }
+
+  deletedLoading:boolean = false;
+
+  handleCancel(): void {
+    this.isVisible = false;
+    this.delPositionId = null;
+  }
   cancel():void {}
 }

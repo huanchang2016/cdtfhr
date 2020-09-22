@@ -68,7 +68,7 @@ export class UserInfoFormTplComponent implements OnInit {
       registered_residence: [this.data.registered_province.id, this.data.registered_city.id],
       work_date: this.data.work_date,
       is_not_work: this.data.work_date ? false : true,
-      address_city: [this.data.work_province.id, this.data.work_city.id],
+      address_city: [this.data.work_province.id, this.data.work_city.id, this.data.work_area?.id],
       email: this.data.email,
       avatar: this.data.avatar
     })
@@ -116,7 +116,8 @@ export class UserInfoFormTplComponent implements OnInit {
               if(typeof object[key] === 'string') {
                 continue
               }else {
-                userInfo.append(key, object[key]);
+                const avatar:string = object['avatar'] ? object[key] : '';
+                userInfo.append('avatar', avatar);
               }
             } else {
               userInfo.append(key, object[key]);

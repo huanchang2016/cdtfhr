@@ -39,13 +39,13 @@ export class UserComponent implements OnInit, OnDestroy {
       // nzViewContainerRef: this.viewContainerRef,
       // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    const instance = this.companyModal.getContentComponent();
-    this.companyModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // const instance = this.companyModal.getContentComponent();
+    // this.companyModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.companyModal.afterClose.subscribe( result => console.log(result, 'close modal'));
+    // this.companyModal.afterClose.subscribe( result => console.log(result, 'close modal'));
   }
 
   createUserModal () {
@@ -58,18 +58,13 @@ export class UserComponent implements OnInit, OnDestroy {
       // nzViewContainerRef: this.viewContainerRef,
       // nzGetContainer: () => document.body,
       
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = this.userModal.getContentComponent();
     // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.userModal.afterClose.subscribe( result => {
-      console.log(result, 'close modal')
-      // if(result.type === 'success') {
-        
-      // }
-    });
+    // this.userModal.afterClose.subscribe( result => {});
 
   }
 

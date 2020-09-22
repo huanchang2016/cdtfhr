@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -26,7 +27,8 @@ export class UserLoginComponent {
     private fb: FormBuilder,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
-    private startupSrv: StartupService
+    private startupSrv: StartupService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,11 +58,9 @@ export class UserLoginComponent {
         if(res.code === 200) {
           this.settingService.setToken(res.data);
           // 登录后， 重新获取用户信息
-          this.startupSrv.load().then((ss) => {
+          this.startupSrv.load().then( _ => {
             this.destroyModal({ type: 'success'});
-            window.document.location.reload();
-            // if(this.currentUrl.indexOf('/home'))
-            // this.router.navigateByUrl('/admin/user');
+            this.router.navigateByUrl('/admin/user');
           })
         }else {
           this.msg.error(res.message);

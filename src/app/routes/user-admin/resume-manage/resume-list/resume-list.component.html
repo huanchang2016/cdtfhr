@@ -19,6 +19,8 @@
                         <td>
                             <span *ngIf="data.is_default"
                                 class="px-sm py-xs bg-danger text-white text-nowrap text-xs border-radius-sm">默认</span>
+                            <span *ngIf="data.is_draft && !data.is_default"
+                                class="px-sm py-xs bg-grey text-white text-nowrap text-xs border-radius-sm">草稿</span>
                         </td>
                         <td>
                             {{ data.title }}
@@ -110,7 +112,7 @@
     </ng-container>
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false">
     <p class="text-666 text-center text-lg">是否删除此简历？</p>
     <p class="text-grey text-center">删除简历后将无法恢复。</p>
 

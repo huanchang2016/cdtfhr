@@ -149,11 +149,7 @@ export class GlobalSettingsService {
   }
   
   clearUser(): void {
-    localStorage.removeItem('cdtfhr_user');
     localStorage.removeItem('cdtfhr_token');
-    // 清除用户信息
-    // this.userDataService.userProfile = null;
-    // this.companyDataService.companyInfo = null;
   }
   
   getConfigs():void {

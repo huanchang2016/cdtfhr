@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 
 @Component({
@@ -13,7 +15,8 @@ export class OperSendModalComponent implements OnInit {
 
   constructor(
     private modal: NzModalRef,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private settingService: GlobalSettingsService
   ) {}
 
   submitLoading:boolean = false;
@@ -30,16 +33,20 @@ export class OperSendModalComponent implements OnInit {
       emails = this.emails.trim();
     }
     if(!emails) {
-      this.msg.warning('备注信息内容未填写');
+      this.msg.warning('邮箱不能为空');
       return;
     }
-
-
+    
     this.submitLoading = true;
-    setTimeout(() => {
+    this.settingService.post(`/v1/web/com/send_resume_email`, { email: emails }).subscribe((res:ApiData) => {
       this.submitLoading = false;
-      this.destroyModal({name: '点击确认提交', data: emails});
-    }, 1000);
+      if(res.code === 200) {
+        this.msg.success('转发成功');
+        this.destroyModal({type: 'success'});
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false);
   }
 
   destroyModal(data?:any): void {

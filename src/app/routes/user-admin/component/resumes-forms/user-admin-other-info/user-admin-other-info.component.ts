@@ -5,6 +5,11 @@ import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { UserDataService } from '../../../service/user-data.service';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { ResumeSectionDeletedModalComponent } from '../../resume-section-deleted-modal/resume-section-deleted-modal.component';
+import { UserResumesCreateSuccessTplComponent } from '../user-resumes-create-success-tpl/user-resumes-create-success-tpl.component';
+import { debounceTime } from 'rxjs/operators';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-user-admin-other-info',
@@ -13,11 +18,14 @@ import { UserDataService } from '../../../service/user-data.service';
 })
 export class UserAdminOtherInfoComponent implements OnInit {
   @Input() resumeUserInfo:any;
+  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
+  @Output() resumeInfoChange:EventEmitter<any> = new EventEmitter();
   @Output() stepsChange:EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
   constructor(
+    private modal: NzModalService,
     private fb: FormBuilder,
     private userDataService: UserDataService,
     public globalService: GlobalSettingsService,
@@ -64,6 +72,8 @@ export class UserAdminOtherInfoComponent implements OnInit {
       self_interest: [null, Validators.maxLength(300)]
     });
 
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
+
     this.validateForm.get('is_projectExp').valueChanges.subscribe( (is_exp:boolean) => {
       this.resetValidProjectExp('is_projectExp');
     });
@@ -76,6 +86,112 @@ export class UserAdminOtherInfoComponent implements OnInit {
     this.validateForm.get('is_language').valueChanges.subscribe( (is_exp:boolean) => {
       this.resetValidLanguageExp('is_language');
     });
+    
+    if(this.resumeUserInfo) {
+      this.resetForm();
+    }
+  }
+
+  resetForm() {
+    console.log(this.resumeUserInfo, 'resetForm 其他信息');
+
+    // 项目经历经历赋值 projectExp
+    const projectExp:any[] = this.validateForm.get('projectExp').value;
+    const projectList:any[] = this.resumeUserInfo.project.data;
+    if(projectList && projectList.length !== 0) {
+      
+      projectList.forEach( (el, index) => {
+        if(index > 0 && projectExp.length < projectList.length) {
+          // 表单组元素长度 小于 数据长度时新增
+          this.add('projectExp');
+        }
+      });
+      this.validateForm.patchValue({
+        projectExp: projectList.map( v => {
+          return {
+            projectName: v.name,
+            projectRangeDate: [v.start_time, v.end_time],
+            projectDescription: v.description
+          }
+        })
+      })
+    }else {
+      // this.validateForm.patchValue({
+      //   is_projectExp: false
+      // })
+    }
+    // 培训经历赋值 trainExp
+    const trainExp:any[] = this.validateForm.get('trainExp').value;
+    const trainList:any[] = this.resumeUserInfo.training.data;
+    if(trainList && trainList.length !== 0) {
+      trainList.forEach( (el, index) => {
+        if(index > 0 && trainExp.length < trainList.length) {
+          // 表单组元素长度 小于 数据长度时新增
+          this.add('trainExp');
+        }
+      });
+      this.validateForm.patchValue({
+        trainExp: trainList.map( v => {
+          return {
+            trainContent: v.description,
+            trainOrganization: v.name,
+            trainRangeDate: [v.start_time, v.end_time]
+          }
+        })
+      })
+    }else {
+      // this.validateForm.patchValue({
+      //   is_trainExp: false
+      // })
+    }
+    // 证书列表赋值 certificates
+    const certificates:any[] = this.validateForm.get('certificates').value;
+    const certificateList:any[] = this.resumeUserInfo.certificate.data;
+    if(certificateList && certificateList.length !== 0) {
+      certificateList.forEach( (el, index) => {
+        if(index > 0 && certificates.length < certificateList.length) {
+          // 表单组元素长度 小于 数据长度时新增
+          this.add('certificates');
+        }
+      });
+      this.validateForm.patchValue({
+        certificates: certificateList.map( v => {
+          return {
+            certificateName: v.name,
+            certificateDate: v.time
+          }
+        })
+      })
+    }else {
+      // this.validateForm.patchValue({
+      //   is_certificate: false
+      // })
+    }
+    // 语言赋值 languages
+    const languages:any[] = this.validateForm.get('languages').value;
+    const languageList:any[] = this.resumeUserInfo.language.data;
+    if(languageList && languageList.length !== 0) {
+      languageList.forEach( (el, index) => {
+        if(index > 0 && languages.length < languageList.length) {
+          // 表单组元素长度 小于 数据长度时新增
+          this.add('languages');
+        }
+      });
+      this.validateForm.patchValue({
+        languages: languageList.map( v => {
+          return {
+            languageType: v.language.id,
+            languageWrite: v.reading_writing,
+            languageListen: v.listening_speaking
+          }
+        })
+      })
+    }else {
+      // this.validateForm.patchValue({
+      //   is_language: false
+      // })
+    }
+
   }
 
   // 获取表单中 formArray 的所有项
@@ -279,10 +395,12 @@ export class UserAdminOtherInfoComponent implements OnInit {
       if(this.validateForm.get('is_projectExp').value) {
         const projectExp:any[] = this.validateForm.get('projectExp').value;
         const project:any[] = projectExp.map( v => {
+          const start_time = format(new Date(v.projectRangeDate[0]), 'yyyy-MM-dd');
+          const end_time = format(new Date(v.projectRangeDate[1]), 'yyyy-MM-dd');
           return {
             name: v.projectName,
-            start_time: v.projectRangeDate[0],
-            end_time: v.projectRangeDate[1],
+            start_time: start_time,
+            end_time: end_time,
             description: v.projectDescription
           }
         });
@@ -291,10 +409,12 @@ export class UserAdminOtherInfoComponent implements OnInit {
       if(this.validateForm.get('is_trainExp').value) {
         const trainExp:any[] = this.validateForm.get('trainExp').value;
         const training:any[] = trainExp.map( v => {
+          const start_time = format(new Date(v.trainRangeDate[0]), 'yyyy-MM-dd');
+          const end_time = format(new Date(v.trainRangeDate[1]), 'yyyy-MM-dd');
           return {
             name: v.trainOrganization,
-            start_time: v.trainRangeDate[0],
-            end_time: v.trainRangeDate[1],
+            start_time: start_time,
+            end_time: end_time,
             description: v.trainContent
           }
         });
@@ -303,9 +423,10 @@ export class UserAdminOtherInfoComponent implements OnInit {
       if(this.validateForm.get('is_certificate').value) {
         const certificates:any[] = this.validateForm.get('certificates').value;
         const certificate:any[] = certificates.map( v => {
+          const time = format(new Date(v.certificateDate), 'yyyy-MM-dd');
           return {
             name: v.certificateName,
-            time: v.certificateDate
+            time: time
           }
         });
         option = Object.assign(option, { certificate });
@@ -333,9 +454,10 @@ export class UserAdminOtherInfoComponent implements OnInit {
         this.globalService.post('/v1/web/user/resume/other', option).subscribe((res:ApiData) => {
           this.submitLoading = false;
           if(res.code === 200) {
-            this.msg.success(res.message);
             this.userDataService.getProfile().then();
-            this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
+            // 新增完成简历创建成功的提示弹窗框
+            this.valueChanges.emit(false);
+            this.referSuccessModal();
           }else {
             this.msg.error(res.message);
           }
@@ -345,7 +467,33 @@ export class UserAdminOtherInfoComponent implements OnInit {
     }
     
   }
+  
+  successModal:NzModalRef = null;
+  referSuccessModal():void {
+      this.successModal = this.modal.create({
+        nzTitle: null,
+        nzContent: UserResumesCreateSuccessTplComponent,
+        nzMaskClosable: false,
+        nzWidth: 455,
+        nzStyle: { top: '250px' },
+        // nzViewContainerRef: this.viewContainerRef,
+        // // nzGetContainer: () => document.body,
+        
+        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+        nzFooter: null
+      });
+      // const instance = this.successModal.getContentComponent();
+      // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+      // Return a result when closed
+      // this.successModal.afterClose.subscribe( result => {
+      //   this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
+      // });
 
+      setTimeout(() => {
+        this.successModal.close();
+        this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
+      }, 2000);
+  }
   
   get getSelfCommentLength():number {
     if(this.validateForm.get('self_comment').value) {
@@ -361,4 +509,31 @@ export class UserAdminOtherInfoComponent implements OnInit {
     return 0;
   }
 
+  deletedModal(index: number, type:string):void {
+    const modal = this.modal.create({
+      nzTitle: '提示',
+      nzContent: ResumeSectionDeletedModalComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      nzWidth: '400px',
+      nzBodyStyle: {
+        padding: '24px'
+      },
+      nzMaskClosable: false,
+      // nzGetContainer: () => document.body,
+      nzComponentParams: {
+        
+      },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    // const instance = modal.getContentComponent();
+    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => {
+      console.log('[afterClose] The result is:', result)
+      if(result ===  true) {
+        this.deleted(index, type);
+      }
+    });
+  }
 }

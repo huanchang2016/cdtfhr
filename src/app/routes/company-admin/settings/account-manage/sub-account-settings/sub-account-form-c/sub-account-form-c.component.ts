@@ -81,7 +81,6 @@ export class SubAccountFormCComponent implements OnInit {
   }
 
   create(value:any):void {
-  // 
     const option:any = {
       name: value.account_name,
       full_name: value.user_member_name,
@@ -101,7 +100,21 @@ export class SubAccountFormCComponent implements OnInit {
   }
 
   edit(value:any):void {
+    const opt:any = {
+      full_name: value.user_member_name,
+      phone: value.user_member_phone,
+      email: value.email
+    };
 
+    this.settingService.patch(`/v1/web/com/account/${this.data.id}`, opt).subscribe((res:ApiData) => {
+      this.submitLoading = false;
+      if(res.code === 200) {
+        this.msg.success('编辑成功');
+        this.destoryModal({type: 'success'});
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false);
   }
 
   setFormValue():void {
@@ -121,4 +134,36 @@ export class SubAccountFormCComponent implements OnInit {
   destoryModal(data?:any):void {
     this.modal.destroy(data);
   }
+
+
+  resetPassword():void {
+    console.log('重置密码');
+    this.resetLoading = true;
+
+    this.settingService.post(`/v1/web/com/account_reset/${this.data.id}`).subscribe((res:ApiData) => {
+      this.resetLoading = false;
+      if(res.code === 200) {
+        this.isVisible = false;
+        this.msg.success('密码重置成功');
+      }else{
+        this.msg.error(res.message);
+      }
+    }, err => this.resetLoading = false);
+  }
+
+  
+  isVisible:boolean = false;
+  resetLoading:boolean = false;
+
+  showResetModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.resetPassword();
+  }
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
 }

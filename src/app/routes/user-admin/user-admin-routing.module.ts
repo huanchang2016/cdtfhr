@@ -46,9 +46,9 @@ const routes: Routes = [
         canActivate: [
           // AuthenticationGuard
         ],
-        // canDeactivate: [
-        //   LeaveResumeInfoGuard
-        // ],
+        canDeactivate: [
+          LeaveResumeInfoGuard
+        ],
         component: ResumeCreateComponent
       },
       {
