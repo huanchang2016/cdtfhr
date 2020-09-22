@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -7,6 +7,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   styleUrls: ['./resume-leave-component-modal.component.less']
 })
 export class ResumeLeaveComponentModalComponent implements OnInit {
+  @Input() message?:string = '当前简历已存为草稿。';
 
   constructor(
     private modal: NzModalRef

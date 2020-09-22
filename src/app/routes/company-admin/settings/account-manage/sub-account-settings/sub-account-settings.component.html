@@ -50,9 +50,10 @@
             </tr>
         </tbody>
     </nz-table>
-    <div class="add_account" *ngIf="!loading && listOfData.length < 10">
-        <button nz-button nzBlock nzType="dashed" (click)="add()" nzSize="large">
+    <div class="add_account mt-sm" *ngIf="!loading && listOfData.length < 10">
+        <div class="text-primary point d-flex align-items-center justify-content-center" (click)="add()"><i class="text-lg mr-sm" nz-icon nzType="plus-circle" nzTheme="outline"></i>新增子账号</div>
+        <!-- <button nz-button nzBlock nzType="default" (click)="add()" nzSize="large" style="border: 0;">
             <span class="text-primary"><i class="mr-sm" nz-icon nzType="plus-circle" nzTheme="outline"></i>新增子账号</span>
-        </button>
+        </button> -->
     </div>
 </div>

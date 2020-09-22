@@ -1,13 +1,13 @@
 <div class="wrapper-box">
     <h3 class="text-lg text-666 text-center">是否{{ data ? '修改' : '创建新' }}文件夹？</h3>
-    <div class="mt-md">
+    <div class="my-lg">
         <div class="flex-1">
             <input nz-input [(ngModel)]="file_name" placeholder="请输入文件夹名称" nzSize="large" />
         </div>
     </div>
 
 </div>
-<div *nzModalFooter class="text-center footer-btn-wrapper">
+<div *nzModalFooter class="text-center footer-btn-wrapper mb-md">
     <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取消</button>
     <button nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">{{ data ? '修改' : '创建' }}</button>
 </div>

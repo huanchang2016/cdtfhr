@@ -8,8 +8,8 @@
     <nz-card nzTitle="最近搜索记录" class="history_record">
       <nz-list nzSize="small" [nzLoading]="historyLoading">
         <ng-container *ngIf="historyData.length !== 0; else emptyTpl">
-          <nz-list-item *ngFor="let item of historyData">
-            <div (click)="historyClick(item)" class="item_content point">{{ concatSearchValue(item) }}</div>
+          <nz-list-item *ngFor="let item of historyData; let i = index" [class.first_item_box]="i === 0">
+            <div (click)="historyClick(item)" class="item_content point" [class.text-primary]="i === 0">{{ concatSearchValue(item) }}</div>
           </nz-list-item>
         </ng-container>
         <ng-template #emptyTpl>

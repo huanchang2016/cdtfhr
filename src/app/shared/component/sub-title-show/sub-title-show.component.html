@@ -1,5 +1,5 @@
 <div class="sub-title clearfix">
     <span class="d-block mr-md float-left sub-title-border"></span>
-    <span class="text-primary text-lg float-left">{{ title }}</span>
+    <span class="text-primary text-lg float-left text-bold" [class.text-bold]="isBold">{{ title }}</span>
     <a *ngIf="url" [routerLink]="[url]"  class="float-right text-md">更多 <i nz-icon nzType="right" nzTheme="outline"></i></a>
 </div>

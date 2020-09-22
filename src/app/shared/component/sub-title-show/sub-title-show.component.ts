@@ -8,6 +8,7 @@ import { Component, OnChanges, Input } from '@angular/core';
 export class SubTitleShowComponent implements OnChanges {
   @Input() title:string;
   @Input() url?:string;
+  @Input() isBold?:boolean = true;
 
   constructor() { }
 

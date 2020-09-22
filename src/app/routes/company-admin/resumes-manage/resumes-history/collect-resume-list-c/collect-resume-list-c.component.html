@@ -22,8 +22,10 @@
   </nz-list>
 </ng-container>
 <ng-template #collectFileAddTpl>
-  <button nz-button nzType="dashed" nzBlock (click)="addCollectFile()"><i nz-icon nzType="plus" nzTheme="outline"></i>
-    新建收藏夹</button>
+    <div class="text-primary point d-flex align-items-center justify-content-center" (click)="addCollectFile()"><i class="text-lg mr-sm" nz-icon nzType="plus-circle" nzTheme="outline"></i>新增文件夹</div>
+    <!-- <button nz-button nzBlock nzType="default" (click)="addCollectFile()" nzSize="large" style="border: 0;">
+      <span class="text-primary"><i class="mr-sm" nz-icon nzType="plus-circle" nzTheme="outline"></i>新增文件夹</span>
+  </button> -->
 </ng-template>
 
 <ng-template #lodingSpin>

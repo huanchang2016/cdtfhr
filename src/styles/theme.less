@@ -5,5 +5,29 @@
 // @import "./reset.less";
 
 // -------- 自定义参数覆盖 -----------
-// @import "./base-color.less";
+@import "./base-color.less";
 
+.ant-btn {
+    color: @primary-color;
+    border-color: @primary-color;
+}
+.ant-btn-primary {
+    color: #fff;
+}
+.ant-form-item-label > label::after {
+    content: '';
+}
+.ant-form-item-label > label.ant-form-item-required{
+    &::before {
+        content: '';
+    }
+    &::after {
+        display: inline-block;
+        margin-left: 4px;
+        color: #ff4d4f;
+        font-size: 14px;
+        font-family: 'SimSun, sans-serif';
+        line-height: 1;
+        content: '*';
+    }
+}

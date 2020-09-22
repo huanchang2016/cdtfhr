@@ -7,6 +7,7 @@ import { GlobalSettingsService, StartupService } from '@core';
 import { Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { ForgotPasswordFormComponent } from 'src/app/shared/component/login/forgot-password-form/forgot-password-form.component';
 
 @Component({
   selector: 'app-passport-login',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private settingService: GlobalSettingsService,
     private fb: FormBuilder,
-    modalSrv: NzModalService,
+    private modalSrv: NzModalService,
     private router: Router,
     private startupSrv: StartupService,
     public msg: NzMessageService,
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
       phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
       code: [null, [Validators.required]]
     });
-    modalSrv.closeAll();
+    this.modalSrv.closeAll();
   }
 
   ngOnInit(): void {
@@ -189,4 +190,33 @@ export class LoginComponent implements OnInit {
     this.type = ret.index;
   }
 
+  userModal:any = null;
+  fogetPassword():void {
+    // 忘记密码
+    console.log('忘记密码');
+      this.userModal = this.modalSrv.create({
+        nzTitle: '忘记密码',
+        nzContent: ForgotPasswordFormComponent,
+        nzMaskClosable: false,
+        nzWidth: '800px',
+        nzBodyStyle: {
+          padding: '24px 100px 30px'
+        },
+        nzComponentParams: {},
+        // nzViewContainerRef: this.viewContainerRef,
+        // nzGetContainer: () => document.body,
+        
+        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+        nzFooter: null
+      });
+      // const instance = this.userModal.getContentComponent();
+      // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+      // Return a result when closed
+      this.userModal.afterClose.subscribe( result => {
+        console.log(result, 'close modal， home page: nothing to do !')
+        if(result && result.type === 'success') {
+          this.settingService.user = null;
+        }
+      });
+  }
 }

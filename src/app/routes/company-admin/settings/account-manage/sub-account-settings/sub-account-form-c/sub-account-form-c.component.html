@@ -73,7 +73,7 @@
 </form>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="提示" [nzFooter]="null" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false">
-    <p class="text-666 text-center text-lg">是否重置账号<span class="text-primary">{{ data.name }}</span>的密码？</p>
+    <p class="text-666 text-center text-lg">是否重置账号<span class="text-primary">{{ data?.name }}</span>的密码？</p>
     <p class="text-grey text-center">重置后的初始密码为123456。</p>
 
     <div class="d-flex justify-content-around pt-lg mt-lg">

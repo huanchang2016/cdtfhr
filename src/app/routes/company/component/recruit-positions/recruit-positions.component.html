@@ -36,7 +36,7 @@
             </div>
         </ng-container> -->
 
-    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="list" [nzFrontPagination]="false"
+    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger nzShowQuickJumper [nzData]="list" [nzFrontPagination]="false"
         [nzLoading]="loadingData" [nzTotal]="pageConfig.total" [nzPageSize]="pageConfig.page_size"
         [nzPageIndex]="pageConfig.page" (nzQueryParams)="onQueryParamsChange($event)">
         <thead>

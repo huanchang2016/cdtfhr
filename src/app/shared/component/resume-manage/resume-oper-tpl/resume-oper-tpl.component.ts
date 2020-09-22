@@ -91,9 +91,9 @@ export class ResumeOperTplComponent implements OnInit {
       nzContent: OperDownloadModalComponent,
       nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
-      // nzBodyStyle: {
-      //   padding: '24px 100px 30px'
-      // },
+      nzBodyStyle: {
+        padding: '24px 0'
+      },
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo

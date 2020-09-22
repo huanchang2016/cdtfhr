@@ -17,7 +17,7 @@
         <div class="user-info">
             <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
                 <h3 class="text-666 text-lg">{{ resumeInfo.name }} <span
-                        class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
+                        class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at }}</span>
                 </h3>
                 <div class="text-sm">
                     <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span>
@@ -33,14 +33,17 @@
                     </ng-container>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span>现居住于
-                        <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">
+                        <ng-container *ngIf="resumeInfo.work_city">
+                            {{ resumeInfo.work_city.name }}
+                        </ng-container>
+                        <!-- <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">
                             <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
                                 {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
                             </ng-container>
                             <ng-container *ngIf="resumeInfo.work_province.name === resumeInfo.work_city.name">
                                 {{ resumeInfo.work_province.name }}
                             </ng-container>
-                        </ng-container>
+                        </ng-container> -->
                     </span>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span *ngIf="resumeInfo.education.data.length !== 0">
@@ -50,13 +53,16 @@
                         <nz-divider nzType="vertical"></nz-divider>
                     </span>
                     <span>
-                        <ng-container *ngIf="resumeInfo.registered_province && resumeInfo.registered_city">
+                        <!-- <ng-container *ngIf="resumeInfo.registered_province && resumeInfo.registered_city">
                             <ng-container *ngIf="resumeInfo.registered_province.name !== resumeInfo.registered_city.name">
                                 {{ resumeInfo.registered_province.name + resumeInfo.registered_city.name }}
                             </ng-container>
                             <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
                                 {{ resumeInfo.registered_province.name }}
                             </ng-container>
+                        </ng-container> -->
+                        <ng-container *ngIf="resumeInfo.registered_city">
+                            {{ resumeInfo.registered_city.name }}
                         </ng-container>
                         户口
                     </span>
@@ -288,9 +294,9 @@
 <div class="content_div mb-md" id="user-certificates">
     <!-- 证书信息 -->
 
-    <app-sub-title-show [title]="'证书信息'"></app-sub-title-show>
+    <app-sub-title-show [title]="'证书'"></app-sub-title-show>
     <ng-template #notCertificate>
-        <span class="text-grey pl-md">暂无证书信息</span>
+        <span class="text-grey pl-md">暂无证书</span>
     </ng-template>
     <div *ngIf="resumeInfo.certificate.data.length !== 0; else notCertificate">
         <ng-container *ngFor="let certificate of resumeInfo.certificate.data">

@@ -55,7 +55,7 @@ export class ResumeCreateComponent implements OnInit {
 
   @ViewChild('userInfoTpl', { static: false }) userInfoTpl: UserAdminInfoFormCComponent;
 
-  submitInfo() {
+  submitInfo(is_leave:boolean = false, observer?:any) {
     if(!this.userInfoTpl.submitForm()) {
       return;
     }
@@ -101,7 +101,11 @@ export class ResumeCreateComponent implements OnInit {
         if (res.code === 200) {
           this.resumeUserInfo = res.data;
           this.userDataService.getProfile().then();
-          ++this.step;
+          if(is_leave) {
+            this.showLeaveActiveModal(observer);
+          }else {
+            ++this.step;
+          }
           this.msg.success('保存成功');
         } else {
           this.msg.error(res.message);
@@ -132,23 +136,37 @@ export class ResumeCreateComponent implements OnInit {
   leaveTip():Observable<any> {
     
     return new Observable((observer) => {
-      if(this.isChanged && this.step !== 0){
-        const modal = this.modalService.create({
-          nzTitle: '提示',
-          // nzContent: '<p class="text-center text-lg text-666">是否离开页面？</p><p class="text-center text-grey">当前简历已存为草稿</p>',
-          nzMaskClosable: false,
-          nzContent: ResumeLeaveComponentModalComponent,
-          nzFooter: null
-        });
-        modal.afterClose.subscribe(result => {
-          if(result) {
-            observer.next(true);
-          }else {
-            observer.next(false);
-          }
-        });
+      if(this.isChanged){
+        let message:string = '';
+        if(this.step === 0) { // 在第一步时，需要提示用户 当前数据未提交保存
+          message = '当前简历个人信息未保存。';
+          this.submitInfo(true, observer);
+        }else {
+          return this.showLeaveActiveModal(observer);
+        }
+        
       }else {
         observer.next(true);
+      }
+    });
+  }
+
+  showLeaveActiveModal(observer):void {
+    const modal = this.modalService.create({
+      nzTitle: '提示',
+      // nzContent: '<p class="text-center text-lg text-666">是否离开页面？</p><p class="text-center text-grey">当前简历已存为草稿</p>',
+      nzMaskClosable: false,
+      nzContent: ResumeLeaveComponentModalComponent,
+      nzComponentParams: {
+        // message: message
+      },
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(result => {
+      if(result) {
+        observer.next(true);
+      }else {
+        observer.next(false);
       }
     });
   }
