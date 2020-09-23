@@ -42,7 +42,7 @@ export class LinkUserInfoComponent implements OnInit {
       old_captcha: [null, [Validators.required]],
       new_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
       new_captcha: [null, [Validators.required]],
-      tel: [null, [Validators.required]],
+      tel: [null],
       email: [null, [Validators.email]]
     });
   }

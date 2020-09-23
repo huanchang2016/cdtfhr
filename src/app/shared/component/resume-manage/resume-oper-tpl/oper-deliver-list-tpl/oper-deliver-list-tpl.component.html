@@ -2,8 +2,8 @@
     <ng-container *ngIf="list.length !== 0;else emptyListOfData">
         <ng-container *ngFor="let item of list">
             <div class="py-sm text-md">
-                <span class="text-pirmary"> {{ item.created_at }} </span>
-                <span class="text-666">投递简历于</span>
+                <span class="text-primary"> {{ item.created_at | date: 'yyyy/MM/dd HH:mm:ss' }} &nbsp;</span>
+                <span class="text-666">投递简历于 &nbsp;</span>
                 <a [routerLink]="['/recruit/details', item.job.id]" target="_blank">{{ item.job.name }}</a>
             </div>
         </ng-container>

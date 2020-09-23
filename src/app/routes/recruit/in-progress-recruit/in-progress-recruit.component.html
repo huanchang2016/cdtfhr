@@ -27,7 +27,7 @@
                             <div nz-col nzSpan="5" class="text-center">职位名</div>
                             <div nz-col nzSpan="4" class="text-center">工作地点</div>
                             <div nz-col nzSpan="3" class="text-center">薪资</div>
-                            <div nz-col nzSpan="7" class="text-center">公司名</div>
+                            <div nz-col nzSpan="7" class="text-center">公司名称</div>
                             <div nz-col nzSpan="2" class="text-center">行业</div>
                             <div nz-col nzSpan="3" class="text-center">公司规模</div>
                         </div>
@@ -53,11 +53,11 @@
                                     <div nz-col nzSpan="4" class="d-flex align-items-center justify-content-center">
                                         {{ item.city }}-{{ item.area }}</div>
                                     <div nz-col nzSpan="3" class="text-danger d-flex align-items-center justify-content-center">{{ item.salary }}/月</div>
-                                    <div nz-col nzSpan="7" class="d-flex align-items-center justify-content-center">
+                                    <div nz-col nzSpan="7" class="d-flex align-items-center">
                                         <a [routerLink]="['/company']" [queryParams]="{cid: item.company.id }"
                                             target="_blank" class="text-666">{{ item.company.name }}</a>
                                     </div>
-                                    <div nz-col nzSpan="2" class="d-flex justify-content-center align-items-center">
+                                    <div nz-col nzSpan="2" class="d-flex align-items-center">
                                         {{ item.company.industry?.name }}</div>
                                     <div nz-col nzSpan="3" class="d-flex justify-content-center align-items-center">
                                         {{ item.company.scale.value }}</div>

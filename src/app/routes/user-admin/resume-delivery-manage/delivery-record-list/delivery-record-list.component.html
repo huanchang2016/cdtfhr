@@ -23,7 +23,7 @@
     <div class="more_search_type_wrapper" [class.more_actived]="is_more">
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="pt-lg">
             <div nz-row [nzGutter]="24">
-                <div nz-col [nzSpan]="24">
+                <!-- <div nz-col [nzSpan]="24">
                     <nz-form-item>
                         <nz-form-label nzFor="rangeDate">投递时间</nz-form-label>
                         <nz-form-control>
@@ -32,21 +32,54 @@
                             </app-range-date-picker-c>
                         </nz-form-control>
                     </nz-form-item>
-                </div>
+                </div> -->
                 <div nz-col [nzSpan]="12">
                     <nz-form-item>
-                        <nz-form-label nzFor="work_address">工作地点</nz-form-label>
+                        <nz-form-label nzFor="start">开始时间</nz-form-label>
                         <nz-form-control>
-                            <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
-                                [placeholder]="'请点击选择工作地区'"></app-three-stage-cascader>
+                                <nz-date-picker style="width: 100%"
+                                    [nzDisabledDate]="disabledStartDate"
+                                    nzFormat="yyyy/MM/dd"
+                                    formControlName="start"
+                                    nzPlaceHolder="请选择开始时间"
+                                    nzSize="large"
+                                    >
+                                    </nz-date-picker>
+                                    <!--  (nzOnOpenChange)="handleStartOpenChange($event)"nzShowTime (ngModelChange)="onStartChange($event)" -->
                         </nz-form-control>
                     </nz-form-item>
                 </div>
                 <div nz-col [nzSpan]="12">
                     <nz-form-item>
-                        <nz-form-label nzFor="status">投递状态</nz-form-label>
+                        <nz-form-label nzFor="end">结束时间</nz-form-label>
                         <nz-form-control>
-                            <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击选择投递状态">
+                            <nz-date-picker style="width: 100%"
+                                [nzDisabledDate]="disabledEndDate"
+                                nzFormat="yyyy/MM/dd"
+                                formControlName="end"
+                                nzPlaceHolder="请选择结束时间"
+                                nzSize="large"
+                                >
+                                </nz-date-picker>
+                                <!--[nzOpen]="endOpen" (nzOnOpenChange)="handleEndOpenChange($event)" nzShowTime (ngModelChange)="onEndChange($event)" -->
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="work_address">工作地点</nz-form-label>
+                        <nz-form-control>
+                            <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
+                                [placeholder]="'请点击选择工作地点'"></app-three-stage-cascader>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="status">投递进展</nz-form-label>
+                        <nz-form-control>
+                            <nz-select id="status" formControlName="status" nzSize="large" nzPlaceHolder="请点击投递进展">
                                 <ng-container *ngFor="let item of settingService.resumeStatus">
                                     <nz-option [nzValue]="item.id" [nzLabel]="item.value"></nz-option>
                                 </ng-container>

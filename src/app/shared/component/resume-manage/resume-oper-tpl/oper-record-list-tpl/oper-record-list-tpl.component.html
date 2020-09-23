@@ -10,7 +10,7 @@
                 </ng-container>
 
                 <span class="text-primary"> {{ data.company }} </span>
-                <span class="text-666">已于</span>
+                <span class="text-666">已于 </span>
                 <span class="text-primary">{{ data.created_at }} </span>
                 <ng-container [ngSwitch]="data.type">
                     <span class="text-666" *ngSwitchCase="'download'">下载 </span>

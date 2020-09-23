@@ -87,7 +87,7 @@
             </nz-table>
 
             <div class="add_resumes_btn_box" *ngIf="list.length < 10">
-                <a [routerLink]="['/admin/user/resumes/add']" nz-button nzBlock nzType="link" nzSize="large"><i nz-icon
+                <a class="add_resume_btn" [routerLink]="['/admin/user/resumes/add']" nz-button nzBlock nzType="default" nzSize="large"><i nz-icon
                         nzType="plus-circle" nzTheme="outline"></i> 新增简历</a>
             </div>
         </div>
@@ -118,7 +118,7 @@
 
     <div class="d-flex justify-content-around pt-lg mt-lg">
         <button [nzLoading]="deletedLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
-            nzSize="large">删除</button>
-        <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+            nzSize="large">删 除</button>
+        <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</button>
     </div>
 </nz-modal>

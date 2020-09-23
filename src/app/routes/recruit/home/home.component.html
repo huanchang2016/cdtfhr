@@ -54,7 +54,7 @@
                         <div nz-row class="text-sm result_list__row card__hover text-666 border-top py-sm"
                             *ngFor="let item of list" [nzGutter]="12">
                             <div nz-col nzSpan="6" class="d-flex align-items-center">
-                                <a [routerLink]="['/recruit/details', item.id]" target="_blank" class="pl-sm text-666">{{ item.name }}</a>
+                                <a [routerLink]="['/recruit/details', item.id]" target="_blank" class="pl-md text-666">{{ item.name }}</a>
                                 <ng-container *ngIf="item.is_delivery">
                                     <nz-tag nzColor="default" class="ml-sm">已投递</nz-tag>
                                 </ng-container>
@@ -63,9 +63,9 @@
                                 <a [routerLink]="['/company']" [queryParams]="{cid: item.company.id }" target="_blank"
                                     class="text-666">{{ item.company.name }}</a>
                             </div>
-                            <div nz-col nzSpan="4" class="d-flex align-items-center justify-content-center">{{ item.city }}-{{ item.area }}</div>
-                            <div nz-col nzSpan="3" class="text-danger d-flex align-items-center justify-content-center">{{ item.salary }}/月</div>
-                            <div nz-col nzSpan="3" class="d-flex align-items-center justify-content-center">{{ item.created_at }}</div>
+                            <div nz-col nzSpan="4" class="d-flex align-items-center">{{ item.city }}-{{ item.area }}</div>
+                            <div nz-col nzSpan="3" class="text-danger d-flex align-items-center">{{ item.salary }}/月</div>
+                            <div nz-col nzSpan="3" class="d-flex align-items-center">{{ item.created_at }}</div>
                         </div>
                     </div>
                     <div class="pagination_wrapper" *ngIf="total">

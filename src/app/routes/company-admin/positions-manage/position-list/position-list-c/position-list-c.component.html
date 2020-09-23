@@ -1,4 +1,4 @@
-<nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="listOfData" [nzFrontPagination]="false"
+<nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"
   [nzLoading]="loadingData" [nzTotal]="pageConfig.total" [nzPageSize]="pageConfig.page_size"
   [nzPageIndex]="pageConfig.page" (nzQueryParams)="onQueryParamsChange($event)">
   <thead>
@@ -87,7 +87,7 @@
           <i (click)="uplineItem(item.id)" class="text-primary point" nz-icon nzType="check-circle" nzTheme="outline"
             nz-tooltip nzTooltipTitle="上线"></i>
           <nz-divider nzType="vertical"></nz-divider>
-          <i class="text-danger" nz-popconfirm nzPopconfirmTitle="是否确认删除当前职位" nzOkText="删除" nzCancelText="取消" (nzOnConfirm)="showConfirm(item.id)" (nzOnCancel)="cancel()" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
+          <i class="text-danger" nz-popconfirm nzPopconfirmTitle="是否确认删除当前职位" nzOkText="删 除" nzCancelText="取 消" (nzOnConfirm)="showConfirm(item.id)" (nzOnCancel)="cancel()" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
             nzTooltipTitle="删除"></i> -->
         </ng-container>
       </td>
@@ -132,8 +132,8 @@
   <p class="text-grey text-center">（加入收藏夹的除外）</p>
 
   <div class="d-flex justify-content-around pt-lg mt-lg">
-      <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取消</button>
+      <button (click)="handleCancel()" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</button>
       <button [nzLoading]="deletedLoading" (click)="handleOk()" nz-button nzType="primary" class="login-form-button"
-          nzSize="large">删除</button>
+          nzSize="large">删 除</button>
   </div>
 </nz-modal>

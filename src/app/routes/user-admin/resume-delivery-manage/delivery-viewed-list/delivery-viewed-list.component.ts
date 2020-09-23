@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-delivery-viewed-list',
@@ -42,7 +43,9 @@ export class DeliveryViewedListComponent implements OnInit {
     this.setActive();
 
     this.validateForm = this.fb.group({
-      rangeDate: [null],
+      // rangeDate: [null],
+      start: [null],
+      end: [null],
       industry: [null],
       work_address: [null],
       company_type: [null],
@@ -69,7 +72,7 @@ export class DeliveryViewedListComponent implements OnInit {
   }
 
 
-  is_more: boolean = false; // 展开更多搜索条件
+  is_more: boolean = true; // 展开更多搜索条件
 
   validateForm!: FormGroup;
 
@@ -114,7 +117,9 @@ export class DeliveryViewedListComponent implements OnInit {
     const value:any = this.validateForm.value;
 
     this.loadingData = true;
-    const date:any[] = value.rangeDate;
+    // const date:any[] = value.rangeDate;
+    const start: string = this.startTimeValue ? format(this.startTimeValue, 'yyyy-MM-dd') : null;
+    const end: string = this.endTimeValue ? format(this.endTimeValue, 'yyyy-MM-dd') : null;
     const cascader:any[] = value.work_address;
     const option:any = {
       // 分页参数
@@ -122,8 +127,8 @@ export class DeliveryViewedListComponent implements OnInit {
       page: this.pageConfig.page,
       // 搜索表单
       name: this.search_text,
-      start: date && date.length !== 0 ? date[0] : '',
-      end: date && date.length !== 0 ? date[1] : '',
+      start: start,
+      end: end,
       type_id: value.company_type,
       industry_id: value.industry,
       scale_id: value.scale,
@@ -151,5 +156,28 @@ export class DeliveryViewedListComponent implements OnInit {
     this.getDataList();
   }
 
+  // 日期搜索组件
+  // endOpen = false;
+
+  get endTimeValue(): Date | null {
+    return this.validateForm.controls.end.value;
+  }
+  get startTimeValue(): Date | null {
+    return this.validateForm.controls.start.value;
+  }
+  
+  disabledStartDate = (startValue: Date): boolean => {
+    if (!startValue || !this.endTimeValue) {
+      return false;
+    }
+    return startValue.getTime() > this.endTimeValue.getTime();
+  };
+
+  disabledEndDate = (endValue: Date): boolean => {
+    if (!endValue || !this.startTimeValue) {
+      return false;
+    }
+    return endValue.getTime() <= this.startTimeValue.getTime();
+  };
 
 }

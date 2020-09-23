@@ -1,10 +1,10 @@
 <ng-container *ngIf="!loadingData; else lodingSpin">
-  <nz-list nzBordered [nzFooter]="collectFileAddTpl">
+  <nz-list [nzFooter]="collectFileAddTpl">
     <nz-list-item *ngFor="let item of listOfData">
-      <span nz-typography>
+      <span nz-typography (click)="navTo(item.id)" class="point">
         <span class="text-666 mr-sm">{{ item.name }}</span>
         <span class="text-666">
-          共计 <a (click)="navTo(item.id)" class="text-primary text-md"> &nbsp;{{ item.resume_sum }} &nbsp;</a> 份简历
+          共计 <a class="text-primary text-md"> &nbsp;{{ item.resume_sum }} &nbsp;</a> 份简历
         </span>
       </span>
       <ul nz-list-item-actions>
@@ -13,7 +13,7 @@
           <ng-container *ngIf="!item.default">
             <a (click)="editCollectFileName(item)" nz-tooltip nzTooltipTitle="更新收藏夹名称"><i nz-icon
                 nzType="edit" nzTheme="outline"></i></a>
-            <i class="text-danger ml-md" (nzOnConfirm)="deleted(item.id)" (nzOnCancel)="cancel()" nz-popconfirm nzPopconfirmTitle="是否确认删除当前简历收藏夹" nzOkText="删除" nzCancelText="取消" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
+            <i class="text-danger ml-md" (nzOnConfirm)="deleted(item.id)" (nzOnCancel)="cancel()" nz-popconfirm nzPopconfirmTitle="是否确认删除当前简历收藏夹" nzOkText="删 除" nzCancelText="取 消" nz-icon nzType="delete" nzTheme="outline" nz-tooltip
               nzTooltipTitle="删除"></i>
           </ng-container>
         </nz-list-item-action>

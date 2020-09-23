@@ -56,7 +56,7 @@ export class ResumeCreateComponent implements OnInit {
 
   @ViewChild('userInfoTpl', { static: false }) userInfoTpl: UserAdminInfoFormCComponent;
 
-  submitInfo(is_leave:boolean = false, observer?:any) {
+  submitInfo() {
     if(!this.userInfoTpl.submitForm()) {
       return;
     }
@@ -104,11 +104,7 @@ export class ResumeCreateComponent implements OnInit {
         if (res.code === 200) {
           this.resumeUserInfo = res.data;
           this.userDataService.getProfile().then();
-          if(is_leave) {
-            this.showLeaveActiveModal(observer);
-          }else {
-            ++this.step;
-          }
+          ++this.step;
           this.msg.success('保存成功');
         } else {
           this.msg.error(res.message);
@@ -142,11 +138,11 @@ export class ResumeCreateComponent implements OnInit {
       if(this.isChanged){
         let message:string = '';
         if(this.step === 0) { // 在第一步时，需要提示用户 当前数据未提交保存
-          message = '当前简历个人信息未保存。';
-          this.submitInfo(true, observer);
+          message = '简历个人信息未保存，离开页面会丢失当前数据。';
         }else {
-          return this.showLeaveActiveModal(observer);
+          message = '当前简历已存为草稿。';
         }
+        return this.showLeaveActiveModal(observer, message);
         
       }else {
         observer.next(true);
@@ -154,14 +150,14 @@ export class ResumeCreateComponent implements OnInit {
     });
   }
 
-  showLeaveActiveModal(observer):void {
+  showLeaveActiveModal(observer, message:string):void {
     const modal = this.modalService.create({
       nzTitle: '提示',
       // nzContent: '<p class="text-center text-lg text-666">是否离开页面？</p><p class="text-center text-grey">当前简历已存为草稿</p>',
       nzMaskClosable: false,
       nzContent: ResumeLeaveComponentModalComponent,
       nzComponentParams: {
-        // message: message
+        message: message
       },
       nzFooter: null
     });
