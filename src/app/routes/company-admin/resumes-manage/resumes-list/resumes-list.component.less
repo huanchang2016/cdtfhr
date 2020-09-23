@@ -6,6 +6,13 @@
     }
 }
 
+.no_result_wrapper {
+    min-height: 200px;
+    .null_image_box {
+        max-width: 120px;
+        overflow: hidden;
+    }
+}
 :host ::ng-deep {
     .history_record {
         height: 100%;
@@ -18,6 +25,24 @@
     }
     .first_item_box.ant-list-item {
         border-left: 2px solid @primary-color;
+    }
+
+    .sort_box {
+        .ant-radio-button-wrapper:first-child,
+        .ant-radio-button-wrapper {
+            border: 0;
+        }
+        .ant-radio-button-wrapper {
+            padding: 0 10px;
+        }
+        .ant-radio-button-wrapper::before {
+            content: '';
+            display: none;
+        }
+        .ant-radio-button-wrapper-checked {
+            border: 2px solid @primary-color!important;
+            border-radius: 4px;
+        }
     }
 }
 

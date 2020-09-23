@@ -73,6 +73,7 @@ export class OperSaveModalComponent implements OnInit {
     this.msg.success('简历保存成功');
     a.click();
     window.URL.revokeObjectURL(url);
+    this.destroyModal({ type: 'success' });
   }
 
   destroyModal(data?: any): void {

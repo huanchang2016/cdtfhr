@@ -275,7 +275,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       for (const i in element.controls) {
         if(is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          element.controls[i]!.markAsDirty();
+          // element.controls[i]!.markAsDirty();
         }else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
@@ -291,7 +291,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       for (const i in element.controls) {
         if(is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          element.controls[i]!.markAsDirty();
+          // element.controls[i]!.markAsDirty();
         }else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
@@ -307,7 +307,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       for (const i in element.controls) {
         if(is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          element.controls[i]!.markAsDirty();
+          // element.controls[i]!.markAsDirty();
         }else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
@@ -323,7 +323,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       for (const i in element.controls) {
         if(is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          element.controls[i]!.markAsDirty();
+          // element.controls[i]!.markAsDirty();
         }else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();

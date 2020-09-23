@@ -55,15 +55,12 @@ export class MultipleCascaderSelectedComponent implements OnChanges, ControlValu
   }
 
   onChange($event: number[]): void {
-    
-    console.log('ssss', this.values);
     this.propagateChange(this.values);
   }
 
   private propagateChange = (_: any) => { };
 
   writeValue(obj: any[]): void {
-    console.log(obj, 'multiple .....')
     if(obj) {
       this.values = obj;
     }else {

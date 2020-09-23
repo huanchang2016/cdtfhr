@@ -44,11 +44,14 @@
     <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="salary">薪资</nz-form-label>
         <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择薪资">
-            <nz-select formControlName="salary" id="salary" nzPlaceHolder="请点击选择薪资" nzSize="large">
-                <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
-                    <nz-option [nzLabel]="item.value" [nzValue]="item.id"></nz-option>
-                </ng-container>
-              </nz-select>
+            <div class="d-flex align-item-center justify-content-between">
+                <nz-select class="flex-1" formControlName="salary" id="salary" nzPlaceHolder="请点击选择薪资" nzSize="large">
+                    <ng-container *ngFor="let item of globalService.resumeConfigOptions.salary">
+                        <nz-option [nzLabel]="item.value" [nzValue]="item.id"></nz-option>
+                    </ng-container>
+                </nz-select>
+                <div class="text-666 text-right" style="width: 50px;line-height: 40px;">/ 月</div>
+            </div>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>

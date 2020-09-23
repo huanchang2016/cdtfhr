@@ -140,7 +140,7 @@ export class SubAccountFormCComponent implements OnInit {
     console.log('重置密码');
     this.resetLoading = true;
 
-    this.settingService.post(`/v1/web/com/account_reset/${this.data.id}`).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/account_reset`, { id: this.data.id}).subscribe((res:ApiData) => {
       this.resetLoading = false;
       if(res.code === 200) {
         this.isVisible = false;

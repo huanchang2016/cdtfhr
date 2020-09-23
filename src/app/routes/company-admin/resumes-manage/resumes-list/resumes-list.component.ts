@@ -18,8 +18,6 @@ export class ResumesListComponent implements OnInit {
   loadingData:boolean = false;
   listOfData:any[] = [];
 
-  list:any[] = []; // 当前页得数据
-
   searchOptions:any = {
     pageIndex: 1,
     pageSize: 10,

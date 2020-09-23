@@ -15,9 +15,6 @@ import { ResumeCreateComponent } from './resume-manage/resume-create/resume-crea
 // 表单组件
 import { UserAdminInfoFormCComponent } from './component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { UserAdminEducationComponent } from './component/resumes-forms/user-admin-education/user-admin-education.component';
-import { UserAdminJobIntensionFormCComponent } from './component/resumes-forms/user-admin-job-intension-form-c/user-admin-job-intension-form-c.component';
-import { UserAdminWorkExpComponent } from './component/resumes-forms/user-admin-work-exp/user-admin-work-exp.component';
-import { UserAdminInternshipExpComponent } from './component/resumes-forms/user-admin-internship-exp/user-admin-internship-exp.component';
 import { UserAdminOtherInfoComponent } from './component/resumes-forms/user-admin-other-info/user-admin-other-info.component';
 import { ResumeEditComponent } from './resume-manage/resume-edit/resume-edit.component';
 import { ResumeDetailsInfoComponent } from './component/resume-details-info/resume-details-info.component';
@@ -70,7 +67,6 @@ const COMPONENTS = [
   // 简历管理
   ResumeListComponent,
   ResumeCreateComponent,
-  UserAdminJobIntensionFormCComponent,
   UserAdminOtherInfoComponent,
   // 简历编辑
   ResumeEditComponent
@@ -82,10 +78,6 @@ const ENTRYCOMPONENTS = [
   UserAdminEducationComponent,
   // 工作与求职
   UserAdminWorkAndintensionFormCComponent,
-  // 工作经历
-  UserAdminWorkExpComponent,
-  // 实习经历
-  UserAdminInternshipExpComponent,
   // 简历详情信息展示
   ResumeDetailsInfoComponent,
   // 简历名称 模块

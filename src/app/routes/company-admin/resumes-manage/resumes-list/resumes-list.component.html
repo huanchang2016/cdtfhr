@@ -20,7 +20,7 @@
     
   </div>
 </div>
-<div class="mt-md bg-white">
+<div class="mt-md mb-lg bg-white">
   <div class="sort_box text-right">
     <span class="mr-sm" style="line-height: 26px;">排序方式</span>
     <nz-radio-group [(ngModel)]="searchOptions.sort" nzSize="small" (ngModelChange)="sortChange()">
@@ -38,6 +38,7 @@
       [nzPageSize]="searchOptions.pageSize"
       [nzPageIndex]="searchOptions.pageIndex"
       (nzQueryParams)="onQueryParamsChange($event)"
+      [nzNoResult]="noResultTpl"
     >
       <thead>
         <tr>
@@ -79,4 +80,16 @@
         </tr>
       </tbody>
     </nz-table>
+    <ng-template #noResultTpl>
+      <div class="no_result_wrapper d-flex justify-content-center align-items-center">
+        <ng-container *ngIf="!searchConfigs.name; else listOfNull">
+          <div class="text-666 text-lg">请设置搜索条件开始搜索，获得对应简历。</div>
+        </ng-container>
+        <ng-template #listOfNull>
+          <div class="null_image_box">
+            <img src="./assets/imgs/icon/img_nullnote.png" alt="">
+          </div>
+        </ng-template>
+      </div>
+    </ng-template>
 </div>

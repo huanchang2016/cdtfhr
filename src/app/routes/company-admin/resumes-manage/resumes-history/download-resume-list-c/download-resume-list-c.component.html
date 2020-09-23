@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of listOfData">
-            <td>{{ data.default ? '不关联到职位' : data.job.name }}</td>
+            <td class="text-primary">{{ data.default ? '不关联到职位' : data.job.name }}</td>
             <td>
                 <a [routerLink]="['/admin/company/resumes/history/download', data.default ? 0 : data.job.id]" target="_blank">{{ data.resume_sum }}</a>
             </td>
@@ -21,7 +21,7 @@
                     </span>
                 </ng-container>
                 <ng-container *ngIf="data.default">
-                    <span class="text-grey">默认</span>
+                    <span class="text-666">默认</span>
                 </ng-container>
             </td>
         </tr>

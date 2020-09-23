@@ -4,45 +4,92 @@
         <i class="mr-sm" nz-icon nzType="clock-circle" nzTheme="outline"></i>
         <span>更新于 {{ resumeInfo.updated_at }}</span>
     </p>
-    <p class="text-grey mt-sm">
-        <i class="mr-sm" nz-icon nzType="download" nzTheme="outline"></i>
-        <ng-container *ngIf="configs?.log">
-            <span class="text-666">{{ configs?.log }} </span>
-            <span class="text-primary point text-nowrap" (click)="viewOperRecord()"> 查看操作记录 ></span>
-        </ng-container>
+    <div class="text-grey mt-sm">
+        <!-- <i class="mr-sm" nz-icon nzType="download" nzTheme="outline"></i> -->
+        <div class="d-flex align-items-center" *ngIf="configs?.log">
+                <ng-container [ngSwitch]="configs.log.data.type">
+                    <span *ngSwitchCase="'download'" class="oper_icon_box oper_download_log d-inline-block"></span>
+                    <span *ngSwitchCase="'save'" class="oper_icon_box oper_save_log d-inline-block"></span>
+                    <span *ngSwitchCase="'share'" class="oper_icon_box oper_shared_log d-inline-block"></span>
+                    <span *ngSwitchDefault class="oper_icon_box oper_collect_log d-inline-block"></span>
+                    <!-- <li *ngSwitchCase="like">已发货</li> -->
+                </ng-container>
+
+                <div class="flex-1">
+                    <span class="text-grey">{{ configs.log.data.company }} </span>
+                    <span class="text-666">已于</span>
+                    <span class="text-grey">{{ configs.log.data.created_at }} </span>
+
+                    <ng-container [ngSwitch]="configs.log.data.type">
+                        <span class="text-666" *ngSwitchCase="'download'">下载</span>
+                        <span class="text-666" *ngSwitchCase="'save'">保存</span>
+                        <span class="text-666" *ngSwitchCase="'share'">转发</span>
+                        <span class="text-666" *ngSwitchDefault>收藏</span>
+                    </ng-container>
+                </div>
+        </div>
+        <span *ngIf="configs?.log" class="text-primary point text-nowrap" (click)="viewOperRecord()" style="margin-left: 24px;"> 查看操作记录 ></span>
+        
         <ng-container *ngIf="!configs?.log">
             <span class="text-grey">无操作记录</span>
         </ng-container>
-    </p>
-    <p class="text-grey mt-sm">
-        <i class="mr-sm" nz-icon nzType="message" nzTheme="outline"></i>
-        <ng-container *ngIf="configs?.note">
-            <span class="text-666">{{ configs?.note }}</span>
-        <span class="text-primary point text-nowrap" (click)="viewRemarks()"> 查看更多备注 ></span>
-        </ng-container>
-        <ng-container *ngIf="!configs?.note">
-            <span class="text-grey">无备注信息</span>
-        </ng-container>
+    </div>
+    <div class="text-grey mt-sm">
+        <!-- <i class="mr-sm" nz-icon nzType="message" nzTheme="outline"></i> -->
+        <div class="d-flex align-items-center">
+            <span class="oper_icon_box oper_message_log d-inline-block"></span>
+            <ng-container *ngIf="configs?.note">
+                <span class="text-666 flex-1 text-nowrap text-truncate">{{ configs.note.note }}</span>
+            </ng-container>
+            <ng-container *ngIf="!configs?.note">
+                <span class="text-grey">无备注信息</span>
+            </ng-container>
+        </div>
+        <div *ngIf="configs?.note" style="margin-left: 24px;">
+            <p class="text-grey">
+                {{ configs.note.name }} &nbsp; {{ configs.note.created_at }}
+            </p>
+            <span class="text-primary point text-nowrap" (click)="viewRemarks()"> 查看更多备注 ></span>
+        </div>
         
-    </p>
+        
+    </div>
 
     <div class="oper_btn_box mt-sm">
         <button *ngIf="!configs?.download" (click)="download()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i nz-icon nzType="download" nzTheme="outline"></i> 下载</button>
+            <!-- <i nz-icon nzType="download" nzTheme="outline"></i> -->
+            <span class="oper_icon_box oper_download d-inline-block"></span>
+             下载
+        </button>
 
         <button (click)="save()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i nz-icon nzType="save" nzTheme="outline"></i> 保存</button>
+            <!-- <i nz-icon nzType="save" nzTheme="outline"></i> -->
+            <span class="oper_icon_box oper_save d-inline-block"></span>
+             保存
+        </button>
 
         <button (click)="collect()" [disabled]="configs?.collect" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i nz-icon nzType="star" [nzTheme]="configs?.collect ? 'fill' : 'outline'"></i> {{ configs?.collect ? '已收藏' : '收藏' }}</button>
+            <!-- <i nz-icon nzType="star" [nzTheme]="configs?.collect ? 'fill' : 'outline'"></i> -->
+            <span class="oper_icon_box oper_collect d-inline-block" [class.oper_collect_before]="configs?.collect"></span>
+            {{ configs?.collect ? '已收藏' : '收藏' }}
+        </button>
         <button (click)="send()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i class="icon iconfont icon-transmit mr-sm"></i> 转发</button>
+            <!-- <i class="icon iconfont icon-transmit mr-sm"></i> -->
+            <span class="oper_icon_box oper_send d-inline-block"></span>
+             转发
+        </button>
 
         <button (click)="deliver()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i nz-icon nzType="send" nzTheme="outline"></i> 投递记录</button>
+            <!-- <i nz-icon nzType="send" nzTheme="outline"></i> -->
+            <span class="oper_icon_box oper_deliver d-inline-block"></span>
+             投递记录
+        </button>
 
-        <button (click)="remark()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <i nz-icon nzType="message" nzTheme="outline"></i> 备注</button>
+        <button (click)="remark()" nz-button nzType="primary" class="mb-lg" nzBlock nzGhost nzSize="large">
+            <!-- <i nz-icon nzType="message" nzTheme="outline"></i> -->
+            <span class="oper_icon_box oper_message d-inline-block"></span>
+             备注
+        </button>
 
     </div>
     

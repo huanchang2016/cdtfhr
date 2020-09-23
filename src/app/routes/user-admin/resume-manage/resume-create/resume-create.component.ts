@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { UserAdminInfoFormCComponent } from '../../component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { ResumeLeaveComponentModalComponent } from '../../component/resume-leave-component-modal/resume-leave-component-modal.component';
 import { ActivatedRoute, Params } from '@angular/router';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-resume-create',
@@ -25,7 +26,7 @@ export class ResumeCreateComponent implements OnInit {
   resumeId:number;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    // private activatedRoute: ActivatedRoute,
     private settingService: GlobalSettingsService,
     private msg: NzMessageService,
     private modalService: NzModalService,
@@ -42,14 +43,14 @@ export class ResumeCreateComponent implements OnInit {
     // this.getResumeInfo(52);
   }
 
-  getResumeInfo(id:number):void {
-    this.settingService.get(`/v1/web/user/resume/${id}`).subscribe((res:ApiData) => {
-      console.log('resumeInfo works!', res.data);
-      if(res.code === 200) {
-        this.resumeUserInfo = res.data;
-      }
-    }, err => this.resumeUserInfo = null);
-  }
+  // getResumeInfo(id:number):void {
+  //   this.settingService.get(`/v1/web/user/resume/${id}`).subscribe((res:ApiData) => {
+  //     console.log('resumeInfo works!', res.data);
+  //     if(res.code === 200) {
+  //       this.resumeUserInfo = res.data;
+  //     }
+  //   }, err => this.resumeUserInfo = null);
+  // }
 
   ngOnInit(): void { }
 
@@ -72,9 +73,11 @@ export class ResumeCreateComponent implements OnInit {
           userInfo.append('work_province_id', object[key][0]);
           userInfo.append('work_city_id', object[key][1]);
           userInfo.append('work_area_id', object[key][2]);
+        } else if (key === 'birthday') {
+          userInfo.append('birthday', format(new Date(object[key]), 'yyyy-MM-dd'));
         } else if (key === 'work_date') {
           const work_date:string = object['is_not_work'] ? '' : object[key];
-          userInfo.append('work_date', work_date);
+          userInfo.append('work_date', format(new Date(work_date), 'yyyy-MM-dd'));
         } else if (key === 'avatar') {
           if(typeof object[key] === 'string') {
             continue

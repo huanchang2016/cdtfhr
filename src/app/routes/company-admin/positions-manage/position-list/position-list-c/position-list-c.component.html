@@ -19,8 +19,8 @@
       </td>
       <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]"
           target="_blank">{{ item.resume_sum }}</a></td>
-      <td class="text-center">{{ item.start_at | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
-      <td class="text-center">{{ item.expires_at | date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+      <td class="text-center">{{ item.start_at }}</td>
+      <td class="text-center">{{ item.expires_at }}</td>
       <td class="oper_box text-nowrap text-center">
 
         <ng-container *ngIf="status === 'ing'">

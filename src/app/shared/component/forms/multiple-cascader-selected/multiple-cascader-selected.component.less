@@ -2,7 +2,17 @@
     .ant-select-tree-checkbox-disabled {
         display: none;
     }
-    .ant-select-tree .ant-select-tree-treenode-disabled .ant-select-tree-node-content-wrapper {
-        color: #666;
+    .ant-select-tree .ant-select-tree-treenode-disabled{
+        .ant-select-tree-switcher {
+            width: 100%;
+            text-align: left;
+            position: absolute;
+            z-index: 1;
+            padding-left: 8px;
+        }
+        .ant-select-tree-node-content-wrapper {
+            color: #666;
+            text-indent: 24px;
+        }
     }
 }

@@ -24,34 +24,42 @@
             line-height: 30px;
             font-size: 16px;
             transition: all 0.3s;
+
             &.oper_btn_three {
                 width: auto;
                 padding: 0 5px;
             }
+
             &.btn_warning {
                 color: #E64B3B;
                 border: 1px solid #E64B3B;
+
                 &:hover {
                     color: #fff;
                     background-color: #E64B3B;
                 }
             }
+
             &.btn_success {
                 color: #19BB9B;
                 border: 1px solid #19BB9B;
+
                 &:hover {
                     color: #fff;
                     background-color: #19BB9B;
                 }
             }
+
             &.btn_primary {
                 color: @primary-color;
                 border: 1px solid @primary-color;
+
                 &:hover {
                     color: #fff;
                     background-color: @primary-color;
                 }
             }
+
             .btn_grey {
                 color: #333;
                 background-color: @grey-dark-color;
@@ -66,12 +74,51 @@
             padding: 10px;
         }
     }
+
     .ant-steps-item-content {
         width: 250px;
+
         .ant-steps-item-description {
             padding-top: 12px;
             display: flex;
             justify-content: space-between;
         }
+    }
+
+    .ant-steps-item-finish,
+    .ant-steps-item-process {
+        & >.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
+            color: @primary-color;
+            margin-top: -4px;
+        }
+    }
+    .ant-steps-vertical.ant-steps-dot .ant-steps-item-icon {
+        margin-top: 0;
+    }
+
+    .ant-steps-dot .ant-steps-item-icon,
+    .ant-steps-dot.ant-steps-small .ant-steps-item-icon,
+    .ant-steps-dot .ant-steps-item-process .ant-steps-item-icon,
+    .ant-steps-dot.ant-steps-small .ant-steps-item-process .ant-steps-item-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .ant-steps-vertical.ant-steps-dot .ant-steps-item-process .ant-steps-icon-dot {
+        left: 0;
+        top: 0;
+    }
+
+    .ant-steps-item-tail::after {
+        background-color: #BFC1C4;
+    }
+
+    .ant-steps-vertical>.ant-steps-item>.ant-steps-item-container>.ant-steps-item-tail::after {
+        width: 4px;
+        margin-left: 15px;
+    }
+
+    .ant-steps-vertical.ant-steps-dot .ant-steps-item>.ant-steps-item-container>.ant-steps-item-tail {
+        padding: 12px 0 0;
     }
 }

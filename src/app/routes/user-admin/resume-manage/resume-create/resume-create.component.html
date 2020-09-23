@@ -4,8 +4,6 @@
         <nz-step [nzTitle]="'个人信息'"></nz-step>
         <nz-step [nzTitle]="'教育经历'"></nz-step>
         <nz-step [nzTitle]="'工作与求职'"></nz-step>
-        <!-- <nz-step [nzTitle]="'工作经历'"></nz-step>
-        <nz-step [nzTitle]="'实习经历'"></nz-step> -->
         <nz-step [nzTitle]="'其它'"></nz-step>
   
       </nz-steps>
@@ -27,28 +25,10 @@
           </ng-container>
 
           <ng-container *ngIf="step === 2">
-            <!-- <app-sub-title-show [title]="'求职意向'"></app-sub-title-show> -->
             <app-user-admin-work-andintension-form-c [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)" (resumeInfoChange)="resumeInfoChange($event)" (stepsChange)="stepsChange($event)"></app-user-admin-work-andintension-form-c>
-            <!-- <app-user-admin-job-intension-form-c [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-job-intension-form-c> -->
-
           </ng-container>
-  
-          <!-- <ng-container *ngIf="step === 3">
-            <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
-            
-            <app-user-admin-work-exp [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-work-exp>
-            
-          </ng-container>
-
-          <ng-container *ngIf="step === 4">
-            <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>
-
-            <app-user-admin-internship-exp [resumeUserInfo]="resumeUserInfo" (stepsChange)="stepsChange($event)"></app-user-admin-internship-exp>
-            
-          </ng-container> -->
 
           <ng-container *ngIf="step === 3">
-            
             <app-user-admin-other-info [resumeUserInfo]="resumeUserInfo" (valueChanges)="valueChanges($event)" (resumeInfoChange)="resumeInfoChange($event)" (stepsChange)="stepsChange($event)"></app-user-admin-other-info>
             
           </ng-container>
