@@ -1,0 +1,46 @@
+// :host ::ng-deep .avatar-uploader > .ant-upload {
+//     width: 128px;
+//     height: 128px;
+//   }
+
+.upload_wrapper {
+    .img_box,
+    .photo_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .img_box {
+        width: 128px;
+        // height: 128px;
+    }
+    .photo_box {
+        width: 82px;
+        height: 82px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    img {
+        max-width: 100%;
+    }
+}
+
+:host ::ng-deep {
+    .ant-upload.ant-upload-select-picture-card {
+        width: 100%;
+        height: 44px;
+        padding: 0;
+        line-height: 44px;
+        background-color: #fff;
+        border-color: #2694d4;
+        border-width: 2px;
+        & >  .ant-upload {
+            padding: 0 16px;
+
+            .upload_refer_text {
+                font-size: 18px;
+            }
+        }
+    }
+}

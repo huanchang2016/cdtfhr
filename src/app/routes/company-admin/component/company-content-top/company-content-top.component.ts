@@ -1,4 +1,5 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { CompanyDataService } from '../../service/company-data.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class CompanyContentTopComponent implements OnInit {
   ];
 
   constructor(
+    private router: Router,
     public companyDataService: CompanyDataService
   ) {
     const day = this.date.getDay();
@@ -37,4 +39,7 @@ export class CompanyContentTopComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  navTo(url: string):void {
+    this.router.navigateByUrl(url);
+  }
 }

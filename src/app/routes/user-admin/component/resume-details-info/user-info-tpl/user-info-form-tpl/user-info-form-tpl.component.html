@@ -64,7 +64,8 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="avatar">头像上传</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请上传您的头像">
-            <app-upload-logo ngDefaultControl formControlName="avatar" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-logo>
+            <!-- <app-upload-logo ngDefaultControl formControlName="avatar" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-logo> -->
+            <app-upload-photo-file-tpl ngDefaultControl formControlName="avatar" [placeHolder]="'请上传您的头像'" [Size]="'large'"></app-upload-photo-file-tpl>
         </nz-form-control>
     </nz-form-item>
     

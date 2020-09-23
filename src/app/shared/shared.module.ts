@@ -23,6 +23,8 @@ import { RangeDatePickerComponent } from './component/forms/range-date-picker/ra
 import { RangeMonthPickerComponent } from './component/forms/range-month-picker/range-month-picker.component';
 import { PositionAddressMapComponent } from './component/position-address-map/position-address-map.component';
 import { UploadFilePhotoComponent } from './component/forms/upload-file-photo/upload-file-photo.component';
+import { UploadPhotoFileTplComponent } from './component/forms/upload-photo-file-tpl/upload-photo-file-tpl.component';
+
 // 简历预览 公共部分
 import { ResumeViewSharedTplComponent } from './component/resume-manage/resume-view-shared-tpl/resume-view-shared-tpl.component';
 // 简历操作管理
@@ -63,6 +65,7 @@ const COMPONENTS = [
   RecuritItemComponent,
   PaginationItemComponent,
   UploadLogoComponent,
+  UploadPhotoFileTplComponent,
   MultipleCascaderSelectedComponent,
   RangeDatePickerComponent,
   RangeMonthPickerComponent,
@@ -94,7 +97,9 @@ const ENTRYCOMPONENTS = [
   // 简历记录列表弹窗显示
   OperRecordListTplComponent,
   OperRemarkListTplComponent,
-  OperDeliverListTplComponent
+  OperDeliverListTplComponent,
+  // 忘记密码，找回
+  ForgotPasswordFormComponent
 ];
 
 const DIRECTIVES = [
@@ -118,8 +123,7 @@ const DIRECTIVES = [
     // your components
     ...COMPONENTS,
     ...ENTRYCOMPONENTS,
-    ...DIRECTIVES,
-    ForgotPasswordFormComponent
+    ...DIRECTIVES
   ],
   exports: [
     CommonModule,

@@ -65,27 +65,42 @@
                 </div>
             </div>
 
-            <div nz-row class="mb-sm">
+            <div nz-row class="mb-lg">
                 <div nz-col [nzSpan]="6" class="label_text text-md">营业执照<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
                     <img [src]="environment.SERVER_URL + '/' + companyInfo.licence" alt="">
                 </div>
             </div>
 
-            <div nz-row class="mb-sm" class="is_edit_box">
-                <a *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn text-md"
-                    (click)="editLogo(tplLogoTitle, tplLogoContent, tplLogoFooter)"><i nz-icon nzType="edit"
-                        nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
+            <div nz-row class="mb-lg is_edit_box">
+                <div *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn logo_edit_box d-flex align-items-center text-md">
+                    <ng-template #logoEditTextTpl>
+                        <div class="text-sm edit_icon_box d-flex align-items-center text-primary point" (click)="editLogo(tplLogoTitle, tplLogoContent, tplLogoFooter)">
+                            <span class="info_edit_icon mr-sm"></span>
+                            编辑
+                        </div>
+                    </ng-template>
+                    <nz-divider class="flex-1" [nzText]="logoEditTextTpl" nzOrientation="right" nzDashed></nz-divider>
+                </div>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司LOGO<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md">
                     <img style="max-width: 200px;" [src]="environment.SERVER_URL + '/' + companyInfo.logo" alt="">
                 </div>
             </div>
 
-            <div nz-row class="mb-sm" class="is_edit_box">
-                <a *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn text-md"
-                    (click)="editDescription(tplDescriptionTitle, tplDescriptionContent, tplDescriptionFooter)"><i
-                        nz-icon nzType="edit" nzTheme="outline"></i> <span class="text-sm">编辑</span></a>
+            <div nz-row class="mb-sm is_edit_box">
+                <a *ngIf="companyInfo.status === 1 && companyInfo.is_super" class="edit_btn description_edit_box d-flex align-items-center text-md">
+                    <!-- <i nz-icon nzType="edit" nzTheme="outline"></i>
+                    <span class="info_edit_icon mr-sm"></span>
+                    <span class="text-sm">编辑</span>  -->
+                    <ng-template #desEditTextTpl>
+                        <div class="text-sm edit_icon_box d-flex align-items-center text-primary point" (click)="editDescription(tplDescriptionTitle, tplDescriptionContent, tplDescriptionFooter)">
+                            <span class="info_edit_icon mr-sm"></span>
+                            编辑
+                        </div>
+                    </ng-template>
+                    <nz-divider class="flex-1" [nzText]="desEditTextTpl" nzOrientation="right" nzDashed></nz-divider>
+                </a>
                 <div nz-col [nzSpan]="6" class="label_text text-md">公司简介<span class="text-danger">*</span></div>
                 <div nz-col [nzSpan]="18" class="value_text text-md description">
                     <div [innerHTML]="companyInfo.description | showTextAreaText"></div>
@@ -104,15 +119,16 @@
         <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="logo">公司LOGO</nz-form-label>
             <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司LOGO">
-                <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo>
+                <!-- <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo> -->
+                <app-upload-photo-file-tpl ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'" [isPhoto]="false"></app-upload-photo-file-tpl>
             </nz-form-control>
         </nz-form-item>
     </form>
 </ng-template>
 <ng-template #tplLogoFooter>
     <div class="d-flex justify-content-center py-md save_btn_box">
-        <button nz-button nzType="default" (click)="cancel()" class="mr-lg">取 消</button>
-        <button nz-button nzType="primary" (click)="submitLogoChange()" [nzLoading]="logoSubmitLoading">保 存</button>
+        <button nz-button nzType="default" (click)="cancel()" class="mr-lg" nzSize="large">取 消</button>
+        <button nz-button nzType="primary" (click)="submitLogoChange()" [nzLoading]="logoSubmitLoading" nzSize="large">保 存</button>
     </div>
 </ng-template>
 
@@ -135,9 +151,9 @@
 </ng-template>
 <ng-template #tplDescriptionFooter>
     <div class="d-flex justify-content-center py-md save_btn_box">
-        <button nz-button nzType="default" (click)="cancel()">取 消</button>
+        <button nz-button nzType="default" (click)="cancel()" nzSize="large">取 消</button>
         <button class="ml-lg" nz-button nzType="primary" (click)="submitDescriptionChange()"
-            [nzLoading]="descriptionSubmitLoading">保 存</button>
+            [nzLoading]="descriptionSubmitLoading" nzSize="large">保 存</button>
     </div>
     
 </ng-template>

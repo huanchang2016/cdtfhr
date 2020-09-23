@@ -1,4 +1,5 @@
 import { Component, OnInit, LOCALE_ID } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserDataService } from '../../service/user-data.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class UserContentTopComponent implements OnInit {
     "周六"
   ];
   constructor(
+    private router: Router,
     public userDataService: UserDataService
   ) {
     const day = this.date.getDay();
@@ -32,6 +34,10 @@ export class UserContentTopComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  navTo(url: string):void {
+    this.router.navigateByUrl(url);
   }
 
 }

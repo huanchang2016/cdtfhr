@@ -46,6 +46,25 @@
             position: absolute;
             right: -120px;
             top: 0;
+            &.logo_edit_box {
+                width: 360px;
+            }
+            &.description_edit_box {
+                width: 120px;
+            }
+            
+            .info_edit_icon {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                overflow: hidden;
+                background: url('/assets/imgs/icon/icon_btnedit30.png') no-repeat center center;
+                background-size: cover;
+
+                &:hover  {
+                    background-image: url('/assets/imgs/icon/icon_btnedit30_mouseover.png')!important;
+                }
+            }
         }
     }
 }
@@ -62,5 +81,38 @@
         position: absolute;
         right: 8px;
         bottom: 0;
+    }
+}
+
+
+:host ::ng-deep {
+    // .ant-divider-inner-text {
+    //     padding: 0!important;
+    //     margin-right: -38px;
+    // }
+    .ant-divider {
+        margin: 8px 0 0 0;
+        &::after {
+            display: none;
+        }
+    }
+    .ant-divider-horizontal.ant-divider-with-text-left .ant-divider-inner-text,
+    .ant-divider-horizontal.ant-divider-with-text-right .ant-divider-inner-text {
+        padding: 0 8px;
+        margin-right: -20px;
+    }
+    // .description_edit_box {
+    //     .ant-divider-inner-text {
+    //         margin-right: -6px!important;
+    //     }
+    // }
+    .ant-divider-dashed {
+        &::before {
+            border-color: #2694D5;
+        }
+        &::after {
+            border-color: #fff;
+        }
+        
     }
 }

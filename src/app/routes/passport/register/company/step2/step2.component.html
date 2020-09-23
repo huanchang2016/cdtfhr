@@ -66,14 +66,16 @@
         <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="license_photo">营业执照</nz-form-label>
             <nz-form-control [nzSpan]="18" nzErrorTip="请上传营业执照">
-                <app-upload-file-photo ngDefaultControl formControlName="license_photo" [placeHolder]="'上传营业执照'" [Size]="'large'"></app-upload-file-photo>
+                <!-- <app-upload-file-photo ngDefaultControl formControlName="license_photo" [placeHolder]="'上传营业执照'" [Size]="'large'"></app-upload-file-photo> -->
+                <app-upload-photo-file-tpl ngDefaultControl formControlName="license_photo" [placeHolder]="'上传营业执照'" [Size]="'large'" [isPhoto]="false"></app-upload-photo-file-tpl>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="logo">公司LOGO</nz-form-label>
             <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司LOGO">
-                <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo>
+                <!-- <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo> -->
+                <app-upload-photo-file-tpl ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'" [isPhoto]="false"></app-upload-photo-file-tpl>
             </nz-form-control>
         </nz-form-item>
 

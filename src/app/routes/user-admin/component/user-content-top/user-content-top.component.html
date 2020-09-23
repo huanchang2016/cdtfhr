@@ -7,14 +7,14 @@
         </div>
     </div>
     <div class="base_info_box float-right d-flex justify-content-around align-items-center">
-        <div class="base_info_list point d-flex align-items-center">
+        <div class="base_info_list point d-flex align-items-center" (click)="navTo('/admin/user/delivery/record')">
             <div class="base_info_icon_box info_icon1 border-radius-half"></div>
             <div class="base_info_des ml-sm d-flex flex-column justify-content-center">
                 <p class="text__amount text-lg text-666">{{ userDataService.userProfile?.deliver_sum }}</p>
                 <p class="text-xs text-grey">我的投递</p>
             </div>
         </div>
-        <div class="base_info_list point d-flex align-items-center">
+        <div class="base_info_list point d-flex align-items-center" (click)="navTo('/admin/user/delivery/record')">
             <div class="base_info_icon_box info_icon2 border-radius-half"></div>
             <div class="base_info_des ml-sm d-flex flex-column justify-content-center">
                 <p class="text__amount text-lg text-666">{{ userDataService.userProfile?.invite_sum }}</p>

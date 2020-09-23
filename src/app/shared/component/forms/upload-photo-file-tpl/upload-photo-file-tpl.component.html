@@ -1,0 +1,43 @@
+<div class="upload_wrapper d-flex aling-items-center">
+    <div class="img_box mr-md" [class.photo_box]="isPhoto" *ngIf="avatarUrl">
+        <img [src]="avatarUrl" style="width: 100%" />
+    </div>
+    <div class="upload_btn_box">
+        <nz-upload
+            class="avatar-uploader"
+            nzName="avatar"
+            nzListType="picture-card"
+            [nzShowUploadList]="false"
+            [nzBeforeUpload]="beforeUpload"
+            >
+            <p class="upload_refer_text text-primary text-left">
+                <ng-container *ngIf="!avatarUrl">
+                    请选择文件上传
+                </ng-container>
+                <ng-container *ngIf="avatarUrl">
+                    重新选择文件上传
+                </ng-container>
+            </p>
+                <!-- <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">{{ placeHolder }}</div> -->
+        </nz-upload>
+        
+        <div class="text-grey">
+            （图片大小2M以内，支持jpg，png，gif等格式）
+        </div>
+    </div>
+</div>
+<!-- <nz-upload
+  class="avatar-uploader"
+  nzName="avatar"
+  nzListType="picture-card"
+  [nzShowUploadList]="false"
+  [nzBeforeUpload]="beforeUpload"
+>
+  <ng-container *ngIf="!avatarUrl">
+    <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+    <div class="ant-upload-text">{{ placeHolder }}</div>
+  </ng-container>
+  <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+</nz-upload> -->
+
