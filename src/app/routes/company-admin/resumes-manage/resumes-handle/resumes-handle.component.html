@@ -44,13 +44,12 @@
               <td>
                 <a [routerLink]="['/recruit/details', item.id]"
                     target="_blank"
-                    class="text-666 pl-sm">{{ item.name }}
-                                        </a>
+                    class="text-666 pl-sm">{{ item.name }}</a>
               </td>
-              <td class="text-center">
+              <td class="text-center text-md">
                 <a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.new_resume_sum }}</a>
               </td>
-              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
+              <td class="text-center text-md"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
               <td>{{ item.start_at }}</td>
               <td>{{ item.expires_at }}</td>
             </tr>
@@ -88,10 +87,10 @@
                     target="_blank"
                     class="text-666 pl-sm">{{ item.name }}</a>
               </td>
-              <td class="text-center">
+              <td class="text-center text-md">
                 <a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.new_resume_sum }}</a>
               </td>
-              <td class="text-center"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
+              <td class="text-center text-md"><a [routerLink]="['/admin/company/resumes/handle', item.id]" target="_blank">{{ item.resume_sum }}</a></td>
               <td>{{ item.start_at }}</td>
               <td>{{ item.expires_at }}</td>
             </tr>

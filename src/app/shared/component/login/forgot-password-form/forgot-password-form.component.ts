@@ -80,7 +80,6 @@ export class ForgotPasswordFormComponent implements OnInit {
         this.loading = false;
         if(res.code === 200) {
           this.msg.success('密码重置成功');
-          this.companyDataService.companyInfo = null; // 密码重置成功后，清除用户信息
           this.modal.destroy({ type: 'success'});
         }else {
           this.msg.error(res.message);

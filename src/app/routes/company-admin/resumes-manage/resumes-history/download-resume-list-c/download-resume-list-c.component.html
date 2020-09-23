@@ -11,7 +11,7 @@
     <tbody>
         <tr *ngFor="let data of listOfData">
             <td class="text-primary">{{ data.default ? '不关联到职位' : data.job.name }}</td>
-            <td>
+            <td class="text-md">
                 <a [routerLink]="['/admin/company/resumes/history/download', data.default ? 0 : data.job.id]" target="_blank">{{ data.resume_sum }}</a>
             </td>
             <td>

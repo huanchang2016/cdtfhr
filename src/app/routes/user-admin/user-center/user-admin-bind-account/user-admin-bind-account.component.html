@@ -2,15 +2,16 @@
     <div class="content_wrapper">
         <app-sub-title-show [title]="'账号绑定'"></app-sub-title-show>
         <div class="px-md mt-lg">
-            <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-                <nz-form-item *ngIf="!reloading">
+            <form nz-form>
+                 <!-- [formGroup]="validateForm" (ngSubmit)="submitForm()" *ngIf="!reloading" -->
+                <nz-form-item>
                     <nz-form-label [nzSpan]="5" nzRequired><i nz-icon nzType="mobile" nzTheme="outline"></i> 手机号</nz-form-label>
                     <nz-form-control [nzSpan]="19" style="line-height: 40px;">
-                        <span class="ml-md mr-lg">{{ settingService.user?.phone }}</span>
+                        <span class="ml-md mr-lg">{{ userDataService.userProfile?.phone }}</span>
                         <span class="text-primary point" (click)="rebind()"><i nz-icon nzType="sync" [nzSpin]="reloading" nzTheme="outline"></i> 重新设置</span>
                     </nz-form-control>
                 </nz-form-item>
-                <ng-container *ngIf="reloading">
+                <!-- <ng-container *ngIf="reloading">
                     <nz-form-item>
                         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="old_phone">原手机号</nz-form-label>
                         <nz-form-control [nzSpan]="18" nzErrorTip="请输入原手机号码">
@@ -57,7 +58,7 @@
                         </nz-form-control>
                     </nz-form-item>
                     
-                </ng-container>
+                </ng-container> -->
             </form>
         </div>
     </div>

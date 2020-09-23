@@ -26,7 +26,7 @@ export class ResumeOperTplComponent implements OnInit {
   constructor(
     private modal: NzModalService,
     private iconService: NzIconService,
-    private viewContainerRef: ViewContainerRef,
+    // private viewContainerRef: ViewContainerRef,
     public settingService: GlobalSettingsService
   ) {
     this.iconService.fetchFromIconfont({
@@ -89,7 +89,7 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '下载简历',
       nzContent: OperDownloadModalComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 0'
@@ -137,7 +137,7 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: OperSendModalComponent,
-      nzViewContainerRef: this.viewContainerRef,
+      // nzViewContainerRef: this.viewContainerRef,
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo

@@ -183,7 +183,8 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     // }
 
     console.log(this.validateForm, 'validateForm');
-    if(!this.validateForm.get('keywords').value) {
+    const keywords:string = this.validateForm.get('keywords').value;
+    if(!keywords || !keywords.trim()) {
       this.msg.error('搜索简历时，关键字为必填项！');
       return;
     }else {

@@ -8,6 +8,7 @@ import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { ForgotPasswordFormComponent } from 'src/app/shared/component/login/forgot-password-form/forgot-password-form.component';
 import { Router } from '@angular/router';
+import { CompanyDataService } from '../../../service/company-data.service';
 
 @Component({
   selector: 'app-change-password',
@@ -29,6 +30,7 @@ export class ChangePasswordComponent implements OnInit {
     private msg: NzMessageService,
     private fb: FormBuilder,
     private router: Router,
+    private companyDataService: CompanyDataService,
     public settingService: GlobalSettingsService
   ) {
     this.settingService.setTitle('修改密码-账号管理-天府菁英网');
@@ -140,6 +142,7 @@ export class ChangePasswordComponent implements OnInit {
     this.modal.closeAll();
     this.settingService.clearUser();
     this.settingService.user = null;
+    this.companyDataService.companyInfo = null; // 密码重置成功后，清除用户信息
     this.router.navigateByUrl('/passport/login');
   }
 }

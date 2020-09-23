@@ -1,0 +1,51 @@
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="old_phone">原联系人手机</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入原联系人手机">
+            <input nz-input formControlName="old_phone" id="old_phone" placeholder="请输入原联系人手机" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="old_code">原手机验证码</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入原手机号收到的验证码">
+            <nz-input-group [nzSuffix]="suffixOldCode" nzSize="large">
+                <input type="text" formControlName="old_code" nz-input placeholder="验证码" />
+            </nz-input-group>
+            <ng-template #suffixOldCode>
+                <div class="code-btn-box text-center">
+                    <span *ngIf="!is_get_old_captcha" (click)="getOldCaptcha($event)"
+                        class="text-primary text-md point">获取验证码</span>
+                    <span *ngIf="is_get_old_captcha" class="text-primary text-md">{{ old_count }}s</span>
+                </div>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="phone">新联系人手机</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入新的联系人手机号码">
+            <input nz-input formControlName="phone" id="phone" placeholder="请输入新的联系人手机号码" nzSize="large" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="code">新手机验证码</nz-form-label>
+        <nz-form-control [nzSpan]="18" nzErrorTip="请输入新手机号码的验证码">
+            <nz-input-group [nzSuffix]="suffixNewCode" nzSize="large">
+                <input type="text" formControlName="code" nz-input placeholder="新手机号码的验证码" />
+            </nz-input-group>
+            <ng-template #suffixNewCode>
+                <div class="code-btn-box text-center">
+                    <span *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)"
+                        class="text-primary text-md point">获取验证码</span>
+                    <span *ngIf="is_get_new_captcha" class="text-primary text-md">{{ new_count }}s</span>
+                </div>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzSpan]="14" [nzOffset]="5">
+            <!-- <button nz-button class="form-button" [nzType]="'primary'" [nzLoading]="loading" nzSize="large">重新绑定</button> -->
+            <button class="form-button mr-lg" nz-button nzSize="large" nzType="default" (click)="handleCancel($event)">取消</button>
+            <button class="form-button mr-lg" nz-button nzSize="large" nzType="primary" (click)="handleOk()" [nzLoading]="submitLoading">确定</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

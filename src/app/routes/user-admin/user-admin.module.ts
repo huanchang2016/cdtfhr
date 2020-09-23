@@ -48,6 +48,7 @@ import { ResumeSectionDeletedModalComponent } from './component/resume-section-d
 import { ResumeLeaveComponentModalComponent } from './component/resume-leave-component-modal/resume-leave-component-modal.component';
 import { UserAdminWorkAndintensionFormCComponent } from './component/resumes-forms/user-admin-work-andintension-form-c/user-admin-work-andintension-form-c.component';
 import { UserResumesCreateSuccessTplComponent } from './component/resumes-forms/user-resumes-create-success-tpl/user-resumes-create-success-tpl.component';
+import { UserBindAccountFormTplComponent } from './user-center/user-admin-bind-account/user-bind-account-form-tpl/user-bind-account-form-tpl.component';
 
 
 const GUARDS = [
@@ -113,7 +114,8 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    ...ENTRYCOMPONENTS
+    ...ENTRYCOMPONENTS,
+    UserBindAccountFormTplComponent
   ],
   entryComponents: [
     ...ENTRYCOMPONENTS

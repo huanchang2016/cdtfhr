@@ -48,7 +48,7 @@ export class UserWorkExpFormTplComponent implements OnInit {
     // 设置表单值
     this.validateForm.patchValue({
       company_name: this.data.name,
-      company_industry: this.data.industry.id,
+      company_industry: this.data.industry ? this.data.industry.id : null,
       company_scale: this.data.scale.id,
       company_nature: this.data.type.id,
       position_name: this.data.position,
