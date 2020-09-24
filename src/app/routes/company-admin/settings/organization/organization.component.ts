@@ -41,7 +41,7 @@ export class OrganizationComponent implements OnInit {
       logo: [null, Validators.required]
     });
     this.validateDescForm = this.fb.group({
-      description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(1000)]]
+      description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(2000)]]
     });
 
     if(this.companyDataService.companyInfo) {

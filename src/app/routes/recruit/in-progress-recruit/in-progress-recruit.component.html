@@ -45,7 +45,7 @@
                                             (ngModelChange)="selectedChange($event, item)"></label>
                                         <a [routerLink]="['/recruit/details', item.id]" target="_blank"
                                             class="text-666 pl-sm">{{ item.name }}
-                                            <ng-container *ngIf="item.is_delivery">
+                                            <ng-container *ngIf="item.is_delivery && settingService.user && settingService.user.type === 'user'">
                                                 <nz-tag nzColor="default" class="ml-sm">已投递</nz-tag>
                                             </ng-container>
                                         </a>

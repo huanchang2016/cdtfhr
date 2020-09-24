@@ -21,6 +21,7 @@ export class LinkUserInfoComponent implements OnInit {
 
   validateForm!: FormGroup;
 
+  is_edit_phone_flag:boolean = false; // 是否编辑手机号码
   is_get_old_captcha:boolean = false;
   is_get_new_captcha:boolean = false;
 
@@ -36,15 +37,34 @@ export class LinkUserInfoComponent implements OnInit {
   ngOnInit(): void {
     this.getDataInfo();
 
+    this.initForm();
+  }
+
+  initForm(is_edit:boolean = false):void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       old_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
-      old_captcha: [null, [Validators.required]],
-      new_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
-      new_captcha: [null, [Validators.required]],
+      old_captcha: [{ value: null, disabled: !this.is_edit_phone_flag }],
+      new_phone: [{ value: null, disabled: !this.is_edit_phone_flag }],
+      new_captcha: [{ value: null, disabled: !this.is_edit_phone_flag }],
       tel: [null],
       email: [null, [Validators.email]]
     });
+    if(is_edit) {
+      this.setFormValue();
+    }
+  }
+  
+  resetFormValid():void {
+    console.log('重置表单 必填验证规则')
+    // 启用 验证码及新手机号码填写
+    this.validateForm.controls['old_captcha'].enable();
+    this.validateForm.controls['new_phone'].enable();
+    this.validateForm.controls['new_captcha'].enable();
+    // 设置必填项 
+    this.validateForm.controls['old_captcha'].setValidators(Validators.required);
+    this.validateForm.controls['new_phone'].setValidators([Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]);
+    this.validateForm.controls['new_captcha'].setValidators(Validators.required);
   }
 
   loadingData:boolean = true;
@@ -64,7 +84,7 @@ export class LinkUserInfoComponent implements OnInit {
 
   edit(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>): void {
     
-    this.setFormValue(); // 编辑时表单赋值
+    this.initForm(true); // 编辑时表单赋值
 
     this.tplModal = this.modal.create({
       nzTitle: tplTitle,
@@ -93,17 +113,27 @@ export class LinkUserInfoComponent implements OnInit {
       this.msg.success('验证码已发送');
       return;
     }else {
-      this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
-        if(res.code === 200) {
-          this.msg.success('发送成功');
-          this.is_get_old_captcha = true;
-          this.counterOld();
-        }else {
-          this.msg.error(res.message);
-        }
-      })
+      setTimeout(() => {
+        
+        this.msg.success('发送成功');
+        this.is_get_old_captcha = true;
+        this.is_edit_phone_flag = true;
+        this.counterOld();
+        this.resetFormValid();
+      }, 1500);
+      // this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
+      //   if(res.code === 200) {
+      //     this.msg.success('发送成功');
+      //     this.is_get_old_captcha = true;
+      //     this.is_edit_phone_flag = true;
+      //     this.counterOld();
+      //   }else {
+      //     this.msg.error(res.message);
+      //   }
+      // })
     }
   }
+
 
   counterOld() {
     console.log('counter old');
@@ -123,6 +153,9 @@ export class LinkUserInfoComponent implements OnInit {
 
   getNewCaptcha(e: MouseEvent): void {
     e.preventDefault();
+    if(!this.is_edit_phone_flag) {
+      return;
+    }
     const user_phone = this.validateForm.get('new_phone');
     this.validateForm.controls['new_phone'].markAsDirty();
     this.validateForm.controls['new_phone'].updateValueAndValidity();
@@ -172,6 +205,10 @@ export class LinkUserInfoComponent implements OnInit {
   cancel(e:Event):void {
     e.preventDefault();
     this.submitLoading = false;
+    this.is_edit_phone_flag = false;
+    this.is_get_new_captcha = false;
+    this.is_get_old_captcha = false;
+    this.validateForm.reset();
     this.tplModal!.destroy();
   }
 
@@ -187,7 +224,6 @@ export class LinkUserInfoComponent implements OnInit {
   }
 
   destroyTplModal(): void {
-    this.submitLoading = true;
     const value:any = this.validateForm.value;
     const option:any = {
       full_name: value.username,
@@ -195,17 +231,19 @@ export class LinkUserInfoComponent implements OnInit {
       old_code: value.old_captcha,
       phone: value.new_phone,
       new_code: value.new_captcha,
-      telephone: value.telephone,
+      telephone: value.tel,
       email: value.email
     };
-    this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
-      this.submitLoading = false;
-      if(res.code === 200) {
-        this.msg.success('更新成功');
-        this.tplModal!.destroy();
-      }else {
-        this.msg.error(res.message);
-      }
-    }, err => this.submitLoading = false);
+    // is_edit_phone_flag  根据 标记 确定传值内容
+    // this.submitLoading = true;
+    // this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
+    //   this.submitLoading = false;
+    //   if(res.code === 200) {
+    //     this.msg.success('更新成功');
+    //     this.tplModal!.destroy();
+    //   }else {
+    //     this.msg.error(res.message);
+    //   }
+    // }, err => this.submitLoading = false);
   }
 }

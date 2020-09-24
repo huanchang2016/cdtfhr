@@ -81,10 +81,10 @@
 
         <nz-form-item>
             <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="description">公司简介</nz-form-label>
-            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司简介， 内容长度小于1000个字符">
+            <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司简介， 内容长度小于2000个字符">
                 <div class="text_area_count_limit">
                     <textarea nz-input id="description" formControlName="description" placeholder="请输入内容" [nzAutosize]="{ minRows: 8, maxRows: 20 }"></textarea>
-                    <div class="limit_count text-grey" [class.text-danger]="getTextareaLength > 1000">{{ getTextareaLength }} / 1000</div>
+                    <div class="limit_count text-grey" [class.text-danger]="getTextareaLength > 2000">{{ getTextareaLength }} / 2000</div>
                 </div>
             </nz-form-control>
         </nz-form-item>

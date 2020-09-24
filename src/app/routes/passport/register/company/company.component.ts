@@ -61,6 +61,7 @@ export class CompanyRegisterComponent implements OnInit {
   }
 
   companyInfoChange(data:any):void {
+    console.log(data, 'regiter company')
     if(data) {
       this.companyInfo = {...data};
       if(this.companyInfo.status === 0) {

@@ -51,7 +51,7 @@ export class Step2Component implements OnChanges, OnInit {
       industry: [null, Validators.required ],
       license_photo: [null, Validators.required ],
       logo: [null, Validators.required ],
-      description: [null, [Validators.required, Validators.maxLength(1000)] ],
+      description: [null, [Validators.required, Validators.maxLength(2000)] ],
       // 公司联系人
       user_name: [null, Validators.required ],
       user_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)] ],
@@ -186,9 +186,14 @@ export class Step2Component implements OnChanges, OnInit {
     } else {
       console.log('send code');
       this.settingService.post('/v1/web/com/send_vcode', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.isGetCode = true;
-        this.msg.success('发送成功');
-        this.counter();
+        if(res.code === 200) {
+          this.msg.success('发送成功');
+          this.counter();
+          this.isGetCode = true;
+        }else {
+          this.msg.error(res.message);
+        }
+        
       }, err => this.isGetCode = false)
     }
   }

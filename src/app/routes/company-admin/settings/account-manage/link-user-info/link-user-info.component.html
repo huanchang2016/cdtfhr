@@ -74,7 +74,7 @@
                 </nz-input-group>
                 <ng-template #suffixNewCode>
                     <div class="code-btn-box text-center">
-                        <span *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)" class="text-primary text-md point">获取验证码</span>
+                        <span *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)" class="text-primary text-md point" [class.text-grey]="!is_edit_phone_flag">获取验证码</span>
                         <span *ngIf="is_get_new_captcha" class="text-primary text-md">{{ new_count }}s</span>
                     </div>
                 </ng-template>

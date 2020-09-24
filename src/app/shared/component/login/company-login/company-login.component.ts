@@ -6,6 +6,7 @@ import { ApiData } from 'src/app/data/interface';
 import { ForgotPasswordFormComponent } from '../forgot-password-form/forgot-password-form.component';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CompanyDataService } from 'src/app/routes/company-admin/service/company-data.service';
 
 @Component({
   selector: 'app-company-login',
@@ -28,7 +29,8 @@ export class CompanyLoginComponent {
     private settingService: GlobalSettingsService,
     private startupSrv: StartupService,
     private router: Router,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private companyDataService: CompanyDataService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,9 @@ export class CompanyLoginComponent {
         name: value.username,
         password: value.password
       };
+      // 判断企业用户是否重新登录   清空缓存的变量数据
+      this.companyDataService.companyInfo = null;
+      this.companyDataService.positionConfig = null;
       this.settingService.post('/v1/web/com/login', option).subscribe((res:ApiData) => {
         this.loading = false;
         if(res.code === 200) {

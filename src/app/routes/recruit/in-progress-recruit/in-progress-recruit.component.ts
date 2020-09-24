@@ -88,7 +88,6 @@ export class InProgressRecruitComponent implements OnInit {
     } else {
       this.setOfCheckedId.delete(id);
     }
-    console.log(this.setOfCheckedId);
   }
 
   onCurrentPageDataChange(): void {

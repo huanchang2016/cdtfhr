@@ -33,7 +33,7 @@ export class UserInterestTplComponent implements OnInit {
       nzComponentParams: {
         data: this.resumeInfo
       },
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = modal.getContentComponent();

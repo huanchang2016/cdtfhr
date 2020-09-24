@@ -178,7 +178,7 @@ export class DeliveryRecordListComponent implements OnInit {
       nzComponentParams: {
         data: data
       },
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     // const instance = modal.getContentComponent();

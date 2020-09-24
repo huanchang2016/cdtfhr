@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { ApiData } from 'src/app/data/interface';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ForgotPasswordFormComponent } from 'src/app/shared/component/login/forgot-password-form/forgot-password-form.component';
+import { CompanyDataService } from '../../company-admin/service/company-data.service';
+import { UserDataService } from '../../user-admin/service/user-data.service';
 
 @Component({
   selector: 'app-passport-login',
@@ -33,6 +35,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private startupSrv: StartupService,
     public msg: NzMessageService,
+    private userDataService: UserDataService,
+    private companyDataService: CompanyDataService
   ) {
     this.form = this.fb.group({
       name: [null, [Validators.required, Validators.minLength(3)]],
@@ -65,10 +69,7 @@ export class LoginComponent implements OnInit {
     this.errorUser = '';
     this.errorCompany = '';
 
-    console.log(this.form, 'login Info');
-
     if (this.type === 0) {
-      console.log(1);
       this.phone.markAsDirty();
       this.phone.updateValueAndValidity();
       this.code.markAsDirty();
@@ -79,7 +80,6 @@ export class LoginComponent implements OnInit {
       }
       this.loginUser();
     } else {
-      console.log(2);
       this.userName.markAsDirty();
       this.userName.updateValueAndValidity();
       this.password.markAsDirty();
@@ -99,6 +99,9 @@ export class LoginComponent implements OnInit {
       phone: this.phone.value,
       code: this.code.value
     };
+
+    this.userDataService.userProfile = null;
+
     this.loading = true;
     this.settingService.post('/v1/web/login', opt).subscribe((res:ApiData) => {
       this.loading = false;
@@ -117,7 +120,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginCompany():void {
-    console.log('company login');
+    
+    // 判断企业用户是否重新登录   清空缓存的变量数据
+    this.companyDataService.companyInfo = null;
+    this.companyDataService.positionConfig = null;
+
     const opt:any = {
       name: this.userName.value,
       password: this.password.value

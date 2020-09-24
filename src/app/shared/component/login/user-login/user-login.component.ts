@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService, StartupService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { Router } from '@angular/router';
+import { UserDataService } from 'src/app/routes/user-admin/service/user-data.service';
 
 @Component({
   selector: 'app-user-login',
@@ -28,7 +29,8 @@ export class UserLoginComponent {
     private msg: NzMessageService,
     private settingService: GlobalSettingsService,
     private startupSrv: StartupService,
-    private router: Router
+    private router: Router,
+    private userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -47,9 +49,10 @@ export class UserLoginComponent {
     console.log(this.validateForm);
 
     if(this.validateForm.valid) {
+      // 判断个人用户是否重新登录   清空缓存的变量数据
+      this.userDataService.userProfile = null;
 
       console.log(this.validateForm.value, 'login Info');
-      // this.httpClient.post('')
       this.loading = true;
       this.settingService.post('/v1/web/login', this.validateForm.value).subscribe((res:ApiData) => {
         this.loading = false;
