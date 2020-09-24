@@ -10,6 +10,7 @@ import { DeliveryStatusTplComponent } from '../component/delivery-status-tpl/del
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ApiData } from 'src/app/data/interface';
 import { format } from 'date-fns';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-delivery-record-list',
@@ -37,7 +38,8 @@ export class DeliveryRecordListComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public settingService: GlobalSettingsService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    public userDataService: UserDataService
   ) {
     this.settingService.setTitle('职位投递记录-我的投递-个人中心-天府菁英网');
   }
@@ -63,8 +65,8 @@ export class DeliveryRecordListComponent implements OnInit {
     }
   }
 
-  to(item: any) {
-    this.router.navigateByUrl(`/admin/user/delivery/${item.key}`);
+  to(key: string) {
+    this.router.navigateByUrl(`/admin/user/delivery/${key}`);
   }
 
   ngOnDestroy() {

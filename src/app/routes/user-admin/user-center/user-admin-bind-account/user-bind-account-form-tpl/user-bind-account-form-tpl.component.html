@@ -13,8 +13,9 @@
             </nz-input-group>
             <ng-template #suffixOldCode>
                 <div class="code-btn-box text-center">
-                    <span *ngIf="!is_get_old_captcha" (click)="getOldCaptcha($event)"
-                        class="text-primary text-md point">获取验证码</span>
+                    <!-- <span *ngIf="!is_get_old_captcha" (click)="getOldCaptcha($event)"
+                        class="text-primary text-md point">获取验证码</span> -->
+                    <a *ngIf="!is_get_old_captcha" (click)="getOldCaptcha($event)" [disabled]="get_old_captcha_loading || is_get_old_captcha" nz-button nzType="link" class="btn_code_link">获取验证码</a>
                     <span *ngIf="is_get_old_captcha" class="text-primary text-md">{{ old_count }}s</span>
                 </div>
             </ng-template>
@@ -34,8 +35,9 @@
             </nz-input-group>
             <ng-template #suffixNewCode>
                 <div class="code-btn-box text-center">
-                    <span *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)"
-                        class="text-primary text-md point">获取验证码</span>
+                    <!-- <span *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)"
+                        class="text-primary text-md point">获取验证码</span> -->
+                    <a *ngIf="!is_get_new_captcha" (click)="getNewCaptcha($event)" [disabled]="get_new_captcha_loading || is_get_new_captcha" nz-button nzType="link" class="btn_code_link">获取验证码</a>
                     <span *ngIf="is_get_new_captcha" class="text-primary text-md">{{ new_count }}s</span>
                 </div>
             </ng-template>

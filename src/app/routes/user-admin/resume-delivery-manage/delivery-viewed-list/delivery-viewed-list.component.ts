@@ -7,6 +7,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { format } from 'date-fns';
+import { UserDataService } from '../../service/user-data.service';
 
 @Component({
   selector: 'app-delivery-viewed-list',
@@ -32,7 +33,8 @@ export class DeliveryViewedListComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    public settingService: GlobalSettingsService
+    public settingService: GlobalSettingsService,
+    public userDataService: UserDataService
   ) {
     this.settingService.setTitle('简历被查看-投递职位列表-我的投递-个人中心-天府菁英网');
     // this.getDataList();
@@ -63,8 +65,8 @@ export class DeliveryViewedListComponent implements OnInit {
   }
 
 
-  to(item: any) {
-    this.router.navigateByUrl(`/admin/user/delivery/${item.key}`);
+  to(key: string) {
+    this.router.navigateByUrl(`/admin/user/delivery/${key}`);
   }
 
   ngOnDestroy() {

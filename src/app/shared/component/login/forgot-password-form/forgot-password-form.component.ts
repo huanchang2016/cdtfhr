@@ -90,7 +90,7 @@ export class ForgotPasswordFormComponent implements OnInit {
   }
 
   count:number = 60;
-
+  get_captcha_loading:boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const phone = this.validateForm.controls['phone'].value;
@@ -98,11 +98,13 @@ export class ForgotPasswordFormComponent implements OnInit {
       this.msg.error('手机号码未填写');
       return;
     }
-    if(this.isGetCode) {
-      return;
-    }else {
+    // if(this.isGetCode) {
+    //   return;
+    // }else {
+      this.get_captcha_loading = true;
       console.log('send code');
       this.settingService.post('/v1/web/send_reset_code', { phone: phone }).subscribe((res:ApiData) => {
+        this.get_captcha_loading = false;
         if(res.code === 200) {
           this.isGetCode = true;
           this.msg.success('发送成功');
@@ -111,8 +113,8 @@ export class ForgotPasswordFormComponent implements OnInit {
           this.isGetCode = false;
           this.msg.error(res.message);
         }
-      }, err => this.isGetCode = false)
-    }
+      }, err => this.get_captcha_loading = false)
+    // }
   }
 
   counter() {

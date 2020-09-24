@@ -2,14 +2,14 @@
     <input type="text" nz-input [(ngModel)]="keywords" placeholder="搜索关键字，快速搜索职位" nzSize="large" />
 </nz-input-group>
 <ng-template #addOnBeforeTemplate>
-    <nz-select [(ngModel)]="type" nzSize="large">
+    <nz-select [(ngModel)]="type" nzSize="large" class="full_search_option">
         <nz-option nzLabel="职位" [nzValue]="'position'"></nz-option>
         <!-- <nz-option nzLabel="公司" nzValue="公司"></nz-option> -->
     </nz-select>
 </ng-template>
 <ng-template #addOnAfterTemplate>
     <div class="d-flex">
-        <nz-select [(ngModel)]="city_id" class="after-select" nzSize="large">
+        <nz-select [(ngModel)]="city_id" class="after-select full_search_option" nzSize="large">
             <!-- <nz-option nzLabel="不限" [nzValue]="-1"></nz-option> -->
             <ng-container *ngFor="let item of cities">
                 <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>

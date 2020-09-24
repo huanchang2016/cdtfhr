@@ -25,6 +25,9 @@ export class LinkUserInfoComponent implements OnInit {
   is_get_old_captcha:boolean = false;
   is_get_new_captcha:boolean = false;
 
+  get_old_captcha_loading:boolean = false;
+  get_new_captcha_loading:boolean = false;
+
   constructor(
     private modal: NzModalService,
     private msg: NzMessageService,
@@ -109,12 +112,13 @@ export class LinkUserInfoComponent implements OnInit {
     if(!user_phone.valid) {
       return;
     }
-    if(this.is_get_old_captcha) {
-      this.msg.success('验证码已发送');
-      return;
-    }else {
-      
+    // if(this.is_get_old_captcha) {
+    //   this.msg.success('验证码已发送');
+    //   return;
+    // }else {
+      this.get_old_captcha_loading = true;
       this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
+        this.get_old_captcha_loading = false;
         if(res.code === 200) {
           this.msg.success('发送成功');
           this.is_get_old_captcha = true;
@@ -123,9 +127,10 @@ export class LinkUserInfoComponent implements OnInit {
           this.resetFormValid();
         }else {
           this.msg.error(res.message);
+          this.get_old_captcha_loading = false;
         }
-      })
-    }
+      }, err => this.get_old_captcha_loading = false);  
+    // }
   }
 
 
@@ -157,11 +162,13 @@ export class LinkUserInfoComponent implements OnInit {
     if(!user_phone.valid) {
       return;
     }
-    if(this.is_get_new_captcha) {
-      this.msg.success('验证码已发送');
-      return;
-    }else {
+    // if(this.is_get_new_captcha) {
+    //   this.msg.success('验证码已发送');
+    //   return;
+    // }else {
+      this.get_new_captcha_loading = true;
       this.settingService.post('/v1/web/com/send_new_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
+        this.get_new_captcha_loading = false;
         if(res.code === 200) {
           this.msg.success('发送成功');
           this.is_get_new_captcha = true;
@@ -169,8 +176,8 @@ export class LinkUserInfoComponent implements OnInit {
         }else {
           this.msg.error(res.message);
         }
-      })
-    }
+      }, err => this.get_new_captcha_loading = false)
+    // }
   }
 
   counterNew() {
@@ -233,7 +240,9 @@ export class LinkUserInfoComponent implements OnInit {
     this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
       this.submitLoading = false;
       if(res.code === 200) {
+        this.is_edit_phone_flag = false;
         this.msg.success('更新成功');
+        this.getDataInfo();
         this.tplModal!.destroy();
       }else {
         this.msg.error(res.message);

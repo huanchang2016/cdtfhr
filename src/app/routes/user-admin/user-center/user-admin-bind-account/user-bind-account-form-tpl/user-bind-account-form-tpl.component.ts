@@ -18,6 +18,9 @@ export class UserBindAccountFormTplComponent implements OnInit {
   is_get_old_captcha: boolean = false;
   is_get_new_captcha: boolean = false;
 
+  get_old_captcha_loading: boolean = false;
+  get_new_captcha_loading: boolean = false;
+
   validateForm: FormGroup;
 
   submitLoading:boolean = false;
@@ -94,11 +97,13 @@ export class UserBindAccountFormTplComponent implements OnInit {
   getOldCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const user_phone = this.validateForm.get('old_phone');
-    if (this.is_get_old_captcha) {
-      this.msg.success('验证码已发送');
-      return;
-    } else {
+    // if (this.is_get_old_captcha) {
+    //   this.msg.success('验证码已发送');
+    //   return;
+    // } else {
+      this.get_old_captcha_loading = true;
       this.settingService.post('/v1/web/send_binding_old_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
+        this.get_old_captcha_loading = false;
         if(res.code === 200) {
           this.is_get_old_captcha = true;
           this.msg.success('发送成功');
@@ -107,8 +112,8 @@ export class UserBindAccountFormTplComponent implements OnInit {
           this.msg.error(res.message);
         }
         
-      }, err => this.is_get_old_captcha = false)
-    }
+      }, err => this.get_old_captcha_loading = false)
+    // }
   }
 
   counterOld() {
@@ -141,11 +146,13 @@ export class UserBindAccountFormTplComponent implements OnInit {
       this.msg.error('修改手机号码不能与原号码相同');
       return;
     }
-    if (this.is_get_new_captcha) {
-      this.msg.success('验证码已发送');
-      return;
-    } else {
+    // if (this.is_get_new_captcha) {
+    //   this.msg.success('验证码已发送');
+    //   return;
+    // } else {
+    this.get_new_captcha_loading = true;
       this.settingService.post('/v1/web/send_binding_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
+        this.get_new_captcha_loading = false;
         if (res.code === 200) {
           this.is_get_new_captcha = true;
           this.msg.success('发送成功');
@@ -155,8 +162,8 @@ export class UserBindAccountFormTplComponent implements OnInit {
           this.is_get_new_captcha = false;
         }
 
-      }, err => this.is_get_new_captcha = false)
-    }
+      }, err => this.get_new_captcha_loading = false)
+    // }
   }
 
   counterNew() {

@@ -14,6 +14,7 @@ export class userProfile {
     deliver_sum: number;
     invite_sum: number;
     notice_sum: number;
+    view: number;
     avatar?: string;
 }
 export class ApiData {

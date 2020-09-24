@@ -101,7 +101,23 @@
 
 <div class="bg-white border-radius-sm result_body mt-md">
     <nz-tabset [nzSelectedIndex]="pos">
-        <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (nzClick)="to(i)"></nz-tab>
+        <!-- <nz-tab *ngFor="let i of tabs" [nzTitle]="i.tab" (nzClick)="to(i)"></nz-tab> -->
+        <nz-tab [nzTitle]="recordTpl" (nzClick)="to('record')">
+            <ng-template #recordTpl>
+                <div class="tab-title_sub px-sm text-center">
+                    已投递 
+                    <nz-tag *ngIf="userDataService.userProfile" class="text-white ml-sm">{{ userDataService.userProfile.deliver_sum > 100 ? '99+' : userDataService.userProfile.deliver_sum }}</nz-tag>
+                </div>
+            </ng-template>
+        </nz-tab>
+        <nz-tab [nzTitle]="viewedTpl" (nzClick)="to('viewed')">
+            <ng-template #viewedTpl>
+                <div class="tab-title_sub px-sm text-center">
+                    被查看 
+                    <nz-tag *ngIf="userDataService.userProfile" class="text-white ml-sm">{{ userDataService.userProfile.view > 100 ? '99+' : userDataService.userProfile.view }}</nz-tag>
+                </div>
+            </ng-template>
+        </nz-tab>
     </nz-tabset>
 
     <nz-table nzShowSizeChanger nzShowQuickJumper [nzData]="listOfData" [nzFrontPagination]="false"

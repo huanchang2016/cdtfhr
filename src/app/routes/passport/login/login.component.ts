@@ -147,7 +147,7 @@ export class LoginComponent implements OnInit {
   }
 
   count:number = 60;
-
+  get_captcha_loading:boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     if (this.phone.invalid) {
@@ -161,10 +161,11 @@ export class LoginComponent implements OnInit {
       this.msg.error('手机号码未填写');
       return;
     }
-    if(this.isGetCode) {
-      return;
-    }else {
-      console.log('send code');
+    // if(this.isGetCode) {
+    //   return;
+    // }else {
+    //   console.log('send code');
+    this.get_captcha_loading = true;
       this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res:ApiData) => {
         if(res.code === 200) {
           this.isGetCode = true;
@@ -174,8 +175,8 @@ export class LoginComponent implements OnInit {
           this.msg.error(res.message);
         }
           
-      }, err => this.isGetCode = false)
-    }
+      }, err => this.get_captcha_loading = false)
+    // }
   }
 
   counter() {

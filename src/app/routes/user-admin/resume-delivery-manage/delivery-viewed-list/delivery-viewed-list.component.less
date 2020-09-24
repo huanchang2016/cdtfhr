@@ -31,6 +31,9 @@
 
 }
 
+.tab-title_sub {
+    line-height: 36px;
+}
 .more_search_type_wrapper {
     height: 0px;
     overflow: hidden;
@@ -56,6 +59,16 @@
 :host ::ng-deep {
     .ant-tabs-bar {
         margin-bottom: 0;
+    }
+    .tab-title_sub nz-tag {
+        border: 0;
+        background-color: @grey-color;
+    }
+    .ant-tabs-tab-active {
+        .tab-title_sub nz-tag {
+            border: 0;
+            background-color: @primary-color;
+        }
     }
     
     .ant-tabs-tab  {
