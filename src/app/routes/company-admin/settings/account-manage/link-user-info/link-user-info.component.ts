@@ -229,15 +229,15 @@ export class LinkUserInfoComponent implements OnInit {
       email: value.email
     };
     // is_edit_phone_flag  根据 标记 确定传值内容
-    // this.submitLoading = true;
-    // this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
-    //   this.submitLoading = false;
-    //   if(res.code === 200) {
-    //     this.msg.success('更新成功');
-    //     this.tplModal!.destroy();
-    //   }else {
-    //     this.msg.error(res.message);
-    //   }
-    // }, err => this.submitLoading = false);
+    this.submitLoading = true;
+    this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
+      this.submitLoading = false;
+      if(res.code === 200) {
+        this.msg.success('更新成功');
+        this.tplModal!.destroy();
+      }else {
+        this.msg.error(res.message);
+      }
+    }, err => this.submitLoading = false);
   }
 }

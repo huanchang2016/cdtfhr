@@ -22,7 +22,7 @@ import { environment } from '@env/environment';
 })
 export class UploadPhotoFileTplComponent implements ControlValueAccessor {
 
-  @Input() placeHolder?:string = '请选择文件上传';
+  @Input() placeHolder?:string = '图片大小2M以内，支持jpg，png，gif等格式';
   @Input() Size?:string = 'large';
   @Input() isPhoto?:boolean = true;
 
@@ -35,25 +35,26 @@ export class UploadPhotoFileTplComponent implements ControlValueAccessor {
   constructor(private msg: NzMessageService) {}
 
   beforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
-        this.msg.error('只能上传jpg、png格式图片');
-        return;
-      }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.msg.error('图片大小不得超过2M');
-        return;
-      }
-      if(isJpgOrPng && isLt2M) {
-        // Get this url from response in real world.
-        this.getBase64(file, (img: string) => {
-          this.loading = false;
-          this.avatarUrl = img;
-        });
-        this.propagateChange(file);
-      }
-      return false;
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
+
+    if (!isJpgOrPng) {
+      this.msg.error('图片只能上传jpg，png，gif格式');
+      return;
+    }
+    const isLt2M = file.size! / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      this.msg.error('图片大小不得超过2M');
+      return;
+    }
+    if(isJpgOrPng && isLt2M) {
+      // Get this url from response in real world.
+      this.getBase64(file, (img: string) => {
+        this.loading = false;
+        this.avatarUrl = img;
+      });
+      this.propagateChange(file);
+    }
+    return false;
   };
 
   private getBase64(img: File, callback: (img: string) => void): void {

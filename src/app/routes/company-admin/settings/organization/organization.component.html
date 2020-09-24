@@ -120,7 +120,7 @@
             <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="logo">公司LOGO</nz-form-label>
             <nz-form-control [nzSpan]="18" nzErrorTip="请上传公司LOGO">
                 <!-- <app-upload-logo ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'"></app-upload-logo> -->
-                <app-upload-photo-file-tpl ngDefaultControl formControlName="logo" [placeHolder]="'上传LOGO'" [Size]="'large'" [isPhoto]="false"></app-upload-photo-file-tpl>
+                <app-upload-photo-file-tpl ngDefaultControl formControlName="logo" [placeHolder]="'图片大小2M以内，支持jpg，png，gif等格式'" [Size]="'large'" [isPhoto]="false"></app-upload-photo-file-tpl>
             </nz-form-control>
         </nz-form-item>
     </form>
