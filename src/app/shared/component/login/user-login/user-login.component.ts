@@ -88,9 +88,13 @@ export class UserLoginComponent {
     }else {
       console.log('send code');
       this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res:ApiData) => {
-        this.isGetCode = true;
+        if(res.code === 200) {
+          this.isGetCode = true;
           this.msg.success('发送成功');
           this.counter();
+        }else {
+          this.msg.error(res.message);
+        }
       }, err => this.isGetCode = false)
     }
   }

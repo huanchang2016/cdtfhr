@@ -99,7 +99,7 @@ export class LinkUserInfoComponent implements OnInit {
     });
   }
 
-  old_count:number = 299;
+  old_count:number = 60;
 
   getOldCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -113,24 +113,18 @@ export class LinkUserInfoComponent implements OnInit {
       this.msg.success('验证码已发送');
       return;
     }else {
-      setTimeout(() => {
-        
-        this.msg.success('发送成功');
-        this.is_get_old_captcha = true;
-        this.is_edit_phone_flag = true;
-        this.counterOld();
-        this.resetFormValid();
-      }, 1500);
-      // this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
-      //   if(res.code === 200) {
-      //     this.msg.success('发送成功');
-      //     this.is_get_old_captcha = true;
-      //     this.is_edit_phone_flag = true;
-      //     this.counterOld();
-      //   }else {
-      //     this.msg.error(res.message);
-      //   }
-      // })
+      
+      this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
+        if(res.code === 200) {
+          this.msg.success('发送成功');
+          this.is_get_old_captcha = true;
+          this.is_edit_phone_flag = true;
+          this.counterOld();
+          this.resetFormValid();
+        }else {
+          this.msg.error(res.message);
+        }
+      })
     }
   }
 
@@ -138,10 +132,10 @@ export class LinkUserInfoComponent implements OnInit {
   counterOld() {
     console.log('counter old');
     const new_numbers = interval(1000);
-    const new_takeFourNumbers = new_numbers.pipe(take(299));
+    const new_takeFourNumbers = new_numbers.pipe(take(60));
     new_takeFourNumbers.subscribe(
       x => {
-        this.old_count = 299 - x - 1;
+        this.old_count = 60 - x - 1;
       },
       error => {},
       () => {
@@ -149,7 +143,7 @@ export class LinkUserInfoComponent implements OnInit {
       });
   }
 
-  new_count:number = 299;
+  new_count:number = 60;
 
   getNewCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -171,7 +165,7 @@ export class LinkUserInfoComponent implements OnInit {
         if(res.code === 200) {
           this.msg.success('发送成功');
           this.is_get_new_captcha = true;
-        this.counterNew();
+          this.counterNew();
         }else {
           this.msg.error(res.message);
         }
@@ -182,10 +176,10 @@ export class LinkUserInfoComponent implements OnInit {
   counterNew() {
     console.log('counter new');
     const old_numbers = interval(1000);
-    const old_takeFourNumbers = old_numbers.pipe(take(299));
+    const old_takeFourNumbers = old_numbers.pipe(take(60));
     old_takeFourNumbers.subscribe(
       x => {
-        this.new_count = 299 - x - 1;
+        this.new_count = 60 - x - 1;
       },
       error => {},
       () => {

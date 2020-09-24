@@ -99,9 +99,14 @@ export class UserBindAccountFormTplComponent implements OnInit {
       return;
     } else {
       this.settingService.post('/v1/web/send_binding_old_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.is_get_old_captcha = true;
-        this.msg.success('发送成功');
-        this.counterOld();
+        if(res.code === 200) {
+          this.is_get_old_captcha = true;
+          this.msg.success('发送成功');
+          this.counterOld();
+        }else {
+          this.msg.error(res.message);
+        }
+        
       }, err => this.is_get_old_captcha = false)
     }
   }

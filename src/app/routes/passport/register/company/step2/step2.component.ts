@@ -187,9 +187,9 @@ export class Step2Component implements OnChanges, OnInit {
       console.log('send code');
       this.settingService.post('/v1/web/com/send_vcode', { phone: user_phone.value }).subscribe((res: ApiData) => {
         if(res.code === 200) {
+          this.isGetCode = true;
           this.msg.success('发送成功');
           this.counter();
-          this.isGetCode = true;
         }else {
           this.msg.error(res.message);
         }
