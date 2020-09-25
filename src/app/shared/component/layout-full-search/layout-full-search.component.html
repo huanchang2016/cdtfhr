@@ -4,7 +4,7 @@
 <ng-template #addOnBeforeTemplate>
     <nz-select [(ngModel)]="type" nzSize="large" class="full_search_option">
         <nz-option nzLabel="职位" [nzValue]="'position'"></nz-option>
-        <!-- <nz-option nzLabel="公司" nzValue="公司"></nz-option> -->
+        <nz-option nzLabel="公司" [nzValue]="'company'"></nz-option>
     </nz-select>
 </ng-template>
 <ng-template #addOnAfterTemplate>

@@ -59,6 +59,7 @@ export class RecruitHomeComponent implements OnInit {
     this.loadingData = true;
     const option:any = {
       name: this.paramsOption['keywords'] ? this.paramsOption['keywords'] : null,
+      type: this.paramsOption['type'] ? this.paramsOption['type'] : 'position',
       city_id: +this.paramsOption['city_id'],
       limit: this.limit,
       page: this.pageIndex,
