@@ -77,7 +77,7 @@ export class ResumeCreateComponent implements OnInit {
           userInfo.append('birthday', format(new Date(object[key]), 'yyyy-MM-dd'));
         } else if (key === 'work_date') {
           const work_date:string = object['is_not_work'] ? '' : object[key];
-          userInfo.append('work_date', format(new Date(work_date), 'yyyy-MM-dd'));
+          userInfo.append('work_date', work_date ? format(new Date(work_date), 'yyyy-MM-dd') : '');
         } else if (key === 'avatar') {
           if(typeof object[key] === 'string') {
             continue

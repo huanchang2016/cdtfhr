@@ -5,8 +5,10 @@
             <!-- <input nz-input  placeholder="请填写培训机构名称" type="text" /> -->
             <nz-radio-group formControlName="resume_id" nzSize="large">
                 <ng-container *ngFor="let item of resumes">
-                    <label class="d-flex align-items-center" style="height: 32px;" nz-radio [nzValue]="item.id" [nzDisabled]="!item.privacy">
-                        {{ item.title }} <span *ngIf="item.is_default" class="text-grey">（默认）</span>
+                    <label class="d-flex align-items-center" style="height: 32px;" nz-radio [nzValue]="item.id" [nzDisabled]="item.is_draft">
+                        {{ item.title }} 
+                        <span *ngIf="item.is_default" class="text-grey">（默认）</span>
+                        <span *ngIf="item.is_draft" class="ml-md text-grey">（简历<span class="text-danger">未完善</span>）</span>
                     </label>
                 </ng-container>
               </nz-radio-group>

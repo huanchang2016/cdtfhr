@@ -490,6 +490,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
       // });
 
       setTimeout(() => {
+        this.userDataService.getProfile().then();
         this.successModal.close();
         this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
       }, 2000);
