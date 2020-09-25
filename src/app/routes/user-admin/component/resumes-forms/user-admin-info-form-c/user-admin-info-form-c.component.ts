@@ -63,6 +63,10 @@ export class UserAdminInfoFormCComponent implements OnInit {
       email: this.resumeUserInfo.email,
       avatar: this.resumeUserInfo.avatar
     });
+    // 
+    if(!this.resumeUserInfo.work_date) {
+      this.isNotWorkChange(!this.resumeUserInfo.work_date);
+    }
   }
 
   isNotWorkChange(required: boolean): void {
