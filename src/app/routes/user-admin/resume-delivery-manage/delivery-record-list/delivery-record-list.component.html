@@ -8,31 +8,20 @@
                         placeholder="职位名/公司名" />
                 </nz-input-group>
                 <ng-template #suffixIconSearch>
-                    <i class="text-primary text-lg font-weight-bold" nz-icon nzType="search"></i>
+                    <span class="icon_search_box"></span>
                 </ng-template>
             </div>
         </div>
 
         <span class="more_search_btn text-primary text-md point float-left" [class.more_actived]="is_more"
             (click)="showMoreSearch()">
-            精简筛选条件
-            <i nz-icon nzType="down" nzTheme="outline"></i>
+            {{ is_more ? '精简' : '更多' }}筛选条件 <i nz-icon nzType="down" nzTheme="outline"></i>
         </span>
     </div>
 
     <div class="more_search_type_wrapper" [class.more_actived]="is_more">
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="pt-lg">
             <div nz-row [nzGutter]="24">
-                <!-- <div nz-col [nzSpan]="24">
-                    <nz-form-item>
-                        <nz-form-label nzFor="rangeDate">投递时间</nz-form-label>
-                        <nz-form-control>
-                            <app-range-date-picker-c formControlName="rangeDate" [placeholder]="'请点击选择投递时间'"
-                                [size]="'large'">
-                            </app-range-date-picker-c>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div> -->
                 <div nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzFor="start">开始时间</nz-form-label>
@@ -45,7 +34,6 @@
                                     nzSize="large"
                                     >
                                     </nz-date-picker>
-                                    <!--  (nzOnOpenChange)="handleStartOpenChange($event)"nzShowTime (ngModelChange)="onStartChange($event)" -->
                         </nz-form-control>
                     </nz-form-item>
                 </div>

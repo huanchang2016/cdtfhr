@@ -88,12 +88,6 @@ export class DeliveryRecordListComponent implements OnInit {
   }
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-
-    console.log(this.validateForm, 'validateForm');
     this.getDataList();
   }
 
@@ -215,25 +209,5 @@ export class DeliveryRecordListComponent implements OnInit {
     }
     return endValue.getTime() <= this.startTimeValue.getTime();
   };
-
-  // onStartChange(date: Date): void {
-    // this.startTimeValue = date;
-  // }
-
-  // onEndChange(date: Date): void {
-    // this.endTimeValue = date;
-  // }
-
-  // handleStartOpenChange(open: boolean): void {
-    // if (!open) {
-    //   this.endOpen = true;
-    // }
-    // console.log('handleStartOpenChange', open, this.endOpen);
-  // }
-
-  // handleEndOpenChange(open: boolean): void {
-  //   console.log(open);
-  //   this.endOpen = open;
-  // }
 
 }

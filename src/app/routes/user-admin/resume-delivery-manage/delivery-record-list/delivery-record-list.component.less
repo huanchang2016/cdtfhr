@@ -52,6 +52,14 @@
         color: @grey-color!important;
     }
 }
+.icon_search_box {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    background: url('/assets/imgs/icon/icon_btnsearch.png') no-repeat center center;
+    background-size: contain;
+}
 
 .refer_text_box {
     height: 36px;
@@ -59,6 +67,13 @@
 }
 
 :host ::ng-deep {
+
+    .search_box_input {
+        .ant-input-suffix {
+            height: 24px;
+            overflow: hidden;
+        }
+    }
     .ant-tabs-bar {
         margin-bottom: 0;
     }

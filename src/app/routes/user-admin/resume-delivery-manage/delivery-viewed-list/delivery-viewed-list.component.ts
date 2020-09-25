@@ -74,7 +74,7 @@ export class DeliveryViewedListComponent implements OnInit {
   }
 
 
-  is_more: boolean = true; // 展开更多搜索条件
+  is_more: boolean = false; // 展开更多搜索条件
 
   validateForm!: FormGroup;
 
@@ -88,10 +88,6 @@ export class DeliveryViewedListComponent implements OnInit {
   }
 
   submitForm(): void {
-    // for (const i in this.validateForm.controls) {
-    //   this.validateForm.controls[i].markAsDirty();
-    //   this.validateForm.controls[i].updateValueAndValidity();
-    // }
 
     this.getDataList();
   }
