@@ -71,7 +71,11 @@ export class UserInfoFormTplComponent implements OnInit {
       address_city: [this.data.work_province.id, this.data.work_city.id, this.data.work_area?.id],
       email: this.data.email,
       avatar: this.data.avatar
-    })
+    });
+    // 
+    if(!this.data.work_date) {
+      this.isNotWorkChange(!this.data.work_date);
+    }
   }
 
   isNotWorkChange(required: boolean): void {
