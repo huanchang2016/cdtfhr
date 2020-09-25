@@ -4,29 +4,27 @@ import { NzCascaderOption } from 'ng-zorro-antd/cascader';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
-
 @Component({
-  selector: 'app-three-stage-cascader',
-  templateUrl: './three-stage-cascader.component.html',
-  styleUrls: ['./three-stage-cascader.component.less'],
+  selector: 'app-second-stage-cascader',
+  templateUrl: './second-stage-cascader.component.html',
+  styleUrls: ['./second-stage-cascader.component.less'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ThreeStageCascaderComponent),
+      useExisting: forwardRef(() => SecondStageCascaderComponent),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => ThreeStageCascaderComponent),
+      useExisting: forwardRef(() => SecondStageCascaderComponent),
       multi: true
     }
   ]
 })
-export class ThreeStageCascaderComponent implements ControlValueAccessor {
+export class SecondStageCascaderComponent implements ControlValueAccessor {
 
   @Input() placeholder?: string = '请选择省市区';
   @Input() Size?: string = 'large';
-  @Input() layer?: string = '';
 
 
   private propagateChange = (_: any) => { };
@@ -65,15 +63,14 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
 
     return new Promise(resolve => {
       if (index < 0) {
-        node.children = this.globalService.province;
-        resolve();
+        // node.children = [...this.globalService.secondLayerProvince];
+        this.globalService.get('/v1/web/setting/city').subscribe((res:ApiData) => {
+          node.children = res.data;
+          resolve();
+        })
+        // resolve();
       } else {
-        let isLeaf: boolean = false;
-        if (index > 0) {
-          isLeaf = true;
-        } else {
-          isLeaf = false;
-        }
+        let isLeaf: boolean = true;
 
         this.globalService.getCities(node.id).subscribe((res: ApiData) => {
           const children = res.data.map(v => {

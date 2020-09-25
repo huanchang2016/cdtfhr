@@ -22,8 +22,8 @@
                 <nz-form-label nzFor="work_address">期望工作地</nz-form-label>
                 <nz-form-control>
 
-                    <app-three-stage-cascader ngDefaultcontrol formControlName="work_address"
-                        [placeholder]="'请点击选择期望工作地'" [layer]="'second'"></app-three-stage-cascader>
+                    <app-second-stage-cascader ngDefaultcontrol formControlName="work_address"
+                        [placeholder]="'请点击选择期望工作地'"></app-second-stage-cascader>
                 </nz-form-control>
             </nz-form-item>
         </div>
@@ -31,8 +31,10 @@
             <nz-form-item>
                 <nz-form-label nzFor="stay_address">现居住地</nz-form-label>
                 <nz-form-control>
-                    <app-three-stage-cascader ngDefaultcontrol formControlName="stay_address"
-                        [placeholder]="'请点击选择现居住地'" [layer]="'second'"></app-three-stage-cascader>
+                    <!-- <app-three-stage-cascader ngDefaultcontrol formControlName="stay_address"
+                        [placeholder]="'请点击选择现居住地'" [layer]="'second'"></app-three-stage-cascader> -->
+                    <app-second-stage-cascader ngDefaultcontrol formControlName="stay_address"
+                        [placeholder]="'请点击选择现居住地'"></app-second-stage-cascader>
                 </nz-form-control>
             </nz-form-item>
         </div>

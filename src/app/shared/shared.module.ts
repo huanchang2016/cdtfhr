@@ -10,6 +10,8 @@ import { SubTitleShowComponent } from './component/sub-title-show/sub-title-show
 import { DatePickerMonthComponent } from './component/forms/date-picker-month/date-picker-month.component';
 import { DatePickerDateComponent } from './component/forms/date-picker-date/date-picker-date.component';
 import { ThreeStageCascaderComponent } from './component/forms/three-stage-cascader/three-stage-cascader.component';
+import { SecondStageCascaderComponent } from './component/forms/second-stage-cascader/second-stage-cascader.component';
+
 import { LayoutFullSearchComponent } from './component/layout-full-search/layout-full-search.component';
 import { RecuritItemComponent } from './component/recurit-item/recurit-item.component';
 import { PaginationItemComponent } from './component/pagination-item/pagination-item.component';
@@ -59,6 +61,7 @@ const COMPONENTS = [
   DatePickerMonthBirthdyComponent,
   DatePickerDateComponent,
   ThreeStageCascaderComponent,
+  SecondStageCascaderComponent,
   ThreePositionTypeCascaderComponent,
   UploadFilePhotoComponent,
   LayoutFullSearchComponent,

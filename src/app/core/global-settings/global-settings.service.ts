@@ -18,7 +18,7 @@ export class GlobalSettingsService {
 
   globalConfigOptions:{ [key:string]: any[]} = {
     province: [], // 省
-    city: [], // 省
+    city: [],
     positionType: [], // 职位类别，第一层级
     positionTypeAll: [], // 职位类别，所有的。
     industry: [] // 行业配置项

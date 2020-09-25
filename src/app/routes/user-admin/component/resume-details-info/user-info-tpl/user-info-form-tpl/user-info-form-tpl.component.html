@@ -33,7 +33,8 @@
     <nz-form-item>
         <nz-form-label [nzSpan]="5" nzFor="registered_residence" nzRequired>户口所在地</nz-form-label>
         <nz-form-control [nzSpan]="19" nzErrorTip="请选择户口所在地">
-            <app-three-stage-cascader formControlName="registered_residence" [layer]="'second'" [Size]="'large'" placeholder="请点击选择对应城市"></app-three-stage-cascader>
+            <!-- <app-three-stage-cascader formControlName="registered_residence" [layer]="'second'" [Size]="'large'" placeholder="请点击选择对应城市"></app-three-stage-cascader> -->
+            <app-second-stage-cascader formControlName="registered_residence" [Size]="'large'" placeholder="请点击选择对应城市"></app-second-stage-cascader>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
