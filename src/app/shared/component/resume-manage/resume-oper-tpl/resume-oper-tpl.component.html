@@ -79,11 +79,13 @@
              转发
         </button>
 
-        <button (click)="deliver()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
-            <!-- <i nz-icon nzType="send" nzTheme="outline"></i> -->
-            <span class="oper_icon_box oper_deliver d-inline-block"></span>
-             投递记录
-        </button>
+        <ng-container *ngIf="params && params.posId">
+            <button (click)="deliver()" nz-button nzType="primary" class="mb-sm" nzBlock nzGhost nzSize="large">
+                <!-- <i nz-icon nzType="send" nzTheme="outline"></i> -->
+                <span class="oper_icon_box oper_deliver d-inline-block"></span>
+                投递记录
+            </button>
+        </ng-container>
 
         <button (click)="remark()" nz-button nzType="primary" class="mb-lg" nzBlock nzGhost nzSize="large">
             <!-- <i nz-icon nzType="message" nzTheme="outline"></i> -->

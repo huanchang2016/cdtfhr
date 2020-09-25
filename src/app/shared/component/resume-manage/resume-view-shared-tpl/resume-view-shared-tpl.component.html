@@ -137,9 +137,9 @@
                     <div class="text-sm">
                         <p>
                             {{ work.start_time | date: 'yyyy.MM' }} -
-                            <ng-container *ngIf="work.end_time !== '至今'">{{ work.end_time | date: 'yyyy.MM' }}
+                            <ng-container *ngIf="work.end_time">{{ work.end_time | date: 'yyyy.MM' }}
                             </ng-container>
-                            <ng-container *ngIf="work.end_time === '至今'">至今</ng-container>
+                            <ng-container *ngIf="!work.end_time">至今</ng-container>
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ countMonth(work.start_time, work.end_time)}}
                         </p>
@@ -177,9 +177,9 @@
                     <div class="text-sm">
                         <p>
                             {{ practice.start_time | date: 'yyyy.MM' }} -
-                            <ng-container *ngIf="practice.end_time !== '至今'">
+                            <ng-container *ngIf="practice.end_time">
                                 {{ practice.end_time | date: 'yyyy.MM' }}</ng-container>
-                            <ng-container *ngIf="practice.end_time === '至今'">至今</ng-container>
+                            <ng-container *ngIf="!practice.end_time">至今</ng-container>
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ countMonth(practice.start_time, practice.end_time)}}
                         </p>
@@ -216,9 +216,9 @@
                     <div class="text-sm">
                         <p>
                             {{ project.start_time | date: 'yyyy.MM' }} -
-                            <ng-container *ngIf="project.end_time !== '至今'">{{ project.end_time | date: 'yyyy.MM' }}
+                            <ng-container *ngIf="project.end_time">{{ project.end_time | date: 'yyyy.MM' }}
                             </ng-container>
-                            <ng-container *ngIf="project.end_time === '至今'">至今</ng-container>
+                            <ng-container *ngIf="!project.end_time">至今</ng-container>
                         </p>
                         <div class="text-666 mt-sm">责任描述：</div>
                         <div [innerHTML]="project.description | showTextAreaText"></div>
@@ -244,9 +244,9 @@
                     <div class="text-sm">
                         <p>
                             {{ education.start_time | date: 'yyyy.MM' }} -
-                            <ng-container *ngIf="education.end_time !== '至今'">
+                            <ng-container *ngIf="education.end_time">
                                 {{ education.end_time | date: 'yyyy.MM' }}</ng-container>
-                            <ng-container *ngIf="education.end_time === '至今'">至今</ng-container>
+                            <ng-container *ngIf="!education.end_time">至今</ng-container>
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ education.major }}
                             <nz-divider nzType="vertical"></nz-divider>
