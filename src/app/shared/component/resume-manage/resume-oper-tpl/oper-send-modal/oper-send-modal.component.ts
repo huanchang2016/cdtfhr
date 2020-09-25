@@ -37,8 +37,12 @@ export class OperSendModalComponent implements OnInit {
       return;
     }
     
+    const opt = {
+      email: emails,
+      resume_id: this.resumeInfo.id
+    };
     this.submitLoading = true;
-    this.settingService.post(`/v1/web/com/send_resume_email`, { email: emails }).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/send_resume_email`, opt).subscribe((res:ApiData) => {
       this.submitLoading = false;
       if(res.code === 200) {
         this.msg.success('转发成功');

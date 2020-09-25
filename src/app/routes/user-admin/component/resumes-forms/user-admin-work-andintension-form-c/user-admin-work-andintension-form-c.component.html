@@ -10,7 +10,7 @@
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="5" nzFor="industry" nzRequired>期望行业</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的行业">
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望的行业，最多可以选择三个选项">
                 <nz-select id="industry" formControlName="industry" nzSize="large" nzMode="multiple" nzPlaceHolder="请点击选择期望的行业">
                     <ng-container *ngFor="let item of globalService.globalConfigOptions.industry">
                         <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
@@ -20,7 +20,7 @@
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="5" nzFor="job_position" nzRequired>期望职业</nz-form-label>
-            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望职业">
+            <nz-form-control [nzSpan]="19" nzErrorTip="请点击选择期望职业，最多可以选择三个选项">
                 <app-multiple-cascader-selected ngDefaultcontrol formControlName="job_position" [layer]="'three'" [type]="'position_type'" [size]="'large'"
                     [placeholder]="'请点击选择期望职业'"></app-multiple-cascader-selected>
             </nz-form-control>

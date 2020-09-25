@@ -29,9 +29,9 @@ export class UserIntensionFormTplComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      work_address: [null, [Validators.required]],
-      industry: [null, [Validators.required]],
-      job_position: [null, [Validators.required]],
+      work_address: [null, [Validators.required, Validators.maxLength(3)]],
+      industry: [null, [Validators.required, Validators.maxLength(3)]],
+      job_position: [null, [Validators.required, Validators.maxLength(3)]],
       job_salary: [null, [Validators.required]],
       job_status: [null, [Validators.required]],
       job_nature: [null, [Validators.required]]
