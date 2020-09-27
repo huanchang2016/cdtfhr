@@ -127,7 +127,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
           workExp: workList.map( v => {
             return {
               company_name: v.name,
-              company_industry: v.industry.id,
+              company_industry: v.industry ? v.industry.id : null,
               company_scale: v.scale.id,
               company_nature: v.type.id,
               position_name: v.position,
@@ -159,7 +159,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
         internshipExp: practiceList.map( v => {
           return {
             company_name: v.name,
-            company_industry: v.industry.id,
+            company_industry: v.industry ? v.industry.id : null,
             company_scale: v.scale.id,
             company_nature: v.type.id,
             position_name: v.position,

@@ -171,7 +171,7 @@ export class Step2Component implements OnChanges, OnInit {
       address: this.companyInfo.address,
       nature: this.companyInfo.type.id,
       scale: this.companyInfo.scale.id,
-      industry: this.companyInfo.industry.id,
+      industry: this.companyInfo.industry ? this.companyInfo.industry.id : null,
       license_photo: this.companyInfo.licence,
       logo: this.companyInfo.logo,
       description: this.companyInfo.description,
