@@ -29,7 +29,7 @@
             </nz-link>
             <nz-link nzHref="#user-work-exp" [nzTitle]="workExpInfo">
                 <ng-template #workExpInfo>
-                    <ng-container *ngIf="resumeInfo.work.data.length === 0; else successIconTpl">
+                    <ng-container *ngIf="resumeInfo.work.data.length === 0 && resumeInfo.work_date; else successIconTpl">
                         <span class="text-danger text-md">
                             <i nz-icon nzType="close-circle" nzTheme="outline"></i>
                         </span>

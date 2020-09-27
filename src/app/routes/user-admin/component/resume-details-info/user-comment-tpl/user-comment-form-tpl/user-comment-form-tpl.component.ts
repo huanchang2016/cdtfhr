@@ -49,7 +49,7 @@ export class UserCommentFormTplComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 个人信息');
+    console.log(this.validateForm, '简历 自我评价');
     if(this.validateForm.valid) {
       this.loading = true;
       this.settingService.post(`/v1/web/user/resume_self_evalution/${this.data.id}`, this.validateForm.value).subscribe((res:ApiData) => {

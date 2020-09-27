@@ -84,7 +84,10 @@
     <!-- 自我评价 -->
 
     <app-sub-title-show [title]="'自我评价'"></app-sub-title-show>
-    <div class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
+    <ng-template #notSelfEvalution>
+        <span class="text-grey pl-md">未填写自我评价</span>
+    </ng-template>
+    <div *ngIf="resumeInfo.self_evalution; else notSelfEvalution" class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
 </div>
 
 <div class="content_div mb-md" id="user-job-intension">
@@ -126,9 +129,10 @@
 
     <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
     <ng-template #notWork>
-        <span class="text-grey pl-md">暂无工作经历</span>
+        <span *ngIf="!resumeInfo.work_date" class="text-grey pl-md">暂无工作经历</span>
+        <span *ngIf="resumeInfo.work_date" class="text-grey pl-md">未完善工作经历</span>
     </ng-template>
-    <div *ngIf="resumeInfo.work.data.length !== 0; else notWork">
+    <div *ngIf="resumeInfo.work_date && resumeInfo.work.data.length !== 0; else notWork">
         <ng-container *ngFor="let work of resumeInfo.work.data">
             <div class="item_card_box mb-md">
                 <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">

@@ -14,6 +14,7 @@
     </div>
 
     <div class="resume-show_content_body my-sm py-sm px-md">
-        <div class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
+        <div *ngIf="resumeInfo.self_evalution" class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
+        <div *ngIf="!resumeInfo.self_evalution" class="text-grey text-sm">未填写自我评价</div>
     </div>
 </div>

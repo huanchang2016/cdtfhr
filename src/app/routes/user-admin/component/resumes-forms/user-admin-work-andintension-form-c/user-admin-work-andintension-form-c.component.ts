@@ -47,7 +47,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
       job_nature: [null, [Validators.required]],
 
 
-      // is_work: [true, [Validators.required]],
+      is_work: [true, [Validators.required]],
       workExp: this.fb.array([
         this.fb.group({
           company_name: [null, [Validators.required]],
@@ -82,9 +82,9 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
 
     this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
 
-    // this.validateForm.get('is_work').valueChanges.subscribe((is_exp: boolean) => {
-    //   this.resetValidWorkExp('is_work');
-    // });
+    this.validateForm.get('is_work').valueChanges.subscribe((is_exp: boolean) => {
+      this.resetValidWorkExp('is_work');
+    });
 
     this.validateForm.get('is_internship').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidInternshipExp('is_internship');
@@ -115,32 +115,33 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
     // 工作经历赋值 workExp
     const workExp:any[] = this.validateForm.get('workExp').value;
     const workList:any[] = this.resumeUserInfo.work.data;
-    if(workList && workList.length !== 0) {
-      
-      workList.forEach( (el, index) => {
-        if(index > 0 && workExp.length < workList.length) {
-          // 表单组元素长度 小于 数据长度时新增
-          this.add('workExp');
-        }
-      });
-      this.validateForm.patchValue({
-        workExp: workList.map( v => {
-          return {
-            company_name: v.name,
-            company_industry: v.industry.id,
-            company_scale: v.scale.id,
-            company_nature: v.type.id,
-            position_name: v.position,
-            work_range_date: [v.start_time, v.end_time],
-            range_salary: v.salary.id,
-            work_description: v.description
+    if(this.resumeUserInfo.work_date) {
+      if(workList && workList.length !== 0) {
+        workList.forEach( (el, index) => {
+          if(index > 0 && workExp.length < workList.length) {
+            // 表单组元素长度 小于 数据长度时新增
+            this.add('workExp');
           }
+        });
+        this.validateForm.patchValue({
+          workExp: workList.map( v => {
+            return {
+              company_name: v.name,
+              company_industry: v.industry.id,
+              company_scale: v.scale.id,
+              company_nature: v.type.id,
+              position_name: v.position,
+              work_range_date: [v.start_time, v.end_time],
+              range_salary: v.salary.id,
+              work_description: v.description
+            }
+          })
         })
-      })
+      }
     }else {
-      // this.validateForm.patchValue({
-      //   is_work: false
-      // })
+      this.validateForm.patchValue({
+        is_work: false
+      })
     }
 
     // 实习经历赋值 workExp
@@ -280,7 +281,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
     }
 
     // 验证 formArray -> formGroup -> formControl 元素  工作经验为必填项
-    // if (this.validateForm.get('is_work').value) {
+    if (this.validateForm.get('is_work').value) {
       for (let i = 0; i < this.workExpArrayControls.length; i++) {
         const element: any = this.workExpArrayControls[i];
         for (const i in element.controls) {
@@ -288,7 +289,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
           element.controls[i].updateValueAndValidity();
         }
       }
-    // }
+    }
     if (this.validateForm.get('is_internship').value) {
       for (let i = 0; i < this.internshipExpArrayControls.length; i++) {
         const element: any = this.internshipExpArrayControls[i];
@@ -305,7 +306,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
     if (this.validateForm.valid) {
       let option: any = {};
 
-      // if (this.validateForm.get('is_work').value) {
+      if (this.validateForm.get('is_work').value) {
         const workExp: any[] = this.validateForm.get('workExp').value;
 
         const work: any[] = workExp.map(v => {
@@ -324,7 +325,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
           }
         });
         option = Object.assign(option, { work });
-      // }
+      }
 
       if (this.validateForm.get('is_internship').value) {
         const internshipExp: any[] = this.validateForm.get('internshipExp').value;

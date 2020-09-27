@@ -42,7 +42,8 @@
               <nz-divider nzType="vertical"></nz-divider>
               <span>{{ data.resume.age }}</span>
               <nz-divider nzType="vertical"></nz-divider>
-              <span>{{ data.resume.work_date }}</span>
+              <span *ngIf="data.resume.work_date">{{ data.resume.work_date }}工作经验</span>
+              <span *ngIf="!data.resume.work_date">无工作经验</span>
               <nz-divider nzType="vertical"></nz-divider>
               <span>{{ data.resume.edu?.level }}</span>
               <nz-divider nzType="vertical"></nz-divider>
@@ -61,7 +62,7 @@
           <td>
             <div>
               <h3 class="text-666 text-md">工作经历</h3>
-              <ng-container *ngIf="data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
+              <ng-container *ngIf="data.resume.work_date && data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
                 <p *ngFor="let work of data.resume.work">
                   <span>{{ work.start_time | date: 'yyyy/MM' }} ~ {{ work.end_time | date: 'yyyy/MM' }}</span>
                   <nz-divider nzType="vertical"></nz-divider>
@@ -71,7 +72,8 @@
                 </p>
               </ng-container>
               <ng-template #notWorkTpl>
-                <p class="text-grey">无经验</p>
+                <p class="text-grey" *ngIf="!data.resume.work_date">无经验</p>
+                <p class="text-grey" *ngIf="data.resume.work_date">未完善工作经历</p>
               </ng-template>
               
             </div>

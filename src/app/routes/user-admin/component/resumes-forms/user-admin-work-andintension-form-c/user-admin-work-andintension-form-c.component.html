@@ -57,19 +57,29 @@
                 </nz-checkbox-wrapper>
             </nz-form-control>
         </nz-form-item>
-        <div class="mt-lg mb-lg">
-            <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
-        </div>
-        <!-- <nz-form-item class="mt-md">
+        <!-- 工作情况
+        <nz-form-item class="mt-md">
             <nz-form-label [nzSpan]="5" nzFor="is_work" nzRequired>工作情况</nz-form-label>
             <nz-form-control [nzSpan]="19" nzErrorTip="请选择工作情况">
                 <nz-radio-group style="line-height: 40px;" id="is_work" formControlName="is_work">
-                    <label nz-radio [nzValue]="true">有工作经验</label>
-                    <label nz-radio [nzValue]="false">暂无工作经验</label>
+                    <label nz-radio [nzValue]="true" nzDisabled>有工作经验</label>
+                    <label nz-radio [nzValue]="false" nzDisabled>暂无工作经验</label>
                     </nz-radio-group>
             </nz-form-control>
-        </nz-form-item> -->
-        <!-- <ng-container *ngIf="validateForm.get('is_work').value"> -->
+        </nz-form-item>
+     -->
+        <div class="mt-lg mb-lg">
+            <app-sub-title-show [title]="'工作经历'"></app-sub-title-show>
+        </div>
+        <ng-template #notWorkAt>
+            <nz-form-item class="mt-md">
+                <nz-form-label [nzSpan]="5"></nz-form-label>
+                <nz-form-control [nzSpan]="19">
+                    <span class="text-grey">暂无工作经验</span>
+                </nz-form-control>
+            </nz-form-item>
+        </ng-template>
+        <ng-container *ngIf="validateForm.get('is_work').value; else notWorkAt">
             <div formArrayName="workExp">
                 <div *ngFor="let projectItem of workExpArrayControls; let work_i = index" [formGroupName]="work_i.toString()">
                     <!-- <div class="more_info_oper_" *ngIf="workExpArrayControls.length > 1">
@@ -169,7 +179,7 @@
             <div class="add_obj_btn mt-sm mb-lg">
                 <button (click)="add('workExp')" nz-button nzType="dashed" nzBlock nzSize="large"><i class="mr-sm" nz-icon nzType="plus" nzTheme="outline"></i> 增加一段工作经历</button>
             </div>
-        <!-- </ng-container> -->
+        </ng-container>
 
         <div class="mt-lg">
             <app-sub-title-show [title]="'实习经历'"></app-sub-title-show>

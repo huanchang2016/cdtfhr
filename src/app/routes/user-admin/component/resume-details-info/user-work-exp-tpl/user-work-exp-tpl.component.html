@@ -13,7 +13,7 @@
     </div>
 
     <div class="resume-show_content_body my-sm py-sm px-md">
-        <div *ngIf="list.length !== 0; else notExpTpl">
+        <div *ngIf="list.length !== 0 && resumeInfo.work_date; else notExpTpl">
             <ng-container *ngFor="let work of list; let i = index">
                 <div class="item_card_box mb-md" [class.item_cart_last_box]="i !== list.length - 1">
                     <div class="item_card_title_box">
@@ -68,12 +68,17 @@
 
         <ng-template #notExpTpl>
             <div class="text-grey text-md is_not_data_box">
-                <span>暂无工作经历</span>
-                <span class="text-sm edit_icon_box d-flex align-items-center text-green point float-right" (click)="add()">
-                    <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
-                    <span class="resume_info_edit_icon add_icon mr-sm"></span>
-                    新增一段
-                </span>
+                <ng-container *ngIf="!resumeInfo.work_date">
+                    <span>暂无工作经历</span>
+                </ng-container>
+                <ng-container *ngIf="resumeInfo.work_date">
+                    <span>未完善工作经历</span>
+                    <span class="text-sm edit_icon_box d-flex align-items-center text-green point float-right" (click)="add()">
+                        <!-- <i class="text-md" nz-icon nzType="edit" nzTheme="outline"></i> -->
+                        <span class="resume_info_edit_icon add_icon mr-sm"></span>
+                        新增一段
+                    </span>
+                </ng-container>
             </div>
         </ng-template>
         
