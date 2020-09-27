@@ -40,7 +40,7 @@
         <div nz-row class="mb-sm">
             <div nz-col [nzSpan]="6" class="label_text text-md">有效期至<span class="text-danger">*</span></div>
             <div nz-col [nzSpan]="18" class="value_text text-md">
-                {{ companyInfo.expires_date }}
+                {{ companyInfo.expires_date ? companyInfo.expires_date : '永久' }}
             </div>
         </div>
         <div nz-row class="mb-sm">

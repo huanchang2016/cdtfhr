@@ -15,9 +15,17 @@
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="end_date">有效期至</nz-form-label>
+            <nz-form-label class="text-left" [nzSpan]="6" [nzRequired]="!validateForm.controls['is_not_end'].value" nzFor="end_date">有效期至</nz-form-label>
             <nz-form-control [nzSpan]="18" nzErrorTip="请点击选择有效期时间">
-                <app-date-picker-date ngDefaultcontrol formControlName="end_date" [placeholder]="'请点击选择有效期时间'"></app-date-picker-date>
+                <!-- <app-date-picker-date ngDefaultcontrol formControlName="end_date" [placeholder]="'请点击选择有效期时间'"></app-date-picker-date> -->
+                <div nz-row [nzGutter]="8">
+                    <div nz-col [nzSpan]="18">
+                        <app-date-picker-date ngDefaultcontrol formControlName="end_date" [placeholder]="'请点击选择有效期时间'"></app-date-picker-date>
+                    </div>
+                    <div nz-col [nzSpan]="6" class="text-right agree_box">
+                        <label nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event)">永久</label>
+                    </div>
+                </div>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>

@@ -43,7 +43,8 @@ export class Step2Component implements OnChanges, OnInit {
     this.validateForm = this.fb.group({
       companyname: [null, Validators.required],
       or_code: [null, [Validators.required, Validators.maxLength(18)] ],
-      end_date: [null, Validators.required ],
+      end_date: [null, [Validators.required]],
+      is_not_end: [false], // 选择营业执照是 是否为永久期限
       cascader: [null, Validators.required ],
       address: [null, Validators.required ],
       nature: [null, Validators.required ],
@@ -58,7 +59,14 @@ export class Step2Component implements OnChanges, OnInit {
       check_number: [null, Validators.required ],
       zj_tel: [null ],
       user_email: [null, Validators.email ]
+    });
 
+    this.validateForm.get('end_date').valueChanges.subscribe( date => {
+      if(date && this.validateForm.get('is_not_end').value) {
+        this.validateForm.patchValue({
+          is_not_end: false
+        });
+      }
     });
 
     if(this.companyInfo && this.companyInfo.name) {
@@ -66,6 +74,8 @@ export class Step2Component implements OnChanges, OnInit {
     }
     
   }
+
+
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -81,7 +91,7 @@ export class Step2Component implements OnChanges, OnInit {
       let obj:FormData = new FormData();
       obj.append('name', value.companyname);
       obj.append('code', value.or_code);
-      obj.append('expires_date', value.end_date);
+      obj.append('expires_date', value.is_not_end ? '' : value.end_date);
       obj.append('province_id', value.cascader[0]);
       obj.append('city_id', value.cascader[1]);
       obj.append('area_id', value.cascader[2]);
@@ -156,6 +166,7 @@ export class Step2Component implements OnChanges, OnInit {
       companyname: this.companyInfo.name,
       or_code: this.companyInfo.code,
       end_date: this.companyInfo.expires_date,
+      is_not_end: !this.companyInfo.expires_date ? true : false,
       cascader: cascader,
       address: this.companyInfo.address,
       nature: this.companyInfo.type.id,
@@ -170,6 +181,22 @@ export class Step2Component implements OnChanges, OnInit {
       zj_tel: this.companyInfo.company.telephone,
       user_email: this.companyInfo.company.email
     });
+
+    this.isNotEndChange(!this.companyInfo.expires_date);
+  }
+
+  isNotEndChange(required: boolean): void {
+    if (required) {
+      this.validateForm.patchValue({
+        end_date: null  // 毕业时间  至今
+      });
+      this.validateForm.get('end_date')!.clearValidators();
+      this.validateForm.get('end_date')!.markAsPristine();
+    } else {
+      this.validateForm.get('end_date')!.setValidators(Validators.required);
+      this.validateForm.get('end_date')!.markAsDirty();
+    }
+    this.validateForm.get('end_date')!.updateValueAndValidity();
   }
 
   count: number = 60;
