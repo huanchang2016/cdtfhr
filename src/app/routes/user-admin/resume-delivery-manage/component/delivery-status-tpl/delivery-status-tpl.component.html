@@ -28,14 +28,14 @@
                         <div class="label_title text-666">职位名称</div>
                         <div class="value_box flex-1">
                             <span class="text-grey">{{ data.companyJob.name }}</span>
-                            <a [routerLink]="['/recruit/details', data.companyJob.id]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
+                            <a [routerLink]="['/recruit/details', data.companyJob.id]" target="_blank" class="view_link link_hover text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
                         </div>
                     </div>
                     <div class="d-flex body_item_list text-md">
                         <div class="label_title text-666">公司名称</div>
                         <div class="value_box flex-1">
                             <span class="text-grey">{{ data.companyInfo.name }}</span>
-                            <a [routerLink]="['/company']" [queryParams]="{cid: data.companyInfo.id }" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
+                            <a [routerLink]="['/company']" [queryParams]="{cid: data.companyInfo.id }" target="_blank" class="view_link link_hover text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
                         </div>
                     </div>
                     <div class="d-flex body_item_list text-md">
@@ -60,7 +60,7 @@
                         <div class="label_title text-666">简历投递</div>
                         <div class="value_box flex-1">
                             <span class="text-grey">{{ data.resume.name }}</span>
-                            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">查看简历</a>
+                            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" target="_blank" class="view_link link_hover text-sm ml-md point text-primary border-radius-sm px-sm">查看简历</a>
                         </div>
                     </div>
                     <div class="d-flex body_item_list text-md" *ngIf="step === 1">
@@ -88,22 +88,25 @@
                             <div class="label_title text-666">职位名称</div>
                             <div class="value_box flex-1">
                                 <span class="text-grey">{{ data.companyJob.name }}</span>
-                                <a [routerLink]="['/recruit/details', data.companyJob.id]" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
+                                <a [routerLink]="['/recruit/details', data.companyJob.id]" target="_blank" class="view_link link_hover text-sm ml-md point text-primary border-radius-sm px-sm">职位详情</a>
                             </div>
                         </div>
                         <div class="d-flex body_item_list text-md">
                             <div class="label_title text-666">公司名称</div>
                             <div class="value_box flex-1">
                                 <span class="text-grey">{{ data.companyInfo.name }}</span>
-                                <a [routerLink]="['/company']" [queryParams]="{cid: data.companyInfo.id }" target="_blank" class="view_link text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
+                                <a [routerLink]="['/company']" [queryParams]="{cid: data.companyInfo.id }" target="_blank" class="view_link link_hover text-sm ml-md point text-primary border-radius-sm px-sm">公司主页</a>
                             </div>
                         </div>
                         <div class="d-flex body_item_list text-md">
                             <div class="label_title text-666">面试地址</div>
                             <div class="value_box flex-1">
-                                <div>{{ info.site }}</div>
+                                <div class="d-flex justify-content-center">
+                                    <span class="flex-1 pr-md">{{ info.site }}</span>
+                                    <span (click)="searchAddress()" class="search_by_map link_hover text-center d-inline-block text-primary border-radius-sm point">前往地图</span>
+                                </div>
                                 <div class="map_show_box">
-                                    <app-position-address-map [address]="info.site"></app-position-address-map>
+                                    <app-position-address-map [address]="info.site" [city]="data.companyJob.city + '市'" (addressPositionChange)="addressPositionChange($event)"></app-position-address-map>
                                 </div>
                             </div>
                         </div>

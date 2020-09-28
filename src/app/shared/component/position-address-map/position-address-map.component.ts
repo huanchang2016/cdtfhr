@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 declare var BMap: any;
 
@@ -10,6 +10,8 @@ declare var BMap: any;
 export class PositionAddressMapComponent implements OnInit {
   @Input() city?: string = '成都市';
   @Input() address: string;
+
+  @Output() addressPositionChange?:EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -26,9 +28,16 @@ export class PositionAddressMapComponent implements OnInit {
       myGeo.getPoint(this.address, (point: any) => {
         console.log(point, 'point')
         if (point) {
-          map.centerAndZoom(point, 11);
+          // 将地址坐标传递到父组件去
+          this.addressPositionChange.emit(point);
+
+          map.centerAndZoom(point, 16);
+
+         const myIcon = new BMap.Icon("/assets/imgs/icon/address_map_bg.png", new BMap.Size(18, 36));
 	
-          let marker = new BMap.Marker(point);  // 创建标注
+          let marker = new BMap.Marker(point, {
+            icon: myIcon
+          });  // 创建标注
 
           map.addOverlay(marker);              // 将标注添加到地图中
           const opts = {

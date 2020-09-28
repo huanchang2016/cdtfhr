@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+declare var BMap: any;
 
 @Component({
   selector: 'app-delivery-status-tpl',
@@ -43,20 +44,18 @@ export class DeliveryStatusTplComponent implements OnInit {
         this.info = res.data;
       }
     }, err => this.loading = false);
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   let status:string[] = ['投递成功', 'HR查看', '面试邀请'];
+  }
 
-    //   const status_name = status[Math.floor(Math.random() * 3)];
-    //   this.info = {
-    //     ...this.data,
-    //     status: {
-    //       id: 1,
-    //       name: status_name,
-    //       time: '2020-07-22 14:20:33'
-    //     }
-    //   }
-    // }, 500);
+  posLat:any = null;
+
+  searchAddress():void {
+    let url = `http://api.map.baidu.com/geocoder?address=${this.info.site}&output=html`;
+    window.open(url, '_blank');
+  }
+
+  addressPositionChange(pos:any):void {
+    this.posLat = pos;
+    
   }
 
 }
