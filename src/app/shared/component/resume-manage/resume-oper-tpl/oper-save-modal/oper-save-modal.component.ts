@@ -3,6 +3,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { format } from 'date-fns';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+// import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-oper-save-modal',
@@ -11,6 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class OperSaveModalComponent implements OnInit {
   @Input() resumeInfo: any;
+  // environment:any = environment;
 
   constructor(
     private modal: NzModalRef,
@@ -32,7 +34,6 @@ export class OperSaveModalComponent implements OnInit {
       this.msg.warning('未选择简历保存格式');
       return;
     }
-
 
     this.submitLoading = true;
     let url: string = '';
@@ -59,6 +60,7 @@ export class OperSaveModalComponent implements OnInit {
     }, err => this.submitLoading = false);
 
   }
+
 
   downloadFile(data): void {
     const blob = new Blob([data]);
