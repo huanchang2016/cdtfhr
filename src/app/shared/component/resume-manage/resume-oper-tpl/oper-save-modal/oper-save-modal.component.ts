@@ -3,6 +3,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { format } from 'date-fns';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-oper-save-modal',
@@ -11,6 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class OperSaveModalComponent implements OnInit {
   @Input() resumeInfo: any;
+  environment:any = environment;
 
   constructor(
     private modal: NzModalRef,
@@ -38,25 +40,27 @@ export class OperSaveModalComponent implements OnInit {
     let url: string = '';
     let headers: HttpHeaders;
     if (this.type === 'pdf') {
-      url = '/v1/web/com/resume/save_pdf';
+      url = this.environment.SERVER_URL + '/v1/web/com/resume/save_pdf/' + this.resumeInfo.id;
       headers = new HttpHeaders().append("Content-Type", "application/json");
       // headers.append('Content-Description', 'File Transfer');
       // headers.append('Accept-Encoding', 'binary');
+      this.submitLoading = false;
+      this.destroyModal({ type: 'success' });
+      window.open(url, '_blank');
       
     } else {
       url = '/v1/web/com/resume/save_word';
       headers = new HttpHeaders().append("Content-Type", "application/json");
+      const opt: any = { resume_id: this.resumeInfo.id };
+      this.http.post(url, opt, {
+        responseType: "blob",
+        headers: headers
+      }).subscribe(resp => {
+        // resp: 文件流
+        this.submitLoading = false;
+        this.downloadFile(resp);
+      }, err => this.submitLoading = false);
     }
-    const opt: any = { resume_id: this.resumeInfo.id };
-
-    this.http.post(url, opt, {
-      responseType: "blob",
-      headers: headers
-    }).subscribe(resp => {
-      // resp: 文件流
-      this.submitLoading = false;
-      this.downloadFile(resp);
-    }, err => this.submitLoading = false);
 
   }
 
