@@ -6,8 +6,8 @@
                 <img src="./assets/imgs/logo_full_color.png" />
             </a>
         </div>
-        <div class="alain-default__nav-wrap">
-            <!-- <ul nz-menu nzMode="horizontal" class="alain-default__nav flex-1">
+        <div class="alain-default__nav-wrap" [class.flex-reverse]="!isMenu">
+            <ul nz-menu nzMode="horizontal" class="alain-default__nav flex-1" *ngIf="isMenu">
                 <li nz-menu-item [nzMatchRouter]="true">
                     <a [routerLink]="['/recruit']" class="nav__title_box text-lg">
                         <span class="default__nav_icon nav__icon1 mr-sm"></span>
@@ -20,7 +20,7 @@
                         招考
                     </a>
                 </li>
-            </ul> -->
+            </ul>
 
             <!-- <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search> -->
             <ul class="d-flex">
