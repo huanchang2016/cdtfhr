@@ -1,24 +1,28 @@
 <div class="wrapper_box" *ngIf="!loading">
     <ng-container *ngIf="logs.length !== 0;else emptyListOfData">
         <ng-container *ngFor="let data of logs">
-            <div class="py-sm text-md">
+            <div class="py-sm text-md clearfix">
                 <ng-container [ngSwitch]="data.type">
-                    <span *ngSwitchCase="'download'" class="oper_icon_box oper_download_log d-inline-block"></span>
-                    <span *ngSwitchCase="'save'" class="oper_icon_box oper_save_log d-inline-block"></span>
-                    <span *ngSwitchCase="'share'" class="oper_icon_box oper_shared_log d-inline-block"></span>
-                    <span *ngSwitchDefault class="oper_icon_box oper_collect_log d-inline-block"></span>
+                    <span *ngSwitchCase="'download'" class="oper_icon_box oper_download_log d-inline-block float-left"></span>
+                    <span *ngSwitchCase="'save'" class="oper_icon_box oper_save_log d-inline-block float-left"></span>
+                    <span *ngSwitchCase="'share'" class="oper_icon_box oper_shared_log d-inline-block float-left"></span>
+                    <span *ngSwitchDefault class="oper_icon_box oper_collect_log d-inline-block float-left"></span>
                 </ng-container>
+                <div class="float-left" style="width: 660px;">
+                    <span class="text-primary"> {{ data.company }} </span>
+                    <span class="text-666">已于 </span>
+                    <span class="text-primary">{{ data.created_at }} </span>
+                    <ng-container [ngSwitch]="data.type">
+                        <span class="text-666" *ngSwitchCase="'download'">下载 </span>
+                        <span class="text-666" *ngSwitchCase="'save'">保存 </span>
+                        <span class="text-666" *ngSwitchCase="'share'">转发到 </span>
+                        <span class="text-666" *ngSwitchDefault>收藏到 </span>
+                    </ng-container>
+                
+                    <span class="text-primary" [innerHTML]="data.desc | showTextAreaText"></span>
+             
+                </div>
 
-                <span class="text-primary"> {{ data.company }} </span>
-                <span class="text-666">已于 </span>
-                <span class="text-primary">{{ data.created_at }} </span>
-                <ng-container [ngSwitch]="data.type">
-                    <span class="text-666" *ngSwitchCase="'download'">下载 </span>
-                    <span class="text-666" *ngSwitchCase="'save'">保存 </span>
-                    <span class="text-666" *ngSwitchCase="'share'">转发到 </span>
-                    <span class="text-666" *ngSwitchDefault>收藏到 </span>
-                </ng-container>
-                <span class="text-primary" [innerHTML]="data.desc | showTextAreaText"></span>
             </div>
         </ng-container>
     </ng-container>
