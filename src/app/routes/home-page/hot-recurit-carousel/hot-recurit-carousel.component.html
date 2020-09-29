@@ -17,7 +17,7 @@
                                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                                     <div class="hover_content text-white">
                                                         <p class="hover_title text-center text-lg">{{ item.name }}</p>
-                                                        <p class="hover_date text-center text-md">{{ item.start_time | date: 'fullDate' }}</p>
+                                                        <p class="hover_date text-center text-md">{{ item.start_time }}</p>
                                                     </div>
                                                     <div class="hover_view_btn bg-primary text-center text-lg mt-md">
                                                         <a (click)="navTo(item.to_url)" class="text-white">前往查看</a>
