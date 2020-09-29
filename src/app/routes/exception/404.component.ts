@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -11,8 +12,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
       <div id="text">
         <strong>
           <span></span>
-          <a [routerLink]="['/']">返回首页</a>
-          <a href="javascript:history.back()">返回上一页</a>
+          <a (click)="navTo()">返回首页</a>
+          <a (click)="goBack()">返回上一页</a>
         </strong>
       </div>
     </div>
@@ -22,12 +23,30 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls:[ `./css/404.less`]
 })
 export class Exception404Component implements OnInit {
-  constructor(modalSrv: NzModalService) {
+  constructor(
+    modalSrv: NzModalService,
+    private router: Router
+  ) {
     modalSrv.closeAll();
   }
 
   ngOnInit() {
     document.body.style.backgroundColor = '#67ace4';
     document.body.style.overflow = 'hidden';
+  }
+
+  navTo() {
+    this.resetBodyStyle();
+    this.router.navigateByUrl('/');
+  }
+
+  goBack() {
+    this.resetBodyStyle();
+    window.history.back();
+  }
+
+  resetBodyStyle() {
+    document.body.style.backgroundColor = '#ffffff';
+    document.body.style.overflow = 'auto';
   }
 }
