@@ -23,6 +23,11 @@ export class RightSidebarJobHistoryComponent implements OnInit {
      * 当前页面 需要登录后才可以访问
      * 
      * ****/
+    this.getDataList();
+    
+  }
+
+  getDataList() {
     if(this.settingService.user && this.settingService.user.type === 'user' && this.settingService.getToken()) {
       this.loadingData = true;
       this.settingService.get('/v1/web/user/view_jobs').subscribe((res:ApiData) => {
@@ -31,7 +36,6 @@ export class RightSidebarJobHistoryComponent implements OnInit {
         this.list = res.data;
       }, err => this.loadingData = false);
     }
-    
   }
 
 }
