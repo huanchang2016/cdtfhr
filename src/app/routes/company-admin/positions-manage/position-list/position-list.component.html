@@ -21,7 +21,7 @@
   <div class="search_box_input">
 
     <div class="d-flex align-items-center">
-      <div class="search_title text-center bg-white text-primary">结果中搜索</div>
+      <!-- <div class="search_title text-center bg-white text-primary">结果中搜索</div> -->
       <nz-input-group class="flex-1" [nzSuffix]="suffixIconSearch" nzSize="large">
         <input type="text" [(ngModel)]="keywords" nz-input placeholder="请输入关键字"
           (keypress)="($event.which === 13)?search():0" />
