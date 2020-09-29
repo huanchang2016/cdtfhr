@@ -4,8 +4,16 @@
     </nz-form-item> -->
     <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="account_name">账户名称</nz-form-label>
-        <nz-form-control [nzSpan]="18" nzErrorTip="请填写账户名称">
+        <nz-form-control [nzSpan]="18" [nzErrorTip]="errorUsernameTpl">
             <input nz-input formControlName="account_name" id="account_name" placeholder="账号可以由字符、数字和字母" nzSize="large" />
+            <ng-template #errorUsernameTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    请填写账号名称
+                </ng-container>
+                <ng-container *ngIf="control.hasError('confirm')">
+                    账号名称不能填写汉字
+                </ng-container>
+            </ng-template>
         </nz-form-control>
     </nz-form-item>
     <ng-container *ngIf="!data">

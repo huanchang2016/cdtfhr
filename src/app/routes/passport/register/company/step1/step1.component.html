@@ -4,8 +4,16 @@
         <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-sm"></nz-alert>
         <nz-form-item>
             <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">账号名称</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="输入账号名称">
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorUsernameTpl">
                 <input nz-input formControlName="username" id="username" placeholder="输入账号名称" nzSize="large" />
+                <ng-template #errorUsernameTpl let-control>
+                    <ng-container *ngIf="control.hasError('required')">
+                        请填写账号名称
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('confirm')">
+                        账号名称不能填写汉字
+                    </ng-container>
+                </ng-template>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
