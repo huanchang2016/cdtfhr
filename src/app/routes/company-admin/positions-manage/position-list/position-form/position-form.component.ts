@@ -39,7 +39,7 @@ export class PositionFormComponent implements OnInit {
 
     this.validateForm = this.fb.group({
       position_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, Validators.required ],
-      recruiters: [ null, Validators.required ],
+      recruiters: [ null, [ Validators.pattern(/^[0-9]{1,}/), Validators.required] ],
       job_category: [{ value: this.data ? [this.data.jobType1.id, this.data.jobType2.id, this.data.jobType3.id] : null, disabled: this.data }, Validators.required ],
       cascader: [{ value: this.data ? [this.data.province.id, this.data.city.id, this.data.area.id] : null, disabled: this.data }, Validators.required ],
       address: [{ value: this.data ? this.data.address : null, disabled: this.data }, Validators.required ],
@@ -47,7 +47,7 @@ export class PositionFormComponent implements OnInit {
       salary: [null, Validators.required ],
       education: [null, Validators.required ],
       work_exp: [null, Validators.required ],
-      description: [null, [Validators.required, Validators.maxLength(1000)] ],
+      description: [null, [Validators.required] ],
       user_email: [null ],
       duration_time: [null, Validators.required ]
     });
@@ -68,7 +68,7 @@ export class PositionFormComponent implements OnInit {
       if(!this.data) {
         const option = {
           name: value.position_name,
-          number: value.recruiters,
+          number: +value.recruiters,
           job_type_1_id: value.job_category[0],
           job_type_2_id: value.job_category[1],
           job_type_3_id: value.job_category[2],
@@ -89,7 +89,7 @@ export class PositionFormComponent implements OnInit {
       }else {
         const obj = {
           // name: value.position_name,
-          number: value.recruiters,
+          number: +value.recruiters,
           // job_type_1_id: value.job_category[0],
           // job_type_2_id: value.job_category[1],
           // job_type_3_id: value.job_category[2],
