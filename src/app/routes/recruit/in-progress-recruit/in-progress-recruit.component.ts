@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -8,6 +8,8 @@ import { UserLoginComponent } from 'src/app/shared/component/login/user-login/us
 import { PostDeliverySuccessComponent } from 'src/app/shared/component/position-apply/post-delivery-success/post-delivery-success.component';
 import { CelebrityNotPassComponent } from 'src/app/shared/component/position-apply/celebrity-not-pass/celebrity-not-pass.component';
 import { ResumesListShowCComponent } from 'src/app/shared/component/position-apply/resumes-list-show-c/resumes-list-show-c.component';
+import { RightSidebarJobHistoryComponent } from './../component/right-sidebar-job-history/right-sidebar-job-history.component';
+
 
 @Component({
   selector: 'app-in-progress-recruit',
@@ -34,7 +36,17 @@ export class InProgressRecruitComponent implements OnInit {
   ngOnInit(): void {
     this.getDataList();
   }
+  
+  @ViewChild('historyRecordC', { static: false }) historyRecordC: RightSidebarJobHistoryComponent;
 
+  viewPosition(id:number) {
+    const url:string = `/recruit/details/${id}`;
+    window.open(url, '_blank');
+    setTimeout(() => {
+      this.historyRecordC.getDataList();
+    }, 3000);
+  }
+  
   searchOption:any = {
     name: null,
     city_id: null
