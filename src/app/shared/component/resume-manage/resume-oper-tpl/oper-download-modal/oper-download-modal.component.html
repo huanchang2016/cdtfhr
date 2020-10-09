@@ -8,7 +8,7 @@
         <nz-list nzSize="small" [nzLoading]="loadingPositions">
             <nz-list-item *ngFor="let item of list">
                 <div class="d-flex align-items-center">
-                    <label nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
+                    <label class="checkbox_24" nz-checkbox [ngModel]="setOfCheckedId.has(item.id)" (ngModelChange)="selectedChange($event, item)"></label>
                     <p class="text-666 mx-sm">{{ item.name }}</p>
                     <p class="text-right text-primary flex-1" *ngIf="setOfCheckedId.has(item.id)">
                         <i nz-icon nzType="exclamation-circle" nzTheme="fill"></i>
@@ -21,7 +21,7 @@
 
     <div class="form-box mt-sm px-md">
         <div class="d-flex">
-            <label nz-checkbox [(ngModel)]="beRelated" (ngModelChange)="onAllChecked($event)"><span class="text-primary">不关联到职位</span></label>
+            <label class="checkbox_24" nz-checkbox [(ngModel)]="beRelated" (ngModelChange)="onAllChecked($event)"><span class="text-primary">不关联到职位</span></label>
             <span class="text-primary ml-md"><i nz-icon nzType="exclamation-circle" nzTheme="fill"></i><span class="ml-sm">该简历无法在线进行面试安排</span></span>
         </div>
     </div>

@@ -49,7 +49,7 @@
             <nz-checkbox-wrapper id="job_nature" style="width: 100%; line-height: 40px;" (nzOnChange)="log($event)">
                 <div nz-row>
                     <div nz-col nzSpan="8" *ngFor="let item of globalService.resumeConfigOptions.target_type">
-                        <label nz-checkbox [nzValue]="item.id" [nzChecked]="job_nature.indexOf(item.id) !== -1">{{ item.value }}</label>
+                        <label class="checkbox_24" nz-checkbox [nzValue]="item.id" [nzChecked]="job_nature.indexOf(item.id) !== -1">{{ item.value }}</label>
                     </div>
                 </div>
             </nz-checkbox-wrapper>
@@ -58,7 +58,7 @@
     </nz-form-item>
     
     <div class="modal-oper_btn_box d-flex justify-content-around align-items-center">
-        <button nz-button nzSize="large" nzType="default" (click)="cancel($event)">取 消</button>
+        <a nz-button nzSize="large" nzType="default" (click)="cancel($event)">取 消</a>
         <button nz-button nzSize="large" [nzLoading]="loading" nzType="primary">保 存</button>
     </div>
 

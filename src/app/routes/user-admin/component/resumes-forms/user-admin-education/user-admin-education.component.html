@@ -64,7 +64,7 @@
                                 <app-date-picker-month formControlName="edu_end_time" [placeholder]="'请点击选择毕业时间'" [size]="'large'"></app-date-picker-month>
                             </div>
                             <div nz-col [nzSpan]="6" class="text-right agree_box">
-                                <label nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event, edu_i)">至今</label>
+                                <label class="checkbox_24" nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event, edu_i)">至今</label>
                             </div>
                         </div>
                     </nz-form-control>

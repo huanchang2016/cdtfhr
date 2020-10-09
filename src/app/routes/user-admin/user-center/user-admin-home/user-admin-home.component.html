@@ -1,74 +1,74 @@
 <div class="user-home_my_resume_box bg-white border-radius-sm">
     <div class="d-flex align-items-center">
-        <div class="user-logo px-lg py-md">
-            <ng-container *ngIf="defaultResumeInfo && defaultResumeInfo.avatar;else notLogoTpl">
-                <div
-                    class="logo_img_box bg-grey-dark border-radius-half text-white d-flex justify-content-center align-items-center">
-                    <img [src]="environment.SERVER_URL + '/' + defaultResumeInfo.avatar" alt="">
-                </div>
-            </ng-container>
-            <ng-template #notLogoTpl>
-                <div
-                    class="logo_img_box bg-grey-dark border-radius-half text-white d-flex justify-content-center align-items-center">
-                    <i nz-icon nzType="user" nzTheme="outline"></i>
-                </div>
-            </ng-template>
+        <ng-container *ngIf="defaultResumeInfo">
+            <div class="user-logo px-lg py-md">
+                <ng-container *ngIf="defaultResumeInfo && defaultResumeInfo.avatar;else notLogoTpl">
+                    <div
+                        class="logo_img_box bg-grey-dark border-radius-half text-white d-flex justify-content-center align-items-center">
+                        <img [src]="environment.SERVER_URL + '/' + defaultResumeInfo.avatar" alt="">
+                    </div>
+                </ng-container>
+                <ng-template #notLogoTpl>
+                    <div
+                        class="logo_img_box bg-grey-dark border-radius-half text-white d-flex justify-content-center align-items-center">
+                        <i nz-icon nzType="user" nzTheme="outline"></i>
+                    </div>
+                </ng-template>
 
-        </div>
-        <div class="user-info px-lg py-md">
-            <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
-                <h3 class="text-666 text-lg">{{ defaultResumeInfo?.title }}</h3>
-                <div class="text-sm mb-sm">
-                    {{ defaultResumeInfo?.name }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ defaultResumeInfo?.sex }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ defaultResumeInfo?.age }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ defaultResumeInfo?.work_date }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ defaultResumeInfo?.edu.level }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ defaultResumeInfo?.city }}
-                </div>
-                <div>
-                    <span class="text-666 mr-lg">毕业院校</span>
-                    <span class="text-grey">
-                        {{ defaultResumeInfo?.edu.name }}
+            </div>
+            <div class="user-info px-lg py-md">
+                <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
+                    <h3 class="text-666 text-lg">{{ defaultResumeInfo.title }}</h3>
+                    <div class="text-sm mb-sm">
+                        {{ defaultResumeInfo.name }}
                         <nz-divider nzType="vertical"></nz-divider>
-                        {{ defaultResumeInfo?.edu.major }}
-                    </span>
-                </div>
-                <div>
-                    <span class="text-666 mr-lg">最近工作</span>
-                    <span class="text-grey">
-                        {{ defaultResumeInfo?.work.name }}
+                        {{ defaultResumeInfo.sex }}
                         <nz-divider nzType="vertical"></nz-divider>
-                        {{ defaultResumeInfo?.work.position_name }}
-                    </span>
-                </div>
-                <div>
-                    <span class="text-666 mr-lg">求职状态</span>
-                    <span class="text-grey">
-                        {{ defaultResumeInfo?.status }}
-                    </span>
+                        {{ defaultResumeInfo.age }}
+                        <nz-divider nzType="vertical"></nz-divider>
+                        {{ defaultResumeInfo.work_date }}
+                        <nz-divider nzType="vertical"></nz-divider>
+                        {{ defaultResumeInfo.edu?.level }}
+                        <nz-divider nzType="vertical"></nz-divider>
+                        {{ defaultResumeInfo.city }}
+                    </div>
+                    <div>
+                        <span class="text-666 mr-lg">毕业院校</span>
+                        <span class="text-grey">
+                            {{ defaultResumeInfo.edu?.name }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ defaultResumeInfo.edu?.major }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-666 mr-lg">最近工作</span>
+                        <span class="text-grey">
+                            {{ defaultResumeInfo.work?.name }}
+                            <nz-divider nzType="vertical"></nz-divider>
+                            {{ defaultResumeInfo.work?.position_name }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-666 mr-lg">求职状态</span>
+                        <span class="text-grey">
+                            {{ defaultResumeInfo.status }}
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="oper-box px-lg py-md d-flex align-items-center justify-content-around">
-            <ng-container *ngIf="defaultResumeInfo">
-                <a [routerLink]="['/fullscreen/resume/view', defaultResumeInfo.id]"
-                    class="oper_btn_wrapper oper_btn_view point" target="_blank">
-                    <div class="oper_btn_icon"></div>
-                    <p class="text-center mt-xs text-primary">预览</p>
-                </a>
-                <a [routerLink]="['/admin/user/resumes/edit', defaultResumeInfo.id]"
-                    class="oper_btn_wrapper oper_btn_edit point">
-                    <div class="oper_btn_icon"></div>
-                    <p class="text-center mt-xs text-primary">编辑</p>
-                </a>
-            </ng-container>
-        </div>
+            <div class="oper-box px-lg py-md d-flex align-items-center justify-content-around">
+                    <a [routerLink]="['/fullscreen/resume/view', defaultResumeInfo.id]"
+                        class="oper_btn_wrapper oper_btn_view point" target="_blank">
+                        <div class="oper_btn_icon"></div>
+                        <p class="text-center mt-xs text-primary">预览</p>
+                    </a>
+                    <a [routerLink]="['/admin/user/resumes/edit', defaultResumeInfo.id]"
+                        class="oper_btn_wrapper oper_btn_edit point">
+                        <div class="oper_btn_icon"></div>
+                        <p class="text-center mt-xs text-primary">编辑</p>
+                    </a>
+            </div>
+        </ng-container>
     </div>
 </div>
 

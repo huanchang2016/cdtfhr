@@ -101,7 +101,7 @@
     <nz-form-item nz-row>
         <nz-form-control [nzSpan]="24">
             <div class="d-flex justify-content-around pt-lg">
-                <button (click)="cancel($event)" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</button>
+                <a (click)="cancel($event)" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</a>
                 <button [nzLoading]="submitLoading" nz-button nzType="primary" class="login-form-button" nzSize="large">{{ data ? '修 改' : '发 布'}}</button>
             </div>
         </nz-form-control>

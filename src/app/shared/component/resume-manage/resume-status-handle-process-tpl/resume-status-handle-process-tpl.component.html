@@ -11,7 +11,7 @@
                 <ng-template #dealTpl>
                     <ng-container *ngIf="configs.status === 1">
                         <span (click)="dealResume()" class="point oper_btn text-center btn_warning border-radius-sm">不合适</span>
-                        <span (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</span>
+                        <a (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</a>
                     </ng-container>
                 </ng-template>
             </nz-step>
@@ -19,7 +19,7 @@
                 <ng-template #appropriateTpl>
                     <ng-container *ngIf="configs.status === 2">
                         <span (click)="dealResume()" class="point oper_btn text-center btn_warning border-radius-sm">淘汰</span>
-                        <span (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</span>
+                        <a (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</a>
                     </ng-container>
                 </ng-template>
             </nz-step>
@@ -31,8 +31,7 @@
                             <span (click)="interviewSend()"
                                 class="point oper_btn oper_btn_three text-center btn_primary border-radius-sm">安排面试</span>
                         </ng-container>
-                        <span  (click)="nextStepsIn()"
-                            class="point oper_btn oper_btn_three text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</span>
+                        <a  (click)="nextStepsIn()" class="point oper_btn oper_btn_three text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</a>
                     </ng-container>
                 </ng-template>
             </nz-step>
@@ -40,7 +39,7 @@
                 <ng-template #offerTpl>
                     <ng-container *ngIf="configs.status === 4">
                         <span (click)="dealResume()" class="point oper_btn text-center btn_warning border-radius-sm">拒绝Offer</span>
-                        <span (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</span>
+                        <a (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm" nz-button nzType="link" [nzLoading]="submitLoading">进入下一阶段</a>
                     </ng-container>
                 </ng-template>
             </nz-step>
@@ -48,7 +47,7 @@
                 <ng-template #entryTpl>
                     <ng-container *ngIf="configs.status === 5">
                         <span (click)="dealResume()" class="point oper_btn text-center btn_warning border-radius-sm">未到岗</span>
-                        <!-- <span (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm">已到岗</span> -->
+                        <!-- <a (click)="nextStepsIn()" class="point oper_btn text-center btn_success border-radius-sm">已到岗</a> -->
                     </ng-container>
                 </ng-template>
             </nz-step>

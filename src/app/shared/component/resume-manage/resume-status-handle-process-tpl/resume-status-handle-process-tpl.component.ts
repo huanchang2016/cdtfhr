@@ -92,7 +92,8 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       nzWidth: '800px',
       nzComponentParams: {
         resumeInfo: this.resumeInfo,
-        positionInfo: this.positionInfo
+        positionInfo: this.positionInfo,
+        configs: this.configs
       },
       nzFooter: null
     });

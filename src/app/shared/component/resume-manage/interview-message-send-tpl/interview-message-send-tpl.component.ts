@@ -19,6 +19,7 @@ import { format } from 'date-fns';
 })
 export class InterviewMessageSendTplComponent implements OnInit {
   @Input() resumeInfo: any;
+  @Input() configs: any;
   @Input() positionInfo: any;
   environment = environment;
   validateForm: FormGroup;
