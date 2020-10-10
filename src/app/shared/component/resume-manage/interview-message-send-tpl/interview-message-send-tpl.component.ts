@@ -44,8 +44,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
   }
 
   ngOnInit():void {
-
-    const placeholderContent:string = `${this.resumeInfo.name}，您好！您已通过${this.positionInfo ? this.positionInfo.company.name : '我司' }的简历初筛，进入面试环节。请您合理安排时间准时参加面试,如有疑问，请联系HR电话123456789。`;
+    const placeholderContent:string = `如有疑问，请联系HR电话：${this.positionInfo ? this.positionInfo.telephone : '123456789' }。`;
     this.validateForm.patchValue({
       content: placeholderContent
     });
@@ -141,14 +140,14 @@ export class InterviewMessageSendTplComponent implements OnInit {
       },
       nzMaskClosable: false,
       nzComponentParams: {
-        // data: `
-        //   【天府菁英网】${this.resumeInfo.name}，
-        //   您好。天府菁英网提醒您，
-        //   您已通过${this.positionInfo.company.name}公司-${this.positionInfo.name}岗位的简历初筛，
-        //   进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，面试邀请内容：${this.validateForm.value.content}。`
         data: `
-          【天府菁英网】${this.validateForm.value.content}，面试时间：${interview_time}，面试地址：${interview_addr}。`
-        // data: this.validateForm.value.content
+          【天府菁英网】${this.resumeInfo.name}，
+          您好。天府菁英网提醒您，
+          您已通过${this.positionInfo.company.name}-${this.positionInfo.name}岗位的简历初筛，
+          进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，请您合理安排时间准时参加面试。${this.validateForm.value.content}。`
+        // data: `
+        //   【天府菁英网】${this.validateForm.value.content}，面试时间：${interview_time}，面试地址：${interview_addr}。`
+        // // data: this.validateForm.value.content
       },
       nzFooter: null
     });

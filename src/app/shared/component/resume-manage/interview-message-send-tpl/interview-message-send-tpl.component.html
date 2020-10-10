@@ -72,6 +72,7 @@
       <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试时间</nz-form-label>
       <nz-form-control [nzSpan]="20" nzErrorTip="请选择面试时间">
         <nz-date-picker
+            style="width: 100%"
             nzFormat="yyyy/MM/dd HH:mm"
             [nzDisabledDate]="disabledDate"
             formControlName="time"
