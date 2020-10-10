@@ -5,6 +5,7 @@ import { EntranceExaminationRoutingModule } from './entrance-examination-routing
 import { EntranceHomeComponent } from './home/home.component';
 import { ZkBannerTplComponent } from './component/zk-banner-tpl/zk-banner-tpl.component';
 import { ZkAdvertingListTplComponent } from './component/zk-adverting-list-tpl/zk-adverting-list-tpl.component';
+import { ZkNewsListTplComponent } from './component/zk-news-list-tpl/zk-news-list-tpl.component';
 
 const ROUTESCOMPONENTS = [
   EntranceHomeComponent,
@@ -12,7 +13,8 @@ const ROUTESCOMPONENTS = [
 
 const ENTRYCOMPONENTS = [
   ZkBannerTplComponent,
-  ZkAdvertingListTplComponent
+  ZkAdvertingListTplComponent,
+  ZkNewsListTplComponent
 ];
 
 @NgModule({
