@@ -78,6 +78,7 @@
             [nzShowTime]="{ nzFormat: 'HH:mm', nzHideDisabledOptions: true, nzMinuteStep: 5 }"
             nzPlaceHolder="请选择面试时间"
             nzSize="large"
+            nzDropdownClassName="isHideNow"
             >
             </nz-date-picker>
       </nz-form-control>
@@ -122,7 +123,8 @@
 
   <div *nzModalFooter class="text-center footer-btn-wrapper">
       <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取 消</button>
-      <button *ngIf="validateForm.get('is_phone').value" nz-button nzSize="large" nzType="default" (click)="view()" class="mr-lg">预 览</button>
+      <!-- *ngIf="validateForm.get('is_phone').value" -->
+      <button nz-button nzSize="large" nzType="default" (click)="view()" class="mr-lg">预 览</button>
       <button nz-button nzSize="large" nzType="primary" (click)="submitForm()" [nzLoading]="submitLoading">发送通知</button>
   </div>
   

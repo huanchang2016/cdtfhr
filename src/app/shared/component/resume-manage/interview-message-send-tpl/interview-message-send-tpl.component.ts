@@ -4,11 +4,11 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { InterviewMessageViewTplComponent } from '../interview-message-view-tpl/interview-message-view-tpl.component';
 import { environment } from '@env/environment';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 import { differenceInYears } from 'date-fns';
 import addDays from 'date-fns/addDays';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import { GlobalSettingsService } from '@core';
-import { ApiData } from 'src/app/data/interface';
 import { format } from 'date-fns';
 
 
@@ -44,10 +44,11 @@ export class InterviewMessageSendTplComponent implements OnInit {
   }
 
   ngOnInit():void {
-    // const placeholderContent:string = `${this.resumeInfo.name}，您好！您已通过${} - ${this.positionInfo ? this.positionInfo.name : 'xxxx职位' }的简历初筛，进入面试环节。请您合理安排时间准时参加面试,如有疑问，请联系HR电话：xxx-xxxxxxxx。`;
-    // this.validateForm.patchValue({
-    //   content: placeholderContent
-    // });
+
+    const placeholderContent:string = `${this.resumeInfo.name}，您好！您已通过${this.positionInfo ? this.positionInfo.company.name : '我司' }的简历初筛，进入面试环节。请您合理安排时间准时参加面试,如有疑问，请联系HR电话123456789。`;
+    this.validateForm.patchValue({
+      content: placeholderContent
+    });
 
   }
 
@@ -118,14 +119,13 @@ export class InterviewMessageSendTplComponent implements OnInit {
     this.destroyModal();
   }
 
-
   view(): void { // 保存
     console.log('预览通知信息, 表单填写验证通过可以预览', this.validateForm, this.positionInfo);
     if (!this.validateForm.valid) {
       this.msg.error('通知信息填写不完整，不能预览');
       return;
     }
-    const interview_time = format(this.validateForm.value.time, 'yyyy/MM/dd HH:mm');
+    const interview_time = format(this.validateForm.value.time, 'yyyy-MM-dd HH:mm');
     const interview_addr = this.validateForm.value.address.trim();
     const modal = this.modalSrv.create({
       nzTitle: '',
@@ -141,11 +141,13 @@ export class InterviewMessageSendTplComponent implements OnInit {
       },
       nzMaskClosable: false,
       nzComponentParams: {
+        // data: `
+        //   【天府菁英网】${this.resumeInfo.name}，
+        //   您好。天府菁英网提醒您，
+        //   您已通过${this.positionInfo.company.name}公司-${this.positionInfo.name}岗位的简历初筛，
+        //   进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，面试邀请内容：${this.validateForm.value.content}。`
         data: `
-          【天府菁英网】${this.resumeInfo.name}，
-          您好。天府菁英网提醒您，
-          您已通过${this.positionInfo.company.name}公司-${this.positionInfo.name}岗位的简历初筛，
-          进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，面试邀请内容：${this.validateForm.value.content}。`
+          【天府菁英网】${this.validateForm.value.content}，面试时间：${interview_time}，面试地址：${interview_addr}。`
         // data: this.validateForm.value.content
       },
       nzFooter: null
@@ -166,7 +168,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
       const year = differenceInYears(today, new Date(t));
       work_date = year > 1 ? `${year}年工作经验` : '工作经验不足一年';
     } else {
-      work_date = '暂无工作经验'
+      work_date = '暂无工作经验';
     }
     return work_date;
   }
