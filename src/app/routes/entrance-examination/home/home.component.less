@@ -1,0 +1,72 @@
+@import './../../../../styles/base-color.less';
+
+.fun_modal_wrapper {
+    width: 100%;
+    height: 120px;
+    padding: 20px 0;
+    overflow: hidden;
+    background-color: #F0F0F0;
+
+    .fun_modal_list_box {
+        &>div {
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+
+            .modal_list_icon {
+                width: 45px;
+                height: 42px;
+                overflow: hidden;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: contain;
+                &.icon_apply {
+                    background-image: url('/assets/imgs/icon/icon_item2.png');
+                }
+                &.icon_print {
+                    background-image: url('/assets/imgs/icon/icon_item2.png');
+                }
+                &.icon_search {
+                    background-image: url('/assets/imgs/icon/icon_item2.png');
+                }
+                &.icon_question {
+                    background-image: url('/assets/imgs/icon/icon_item2.png');
+                }
+            }
+            .modal_list_des {
+                .modal_list_des_title_zh {
+                    color: #7F8D9A;
+                }
+                .modal_list_des_title_en {
+                    color: #C1C9CE;
+                }
+            }
+
+            
+            &:hover {
+                .modal_list_icon {
+                    &.icon_apply {
+                        background-image: url('/assets/imgs/icon/icon_refresh.png');
+                    }
+                    &.icon_print {
+                        background-image: url('/assets/imgs/icon/icon_refresh.png');
+                    }
+                    &.icon_search {
+                        background-image: url('/assets/imgs/icon/icon_refresh.png');
+                    }
+                    &.icon_question {
+                        background-image: url('/assets/imgs/icon/icon_refresh.png');
+                    }
+                }
+                .modal_list_des {
+                    .modal_list_des_title_zh {
+                        color: @primary-color;
+                    }
+                    .modal_list_des_title_en {
+                        color: @primary-color;
+                    }
+                }
+            }
+        }
+    }
+}

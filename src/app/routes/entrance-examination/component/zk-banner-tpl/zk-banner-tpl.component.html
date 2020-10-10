@@ -1,1 +1,37 @@
-<p>zk-banner-tpl works!</p>
+<div class="carousel__wrapper">
+    <nz-carousel nzAutoPlay nzEffect="scrollx">
+        <ng-container *ngFor="let item of list">
+            <div class="list d-flex justify-content-center"
+                nz-carousel-content
+                style="background-image: url({{item.img}});">
+                <div class="carousel_content_wrap">
+                    <div class="text-center text-white carousel_content_title">{{ item.h1 }}</div>
+                    <div class="text-center text-white carousel_content_subTitle my-lg">{{ item.h2 }}</div>
+                    <div class="text-center pt-md view-button">
+                        <!-- <ng-container *ngIf="item.type === 'zk'">
+                            <a [routerLink]="[item.link]" target="_blank" class="entrance_box point d-flex justify-content-around align-items-center">
+                                <div class="entrance_type_logo">
+                                    <img [src]="'/assets/imgs/icon/icon_exam.png'" alt="招考">
+                                </div>
+                                <div class="text-primary text-lg">招考入口 》</div>
+                            </a>
+                        </ng-container>
+
+                        <ng-container *ngIf="item.type === 'zp'">
+                            <a [routerLink]="[item.link]" target="_blank" class="entrance_box point d-flex justify-content-around align-items-center">
+                                <div class="entrance_type_logo">
+                                    <img [src]="'/assets/imgs/icon/icon_exam.png'" alt="招聘">
+                                </div>
+                                <div class="text-primary text-lg">招聘入口 》</div>
+                            </a>
+                        </ng-container> -->
+                        <!-- *ngIf="item.type === 'default'" -->
+                        <ng-container *ngIf="item.url">
+                            <a class="default-btn" (click)="navTo(item.url)" nz-button nzType="primary">前往查看</a>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </nz-carousel>
+</div>

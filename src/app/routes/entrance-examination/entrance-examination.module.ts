@@ -4,18 +4,21 @@ import { SharedModule } from '@shared';
 import { EntranceExaminationRoutingModule } from './entrance-examination-routing.module';
 import { EntranceHomeComponent } from './home/home.component';
 import { ZkBannerTplComponent } from './component/zk-banner-tpl/zk-banner-tpl.component';
+import { ZkAdvertingListTplComponent } from './component/zk-adverting-list-tpl/zk-adverting-list-tpl.component';
 
 const ROUTESCOMPONENTS = [
   EntranceHomeComponent,
-  ZkBannerTplComponent
 ];
 
 const ENTRYCOMPONENTS = [
+  ZkBannerTplComponent,
+  ZkAdvertingListTplComponent
 ];
 
 @NgModule({
   declarations: [
     ...ROUTESCOMPONENTS,
+    ...ENTRYCOMPONENTS
   ],
   imports: [
     SharedModule,
