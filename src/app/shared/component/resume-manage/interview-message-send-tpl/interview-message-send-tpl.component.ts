@@ -144,7 +144,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
           【天府菁英网】${this.resumeInfo.name}，
           您好。天府菁英网提醒您，
           您已通过${this.positionInfo.company.name}-${this.positionInfo.name}岗位的简历初筛，
-          进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，请您合理安排时间准时参加面试。${this.validateForm.value.content}。`
+          进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，请您合理安排时间准时参加面试。${this.validateForm.value.content}`
         // data: `
         //   【天府菁英网】${this.validateForm.value.content}，面试时间：${interview_time}，面试地址：${interview_addr}。`
         // // data: this.validateForm.value.content
