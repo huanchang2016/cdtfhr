@@ -46,8 +46,7 @@
                         </ng-container>
                         <ng-container *ngIf="resumeInfo.registered_province.name === resumeInfo.registered_city.name">
                             {{ resumeInfo.registered_province.name }}
-                        </ng-container>
-                        户口
+                        </ng-container>户口
                     </span>
                 </div>
                 <div>
@@ -73,12 +72,13 @@
       <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试时间</nz-form-label>
       <nz-form-control [nzSpan]="20" nzErrorTip="请选择面试时间">
         <nz-date-picker
-            nzFormat="yyyy/MM/dd HH:mm:ss"
+            nzFormat="yyyy/MM/dd HH:mm"
             [nzDisabledDate]="disabledDate"
             formControlName="time"
-            [nzShowTime]="{ nzHideDisabledOptions: true, nzMinuteStep: 5, nzSecondStep: 30 }"
+            [nzShowTime]="{ nzFormat: 'HH:mm', nzHideDisabledOptions: true, nzMinuteStep: 5 }"
             nzPlaceHolder="请选择面试时间"
             nzSize="large"
+            nzDropdownClassName="isHideNow"
             >
             </nz-date-picker>
       </nz-form-control>
@@ -94,20 +94,28 @@
         <nz-form-label [nzSpan]="4" nzRequired class="text-left">面试通知</nz-form-label>
         <nz-form-control [nzSpan]="20" nzErrorTip="请选择面试通知方式">
           <div class="d-flex mb-sm" style="line-height: 40px;">
-            <label nz-checkbox formControlName="is_email" (ngModelChange)="typeChange()" class="mr-md" [nzDisabled]="!resumeInfo.email">
+            <label nz-checkbox formControlName="is_email" (ngModelChange)="typeChange()" class="mr-md checkbox_24" [nzDisabled]="!resumeInfo.email">
                 <span>邮件通知</span>
             </label>
-            <div>{{ resumeInfo.email }}</div>
+            <div class="interview_link_box">{{ resumeInfo.email }}</div>
             <!-- <input style="width: 400px" nz-input formControlName="email" placeholder="请填写接收通知的邮件地址" nzSize="large" /> -->
           </div>
-          <div class="d-flex" style="line-height: 40px;">
-            <label nz-checkbox formControlName="is_phone" (ngModelChange)="typeChange()" class="mr-md" [nzDisabled]="!resumeInfo.phone">
-                <span>手机短信</span>
-            </label>
-            <div>{{ resumeInfo.phone }}</div>
-            <!-- <input style="width: 400px" nz-input formControlName="phone" placeholder="请填写接收通知短信的手机号码" nzSize="large" /> -->
+          <div>
+              <div class="d-flex" style="line-height: 40px;">
+                <label nz-checkbox formControlName="is_phone" (ngModelChange)="typeChange()" class="mr-md checkbox_24" [nzDisabled]="!resumeInfo.phone">
+                    <span>手机短信</span>
+                </label>
+                <div class="interview_link_box">{{ resumeInfo.phone }}</div>
+
+                <!-- <input style="width: 400px" nz-input formControlName="phone" placeholder="请填写接收通知短信的手机号码" nzSize="large" /> -->
+            </div>
+            <div class="clearfix mt-sm">
+                <span class="text-danger float-left" *ngIf="errorMsg">{{ errorMsg }}</span>
+                <span class="float-right text-xs text-grey" *ngIf="configs">剩余短信<span class="text-primary"> {{ configs.has_message }} </span>条</span>
+            </div>
           </div>
-        <div class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</div>
+          
+        <!-- <div class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</div> -->
         </nz-form-control>
       </nz-form-item>
       
@@ -115,7 +123,8 @@
 
   <div *nzModalFooter class="text-center footer-btn-wrapper">
       <button nz-button nzSize="large" nzType="default" (click)="handleCancel()" class="mr-lg">取 消</button>
-      <button *ngIf="validateForm.get('is_phone').value" nz-button nzSize="large" nzType="default" (click)="view()" class="mr-lg">预 览</button>
+      <!-- *ngIf="validateForm.get('is_phone').value" -->
+      <button nz-button nzSize="large" nzType="default" (click)="view()" class="mr-lg">预 览</button>
       <button nz-button nzSize="large" nzType="primary" (click)="submitForm()" [nzLoading]="submitLoading">发送通知</button>
   </div>
   

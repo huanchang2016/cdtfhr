@@ -7,7 +7,7 @@
         <nz-month-picker [(ngModel)]="end_month" [nzDisabled]="isDisabled" (ngModelChange)="valueChanges()" [nzDisabledDate]="disabledDateEnd" [nzFormat]="monthFormat" [nzPlaceHolder]="placeholder[1]" [nzSize]="size"></nz-month-picker>
     </div>
     <div nz-col [nzSpan]="6" class="text-right" *ngIf="isNow">
-        <label style="line-height: 40px;" nz-checkbox [(ngModel)]="is_now" [nzDisabled]="isDisabled" (ngModelChange)="valueChanges()">至今</label>
+        <label class="checkbox_24" style="line-height: 40px;" nz-checkbox [(ngModel)]="is_now" [nzDisabled]="isDisabled" (ngModelChange)="valueChanges()">至今</label>
     </div>
 </div>
 

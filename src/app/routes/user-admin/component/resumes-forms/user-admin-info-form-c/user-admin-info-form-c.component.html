@@ -47,7 +47,7 @@
                         <app-date-picker-month formControlName="work_date" [placeholder]="'请点击选择您参加工作的时间'" [size]="'large'"></app-date-picker-month>
                     </div>
                     <div nz-col [nzSpan]="8" class="text-right agree_box">
-                        <label nz-checkbox formControlName="is_not_work" nzSize="large" (ngModelChange)="isNotWorkChange($event)">暂无工作经验</label>
+                        <label class="checkbox_24" nz-checkbox formControlName="is_not_work" nzSize="large" (ngModelChange)="isNotWorkChange($event)">暂无工作经验</label>
                     </div>
                 </div>
             </nz-form-control>

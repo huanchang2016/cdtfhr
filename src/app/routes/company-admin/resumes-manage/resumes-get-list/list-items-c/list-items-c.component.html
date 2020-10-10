@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of cardTableTpl.data">
-          <td width="60px" style="border-right: 0;" [nzChecked]="setOfCheckedId.has(data.resume.id)" (nzCheckedChange)="onItemChecked(data.resume.id, $event)"></td>
+          <td class="checkbox_24" width="60px" style="border-right: 0;" [nzChecked]="setOfCheckedId.has(data.resume.id)" (nzCheckedChange)="onItemChecked(data.resume.id, $event)"></td>
           <td width="100px" style="padding-left: 0;">
             <div class="user-logo">
                 <div class="logo_img_box bg-grey border-radius-half text-white d-flex justify-content-center align-items-center">
@@ -59,7 +59,7 @@
               <span class="ml-sm text-grey">{{ data.created_at }}</span>
             </p>
           </td>
-          <td>
+          <td style="vertical-align: top;">
             <div>
               <h3 class="text-666 text-md">工作经历</h3>
               <ng-container *ngIf="data.resume.work_date && data.resume.work && data.resume.work.length !== 0; else notWorkTpl">
@@ -107,7 +107,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of rowSelectionTable.data">
-          <td class="text-left text-nowrap" [nzChecked]="setOfCheckedId.has(data.resume.id)"
+          <td class="text-left text-nowrap checkbox_24" [nzChecked]="setOfCheckedId.has(data.resume.id)"
             (nzCheckedChange)="onItemChecked(data.resume.id, $event)"> &nbsp; 
             <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
           </td>
@@ -137,7 +137,7 @@
   
   <ng-template #footerTpl>
     <div class="text-666 text-md d-flex align-items-center" *ngIf="Config">
-      <label nz-checkbox [(ngModel)]="checked" [nzIndeterminate]="indeterminate"
+      <label class="checkbox_24" nz-checkbox [(ngModel)]="checked" [nzIndeterminate]="indeterminate"
         (ngModelChange)="onAllChecked($event)"></label>
   
       <span class="ml-sm">已选中 <span class="text-primary">{{ setOfCheckedId.size }}</span> 份简历</span>

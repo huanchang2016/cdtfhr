@@ -67,9 +67,9 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       status: this.configs.status,
       ids: [this.resumeInfo.id]
     };
-    if(this.submitLoading) {
-      return;
-    }
+    // if(this.submitLoading) {
+    //   return;
+    // }
     this.submitLoading = true;
     this.settingService.post('/v1/web/com/resume/status/muti', option).subscribe((res: ApiData) => {
       console.log(res);
@@ -92,7 +92,8 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       nzWidth: '800px',
       nzComponentParams: {
         resumeInfo: this.resumeInfo,
-        positionInfo: this.positionInfo
+        positionInfo: this.positionInfo,
+        configs: this.configs
       },
       nzFooter: null
     });

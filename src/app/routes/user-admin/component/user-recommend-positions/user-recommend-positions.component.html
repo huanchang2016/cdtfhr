@@ -6,7 +6,7 @@
             换一批
         </span>
         <span class="checkedall_recommend_positions">
-            <label nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
+            <label class="checkbox_24" nz-checkbox [nzIndeterminate]="indeterminate" [ngModel]="checked" (ngModelChange)="onAllChecked($event)">全选</label>
         </span>
         <button class="request_btn" nzType="primary" nz-button (click)="sendRequest()" [nzLoading]="requestLoading">批量投递</button>
     </div>

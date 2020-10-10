@@ -26,7 +26,7 @@ export class SubAccountFormCComponent implements OnInit {
   ngOnInit(): void {
 
     this.validateForm = this.fb.group({
-      account_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, Validators.required ],
+      account_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, [Validators.required, this.usernameValidator] ],
       password: [null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
       user_member_name: [null, Validators.required ],
@@ -46,7 +46,15 @@ export class SubAccountFormCComponent implements OnInit {
     this.validateForm.get('checkPassword')!.updateValueAndValidity();
     
   }
-
+  
+  usernameValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (/[\u4E00-\u9FA5]/g.test(control.value)) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
   
   updateConfirmValidator(): void {
     /** wait for refresh value */

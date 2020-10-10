@@ -7,9 +7,10 @@
     </nz-form-item>
     <nz-form-item>
         <nz-form-label class="text-left" [nzSpan]="6" nzRequired nzFor="recruiters">招聘人数</nz-form-label>
-        <nz-form-control [nzSpan]="18" nzErrorTip="请填写招聘人数，可以填写：具体人数或者若干">
+        <nz-form-control [nzSpan]="18" nzErrorTip="请填写招聘人数">
             <nz-input-group nzSuffix="人" nzSize="large">
-                <input formControlName="recruiters" id="recruiters" placeholder="请填写招聘人数，可以填写：具体人数或者若干" type="text" nz-input />
+                <!-- ，可以填写：具体人数或者若干 -->
+                <input formControlName="recruiters" id="recruiters" placeholder="请填写招聘人数" type="text" nz-input />
             </nz-input-group>
         </nz-form-control>
     </nz-form-item>
@@ -100,7 +101,7 @@
     <nz-form-item nz-row>
         <nz-form-control [nzSpan]="24">
             <div class="d-flex justify-content-around pt-lg">
-                <button (click)="cancel($event)" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</button>
+                <a (click)="cancel($event)" nz-button nzType="default" class="login-form-button" nzSize="large">取 消</a>
                 <button [nzLoading]="submitLoading" nz-button nzType="primary" class="login-form-button" nzSize="large">{{ data ? '修 改' : '发 布'}}</button>
             </div>
         </nz-form-control>

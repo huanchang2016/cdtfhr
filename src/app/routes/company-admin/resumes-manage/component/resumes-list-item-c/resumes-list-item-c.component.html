@@ -48,7 +48,7 @@
             <span class="ml-sm text-grey">{{ data.created_at }}</span>
           </p>
         </td>
-        <td>
+        <td style="vertical-align: top;">
           <div>
             <h3 class="text-666 text-md">工作经历</h3>
             <ng-container *ngIf="data.resume.work_date && data.resume.work && data.resume.work.length !== 0; else notWorkTpl">

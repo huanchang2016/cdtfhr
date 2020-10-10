@@ -23,7 +23,7 @@
                         <app-date-picker-date ngDefaultcontrol formControlName="end_date" [placeholder]="'请点击选择有效期时间'"></app-date-picker-date>
                     </div>
                     <div nz-col [nzSpan]="6" class="text-right agree_box">
-                        <label nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event)">永久</label>
+                        <label class="checkbox_24" nz-checkbox formControlName="is_not_end" nzSize="large" (ngModelChange)="isNotEndChange($event)">永久</label>
                     </div>
                 </div>
             </nz-form-control>
