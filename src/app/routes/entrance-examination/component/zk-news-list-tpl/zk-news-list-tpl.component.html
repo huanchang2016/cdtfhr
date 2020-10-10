@@ -3,7 +3,14 @@
         <div nz-row [nzGutter]="14">
             <div nz-col nzSpan="10">
                 <app-sub-title-show [title]="'公告公示'" [url]="'/recruit/hot'" [isBold]="false"></app-sub-title-show>
-                <p>zk-news-list-tpl works!</p>
+                <div class="mt-md">
+                    <ng-container *ngFor="let item of listOne">
+                        <div>
+                            <span class="item_style_circle">.</span>
+                            <span>afas;l</span>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
             <div nz-col nzSpan="10" nzOffset="4">
                 <app-sub-title-show [title]="'新闻中心'" [url]="'/recruit/hot'" [isBold]="false"></app-sub-title-show>
