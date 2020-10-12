@@ -60,8 +60,10 @@ export class DatePickerMonthBirthdyComponent implements ControlValueAccessor {
 
 
   disabledDate = (current: Date): boolean => {
-    // Can not select days before today and today
-    return differenceInCalendarDays(current, this.defaultDateValue) > 0;
+    // Can not select days before today and today birthday  > 1940 年 ， 且年龄大于16岁
+    const showMonth:boolean = differenceInCalendarDays(current, this.defaultDateValue) > 0 || differenceInCalendarDays(current, new Date('1940/01/01')) < 0;
+    return showMonth;
+    // return differenceInCalendarDays(current, this.defaultDateValue) > 0;
   };
 
   registerOnChange(fn: any): void {

@@ -36,11 +36,10 @@
                         <span [innerHTML]="resumeInfo.marriage.value | keywordsHiglight"></span>
                     </ng-container>
                     <nz-divider nzType="vertical"></nz-divider>
-                    <span>现居住于
-                        <ng-container *ngIf="resumeInfo.work_city">
-                            <!-- {{ resumeInfo.work_city.name }} -->
-                            <span [innerHTML]="resumeInfo.work_city.name | keywordsHiglight"></span>
-                        </ng-container>
+                    <span>现居住于<span *ngIf="resumeInfo.work_city" [innerHTML]="resumeInfo.work_city.name | keywordsHiglight"></span>
+                        <!-- <ng-container *ngIf="resumeInfo.work_city">
+                            {{ resumeInfo.work_city.name }}
+                        </ng-container> -->
                         <!-- <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">
                             <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
                                 {{ resumeInfo.work_province.name + resumeInfo.work_city.name }}
@@ -69,9 +68,8 @@
                         </ng-container> -->
                         <ng-container *ngIf="resumeInfo.registered_city">
                             <!-- {{ resumeInfo.registered_city.name }} -->
-                            <span [innerHTML]="resumeInfo.registered_city.name | keywordsHiglight"></span>
+                            <span [innerHTML]="resumeInfo.registered_city.name | keywordsHiglight"></span>户口
                         </ng-container>
-                        户口
                     </span>
                 </div>
                 <div>
