@@ -72,6 +72,7 @@
     .status_body {
         .ant-card-body {
             padding: 10px;
+            padding-bottom: 0;
         }
     }
 
@@ -124,7 +125,7 @@
         }
     }
     .ant-steps-vertical.ant-steps-dot .ant-steps-item-icon {
-        margin-top: 0;
+        margin-top: 2px;
     }
 
     .ant-steps-dot .ant-steps-item-icon,
@@ -150,5 +151,20 @@
 
     .ant-steps-vertical.ant-steps-dot .ant-steps-item>.ant-steps-item-container>.ant-steps-item-tail {
         padding: 12px 0 0;
+    }
+
+    .faild_status {
+        .ant-steps-item-container {
+            margin-bottom: 0!important;
+            border-bottom: 0!important;
+            .ant-steps-item-content {
+                height: 30px!important;
+                min-height: 30px!important;
+                .ant-steps-item-description {
+                    padding: 0!important;
+                }
+            }
+
+        }
     }
 }
