@@ -1,3 +1,4 @@
+import { UserDataService } from './../../service/user-data.service';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ResumeTitleTplComponent } from '../../component/resume-title-tpl/resume-title-tpl.component';
@@ -21,6 +22,7 @@ export class ResumeListComponent implements OnInit {
   constructor(
     private modal: NzModalService,
     private settingService: GlobalSettingsService,
+    private userService: UserDataService,
     private msg: NzMessageService
   ) {
     this.settingService.setTitle('我的简历-简历管理-天府菁英网');
@@ -58,14 +60,19 @@ export class ResumeListComponent implements OnInit {
     this.openItemOption[data.id] = true;
     this.settingService.post(`/v1/web/user/resume/privacy/${data.id}`, option).subscribe((res:ApiData) => {
       this.openItemOption[data.id] = false;
-      this.msg.success(res.message);
-      // this.updateList(res.data);
-      this.list = this.list.map( v => {
-        if(v.id === res.data.id) {
-          v.privacy = res.data.privacy;
-        }
-        return v;
-      });
+      if(res.code === 200) {
+        this.msg.success(res.message);
+        // this.updateList(res.data);
+        this.list = this.list.map( v => {
+          if(v.id === res.data.id) {
+            v.privacy = res.data.privacy;
+          }
+          return v;
+        });
+      }else {
+        this.msg.error(res.message);
+      }
+      
     }, err => this.openItemOption[data.id] = false)
   }
 
@@ -74,8 +81,14 @@ export class ResumeListComponent implements OnInit {
     this.defaultItemOption[data.id] = true;
     this.settingService.post(`/v1/web/user/resume/set_default/${data.id}`).subscribe((res:ApiData) => {
       this.defaultItemOption[data.id] = false;
-      this.msg.success(res.message);
-      this.resetListDefault(data.id);
+      if(res.code === 200) {
+        this.msg.success(res.message);
+        this.resetListDefault(data.id);
+        this.userService.getProfile().then();
+      }else {
+        this.msg.error(res.message);
+      }
+      
     }, err => this.defaultItemOption[data.id] = false)
   }
   resetListDefault(id:number):void {
