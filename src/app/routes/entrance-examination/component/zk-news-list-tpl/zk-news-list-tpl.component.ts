@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 export class ZkNewsListTplComponent implements OnInit {
 
 
-  listOne:any[] = [1, 2, 3];
-  listTwo:any[] = [1, 2, 3];
+  listOne:any[] = [1, 2, 3, 4, 5];
+  listTwo:any[] = [1, 2, 3, 4, 5];
 
   constructor(
     private settingService: GlobalSettingsService

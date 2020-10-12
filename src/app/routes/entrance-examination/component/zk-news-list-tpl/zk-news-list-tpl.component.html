@@ -5,16 +5,27 @@
                 <app-sub-title-show [title]="'公告公示'" [url]="'/recruit/hot'" [isBold]="false"></app-sub-title-show>
                 <div class="mt-md">
                     <ng-container *ngFor="let item of listOne">
-                        <div>
-                            <span class="item_style_circle">.</span>
-                            <span>afas;l</span>
+                        <div class="d-flex align-items-center item_box_wrapper text-md">
+                            <span class="item_style_circle text-grey mr-sm">·</span>
+                            <span class="item_title text-grey text-truncate flex-1">四川天府农博园投资有限公司市场化选聘副总经理拟聘用经理拟聘用经理拟聘用</span>
+                            <span class="d-block item_update_time text-grey-dark clearfix">
+                                <div class="float-right">08-10</div>
+                            </span>
                         </div>
                     </ng-container>
                 </div>
             </div>
             <div nz-col nzSpan="10" nzOffset="4">
                 <app-sub-title-show [title]="'新闻中心'" [url]="'/recruit/hot'" [isBold]="false"></app-sub-title-show>
-                <p>zk-news-list-tpl works!</p>
+                <div class="mt-md">
+                    <ng-container *ngFor="let item of listOne">
+                        <div class="d-flex align-items-center item_box_wrapper text-md">
+                            <span class="item_style_circle text-grey mr-sm">·</span>
+                            <span class="item_title text-grey text-truncate flex-1">2300万年前“木乃伊叶片”可以洞见未来地球气候变迁木乃伊叶片木乃伊叶片</span>
+                            <span class="d-block item_update_time text-right text-grey-dark">| 12-12</span>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
         </div>
     </div>
