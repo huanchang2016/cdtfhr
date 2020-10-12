@@ -64,6 +64,12 @@ export class ResumeViewComponent implements OnInit {
     });
 
   }
+
+  downLoadSuccessChange():void {
+    // 下载成功后，重新获取简历详情数据
+    let url = `/v1/web/com/resume_detail/${this.resume_id}`;
+    this.getResumeInfo(url);
+  }
   
   getLogConfigs():void {
     let opt:any = { resume_id: this.resume_id };

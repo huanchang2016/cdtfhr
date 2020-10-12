@@ -1,6 +1,6 @@
 <div class="wrapper-box">
     <h3 class="text-lg text-center text-666">
-        本次下载将使用<span class="text-primary" [class.text-danger]="setOfCheckedId.size > download_num"> {{ setOfCheckedId.size }}</span> 个下载次数。
+        本次下载将使用<span class="text-primary" [class.text-danger]="setOfCheckedId.size > download_num"> {{ setOfCheckedId.size || (beRelated ? 1 : 0) }}</span> 个下载次数。
     </h3>
     <p class="text-center">下载剩余次数 {{ download_num }}</p>
     <div class="mt-lg text-666 text-center" style="line-height: 40px; background-color: #E8EAEB;color:#808E9A;">简历关联到职位</div>

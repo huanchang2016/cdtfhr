@@ -22,6 +22,7 @@ export class ResumeOperTplComponent implements OnInit {
   @Input() configs:any;
 
   @Output() configEmitChange:EventEmitter<any> = new EventEmitter();
+  @Output() downLoadSuccessChange:EventEmitter<any> = new EventEmitter();
   
   constructor(
     private modal: NzModalService,
@@ -107,6 +108,7 @@ export class ResumeOperTplComponent implements OnInit {
       if(result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录等信息
         this.resetConfigs();
+        this.downLoadSuccessChange.emit();
       }
     });
 

@@ -10,10 +10,11 @@ import { differenceInYears } from 'date-fns';
 })
 export class ResumesListItemCComponent implements OnChanges {
   @Input() itemType:string;
+  @Input() category:string;
   @Input() dataOption:any;
   @Input() loadingData:boolean;
   @Input() posId?:number;
-
+  
   @Output() pageOptionChanges:EventEmitter<any> = new EventEmitter();
 
   environment = environment;

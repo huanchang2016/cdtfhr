@@ -3,6 +3,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInYears } from 'date-fns';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
+import { worker } from 'cluster';
 
 @Component({
   selector: 'app-resumes-list',
@@ -33,6 +34,7 @@ export class ResumesListComponent implements OnInit {
 
   searchConfigs:any = {};
 
+  keywords: string = ''; // 关键字高亮显示： 是否含任一关键词
 
   ngOnInit(): void {
     this.getHistoryRecord();
@@ -177,6 +179,13 @@ export class ResumesListComponent implements OnInit {
     console.log('search option change', option);
     if(option.name) { // 关键字必填才可以搜索
       this.searchConfigs = option;
+        let words:string;
+      if(this.searchConfigs.is_any_key) {
+        words = JSON.stringify(this.searchConfigs.name.split(' ').filter(v => v).map(v => v.trim()));
+      }else {
+        words = JSON.stringify([this.searchConfigs.name.trim()]);
+      }
+      this.keywords = words;
       this.getDataList();
     }else {
       this.listOfData = [];

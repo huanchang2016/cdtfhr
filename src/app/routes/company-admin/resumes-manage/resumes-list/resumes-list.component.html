@@ -42,23 +42,23 @@
     >
       <thead>
         <tr>
-          <th>姓名</th>
-          <th>性别</th>
-          <th class="text-nowrap">年龄</th>
-          <th class="text-center">工作经验</th>
-          <th class="text-nowrap">学历</th>
+          <th nzWidth="90px">姓名</th>
+          <th nzWidth="60px">性别</th>
+          <th nzWidth="60px" class="text-nowrap">年龄</th>
+          <th class="text-center" nzWidth="90px">工作经验</th>
+          <th nzWidth="60px" class="text-nowrap">学历</th>
           <th>学校</th>
           <th>专业</th>
           <th>最近就职公司</th>
-          <th>最近职位</th>
-          <th class="text-center text-nowrap">相关度</th>
-          <th>刷新时间</th>
+          <th nzWidth="90px">最近职位</th>
+          <th nzWidth="80px" class="text-center text-nowrap">相关度</th>
+          <th nzWidth="110px">刷新时间</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of tableTpl.data">
           <td>
-            <a [routerLink]="['/fullscreen/resume/view', data.id]" target="_blank" class="text-nowrap">{{ data.name }}</a>
+            <a [routerLink]="['/fullscreen/resume/view', data.id]" [queryParams]="{ keywords: keywords }" target="_blank" class="text-nowrap">{{ data.name }}</a>
           </td>
           <td>{{ data.sex }}</td>
           <td>

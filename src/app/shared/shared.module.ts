@@ -45,6 +45,7 @@ import { OperDeliverListTplComponent } from './component/resume-manage/resume-op
 import { ThreePositionTypeCascaderComponent } from './component/forms/three-position-type-cascader/three-position-type-cascader.component';
 import { ResumesListShowCComponent } from './component/position-apply/resumes-list-show-c/resumes-list-show-c.component';
 import { DatePickerMonthBirthdyComponent } from './component/forms/date-picker-month-birthdy/date-picker-month-birthdy.component';
+import { KeywordsSearchHiglightPipe } from './pipe/keywords-search-higlight.pipe';
 
 // #region third libs
 
@@ -107,7 +108,8 @@ const ENTRYCOMPONENTS = [
 
 const DIRECTIVES = [
   ShowTextAreaPipe,
-  ShowWeekendsPipe
+  ShowWeekendsPipe,
+  KeywordsSearchHiglightPipe
 ];
 
 // #endregion

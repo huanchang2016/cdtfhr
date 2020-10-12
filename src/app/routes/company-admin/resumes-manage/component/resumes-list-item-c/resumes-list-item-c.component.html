@@ -44,8 +44,8 @@
           <p class="text-666">求职状态
             <span class="ml-sm text-grey">{{ data.resume.status }}</span>
           </p>
-          <p class="text-666">投递时间
-            <span class="ml-sm text-grey">{{ data.created_at }}</span>
+          <p class="text-666">{{ category === 'download' ? '下载' : '收藏' }}时间
+            <span class="ml-sm text-grey">{{ category === 'download' ? data.created_at : data.updated_at }}</span>
           </p>
         </td>
         <td style="vertical-align: top;">
@@ -78,16 +78,16 @@
     [nzPageIndex]="pageOption.current_page" (nzQueryParams)="onQueryParamsChange($event)" [nzFooter]="footerTpl">
     <thead>
       <tr>
-        <th>姓名</th>
-        <th>性别</th>
-        <th>年龄</th>
-        <th>工作年限</th>
-        <th>学历</th>
+        <th nzWidth="90px">姓名</th>
+        <th nzWidth="60px">性别</th>
+        <th nzWidth="60px">年龄</th>
+        <th nzWidth="90px">工作年限</th>
+        <th nzWidth="60px">学历</th>
         <th>学校</th>
         <th>专业</th>
         <th>最近就职公司</th>
-        <th>最近职位</th>
-        <th>投递时间</th>
+        <th nzWidth="90px">最近职位</th>
+        <th nzWidth="110px">{{ category === 'download' ? '下载' : '收藏' }}时间</th>
       </tr>
     </thead>
     <tbody>
@@ -113,7 +113,7 @@
             {{ data.resume.work[0].position_name }}
           </ng-container>
         </td>
-        <td class="text-nowrap">{{ data.created_at }}</td>
+        <td class="text-nowrap">{{ category === 'download' ? data.created_at : data.updated_at }}</td>
       </tr>
     </tbody>
   </nz-table>
