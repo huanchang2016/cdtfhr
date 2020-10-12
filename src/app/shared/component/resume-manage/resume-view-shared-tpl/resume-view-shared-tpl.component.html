@@ -16,11 +16,14 @@
         </div>
         <div class="user-info">
             <div class="user-info_wrapper text-grey d-flex justify-content-around flex-column">
-                <h3 class="text-666 text-lg">{{ resumeInfo.name }} <span
-                        class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at }}</span>
+                <h3 class="text-666 text-lg">
+                    <!-- {{ resumeInfo.name | keywordsHiglight }} -->
+                    <span [innerHTML]="resumeInfo.name | keywordsHiglight"></span>
+                    <span class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at }}</span>
                 </h3>
                 <div class="text-sm">
-                    <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span>
+                    <!-- <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span> -->
+                    <span [innerHTML]="(resumeInfo.sex === 1 ? '男' : '女') | keywordsHiglight"></span>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span [innerHTML]="countYears(resumeInfo.work_date)"></span>
                     <ng-container *ngIf="resumeInfo.birthday">
@@ -29,12 +32,14 @@
                     </ng-container>
                     <ng-container *ngIf="resumeInfo.marriage.value">
                         <nz-divider nzType="vertical"></nz-divider>
-                        <span>{{ resumeInfo.marriage.value }}</span>
+                        <!-- <span>{{ resumeInfo.marriage.value }}</span> -->
+                        <span [innerHTML]="resumeInfo.marriage.value | keywordsHiglight"></span>
                     </ng-container>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span>现居住于
                         <ng-container *ngIf="resumeInfo.work_city">
-                            {{ resumeInfo.work_city.name }}
+                            <!-- {{ resumeInfo.work_city.name }} -->
+                            <span [innerHTML]="resumeInfo.work_city.name | keywordsHiglight"></span>
                         </ng-container>
                         <!-- <ng-container *ngIf="resumeInfo.work_province && resumeInfo.work_city">
                             <ng-container *ngIf="resumeInfo.work_province.name !== resumeInfo.work_city.name">
@@ -47,9 +52,10 @@
                     </span>
                     <nz-divider nzType="vertical"></nz-divider>
                     <span *ngIf="resumeInfo.education.data.length !== 0">
-                        <span>
+                        <!-- <span>
                             {{ resumeInfo.education.data[0].education.value }}
-                        </span>
+                        </span> -->
+                        <span [innerHTML]="resumeInfo.education.data[0].education.value | keywordsHiglight"></span>
                         <nz-divider nzType="vertical"></nz-divider>
                     </span>
                     <span>
@@ -62,7 +68,8 @@
                             </ng-container>
                         </ng-container> -->
                         <ng-container *ngIf="resumeInfo.registered_city">
-                            {{ resumeInfo.registered_city.name }}
+                            <!-- {{ resumeInfo.registered_city.name }} -->
+                            <span [innerHTML]="resumeInfo.registered_city.name | keywordsHiglight"></span>
                         </ng-container>
                         户口
                     </span>
@@ -87,7 +94,7 @@
     <ng-template #notSelfEvalution>
         <span class="text-grey pl-md">未填写自我评价</span>
     </ng-template>
-    <div *ngIf="resumeInfo.self_evalution; else notSelfEvalution" class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText"></div>
+    <div *ngIf="resumeInfo.self_evalution; else notSelfEvalution" class="text-grey text-sm" [innerHTML]="resumeInfo.self_evalution | showTextAreaText | keywordsHiglight"></div>
 </div>
 
 <div class="content_div mb-md" id="user-job-intension">
@@ -98,29 +105,39 @@
         <div>期望工作地区：
             <ng-container *ngFor="let city of resumeInfo.target.city; let city_idx = index">
                 <nz-divider nzType="vertical" *ngIf="city_idx !== 0"></nz-divider>
-                {{ city.name }}
+                <span [innerHTML]="city.name | keywordsHiglight"></span>
+                <!-- {{ city.name }} -->
             </ng-container>
         </div>
         <div>期望工作性质：
             <ng-container *ngFor="let type of resumeInfo.target.type; let type_idx = index">
                 <nz-divider nzType="vertical" *ngIf="type_idx !== 0"></nz-divider>
-                {{ type.value }}
+                <!-- {{ type.value }} -->
+                <span [innerHTML]="type.value | keywordsHiglight"></span>
             </ng-container>
         </div>
         <div>期望从事行业：
             <ng-container *ngFor="let industry of resumeInfo.target.industry; let industry_idx = index">
                 <nz-divider nzType="vertical" *ngIf="industry_idx !== 0"></nz-divider>
-                {{ industry?.name }}
+                <span [innerHTML]="industry?.name | keywordsHiglight"></span>
+                <!-- {{ industry?.name }} -->
             </ng-container>
         </div>
         <div>期望职业：
             <ng-container *ngFor="let job_type of resumeInfo.target.job_type; let job_type_idx = index">
                 <nz-divider nzType="vertical" *ngIf="job_type_idx !== 0"></nz-divider>
-                {{ job_type.name }}
+                <span [innerHTML]="job_type.name | keywordsHiglight"></span>
+                <!-- {{ job_type.name }} -->
             </ng-container>
         </div>
-        <div>期望月薪： <span *ngIf="resumeInfo.target.salary">{{ resumeInfo.target.salary.value }} /月</span></div>
-        <div>求职状态： <span *ngIf="resumeInfo.target.status">{{ resumeInfo.target.status.value }}</span></div>
+        <div>期望月薪： <span *ngIf="resumeInfo.target.salary" [innerHTML]="resumeInfo.target.salary.value | keywordsHiglight">
+            <!-- {{ resumeInfo.target.salary.value }} /月 -->
+            </span> /月
+        </div>
+        <div>求职状态： <span *ngIf="resumeInfo.target.status" [innerHTML]="resumeInfo.target.status.value | keywordsHiglight">
+                <!-- {{ resumeInfo.target.status.value }} -->
+            </span>
+        </div>
     </div>
 </div>
 
@@ -136,7 +153,9 @@
         <ng-container *ngFor="let work of resumeInfo.work.data">
             <div class="item_card_box mb-md">
                 <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
-                    {{ work.name }}</h4>
+                    <span [innerHTML]="work.name | keywordsHiglight"></span>
+                    <!-- {{ work.name }} -->
+                </h4>
                 <div class="item_card_body text-grey">
                     <div class="text-sm">
                         <p>
@@ -147,17 +166,25 @@
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ countMonth(work.start_time, work.end_time)}}
                         </p>
-                        <p>{{ work.position }} <nz-divider nzType="vertical"></nz-divider> {{ work.salary?.value }}
-                            /月</p>
                         <p>
-                            {{ work.industry?.name }}
+                            <!-- {{ work.position }} -->
+                            <span [innerHTML]="work.position | keywordsHiglight"></span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ work.type?.value }}
+                            <span [innerHTML]="work.salary?.value | keywordsHiglight"></span> /月
+                            <!-- {{ work.salary?.value }} /月 -->
+                        </p>
+                        <p>
+                            <!-- {{ work.industry?.name }} -->
+                            <span [innerHTML]="work.industry?.name | keywordsHiglight"></span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ work.scale?.value }}
+                            <span [innerHTML]="work.type?.value | keywordsHiglight"></span>
+                            <!-- {{ work.type?.value }} -->
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span [innerHTML]="work.scale?.value | keywordsHiglight"></span>
+                            <!-- {{ work.scale?.value }} -->
                         </p>
                         <div class="text-666 mt-sm">工作描述：</div>
-                        <div [innerHTML]="work.description | showTextAreaText"></div>
+                        <div [innerHTML]="work.description | showTextAreaText | keywordsHiglight"></div>
                     </div>
                 </div>
             </div>
@@ -176,7 +203,9 @@
         <ng-container *ngFor="let practice of resumeInfo.practice.data">
             <div class="item_card_box mb-md">
                 <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
-                    {{ practice.name }}</h4>
+                    <!-- {{ practice.name }} -->
+                    <span [innerHTML]="practice.name | keywordsHiglight"></span>
+                </h4>
                 <div class="item_card_body text-grey">
                     <div class="text-sm">
                         <p>
@@ -187,17 +216,25 @@
                             <nz-divider nzType="vertical"></nz-divider>
                             {{ countMonth(practice.start_time, practice.end_time)}}
                         </p>
-                        <p>{{ practice.position }} <nz-divider nzType="vertical"></nz-divider>
-                            {{ practice.salary.value }} /月</p>
                         <p>
-                            {{ practice.industry?.name }}
+                            <!-- {{ practice.position }} -->
+                            <span [innerHTML]="practice.position | keywordsHiglight"></span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ practice.type.value }}
+                            <span [innerHTML]="practice.salary.value | keywordsHiglight"></span> /月
+                            <!-- {{ practice.salary.value }} /月 -->
+                        </p>
+                        <p>
+                            <!-- {{ practice.industry?.name }} -->
+                            <span [innerHTML]="practice.industry?.name | keywordsHiglight"></span>
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ practice.scale.value }}
+                            <span [innerHTML]="practice.type.value | keywordsHiglight"></span>
+                            <!-- {{ practice.type.value }} -->
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span [innerHTML]="practice.scale.value | keywordsHiglight"></span>
+                            <!-- {{ practice.scale.value }} -->
                         </p>
                         <div class="text-666 mt-sm">工作描述：</div>
-                        <div [innerHTML]="practice.description | showTextAreaText"></div>
+                        <div [innerHTML]="practice.description | showTextAreaText | keywordsHiglight"></div>
                     </div>
                 </div>
             </div>
@@ -215,7 +252,10 @@
     <div *ngIf="resumeInfo.project.data.length !== 0; else notProject">
         <ng-container *ngFor="let project of resumeInfo.project.data">
             <div class="item_card_box mb-md">
-                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ project.name }}</h4>
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
+                    <span [innerHTML]="project.name | keywordsHiglight"></span>
+                    <!-- {{ project.name }} -->
+                </h4>
                 <div class="item_card_body text-grey">
                     <div class="text-sm">
                         <p>
@@ -225,7 +265,7 @@
                             <ng-container *ngIf="!project.end_time">至今</ng-container>
                         </p>
                         <div class="text-666 mt-sm">责任描述：</div>
-                        <div [innerHTML]="project.description | showTextAreaText"></div>
+                        <div [innerHTML]="project.description | showTextAreaText | keywordsHiglight"></div>
                     </div>
                 </div>
             </div>
@@ -243,7 +283,10 @@
     <div *ngIf="resumeInfo.education.data.length !== 0; else notEducation">
         <ng-container *ngFor="let education of resumeInfo.education.data">
             <div class="item_card_box mb-md">
-                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ education.name }}</h4>
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
+                    <!-- {{ education.name }} -->
+                    <span [innerHTML]="education.name | keywordsHiglight"></span>
+                </h4>
                 <div class="item_card_body text-grey">
                     <div class="text-sm">
                         <p>
@@ -252,9 +295,11 @@
                                 {{ education.end_time | date: 'yyyy.MM' }}</ng-container>
                             <ng-container *ngIf="!education.end_time">至今</ng-container>
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ education.major }}
+                            <span [innerHTML]="education.major | keywordsHiglight"></span>
+                            <!-- {{ education.major }} -->
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ education.education.value }}
+                            <span [innerHTML]="education.education.value | keywordsHiglight"></span>
+                            <!-- {{ education.education.value }} -->
                         </p>
                     </div>
                 </div>
@@ -281,12 +326,14 @@
                         <p>
                             培训内容
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ training.description }}
+                            <!-- {{ training.description }} -->
+                            <span [innerHTML]="training.description | keywordsHiglight"></span>
                         </p>
                         <p>
                             培训机构
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ training.name }}
+                            <span [innerHTML]="training.name | keywordsHiglight"></span>
+                            <!-- {{ training.name }} -->
                         </p>
                     </div>
                 </div>
@@ -307,7 +354,10 @@
             <div class="item_card_box mb-md">
                 <h4 class="item_title_name bg-white text-grey text-sm">{{ certificate.time | date: 'yyyy.MM' }}</h4>
                 <div class="item_card_body">
-                    <div class="text-md text-666 font-weight-bold">{{ certificate.name }}</div>
+                    <div class="text-md text-666 font-weight-bold">
+                        <span [innerHTML]="certificate.name | keywordsHiglight"></span>
+                        <!-- {{ certificate.name }} -->
+                    </div>
                 </div>
             </div>
         </ng-container>
@@ -324,19 +374,23 @@
     <div *ngIf="resumeInfo.language.data.length !== 0; else notLanguage">
         <ng-container *ngFor="let language of resumeInfo.language.data">
             <div class="item_card_box mb-md">
-                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">{{ language.language.value }}
+                <h4 class="item_title_name bg-white text-666 font-weight-bold text-md">
+                    <!-- {{ language.language.value }} -->
+                    <span [innerHTML]="language.language.value | keywordsHiglight"></span>
                 </h4>
                 <div class="item_card_body text-grey">
                     <div class="text-sm">
                         <p>
                             听说能力
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ language.listening_speaking }}
+                            <span [innerHTML]="language.listening_speaking | keywordsHiglight"></span>
+                            <!-- {{ language.listening_speaking }} -->
                         </p>
                         <p>
                             读写能力
                             <nz-divider nzType="vertical"></nz-divider>
-                            {{ language.reading_writing }}
+                            <span [innerHTML]="language.reading_writing | keywordsHiglight"></span>
+                            <!-- {{ language.reading_writing }} -->
                         </p>
                     </div>
                 </div>
@@ -353,7 +407,7 @@
         <span class="text-grey pl-md">暂无兴趣爱好</span>
     </ng-template>
     <div *ngIf="resumeInfo.hobby; else notHobby">
-        <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText"></div>
+        <div class="text-grey text-sm" [innerHTML]="resumeInfo.hobby | showTextAreaText | keywordsHiglight"></div>
     </div>
     
 </div>

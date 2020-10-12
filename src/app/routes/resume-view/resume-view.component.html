@@ -25,7 +25,7 @@
                 </div>
                 <div class="float-right resume-show_oper_box">
                     <nz-affix nzOffsetTop="0">
-                        <app-resume-oper-tpl [resumeInfo]="resumeInfo" [params]="params" [configs]="configs" (configEmitChange)="getLogConfigs()"></app-resume-oper-tpl>
+                        <app-resume-oper-tpl [resumeInfo]="resumeInfo" [params]="params" [configs]="configs" (configEmitChange)="getLogConfigs()" (downLoadSuccessChange)="downLoadSuccessChange()"></app-resume-oper-tpl>
                         
                         <ng-container *ngIf="params.posId">
                             <app-resume-status-handle-process-tpl [positionId]="params.posId" [resumeInfo]="resumeInfo" [configs]="configs" (configEmitChange)="getLogConfigs()"></app-resume-status-handle-process-tpl>
