@@ -1,0 +1,21 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="details_content_wrapper bg-white border-radius-sm">
+            <ng-container *ngIf="!loading; else loadingTpl">
+                <h2 class="details_title text-center text-666 text-lg py-sm">{{ dataInfo.title }}</h2>
+                <div nz-row nzGutter="24" class="mt-lg">
+                    <div nz-col nzSpan="6" class="text-grey-dark">来源：{{ dataInfo.source }}</div>
+                    <div nz-col nzSpan="6" class="text-grey-dark">时间：{{ dataInfo.create_time }}</div>
+                    <div nz-col nzSpan="6" class="text-grey-dark">作者：{{ dataInfo.author }}</div>
+                    <div nz-col nzSpan="6" class="text-grey-dark">浏览量：{{ dataInfo.view_number }}</div>
+                </div>
+                <div class="mt-md text-grey" [innerHTML]="dataInfo.content | safeHtml"></div>
+            </ng-container>
+            <ng-template #loadingTpl>
+                <div class="text-center py-lg">
+                    <nz-spin nzSimple></nz-spin>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

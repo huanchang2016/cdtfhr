@@ -46,6 +46,7 @@ import { ThreePositionTypeCascaderComponent } from './component/forms/three-posi
 import { ResumesListShowCComponent } from './component/position-apply/resumes-list-show-c/resumes-list-show-c.component';
 import { DatePickerMonthBirthdyComponent } from './component/forms/date-picker-month-birthdy/date-picker-month-birthdy.component';
 import { KeywordsSearchHiglightPipe } from './pipe/keywords-search-higlight.pipe';
+import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 
 // #region third libs
 
@@ -109,6 +110,7 @@ const ENTRYCOMPONENTS = [
 const DIRECTIVES = [
   ShowTextAreaPipe,
   ShowWeekendsPipe,
+  SafeHtmlPipe,
   KeywordsSearchHiglightPipe
 ];
 

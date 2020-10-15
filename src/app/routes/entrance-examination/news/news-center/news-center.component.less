@@ -1,0 +1,28 @@
+@import './../../../../../styles/base-color.less';
+
+.question_modal_wrapper {
+    padding: 40px 0 30px;
+    background-color: #F0F0F0;
+    .questions_content_wrapper {
+        .header_title_wrapper {
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px 0 16px;
+        }
+        .update_time {
+            width: 140px;
+        }
+        .questions_wrapper_body {
+            min-height: 200px;
+            .list_item {
+                line-height: 40px;
+                border-top: 1px solid #F0F0F0;
+                padding: 0 20px 0 16px;
+
+                &:hover {
+                    text-shadow: 0px 1px 2px @primary-color;
+                }
+            }
+        }
+    }
+}

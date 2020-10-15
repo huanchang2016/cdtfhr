@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +9,14 @@ import { Title } from '@angular/platform-browser';
 export class EntranceHomeComponent implements OnInit {
 
   constructor(
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+  }
+
+  navTo(url:string):void {
+    this.router.navigateByUrl(url);
   }
 
 }

@@ -1,0 +1,23 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="questions_content_wrapper bg-white border-radius-sm">
+            <h2 class="text-center text-grey text-md">常见问题</h2>
+            <div class="questions_wrapper_body">
+                <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
+                    <ng-container *ngFor="let data of list">
+                        <div class="list_item text-md">
+                            <div class="list_item_title text-666">Q：一般广告提交多久后能变为待投放？</div>
+                            <div class="list_item_answer text-grey">A：为了确保您的广告能及时投放，我们会尽快对您提交的广告进行查看。一般情况下，广告提交后的一个工作日内状态会变为待投放， 符合接入规范的广告即可投放。周六周日不
+                                进行状态变更工作。如有需要，请提前提交广告。</div>
+                        </div>
+                    </ng-container>
+                </nz-spin>
+            </div>
+        </div>
+
+        <div class="pagination_wrapper mt-lg" *ngIf="total">
+            <app-pagination-item [total]="total" [limit]="limit" [currentPage]="pageIndex"
+                (pageIndexEmit)="pageIndexChange($event)"></app-pagination-item>
+        </div>
+    </div>
+</div>
