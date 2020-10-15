@@ -21,8 +21,8 @@
             -->
             <div class="clearfix" *ngIf="settingService.user.type === 'company'">
                 <div class="resume-show_oper_view_body float-left">
-                    <div class="prev_btn resume_btn_wrapper point" (click)="viewResumeInfo('prev')"></div>
-                    <div class="next_btn resume_btn_wrapper point" (click)="viewResumeInfo('next')"></div>
+                    <div class="prev_btn resume_btn_wrapper point" [class.has_no_resume_info]="paginationIds && paginationIds.prev === 0" (click)="viewResumeInfo('prev')"></div>
+                    <div class="next_btn resume_btn_wrapper point" [class.has_no_resume_info]="paginationIds && paginationIds.next === 0" (click)="viewResumeInfo('next')"></div>
                     <div class="resume_details_content">
                         <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
                     </div>

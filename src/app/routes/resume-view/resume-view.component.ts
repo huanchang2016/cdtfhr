@@ -15,6 +15,8 @@ export class ResumeViewComponent implements OnInit {
 
   resume_id:number;
 
+  paginationIds:any = null;
+
   resumeInfo:any = null;
   loadingData:boolean = false;
 
@@ -53,6 +55,7 @@ export class ResumeViewComponent implements OnInit {
       id = this.pagination.next;
     }
     if (!id) {
+      console.log('there is no data in next or prev!')
       return;
     }
     this.router.navigate([`/fullscreen/resume/view/${id}`], { queryParams: this.params });
@@ -120,7 +123,6 @@ export class ResumeViewComponent implements OnInit {
   getResumeInfo(url:string):void {
     this.loadingData = true;
     this.settingService.post(url,).subscribe((res:ApiData) => {
-      console.log('resumeInfo works!', res.data);
       this.loadingData = false;
       if(res.code === 200 && res.data) {
         this.resumeInfo = res.data;
@@ -140,12 +142,14 @@ export class ResumeViewComponent implements OnInit {
   getCompanyViewResumeInfo(url:string):void {
     this.loadingData = true;
     this.settingService.post(url, { resume_id: this.resume_id, ...this.searchOption }).subscribe((res:ApiData) => {
-      console.log('resumeInfo works! sssssssssss', res.data);
       this.loadingData = false;
       if(res.code === 200 && res.data) {
         this.resumeInfo = res.data;
         this.pagination = res.meta.ids;
         this.settingService.setTitle(`${this.resumeInfo.title}-${this.resumeInfo.name}-简历预览-天府菁英网`);
+        if(res.meta.ids) {
+          this.paginationIds = res.meta.ids;
+        }
       }else {
         this.resumeInfo = null;
         this.settingService.setTitle(`简历预览-天府菁英网`);
