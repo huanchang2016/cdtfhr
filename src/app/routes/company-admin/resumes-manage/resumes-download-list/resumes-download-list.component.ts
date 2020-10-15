@@ -124,11 +124,26 @@ export class ResumesDownloadListComponent implements OnInit {
             current_page: res.meta.pagination.current_page
           }
         }
+        this.dealSearchRecord(option);
       }
 
     }, err => this.loadingData = false)
   }
-
+  params:any = {};
+  dealSearchRecord(option:any):void {
+    let opt:any = {};
+    for (const item in option) {
+      if (Object.prototype.hasOwnProperty.call(option, item)) {
+        const element = option[item];
+        if(element && item !== 'job_id') {
+          opt[item] = element;
+        }
+      }
+    }
+    opt['download_job_id'] = this.positionId;
+    this.params = JSON.stringify({ ...opt });
+    console.log(this.params, '下载记录 搜索条件  paramsparamsparamsparams')
+  }
 
   showMoreSearch():void {
     this.is_more = !this.is_more;

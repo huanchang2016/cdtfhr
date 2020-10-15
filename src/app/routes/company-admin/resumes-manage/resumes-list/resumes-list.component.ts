@@ -35,6 +35,7 @@ export class ResumesListComponent implements OnInit {
   searchConfigs:any = {};
 
   keywords: string = ''; // 关键字高亮显示： 是否含任一关键词
+  params: any; //  记录当前搜索条件
 
   ngOnInit(): void {
     this.getHistoryRecord();
@@ -137,8 +138,8 @@ export class ResumesListComponent implements OnInit {
       }
     }
 
-    if(val.length > 20) {
-      val = val.slice(0, 20) + '......';
+    if(val.length > 28) {
+      val = val.slice(0, 28) + '......';
     }
     return val;
   }
@@ -156,6 +157,7 @@ export class ResumesListComponent implements OnInit {
       limit: this.searchOptions.pageSize,
       page: this.searchOptions.pageIndex
     };
+    
     this.loadingData = true;
 
     this.settingService.post(`/v1/web/com/resume/search`, option).subscribe( (res:ApiData) => {
@@ -171,15 +173,31 @@ export class ResumesListComponent implements OnInit {
         this.total = res.meta.pagination.total;
         // 搜索后，需要重新获取 搜索记录
         this.getHistoryRecord();
+        // 搜索成功后，处理记录当前的搜索条件
+        this.dealSearchRecord();
       }
     }, err => this.loadingData = false);
+  }
+
+  dealSearchRecord():void {
+    let opt:any = {};
+    for (const item in this.searchConfigs) {
+      if (Object.prototype.hasOwnProperty.call(this.searchConfigs, item)) {
+        const element = this.searchConfigs[item];
+        if(element && item !== 'is_any_key') {
+          opt[item] = element;
+        }
+      }
+    }
+    opt.is_any_key = this.searchConfigs.is_any_key;
+    this.params = JSON.stringify({ ...opt, sort: this.searchOptions.sort });
   }
 
   searchValueChange(option:any):void {
     console.log('search option change', option);
     if(option.name) { // 关键字必填才可以搜索
       this.searchConfigs = option;
-        let words:string;
+      let words:string;
       if(this.searchConfigs.is_any_key) {
         words = JSON.stringify(this.searchConfigs.name.split(' ').filter(v => v).map(v => v.trim()));
       }else {

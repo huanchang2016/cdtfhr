@@ -118,9 +118,23 @@ export class ResumesGetListComponent implements OnInit {
       if(res.code === 200) {
         this.listOfData = res.data;
         this.pageOption.total = res.meta.pagination.total;
-        
+        this.dealSearchRecord();
       }
     }, err => this.loadingData = false);
+  }
+  params:any = {};
+  dealSearchRecord():void {
+    let opt:any = {};
+    for (const item in this.searchOption) {
+      if (Object.prototype.hasOwnProperty.call(this.searchOption, item)) {
+        const element = this.searchOption[item];
+        if(element) {
+          opt[item] = element;
+        }
+      }
+    }
+    this.params = JSON.stringify({ ...opt, name: this.keywords, status: this.status + 1, job_id: this.positionId, });
+    console.log(this.params, 'paramsparamsparamsparams')
   }
 
   paginationChanges({ pageSize, pageIndex }):void {

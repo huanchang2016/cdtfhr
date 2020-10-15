@@ -36,7 +36,7 @@
           </td>
           <td width="300px">
             <div class="mb-sm text-nowrap">
-              <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
+              <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params_config" target="_blank">{{ data.resume.name }}</a>
               <nz-divider nzType="vertical"></nz-divider>
               <span>{{ data.resume.sex }}</span>
               <nz-divider nzType="vertical"></nz-divider>
@@ -109,7 +109,7 @@
         <tr *ngFor="let data of rowSelectionTable.data">
           <td class="text-left text-nowrap checkbox_24" [nzChecked]="setOfCheckedId.has(data.resume.id)"
             (nzCheckedChange)="onItemChecked(data.resume.id, $event)"> &nbsp; 
-            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params" target="_blank">{{ data.resume.name }}</a>
+            <a [routerLink]="['/fullscreen/resume/view', data.resume.id]" [queryParams]="params_config" target="_blank">{{ data.resume.name }}</a>
           </td>
           <td>{{ data.resume.sex }}</td>
           <td>{{ data.resume.age }}</td>

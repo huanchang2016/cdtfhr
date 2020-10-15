@@ -83,7 +83,7 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     }
     this.validateForm.patchValue({
       keywords: item.name,
-      is_any_key: item.is_any_key,
+      is_any_key: item.is_any_key ? item.is_any_key : false,
       work_address: item.city ? [item.city.province.id, item.city.id] : null,
       stay_address: item.now_city ? [item.now_city.province.id, item.now_city.id] : null,
       now_industry: item.industry_id,

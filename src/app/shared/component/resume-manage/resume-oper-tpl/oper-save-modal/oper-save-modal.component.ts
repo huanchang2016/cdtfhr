@@ -40,27 +40,28 @@ export class OperSaveModalComponent implements OnInit {
     let url: string = '';
     let headers: HttpHeaders;
     if (this.type === 'pdf') {
-      url = this.environment.SERVER_URL + '/v1/web/com/resume/save_pdf/' + this.resumeInfo.id;
+      url = '/v1/web/com/resume/save_pdf';
       headers = new HttpHeaders().append("Content-Type", "application/json");
       // headers.append('Content-Description', 'File Transfer');
       // headers.append('Accept-Encoding', 'binary');
-      this.submitLoading = false;
-      this.destroyModal({ type: 'success' });
-      window.open(url, '_blank');
+      // this.submitLoading = false;
+      // this.destroyModal({ type: 'success' });
+      // window.open(url, '_blank');
       
     } else {
       url = '/v1/web/com/resume/save_word';
       headers = new HttpHeaders().append("Content-Type", "application/json");
-      const opt: any = { resume_id: this.resumeInfo.id };
-      this.http.post(url, opt, {
-        responseType: "blob",
-        headers: headers
-      }).subscribe(resp => {
-        // resp: 文件流
-        this.submitLoading = false;
-        this.downloadFile(resp);
-      }, err => this.submitLoading = false);
     }
+
+    const opt: any = { resume_id: this.resumeInfo.id };
+    this.http.post(url, opt, {
+      responseType: "blob",
+      headers: headers
+    }).subscribe(resp => {
+      // resp: 文件流
+      this.submitLoading = false;
+      this.downloadFile(resp);
+    }, err => this.submitLoading = false);
 
   }
 

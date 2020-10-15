@@ -11,6 +11,7 @@ import { differenceInYears } from 'date-fns';
 export class ResumesListItemCComponent implements OnChanges {
   @Input() itemType:string;
   @Input() category:string;
+  @Input() Params:string;
   @Input() dataOption:any;
   @Input() loadingData:boolean;
   @Input() posId?:number;
@@ -43,6 +44,10 @@ export class ResumesListItemCComponent implements OnChanges {
 
     if(this.posId) {
       this.params.posId = this.posId;
+    }
+
+    if(this.Params) {
+      this.params.params = this.Params;
     }
   }
 
