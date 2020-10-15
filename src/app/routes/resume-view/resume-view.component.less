@@ -21,6 +21,10 @@
             background-repeat:  no-repeat;
             background-size: contain;
         }
+        .has_no_resume_info { // 当没有上一条或者下一条数据时，按钮不可用状态
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+        }
         .prev_btn {
             margin-left: 20px;
             background-image: url('/assets/imgs/icon/icon_btnprevious.png');
