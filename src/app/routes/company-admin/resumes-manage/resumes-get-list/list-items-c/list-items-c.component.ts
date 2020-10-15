@@ -22,6 +22,7 @@ export class ListItemsCComponent implements OnChanges, OnInit {
   @Input() loadingData:boolean;
   @Input() listOfData:any[];
   @Input() pageOption:any;
+  @Input() Params:string;
 
   @Output() totalConfigChange:EventEmitter<any> = new EventEmitter();
 
@@ -33,15 +34,14 @@ export class ListItemsCComponent implements OnChanges, OnInit {
     origin: 'handle',
     posId: null
   };
-
-
+  
   constructor(
     private msg: NzMessageService,
     public settingService: GlobalSettingsService
   ) { }
 
   ngOnChanges():void {
-    console.log('On Changes', this.Config, this.loadingData, this.pageOption, this.listOfData);
+    console.log('On Changes', this.Config, this.loadingData, this.pageOption, this.listOfData, this.Params);
     if(!this.loadingData) {
       this.setOfCheckedId.clear();
       if(this.listOfData.length !== 0) {
@@ -49,10 +49,19 @@ export class ListItemsCComponent implements OnChanges, OnInit {
       }else {
         this.checked = false;
       }
+
+      this.params_config = {
+        ...this.params,
+        params: this.Params
+      }
+      console.log(this.params_config, 'params_config');
     }
   }
+
+  params_config:any = {};
+
   ngOnInit() {
-    this.params.posId = this.Config.positionId
+    this.params.posId = this.Config.positionId;
   }
   // pageIndex
   pageIndexChange(page:number):void {

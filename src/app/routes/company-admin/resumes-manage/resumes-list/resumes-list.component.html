@@ -58,7 +58,7 @@
       <tbody>
         <tr *ngFor="let data of tableTpl.data">
           <td>
-            <a [routerLink]="['/fullscreen/resume/view', data.id]" [queryParams]="{ keywords: keywords }" target="_blank" class="text-nowrap">{{ data.name }}</a>
+            <a [routerLink]="['/fullscreen/resume/view', data.id]" [queryParams]="{ keywords: keywords, params: params }" target="_blank" class="text-nowrap">{{ data.name }}</a>
           </td>
           <td>{{ data.sex }}</td>
           <td>

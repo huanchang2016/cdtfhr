@@ -58,5 +58,5 @@
             <label nz-radio-button [nzValue]="'card'"><i nz-icon nzType="unordered-list" nzTheme="outline"></i></label>
         </nz-radio-group>
     </div>
-    <app-resumes-list-item-c [category]="'download'" [itemType]="itemType" [dataOption]="dataOption" [loadingData]="loadingData" (pageOptionChanges)="pageOptionChanges($event)"></app-resumes-list-item-c>
+    <app-resumes-list-item-c [Params]="params" [category]="'download'" [itemType]="itemType" [dataOption]="dataOption" [loadingData]="loadingData" (pageOptionChanges)="pageOptionChanges($event)"></app-resumes-list-item-c>
 </nz-card>

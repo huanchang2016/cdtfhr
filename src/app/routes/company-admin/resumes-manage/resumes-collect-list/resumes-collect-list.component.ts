@@ -118,10 +118,26 @@ export class ResumesCollectListComponent implements OnInit {
             current_page: res.meta.pagination.current_page
           }
         }
+        this.dealSearchRecord(option);
       }
 
     }, err => this.loadingData = false)
 
+  }
+  params:any = {};
+  dealSearchRecord(option:any):void {
+    let opt:any = {};
+    for (const item in option) {
+      if (Object.prototype.hasOwnProperty.call(option, item)) {
+        const element = option[item];
+        if(element && item !== 'tag_id') {
+          opt[item] = element;
+        }
+      }
+    }
+    opt.tag_id = this.collectId;
+    this.params = JSON.stringify({ ...opt });
+    console.log(this.params, '收藏夹简历搜索  paramsparamsparamsparams')
   }
 
 

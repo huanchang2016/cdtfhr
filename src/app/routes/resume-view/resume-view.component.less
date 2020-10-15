@@ -7,6 +7,39 @@
     }
     .resume-show_oper_view_body { // 企业用户查看简历
         width: 900px;
+        position: relative;
+        left: 0;
+        top: 0;
+        .resume_btn_wrapper {
+            position: fixed;
+            margin-top: 48vh;
+            width: 36px;
+            height: 36px;
+            overflow: hidden;
+            border-radius: 50%;
+            background-position: center center;
+            background-repeat:  no-repeat;
+            background-size: contain;
+        }
+        .prev_btn {
+            margin-left: 20px;
+            background-image: url('/assets/imgs/icon/icon_btnprevious.png');
+            &:hover {
+                background-image: url('/assets/imgs/icon/icon_btnprevious_mouseover.png');
+            }
+        }
+        .next_btn {
+            margin-left: 860px;
+            background-image: url('/assets/imgs/icon/icon_btnnext.png');
+            &:hover {
+                background-image: url('/assets/imgs/icon/icon_btnnext_mouseover.png');
+            }
+        }
+
+        .resume_details_content {
+            width: 700px;
+            margin: 0 auto;
+        }
     }
     .resume-show_oper_box {
         width: 360px;

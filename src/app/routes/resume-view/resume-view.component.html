@@ -21,7 +21,12 @@
             -->
             <div class="clearfix" *ngIf="settingService.user.type === 'company'">
                 <div class="resume-show_oper_view_body float-left">
-                    <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
+                    <div class="prev_btn resume_btn_wrapper point" (click)="viewResumeInfo('prev')"></div>
+                    <div class="next_btn resume_btn_wrapper point" (click)="viewResumeInfo('next')"></div>
+                    <div class="resume_details_content">
+                        <app-resume-view-shared-tpl [resumeInfo]="resumeInfo"></app-resume-view-shared-tpl>
+                    </div>
+                    
                 </div>
                 <div class="float-right resume-show_oper_box">
                     <nz-affix nzOffsetTop="0">

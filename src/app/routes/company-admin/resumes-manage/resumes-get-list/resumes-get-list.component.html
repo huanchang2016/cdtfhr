@@ -65,7 +65,7 @@
                 <div class="tab-title_sub px-sm text-center">待处理 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s1 > 100 ? '99+' : totalConfig.s1 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 0">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
             </ng-container>
         </nz-tab>
         <nz-tab [nzTitle]="appropriateTpl">
@@ -73,7 +73,7 @@
                 <div class="tab-title_sub px-sm text-center">合适 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s2 > 100 ? '99+' : totalConfig.s2 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 1">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
           </ng-container>
         </nz-tab>
         <nz-tab [nzTitle]="interviewTpl">
@@ -81,7 +81,7 @@
                 <div class="tab-title_sub px-sm text-center">面试 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s3 > 100 ? '99+' : totalConfig.s3 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 2">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
           </ng-container>
         </nz-tab>
         <nz-tab [nzTitle]="offerTpl">
@@ -89,7 +89,7 @@
                 <div class="tab-title_sub px-sm text-center">Offer <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s4 > 100 ? '99+' : totalConfig.s4 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 3">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
           </ng-container>
         </nz-tab>
         <nz-tab [nzTitle]="entryTpl">
@@ -97,7 +97,7 @@
                 <div class="tab-title_sub px-sm text-center">入职 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s5 > 100 ? '99+' : totalConfig.s5 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 4">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
           </ng-container>
         </nz-tab>
         <nz-tab [nzTitle]="eliminateTpl">
@@ -105,7 +105,7 @@
                 <div class="tab-title_sub px-sm text-center">淘汰 <nz-tag *ngIf="totalConfig" class="text-white ml-sm">{{ totalConfig.s6 > 100 ? '99+' : totalConfig.s6 }}</nz-tag></div>
             </ng-template>
           <ng-container *ngIf="status === 5">
-            <app-list-items-c [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
+            <app-list-items-c [Params]="params" [Config]="{ status: status + 1, itemType: itemType, positionId: positionId }" [loadingData]="loadingData" [listOfData]="listOfData" [pageOption]="pageOption" (paginationChanges)="paginationChanges($event)" (totalConfigChange)="totalConfigChange()"></app-list-items-c>
           </ng-container>
         </nz-tab>
       </nz-tabset>
