@@ -7,10 +7,10 @@
                     <ng-container *ngFor="let item of listOne">
                         <div class="d-flex align-items-center item_box_wrapper text-md">
                             <span class="item_style_circle text-grey mr-sm">·</span>
-                            <span class="item_title text-grey text-truncate flex-1">四川天府农博园投资有限公司市场化选聘副总经理拟聘用经理拟聘用经理拟聘用</span>
-                            <span class="d-block item_update_time text-grey-dark clearfix">
+                            <a [routerLink]="['/promulgate/details', 3]" target="_blank" class="item_title text-truncate flex-1">四川天府农博园投资有限公司市场化选聘副总经理拟聘用经理拟聘用经理拟聘用</a>
+                            <div class="d-block item_update_time text-grey-dark clearfix">
                                 <div class="float-right">08-10</div>
-                            </span>
+                            </div>
                         </div>
                     </ng-container>
                 </div>
@@ -21,8 +21,10 @@
                     <ng-container *ngFor="let item of listOne">
                         <div class="d-flex align-items-center item_box_wrapper text-md">
                             <span class="item_style_circle text-grey mr-sm">·</span>
-                            <span class="item_title text-grey text-truncate flex-1">2300万年前“木乃伊叶片”可以洞见未来地球气候变迁木乃伊叶片木乃伊叶片</span>
-                            <span class="d-block item_update_time text-right text-grey-dark">| 12-12</span>
+                            <a [routerLink]="['/news/details', 3]" target="_blank" class="item_title text-truncate flex-1">2300万年前“木乃伊叶片”可以洞见未来地球气候变迁木乃伊叶片木乃伊叶片</a>
+                            <div class="d-block item_update_time text-grey-dark clearfix">
+                                <div class="float-right">12-12</div>
+                            </div>
                         </div>
                     </ng-container>
                 </div>

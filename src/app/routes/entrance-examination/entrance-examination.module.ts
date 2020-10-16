@@ -11,6 +11,8 @@ import { PromulgateComponent } from './promulgate/promulgate-list/promulgate.com
 import { PromulgateDetailsComponent } from './promulgate/promulgate-details/promulgate-details.component';
 import { NewsCenterComponent } from './news/news-center/news-center.component';
 import { NewsDetailsComponent } from './news/news-details/news-details.component';
+import { ApplyOnlineListComponent } from './apply/apply-online-list/apply-online-list.component';
+import { ApplyOnlineDetailsComponent } from './apply/apply-online-details/apply-online-details.component';
 
 const ROUTESCOMPONENTS = [
   EntranceHomeComponent,
@@ -30,7 +32,9 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...ROUTESCOMPONENTS,
-    ...ENTRYCOMPONENTS
+    ...ENTRYCOMPONENTS,
+    ApplyOnlineListComponent,
+    ApplyOnlineDetailsComponent
   ],
   imports: [
     SharedModule,
