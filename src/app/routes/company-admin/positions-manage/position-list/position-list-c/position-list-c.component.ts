@@ -161,6 +161,8 @@ export class PositionListCComponent implements OnChanges {
       if(res.code === 200) {
         this.msg.success('刷新成功');
         this.getDataList();
+      }else {
+        this.msg.error(res.message);
       }
     }, err => this.freshLoadingOption[data.id] = false);
   }
@@ -178,6 +180,8 @@ export class PositionListCComponent implements OnChanges {
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
+      }else {
+        this.msg.error(res.message);
       }
     }, err => this.loading = false);
   }
@@ -202,6 +206,8 @@ export class PositionListCComponent implements OnChanges {
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
+      }else {
+        this.msg.error(res.message);
       }
     }, err => this.loading = false);
   }
@@ -246,6 +252,8 @@ export class PositionListCComponent implements OnChanges {
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
+      }else {
+        this.msg.error(res.message);
       }
     });
   }
