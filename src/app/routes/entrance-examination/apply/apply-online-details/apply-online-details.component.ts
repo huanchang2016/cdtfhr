@@ -36,9 +36,7 @@ export class ApplyOnlineDetailsComponent implements OnInit {
       this.loading = false;
       this.dataInfo = {
         title: '关于“江西省供销集团有限公司公开招聘公告”笔试相关事项的通知',
-        source: '新闻网',
         create_time: '2020-08-20',
-        author: '张大山',
         view_number: '1024',
         content: `
         　　<p style="text-indent: 2em">“左手起诉，右手谈价”，近段时间，在特朗普政府的种种压力之下，TikTok的命运可以说牵动着世界目光。虽然字节跳动刚刚细数了特朗普政府的“七宗罪”，但也很明确胜算微乎其微。</p>
@@ -80,4 +78,9 @@ export class ApplyOnlineDetailsComponent implements OnInit {
     }, 2000);
   }
 
+  status_menu:number = 0;
+  viewStatus(status: number):void {
+    this.status_menu = status;
+    this.getData();
+  }
 }

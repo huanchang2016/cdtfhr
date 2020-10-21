@@ -13,6 +13,8 @@ import { NewsCenterComponent } from './news/news-center/news-center.component';
 import { NewsDetailsComponent } from './news/news-details/news-details.component';
 import { ApplyOnlineListComponent } from './apply/apply-online-list/apply-online-list.component';
 import { ApplyOnlineDetailsComponent } from './apply/apply-online-details/apply-online-details.component';
+import { AdmissionTicketPrintComponent } from './admission-ticket-print/admission-ticket-print.component';
+import { ScoreQueryResultComponent } from './score-query-result/score-query-result.component';
 
 const ROUTESCOMPONENTS = [
   EntranceHomeComponent,
@@ -20,7 +22,11 @@ const ROUTESCOMPONENTS = [
   PromulgateComponent,
   PromulgateDetailsComponent,
   NewsCenterComponent,
-  NewsDetailsComponent
+  NewsDetailsComponent,
+  ApplyOnlineListComponent,
+  ApplyOnlineDetailsComponent,
+  AdmissionTicketPrintComponent, // 准考证打印
+  ScoreQueryResultComponent, // 成绩查询
 ];
 
 const ENTRYCOMPONENTS = [
@@ -32,9 +38,7 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...ROUTESCOMPONENTS,
-    ...ENTRYCOMPONENTS,
-    ApplyOnlineListComponent,
-    ApplyOnlineDetailsComponent
+    ...ENTRYCOMPONENTS
   ],
   imports: [
     SharedModule,

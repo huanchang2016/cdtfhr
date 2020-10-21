@@ -9,12 +9,17 @@ import { NewsDetailsComponent } from './news/news-details/news-details.component
 import { PromulgateDetailsComponent } from './promulgate/promulgate-details/promulgate-details.component';
 import { PromulgateComponent } from './promulgate/promulgate-list/promulgate.component';
 
+import { AdmissionTicketPrintComponent } from './admission-ticket-print/admission-ticket-print.component';
+import { ScoreQueryResultComponent } from './score-query-result/score-query-result.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: EntranceHomeComponent },
   { path: 'apply', component: ApplyOnlineListComponent },
   { path: 'apply/details/:id', component: ApplyOnlineDetailsComponent },
+  { path: 'print/:id', component: AdmissionTicketPrintComponent },
+  { path: 'result/:id', component: ScoreQueryResultComponent },
   { path: 'questions', component: CommonProblemComponent },
   { path: 'promulgate', component: PromulgateComponent },
   { path: 'promulgate/details/:id', component: PromulgateDetailsComponent },

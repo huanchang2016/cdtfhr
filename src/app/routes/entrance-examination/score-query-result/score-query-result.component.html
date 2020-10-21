@@ -1,0 +1,101 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="title mt-lg py-sm px-md bg-primary text-white text-lg text-center Noprint">
+            成都龙泉山城市森林公园管委会2020年面向社会公开招聘优秀人才面试成绩查询</div>
+        <div class="form_wrapper Noprint">
+            <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <input formControlName="username" nz-input placeholder="请输入用户姓名" nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <input formControlName="id_card" nz-input placeholder="请输入身份证号码" nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                            <input formControlName="captcha" type="text" nz-input placeholder="请填写验证码" />
+                          </nz-input-group>
+                          <ng-template #suffixButton>
+                            <div class="captcha_img_box text-center">
+                                <img *ngIf="!captchaLoading" (click)="changeCaptcha()" [src]="imgSrc" alt="">
+                                <nz-spin *ngIf="captchaLoading" nzSimple></nz-spin>
+                            </div>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="submit_btn">
+                    <nz-form-control>
+                        <button nz-button nzBlock nzType="primary" [disabled]="!validateForm.valid"
+                            [nzLoading]="loading" nzSize="large">查询</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <ng-container *ngIf="result && !loading">
+            <div class="search_result_wrapper mt-lg py-lg bg-white" id="print_wrapper">
+                <div class="text-center text-lg px-lg">
+                    <p class="mb-sm">成都龙泉山城市森林公园管委会2020年面向社会公开招聘优秀人才面试</p>
+                    <p>笔试成绩查询</p>
+                </div>
+                <div class="result_body py-lg">
+                    <div class="result_item_box">
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                            <div class="float-left">张三</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+                            <div class="float-left">男</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">准考证号：</div>
+                            <div class="float-left">12009260106</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">身份证号：</div>
+                            <div class="float-left">520103199212261649</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考部门：</div>
+                            <div class="float-left">成都龙泉山城市森林公园管委会</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考职位：</div>
+                            <div class="float-left">综合管理部-文秘信息岗</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">考试科目：</div>
+                            <div class="float-left">综合面试</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">考试成绩：</div>
+                            <div class="float-left">95.80分</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                            <div class="float-left">3</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">资格复审：</div>
+                            <div class="float-left">
+                                <span class="text-success">是</span>
+                                <span class="text-danger">否</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="result_item_reffer">
+                        <div class="text-center py-md">通知事项</div>
+                        <p class="pb-sm">1、如果考生对成绩有疑问，可以拨打电话详询工作人员。</p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="loading_box text-center" *ngIf="!result && loading">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+    </div>
+</div>
