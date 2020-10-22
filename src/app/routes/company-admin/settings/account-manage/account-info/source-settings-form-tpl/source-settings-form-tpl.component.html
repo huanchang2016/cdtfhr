@@ -13,7 +13,7 @@
                     <span class="text-grey text-xs float-left">剩余数</span>
                     <span class="text-primary float-right">
                         <ng-container *ngIf="sourceInfo">
-                            {{ sourceInfo.job.total === -1 ? '不限' : (sourceInfo.job.total - sourceInfo.job.use) }}
+                            {{ sourceInfo.job.total === -1 ? '不限' : sourceInfo.job.remain }}
                         </ng-container>
                     </span>
                 </div>
@@ -32,7 +32,7 @@
                     <span class="text-grey text-xs float-left">剩余数</span>
                     <span class="text-primary float-right">
                         <ng-container *ngIf="sourceInfo">
-                            {{ sourceInfo.resume.total === -1 ? '不限' : (sourceInfo.resume.total - sourceInfo.resume.use) }}
+                            {{ sourceInfo.resume.total === -1 ? '不限' : sourceInfo.resume.remain }}
                         </ng-container>
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                     <span class="text-grey text-xs float-left">剩余数</span>
                     <span class="text-primary float-right">
                         <ng-container *ngIf="sourceInfo">
-                            {{ sourceInfo.message.total === -1 ? '不限' : (sourceInfo.message.total - sourceInfo.message.use) }}
+                            {{ sourceInfo.message.total === -1 ? '不限' : sourceInfo.message.remain }}
                         </ng-container>
                     </span>
                 </div>
@@ -70,7 +70,7 @@
                     <span class="text-grey text-xs float-left">剩余数</span>
                     <span class="text-primary float-right">
                         <ng-container *ngIf="sourceInfo">
-                            {{ sourceInfo.update.total === -1 ? '不限' : (sourceInfo.update.total - sourceInfo.update.use) }}
+                            {{ sourceInfo.update.total === -1 ? '不限' : sourceInfo.update.remain }}
                         </ng-container>
                     </span>
                 </div>
