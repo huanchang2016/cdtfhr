@@ -1,8 +1,13 @@
 <div class="resume-oper-tpl_body">
-    <!-- <h2 class="text-666 text-lg">{{ resumeInfo.title }}</h2> -->
-    <p class="text-grey mt-sm">
+    <!-- <h2 class="text-666 text-lg">{{ resumeInfo.title }}</h2> mt-sm -->
+    <p class="text-grey">
         <i class="mr-sm" nz-icon nzType="clock-circle" nzTheme="outline"></i>
-        <span>更新于 {{ resumeInfo.updated_at }}</span>
+        <span>
+            <ng-container *ngIf="resumeInfo.delivery_time;else updateTimeTpl">投递于 {{ resumeInfo.delivery_time }}</ng-container>
+            <ng-template #updateTimeTpl>
+                更新于 {{ resumeInfo.updated_at }}
+            </ng-template>
+        </span>
     </p>
     <div class="text-grey mt-sm">
         <!-- <i class="mr-sm" nz-icon nzType="download" nzTheme="outline"></i> -->

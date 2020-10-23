@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GlobalSettingsService } from '@core';
 import { environment } from '@env/environment';
 import { differenceInYears, differenceInMonths } from 'date-fns';
 
@@ -13,9 +12,7 @@ export class ResumeViewSharedTplComponent implements OnInit {
 
   environment = environment;
   
-  constructor(
-    public settingService: GlobalSettingsService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
