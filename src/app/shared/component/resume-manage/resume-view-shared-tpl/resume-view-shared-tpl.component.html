@@ -19,7 +19,12 @@
                 <h3 class="text-666 text-lg">
                     <!-- {{ resumeInfo.name | keywordsHiglight }} -->
                     <span [innerHTML]="resumeInfo.name | keywordsHiglight"></span>
-                    <span class="text-xs text-grey-dark ml-md">更新时间：{{ resumeInfo.updated_at }}</span>
+                    <span class="text-xs text-grey-dark ml-md">
+                        <ng-container *ngIf="settingService.user.type === 'company' && resumeInfo.delivery_time;else updateTimeTpl">投递时间：{{ resumeInfo.delivery_time }}</ng-container>
+                        <ng-template #updateTimeTpl>
+                            更新时间：{{ resumeInfo.updated_at }}
+                        </ng-template>
+                    </span>
                 </h3>
                 <div class="text-sm">
                     <!-- <span>{{ resumeInfo.sex === 1 ? '男' : '女' }}</span> -->

@@ -122,7 +122,7 @@ export class ResumeViewComponent implements OnInit {
 
   getResumeInfo(url:string):void {
     this.loadingData = true;
-    this.settingService.post(url,).subscribe((res:ApiData) => {
+    this.settingService.post(url).subscribe((res:ApiData) => {
       this.loadingData = false;
       if(res.code === 200 && res.data) {
         this.resumeInfo = res.data;
