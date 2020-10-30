@@ -14,8 +14,8 @@ export class ApplyOnlineListComponent implements OnInit {
   pageIndex: number = 1;
 
   loading:boolean = true;
-  list1: any[] = [];
-  list2: any[] = [];
+  listIng: any[] = [];
+  listEnd: any[] = [];
 
   constructor(
     private settingService: GlobalSettingsService
@@ -36,9 +36,14 @@ export class ApplyOnlineListComponent implements OnInit {
       if(res.code === 200) {
         this.total = res.meta.pagination.total;
         this.limit = res.meta.pagination.per_page;
+
+        const _list:any[] = res.data;
+        this.listIng = _list.filter( v => !v.is_end );
+        this.listEnd = _list.filter( v => v.is_end );
         // this.list = res.data;
       }else {
         // this.list = [];
+        this.listIng = this.listEnd = [];
       }
     })
 
