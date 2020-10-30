@@ -2,8 +2,8 @@
     <div class="body__content_box pt-sm pb-lg">
         <ng-container *ngFor="let item of list">
             <div class="advert_list_box mt-md">
-                <a href="">
-                    <img src="./assets/imgs/about/about_banner.jpg" alt="">
+                <a (click)="goTo(item.to_url)">
+                    <img [src]="item.url" [alt]="item.name">
                 </a>
             </div>
         </ng-container>

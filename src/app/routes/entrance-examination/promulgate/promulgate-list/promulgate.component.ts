@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-promulgate',
@@ -14,7 +16,9 @@ export class PromulgateComponent implements OnInit {
   loading:boolean = true;
   list: any[] = [];
 
-  constructor() { }
+  constructor(
+    private settingService: GlobalSettingsService
+  ) { }
 
   ngOnInit(): void {
     this.getDataList();
@@ -22,10 +26,16 @@ export class PromulgateComponent implements OnInit {
 
   getDataList():void {
     this.loading = true;
-    setTimeout(() => {
+    this.settingService.post('/v1/web/exam/announce', { page: this.pageIndex }).subscribe((res:ApiData) => {
       this.loading = false;
-      this.list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    }, 2000);
+      if(res.code === 200) {
+        this.total = res.meta.pagination.total;
+        this.limit = res.meta.pagination.per_page;
+        this.list = res.data;
+      }else {
+        this.list = [];
+      }
+    })
   }
 
   pageIndexChange({ page }): void {

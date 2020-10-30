@@ -9,8 +9,8 @@
                 <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
                     <ng-container *ngFor="let data of list">
                         <div class="list_item d-flex text-md">
-                            <a [routerLink]="['/entrance/promulgate/details', 3]" target="_blank" class="flex-1 text-truncate mr-md">成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告</a>
-                            <div class="update_time text-666">2020/6/25</div>
+                            <a [routerLink]="['/entrance/promulgate/details', data.id]" target="_blank" class="flex-1 text-truncate mr-md">{{ data.name }}</a>
+                            <div class="update_time text-666">{{ data.release_time }}</div>
                         </div>
                     </ng-container>
                 </nz-spin>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-zk-adverting-list-tpl',
@@ -7,11 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ZkAdvertingListTplComponent implements OnInit {
 
-  list:any[] = [1, 2, 3];
+  list:any[] = [];
 
-  constructor() { }
+  constructor(
+    private settingService: GlobalSettingsService
+  ) { }
+
 
   ngOnInit(): void {
+    this.getDataList();
   }
 
+  getDataList():void {
+    this.settingService.get('/v1/web/exam/ads').subscribe( (res:ApiData) => {
+      console.log(res, 'xam/ads');
+      if(res.code === 200) {
+        this.list = res.data;
+      }
+    })
+  }
+
+  goTo(url: string):void {
+    window.open(url);
+  }
+  
 }

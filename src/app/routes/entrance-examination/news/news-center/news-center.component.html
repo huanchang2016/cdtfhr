@@ -2,15 +2,15 @@
     <div class="body__content_box">
         <div class="questions_content_wrapper bg-white border-radiu">
             <div class="text-grey text-md d-flex header_title_wrapper">
-                <div class="flex-1 text-center">公告名</div>
+                <div class="flex-1 text-center">新闻名称</div>
                 <div class="update_time">发布时间</div>
             </div>
             <div class="questions_wrapper_body">
                 <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
                     <ng-container *ngFor="let data of list">
                         <div class="list_item d-flex text-md">
-                            <a [routerLink]="['/entrance/promulgate/details', 3]" target="_blank" class="flex-1 text-truncate mr-md">成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告成都天府新区新兴幼儿园2020年招聘幼儿教师及教职工的公告</a>
-                            <div class="update_time text-666">2020/6/25</div>
+                            <a [routerLink]="['/entrance/news/details', data.id]" target="_blank" class="flex-1 text-truncate mr-md">{{ data.name }}</a>
+                            <div class="update_time text-666">{{ data.release_time }}</div>
                         </div>
                     </ng-container>
                 </nz-spin>

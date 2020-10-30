@@ -18,7 +18,7 @@ export class ZkBannerTplComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.settingService.get('/v1/web/index/rotation').subscribe( (res:ApiData) => {
+    this.settingService.get('/v1/web/exam/rotations').subscribe( (res:ApiData) => {
       // console.log(res, 'index rotation works');
       if(res.code === 200) {
         this.list = res.data;

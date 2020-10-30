@@ -4,12 +4,12 @@
             <div nz-col nzSpan="10">
                 <app-sub-title-show [title]="'公告公示'" [url]="'/entrance/promulgate'" [isBold]="false"></app-sub-title-show>
                 <div class="mt-md">
-                    <ng-container *ngFor="let item of listOne">
+                    <ng-container *ngFor="let item of listNotice">
                         <div class="d-flex align-items-center item_box_wrapper text-md">
                             <span class="item_style_circle text-grey mr-sm">·</span>
-                            <a [routerLink]="['/promulgate/details', 3]" target="_blank" class="item_title text-truncate flex-1">四川天府农博园投资有限公司市场化选聘副总经理拟聘用经理拟聘用经理拟聘用</a>
+                            <a [routerLink]="['/entrance/promulgate/details', item.id]" target="_blank" class="item_title text-truncate flex-1">{{ item.name }}</a>
                             <div class="d-block item_update_time text-grey-dark clearfix">
-                                <div class="float-right">08-10</div>
+                                <div class="float-right">{{ item.release_time1 }}</div>
                             </div>
                         </div>
                     </ng-container>
@@ -18,12 +18,12 @@
             <div nz-col nzSpan="10" nzOffset="4">
                 <app-sub-title-show [title]="'新闻中心'" [url]="'/entrance/news'" [isBold]="false"></app-sub-title-show>
                 <div class="mt-md">
-                    <ng-container *ngFor="let item of listOne">
+                    <ng-container *ngFor="let item of listNews">
                         <div class="d-flex align-items-center item_box_wrapper text-md">
                             <span class="item_style_circle text-grey mr-sm">·</span>
-                            <a [routerLink]="['/news/details', 3]" target="_blank" class="item_title text-truncate flex-1">2300万年前“木乃伊叶片”可以洞见未来地球气候变迁木乃伊叶片木乃伊叶片</a>
+                            <a [routerLink]="['/entrance/news/details', item.id]" target="_blank" class="item_title text-truncate flex-1">{{ item.name }}</a>
                             <div class="d-block item_update_time text-grey-dark clearfix">
-                                <div class="float-right">12-12</div>
+                                <div class="float-right">{{ item.release_time1 }}</div>
                             </div>
                         </div>
                     </ng-container>

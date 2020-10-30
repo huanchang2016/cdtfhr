@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 export class ZkNewsListTplComponent implements OnInit {
 
 
-  listOne:any[] = [1, 2, 3, 4, 5];
-  listTwo:any[] = [1, 2, 3, 4, 5];
+  listNotice:any[] = [];
+  listNews:any[] = [];
 
   constructor(
     private settingService: GlobalSettingsService
@@ -26,12 +26,14 @@ export class ZkNewsListTplComponent implements OnInit {
 
   getDataList():void {
     zip(
-      // this.settingService.get(`/v1/web/setting/city`),
-      // this.settingService.get(`/v1/web/setting/city/all`)
+      this.settingService.post('/v1/web/exam/news', { page: 1, limit: 5 }),
+      this.settingService.post('/v1/web/exam/announce', { page: 1, limit: 5 })
     ).pipe(
-      map(([ province, city]) => [ province.data, city.data])
-    ).subscribe(([ province, city]) => {
-      
+      map(([ news, notice]) => [ news.data, notice.data ])
+    ).subscribe(([ news, notice ]) => {
+      console.log(news, notice);
+      this.listNews = news;
+      this.listNotice = notice;
     })
   }
 }
