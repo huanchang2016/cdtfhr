@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-score-query-result',
@@ -8,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./score-query-result.component.less']
 })
 export class ScoreQueryResultComponent implements OnInit {
-  id: number;
+  exam_id: number;
 
   validateForm!: FormGroup;
 
@@ -20,11 +22,12 @@ export class ScoreQueryResultComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private settingService: GlobalSettingsService
   ) {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params) {
-        this.id = +params['id'];
+        this.exam_id = +params['id'];
       }
     })
   }
@@ -45,29 +48,51 @@ export class ScoreQueryResultComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-      this.search();
+      const value = this.validateForm.value;
+      const opt = {
+        id_number: value.id_card,
+        name: value.username,
+        captcha: value.captcha
+      };
+      this.search(opt);
     }
   }
 
-  search(): void {
+  search(opt): void {
     this.loading = true;
     this.result = null;
-    setTimeout(() => {
-      this.loading = false;
-      this.result = {
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   this.result = {
 
+    //   }
+    // }, 1500);
+    this.settingService.post(`/v1/web/exam/exam_score/${this.exam_id}`, opt).subscribe((res:ApiData) => {
+        this.loading = false;
+        console.log('result ', res)
+        if(res.code === 200) {
+          this.result = res.data;
+        }
+      },
+      err => {
+        this.loading = false;
+        this.changeCaptcha();
       }
-    }, 1500);
+    );
   }
 
   changeCaptcha():void {
-
     this.captchaLoading = true;
     this.imgSrc = '';
-    setTimeout(() => {
-      this.captchaLoading = false;
-      this.imgSrc = './assets/imgs/logo_full_color.png';
-    }, 800);
+    this.settingService.get(`/v1/web/exam/get_captcha`).subscribe((res:ApiData) => {
+        console.log('captchaLoading ', res)
+        this.captchaLoading = false;
+        if(res.code === 200) {
+          this.imgSrc = res.data.img;
+        }
+      },
+      err => this.captchaLoading = false
+    );
   }
 
 }

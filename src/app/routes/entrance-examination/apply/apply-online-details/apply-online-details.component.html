@@ -3,13 +3,17 @@
         <div class="clearfix">
             <div class="apply_oper_wrapper float-left">
                 <div class="oper_list">
-                    <div class="oper_item point d-flex align-items-center border-radius-sm"
-                        (click)="viewStatus(1)" [class.current_status_active]="status_menu === 1"
-                    >
-                        <span class="d-inline-block icon_item notice_icon"></span>
-                        <span class="oper_item_name ml-sm text-lg">招考公告</span>
-                    </div>
-                    <div class="oper_item point d-flex align-items-center border-radius-sm"
+                    <ng-container *ngFor="let menu of menus">
+                        <div class="oper_item point d-flex align-items-center border-radius-sm"
+                            (click)="viewStatus(menu.id)" [class.current_status_active]="status_menu === menu.id"
+                        >
+                            <span
+                                class="d-inline-block icon_item notice_icon"
+                                [ngStyle]="{'background-image': status_menu === menu.id ? 'url(' + menu.select_icon + ')' : 'url(' + menu.icon + ')' }"></span>
+                            <span class="oper_item_name ml-sm text-lg">{{ menu.name }}</span>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="oper_item point d-flex align-items-center border-radius-sm"
                         (click)="viewStatus(2)" [class.current_status_active]="status_menu === 2"
                     >
                         <span class="d-inline-block icon_item apply_icon"></span>
@@ -50,20 +54,18 @@
                     >
                         <span class="d-inline-block icon_item employment_results_icon"></span>
                         <span class="oper_item_name ml-sm text-lg">录用结果显示</span>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="notice_steps_wrapper">
-                    <app-sub-title-show [title]="'报名流程'"></app-sub-title-show>
+                    <app-sub-title-show [title]="'招考流程'"></app-sub-title-show>
                     <nz-card class="status_body">
-                        <nz-steps [nzCurrent]="step" nzProgressDot nzDirection="vertical">
-                            <nz-step nzTitle="网上报名"></nz-step>
-                            <nz-step nzTitle="笔试"></nz-step>
-                            <nz-step nzTitle="资格审查"></nz-step>
-                            <nz-step nzTitle="面试"></nz-step>
-                            <nz-step nzTitle="体检"></nz-step>
-                            <nz-step nzTitle="公示"></nz-step>
-                            <nz-step nzTitle="聘用"></nz-step>
-                        </nz-steps>
+                        <ng-container *ngIf="steps.length !== 0">
+                            <nz-steps nzProgressDot nzDirection="vertical">
+                                <ng-container *ngFor="let step of steps">
+                                    <nz-step [nzTitle]="step.name" nzStatus="finish"></nz-step>
+                                </ng-container>
+                            </nz-steps>
+                        </ng-container>
                 
                     </nz-card>
                 </div>
@@ -71,7 +73,7 @@
             <div class="details_content_wrapper float-right bg-white border-radius-sm">
                 <ng-container *ngIf="!loading; else loadingTpl">
                     <h2 class="details_title text-center text-666 text-lg py-sm">{{ dataInfo.title }}</h2>
-                    <div class="text-grey" [innerHTML]="dataInfo.content | safeHtml"></div>
+                    <div class="text-grey description_box" [innerHTML]="dataInfo.content | safeHtml"></div>
                 </ng-container>
                 <ng-template #loadingTpl>
                     <div class="text-center py-lg">

@@ -20,63 +20,64 @@
         <ng-container *ngIf="result && !loading">
             <div class="search_result_wrapper mt-lg py-lg bg-white" id="print_wrapper">
                 <div class="text-center text-lg px-lg">
-                    <p class="mb-sm">成都龙泉山城市森林公园管委会2020年面向社会公开招聘优秀人才面试</p>
+                    <p class="mb-sm">{{ result.exam_name }}</p>
                     <p>准考证</p>
                 </div>
                 <div class="result_body py-lg">
                     <div class="result_item_box">
                         <div class="result_item clearfix">
                             <div class="text-right float-left">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
-                            <div class="float-left">张三</div>
+                            <div class="float-left">{{ result.name }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
-                            <div class="float-left">男</div>
+                            <div class="float-left">{{ result.sex }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">准考证号：</div>
-                            <div class="float-left">12009260106</div>
+                            <div class="float-left">{{ result.number }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">身份证号：</div>
-                            <div class="float-left">520103199212261649</div>
+                            <div class="float-left">{{ result.id_number }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">报考部门：</div>
-                            <div class="float-left">成都龙泉山城市森林公园管委会</div>
+                            <div class="float-left">{{ result.department }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">报考职位：</div>
-                            <div class="float-left">综合管理部-文秘信息岗</div>
+                            <div class="float-left">{{ result.position }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">考试地点：</div>
-                            <div class="float-left">成都市天府新区湖畔路西段99号B7栋天府英才中心3楼</div>
+                            <div class="float-left">{{ result.address }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">考&nbsp;&nbsp;场&nbsp;&nbsp;号：</div>
-                            <div class="float-left">5</div>
+                            <div class="float-left">{{ result.room }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">座&nbsp;&nbsp;位&nbsp;&nbsp;号：</div>
-                            <div class="float-left">23</div>
+                            <div class="float-left">{{ result.seat_number }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">考试科目：</div>
-                            <div class="float-left">综合面试</div>
+                            <div class="float-left">{{ result.subject }}</div>
                         </div>
                         <div class="result_item clearfix">
                             <div class="text-right float-left">考试时间：</div>
-                            <div class="float-left">2020年10月17日（周六）上午9:00</div>
+                            <div class="float-left">{{ result.time }}</div>
                         </div>
                     </div>
                     <div class="result_item_reffer">
                         <div class="text-center py-md">注意事项</div>
-                        <p class="pb-sm">1、请考生保管好此准考证，凭本人有效居民身份证和准考证提前30分钟入场。</p>
+                        <div [innerHTML]="result.exam_note | safeHtml"></div>
+                        <!-- <p class="pb-sm">1、请考生保管好此准考证，凭本人有效居民身份证和准考证提前30分钟入场。</p>
                         <p class="pb-sm">2、考生需进行面试签到及抽签，凭准考证及面试抽签号进入面试考场。</p>
                         <p class="pb-sm">3、参加面试的人员在候考室内要自觉听从工作人员安排，必须保持安静，不得抽烟、大声喧哗，不得向工作人员打听面试的有关内容，面试人员在候考期间不得擅自离开候考室。
                         </p>
-                        <p class="pb-sm">4、考生应遵守考场规则，严禁将各种电子、通信、计算、储存或其他设备带至座位。若有作弊行为，将按照相关规定处理。</p>
+                        <p class="pb-sm">4、考生应遵守考场规则，严禁将各种电子、通信、计算、储存或其他设备带至座位。若有作弊行为，将按照相关规定处理。</p> -->
                     </div>
                 </div>
             </div>
@@ -86,6 +87,9 @@
                 <!-- <button nz-button nzType="default" nzSize="large" (click)="downloadFile()" class="ml-md">保存为图片</button> -->
             </div>
         </ng-container>
+        <div class="loading_box text-center" *ngIf="!result && !loading && isEmpty">
+            <div class="text-md text-warning">未查询到结果</div>
+        </div>
         <div class="loading_box text-center" *ngIf="!result && loading">
             <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
         </div>

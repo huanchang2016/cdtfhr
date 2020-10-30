@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-
-import * as html2canvas from 'html2canvas';
+import { GlobalSettingsService } from '@core';
+import { ApiData } from 'src/app/data/interface';
 
 @Component({
   selector: 'app-admission-ticket-print',
@@ -10,20 +10,22 @@ import * as html2canvas from 'html2canvas';
   styleUrls: ['./admission-ticket-print.component.less']
 })
 export class AdmissionTicketPrintComponent implements OnInit {
-  id: number;
+  exam_id: number;
 
   validateForm!: FormGroup;
 
   loading: boolean = false;
   result: any = null;
+  isEmpty:boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private settingService: GlobalSettingsService
   ) {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params) {
-        this.id = +params['id'];
+        this.exam_id = +params['id'];
       }
     })
   }
@@ -40,19 +42,28 @@ export class AdmissionTicketPrintComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.valid) {
-      this.search();
+      const opt = { id_number: this.validateForm.value.id_card };
+      this.search(opt);
     }
   }
 
-  search(): void {
+  search(opt:any): void {
     this.loading = true;
     this.result = null;
-    setTimeout(() => {
-      this.loading = false;
-      this.result = {
+    this.isEmpty = false;
 
-      }
-    }, 1500);
+    this.settingService.post(`/v1/web/exam/exam_card/${this.exam_id}`, opt).subscribe((res:ApiData) => {
+        this.loading = false;
+        if(res.code === 200) {
+          this.result = res.data;
+          if(!this.result) {
+            this.isEmpty = true;
+          }
+        }
+      },
+      err => this.loading = false
+    );
+    
   }
 
   print(): void {
@@ -61,26 +72,4 @@ export class AdmissionTicketPrintComponent implements OnInit {
     window.print();
     document.body.style.height = 'auto';
   }
-
-  // downloadFile() {
-  //   setTimeout(() => {
-  //     const data: any = document.getElementById('print_wrapper');
-  //     html2canvas(data).then(canvas => {
-  //       console.log('canvas', canvas)
-  //       const contentDataURL = canvas.toDataURL('image/png', 1.0)
-  //       this.exportImage(contentDataURL);
-  //     });
-  //   }, 500);
-
-  // }
-  // exportImage(contentDataURL: any) {
-  //   var base64Img = contentDataURL;
-  //   let oA: any = document.createElement('a');
-  //   oA.href = base64Img;
-  //   oA.download = '准考证名称' + "_" + (new Date().getTime());
-  //   var event = document.createEvent('MouseEvents');
-  //   event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-  //   oA.dispatchEvent(event);
-  // }
-
 }
