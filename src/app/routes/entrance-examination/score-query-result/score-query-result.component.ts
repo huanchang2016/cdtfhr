@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GlobalSettingsService } from '@core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ApiData } from 'src/app/data/interface';
 
 @Component({
@@ -11,6 +12,7 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ScoreQueryResultComponent implements OnInit {
   exam_id: number;
+  examInfo:any;
 
   validateForm!: FormGroup;
 
@@ -23,11 +25,13 @@ export class ScoreQueryResultComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
+    private msg: NzMessageService,
     private settingService: GlobalSettingsService
   ) {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params) {
         this.exam_id = +params['id'];
+        this.getExamInfo();
       }
     })
   }
@@ -42,6 +46,16 @@ export class ScoreQueryResultComponent implements OnInit {
     this.changeCaptcha();
   }
 
+  getExamInfo():void {
+    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res:ApiData) => {
+      this.loading = false;
+      console.log('examInfo ', res)
+      if(res.code === 200) {
+        this.examInfo = res.data;
+      }
+    });
+  }
+
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -52,27 +66,30 @@ export class ScoreQueryResultComponent implements OnInit {
       const opt = {
         id_number: value.id_card,
         name: value.username,
-        captcha: value.captcha
+        captcha: value.captcha,
+        code_id: this.code_id
       };
       this.search(opt);
     }
   }
 
+  isEmpty: boolean = false;
   search(opt): void {
     this.loading = true;
     this.result = null;
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   this.result = {
-
-    //   }
-    // }, 1500);
+    this.isEmpty = false;
     this.settingService.post(`/v1/web/exam/exam_score/${this.exam_id}`, opt).subscribe((res:ApiData) => {
         this.loading = false;
         console.log('result ', res)
         if(res.code === 200) {
           this.result = res.data;
+          if(!this.result) {
+            this.isEmpty = true;
+          }
+        }else {
+          this.msg.error(res.message);
         }
+        this.changeCaptcha();
       },
       err => {
         this.loading = false;
@@ -81,14 +98,28 @@ export class ScoreQueryResultComponent implements OnInit {
     );
   }
 
+  code_id: string = '';
+
+  @ViewChild('captchaInput', { static: false }) captchaInput: ElementRef;
+
   changeCaptcha():void {
     this.captchaLoading = true;
     this.imgSrc = '';
+    this.code_id = '';
+    // 验证码 重新获取时需要将验证码表单项置空 表单获取焦点
+    this.validateForm.patchValue({
+      captcha: ''
+    });
+    if(this.captchaInput) {
+      this.captchaInput.nativeElement.focus();
+    }
+    
     this.settingService.get(`/v1/web/exam/get_captcha`).subscribe((res:ApiData) => {
         console.log('captchaLoading ', res)
         this.captchaLoading = false;
         if(res.code === 200) {
           this.imgSrc = res.data.img;
+          this.code_id = res.data.code_id;
         }
       },
       err => this.captchaLoading = false

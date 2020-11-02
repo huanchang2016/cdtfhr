@@ -15,6 +15,8 @@ import { ApplyOnlineListComponent } from './apply/apply-online-list/apply-online
 import { ApplyOnlineDetailsComponent } from './apply/apply-online-details/apply-online-details.component';
 import { AdmissionTicketPrintComponent } from './admission-ticket-print/admission-ticket-print.component';
 import { ScoreQueryResultComponent } from './score-query-result/score-query-result.component';
+import { PrintExamListComponent } from './print-exam-list/print-exam-list.component';
+import { ResultExamListComponent } from './result-exam-list/result-exam-list.component';
 
 const ROUTESCOMPONENTS = [
   EntranceHomeComponent,
@@ -38,7 +40,9 @@ const ENTRYCOMPONENTS = [
 @NgModule({
   declarations: [
     ...ROUTESCOMPONENTS,
-    ...ENTRYCOMPONENTS
+    ...ENTRYCOMPONENTS,
+    PrintExamListComponent,
+    ResultExamListComponent
   ],
   imports: [
     SharedModule,

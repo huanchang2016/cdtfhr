@@ -1,7 +1,6 @@
 <div class="question_modal_wrapper">
     <div class="body__content_box">
-        <div class="title mt-lg py-sm px-md bg-primary text-white text-lg text-center Noprint">
-            成都龙泉山城市森林公园管委会2020年面向社会公开招聘优秀人才面试准考证打印</div>
+        <div class="title mt-lg py-sm px-md bg-primary text-white text-lg text-center Noprint">{{ examInfo?.name }}</div>
         <div class="form_wrapper Noprint">
             <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
                 <nz-form-item class="flex-1 mb-lg">

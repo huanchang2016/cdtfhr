@@ -11,6 +11,7 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class AdmissionTicketPrintComponent implements OnInit {
   exam_id: number;
+  examInfo:any;
 
   validateForm!: FormGroup;
 
@@ -26,6 +27,7 @@ export class AdmissionTicketPrintComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params) {
         this.exam_id = +params['id'];
+        this.getExamInfo();
       }
     })
   }
@@ -33,6 +35,16 @@ export class AdmissionTicketPrintComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       id_card: [null, [Validators.required]]
+    });
+  }
+  
+  getExamInfo():void {
+    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res:ApiData) => {
+      this.loading = false;
+      console.log('examInfo ', res)
+      if(res.code === 200) {
+        this.examInfo = res.data;
+      }
     });
   }
 

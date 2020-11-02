@@ -30,8 +30,9 @@
         padding-left: 50px;
         padding-right: 50px;
         .result_item_box {
-            padding-bottom: 30px;
-            border-bottom: 1px solid #666;
+            &:nth-last-child(1) {
+                border-top: 1px solid #666;
+            }
             &>div {
                 font-size: 16px;
                 margin-bottom: 10px;

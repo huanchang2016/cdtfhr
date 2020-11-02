@@ -12,14 +12,18 @@ import { PromulgateComponent } from './promulgate/promulgate-list/promulgate.com
 import { AdmissionTicketPrintComponent } from './admission-ticket-print/admission-ticket-print.component';
 import { ScoreQueryResultComponent } from './score-query-result/score-query-result.component';
 
+import { PrintExamListComponent } from './print-exam-list/print-exam-list.component';
+import { ResultExamListComponent } from './result-exam-list/result-exam-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: EntranceHomeComponent },
   { path: 'apply', component: ApplyOnlineListComponent },
   { path: 'apply/details/:id', component: ApplyOnlineDetailsComponent },
-  { path: 'print/:id', component: AdmissionTicketPrintComponent },
-  { path: 'result/:id', component: ScoreQueryResultComponent },
+  { path: 'print/exam', component: PrintExamListComponent },
+  { path: 'print/exam/:id', component: AdmissionTicketPrintComponent },
+  { path: 'result/exam', component: ResultExamListComponent },
+  { path: 'result/exam/:id', component: ScoreQueryResultComponent },
   { path: 'questions', component: CommonProblemComponent },
   { path: 'promulgate', component: PromulgateComponent },
   { path: 'promulgate/details/:id', component: PromulgateDetailsComponent },
