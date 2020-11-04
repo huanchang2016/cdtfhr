@@ -163,8 +163,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 忘记密码验证码发送
     '/v1/web/send_reset_code',
     '/v1/web/find_account',
-    // 其余为首页相关请求
-    '/v1/web/index/'
+    // 其余为招聘首页相关请求
+    '/v1/web/index/',
+    // 招考模块部分功能接口  
+    '/v1/web/exam'
   ];
   // 判断当前接口是否需要携带token, 如果存在，则返回false， 不存在则返回true
   isNotNeedTokenRequest(url:string):boolean{

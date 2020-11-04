@@ -1,6 +1,8 @@
 <div class="question_modal_wrapper">
-    <div class="body__content_box">
-        <div class="title mt-lg py-sm px-md bg-primary text-white text-lg text-center Noprint">{{ examInfo?.name }}</div>
+    <div class="body__content_box bg-white py-lg border-raidus-xs">
+        <div class="title mt-lg py-sm px-md text-center Noprint">
+            <h3 class="text-primary text-lg">{{ examInfo?.name }}</h3>
+        </div>
         <div class="form_wrapper Noprint">
             <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
                 <nz-form-item class="flex-1 mb-lg">
@@ -18,72 +20,81 @@
         </div>
         <ng-container *ngIf="result && !loading">
             <div class="search_result_wrapper mt-lg py-lg bg-white" id="print_wrapper">
-                <div class="text-center text-lg px-lg">
+                <!-- <div class="text-center text-lg px-lg">
                     <p class="mb-sm">{{ result.exam_name }}</p>
                     <p>准考证</p>
-                </div>
+                </div> -->
                 <div class="result_body py-lg">
-                    <div class="result_item_box">
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
-                            <div class="float-left">{{ result.name }}</div>
+                    <div class="resulet_item__wrapper">
+                        <div nz-row>
+                            <div nz-col nzSpan="24" class="text-center text-lg mb-lg exam_name">{{ result.exam_name }}</div>
+                            <div nz-col nzSpan="24" class="text-center text-lg exam_sub_title">准考证</div>
+                            <div nz-col nzSpan="20" class="text-md">
+                                <div nz-row>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+                                        <span>{{ result.name }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                                        <span>{{ result.sex }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>准考证号：</span>
+                                        <span>{{ result.number }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>报考部门：</span>
+                                        <span>{{ result.department }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>身份证号：</span>
+                                        <span>{{ result.id_number }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>报考职位：</span>
+                                        <span>{{ result.position }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>考&nbsp;&nbsp;场&nbsp;&nbsp;号：</span>
+                                        <span>{{ result.room }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>考试科目：</span>
+                                        <span>{{ result.subject }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>座&nbsp;&nbsp;位&nbsp;&nbsp;号：</span>
+                                        <span>{{ result.seat_number }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div nz-col nzSpan="4" class="text-center">
+                                <div nz-row>
+                                    <div nz-col nzSpan="24"></div>
+                                </div>
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-sm text-md">
+                                <span>考试地点：</span>
+                                <span>{{ result.address }}</span>
+
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-lg text-md">
+                                <span>考试时间：</span>
+                                <span>{{ result.time }}</span>
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-sm text-md">
+                                <div class="result_item_reffer">
+                                    <div class="text-center py-md">注意事项</div>
+                                    <div [innerHTML]="result.exam_note | safeHtml"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
-                            <div class="float-left">{{ result.sex }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">准考证号：</div>
-                            <div class="float-left">{{ result.number }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">身份证号：</div>
-                            <div class="float-left">{{ result.id_number }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">报考部门：</div>
-                            <div class="float-left">{{ result.department }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">报考职位：</div>
-                            <div class="float-left">{{ result.position }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">考试地点：</div>
-                            <div class="float-left">{{ result.address }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">考&nbsp;&nbsp;场&nbsp;&nbsp;号：</div>
-                            <div class="float-left">{{ result.room }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">座&nbsp;&nbsp;位&nbsp;&nbsp;号：</div>
-                            <div class="float-left">{{ result.seat_number }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">考试科目：</div>
-                            <div class="float-left">{{ result.subject }}</div>
-                        </div>
-                        <div class="result_item clearfix">
-                            <div class="text-right float-left">考试时间：</div>
-                            <div class="float-left">{{ result.time }}</div>
-                        </div>
-                    </div>
-                    <div class="result_item_reffer">
-                        <div class="text-center py-md">注意事项</div>
-                        <div [innerHTML]="result.exam_note | safeHtml"></div>
-                        <!-- <p class="pb-sm">1、请考生保管好此准考证，凭本人有效居民身份证和准考证提前30分钟入场。</p>
-                        <p class="pb-sm">2、考生需进行面试签到及抽签，凭准考证及面试抽签号进入面试考场。</p>
-                        <p class="pb-sm">3、参加面试的人员在候考室内要自觉听从工作人员安排，必须保持安静，不得抽烟、大声喧哗，不得向工作人员打听面试的有关内容，面试人员在候考期间不得擅自离开候考室。
-                        </p>
-                        <p class="pb-sm">4、考生应遵守考场规则，严禁将各种电子、通信、计算、储存或其他设备带至座位。若有作弊行为，将按照相关规定处理。</p> -->
                     </div>
                 </div>
             </div>
             <div class="my-lg text-center Noprint">
                 <button nz-button nzType="primary" nzSize="large" (click)="print()" class="px-md">打印</button>
-
-                <!-- <button nz-button nzType="default" nzSize="large" (click)="downloadFile()" class="ml-md">保存为图片</button> -->
             </div>
         </ng-container>
         <div class="loading_box text-center" *ngIf="!result && !loading && isEmpty">

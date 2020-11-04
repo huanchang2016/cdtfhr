@@ -1,6 +1,8 @@
 <div class="question_modal_wrapper">
-    <div class="body__content_box">
-        <div class="title mt-lg py-sm px-md bg-primary text-white text-lg text-center Noprint">{{ examInfo?.name }}</div>
+    <div class="body__content_box bg-white py-lg border-raidus-xs">
+        <div class="title mt-lg py-sm px-md text-center Noprint">
+            <h3 class="text-primary text-lg">{{ examInfo?.name }}</h3>
+        </div>
         <div class="form_wrapper Noprint">
             <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
                 <nz-form-item class="mb-lg">
@@ -77,9 +79,9 @@
                             <div class="float-left">{{ result.score.ranking }}</div>
                         </div>
                         <div class="result_item clearfix">
-                            <div class="text-right float-left">资格复审：</div>
+                            <div class="text-right float-left">是否进入面试：</div>
                             <div class="float-left">
-                                <span [class.text-success]=" result.score.enter === '是'" [class.text-danger]=" result.score.enter === '否'">{{ result.score.enter }}</span>
+                                <span [class.text-green]=" result.score.enter === '是'" [class.text-danger]=" result.score.enter === '否'">{{ result.score.enter }}</span>
                             </div>
                         </div>
                     </div>
@@ -120,7 +122,7 @@
                         <div class="result_item clearfix">
                             <div class="text-right float-left">进入体检：</div>
                             <div class="float-left">
-                                <span [class.text-success]=" result.interview.enter === '是'" [class.text-danger]="result.interview.enter === '否'">{{ result.interview.enter }}</span>
+                                <span [class.text-green]=" result.interview.enter === '是'" [class.text-danger]="result.interview.enter === '否'">{{ result.interview.enter }}</span>
                             </div>
                         </div>
                     </div>

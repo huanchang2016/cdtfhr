@@ -7,12 +7,19 @@
             </div>
             <div class="questions_wrapper_body">
                 <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
-                    <ng-container *ngFor="let data of list">
-                        <div class="list_item d-flex text-md">
-                            <a [routerLink]="['/entrance/promulgate/details', data.id]" target="_blank" class="flex-1 text-truncate mr-md">{{ data.name }}</a>
-                            <div class="update_time text-666">{{ data.release_time }}</div>
-                        </div>
+                    <ng-container *ngIf="list.length !== 0; else emptyListTpl">
+                        <ng-container *ngFor="let data of list">
+                            <div class="list_item d-flex text-md">
+                                <a [routerLink]="['/entrance/apply/details', data.exam_id]" target="_blank" class="flex-1 text-truncate mr-md">{{ data.name }}</a>
+                                <div class="update_time text-666">{{ data.release_time }}</div>
+                            </div>
+                        </ng-container>
                     </ng-container>
+                    <ng-template #emptyListTpl>
+                        <div class="null_image_box">
+                            <img src="./assets/imgs/icon/img_nullnote.png" alt="">
+                        </div>
+                    </ng-template>
                 </nz-spin>
             </div>
         </div>

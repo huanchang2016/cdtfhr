@@ -7,7 +7,7 @@
                     <ng-container *ngFor="let item of listNotice">
                         <div class="d-flex align-items-center item_box_wrapper text-md">
                             <span class="item_style_circle text-grey mr-sm">·</span>
-                            <a [routerLink]="['/entrance/promulgate/details', item.id]" target="_blank" class="item_title text-truncate flex-1">{{ item.name }}</a>
+                            <a [routerLink]="['/entrance/apply/details', item.exam_id]" target="_blank" class="item_title text-truncate flex-1">{{ item.name }}</a>
                             <div class="d-block item_update_time text-grey-dark clearfix">
                                 <div class="float-right">{{ item.release_time1 }}</div>
                             </div>

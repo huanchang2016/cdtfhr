@@ -7,7 +7,10 @@
                     <ng-container *ngFor="let data of list">
                         <div class="list_item text-md">
                             <div class="list_item_title text-666">Q：{{ data.desc }}</div>
-                            <div class="list_item_answer text-grey">A：{{ data.content }}</div>
+                            <div class="list_item_answer d-flex text-grey">
+                                <div class="aswer_title">A：</div>
+                                <div class="aswer_content" [innerHTML]="data.content"></div>
+                            </div>
                         </div>
                     </ng-container>
                 </nz-spin>

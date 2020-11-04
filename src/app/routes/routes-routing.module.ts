@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'entrance',
-        canActivate: [LoginAccountGuard],
+        // canActivate: [LoginAccountGuard],
         loadChildren: () => import('./entrance-examination/entrance-examination.module').then(m => m.EntranceExaminationModule)
       },
       // 业务子模块
