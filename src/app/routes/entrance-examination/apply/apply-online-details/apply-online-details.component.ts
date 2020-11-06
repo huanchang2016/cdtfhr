@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 
@@ -13,44 +13,50 @@ export class ApplyOnlineDetailsComponent implements OnInit {
   dataInfo:any = null;
   loading:boolean = true;
 
-  newsId:number;
+  exam_id:number;
 
   steps:any[] = [];
   menus:any[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private settingService: GlobalSettingsService
   ) {
     this.activatedRoute.params.subscribe((params:Params) => {
       if(params) {
-        this.newsId = +params['id'];
+        this.exam_id = +params['id'];
         this.getData();
       }
     })
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log('params', params)
+      if(params['id']) {
+        this.status_menu = +params['id'];
+        this.getInfo();
+      }
+    })
+    
   }
 
   ngOnInit(): void {
     
-
   }
 
   getData():void {
-
     // 获取招考 左侧 菜单项
-    this.settingService.post(`/v1/web/exam/exam_announces/${this.newsId}`).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/exam/exam_announces/${this.exam_id}`).subscribe((res:ApiData) => {
       console.log('menu', res)
       if(res.code === 200) {
         this.menus = res.data;
-        if(this.menus.length !== 0) {
-          this.status_menu = this.menus[0].id;
-          this.getInfo();
+        if(this.menus.length === 0) {
+          this.loading = false
         }
       }
     });
     
     // 获取招考流程图数据
-    this.settingService.post(`/v1/web/exam/exam_flows/${this.newsId}`).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/exam/exam_flows/${this.exam_id}`).subscribe((res:ApiData) => {
       if(res.code === 200) {
         this.steps = res.data;
       }
@@ -74,6 +80,7 @@ export class ApplyOnlineDetailsComponent implements OnInit {
   status_menu:number = 0;
   viewStatus(status: number):void {
     this.status_menu = status;
+    this.router.navigateByUrl(`/entrance/apply/details/${this.exam_id}?id=${status}`)
     this.getInfo();
   }
 }

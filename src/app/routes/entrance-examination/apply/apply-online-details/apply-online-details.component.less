@@ -3,10 +3,13 @@
 .question_modal_wrapper {
     padding: 40px 0 30px;
     background-color: #F0F0F0;
+
     .apply_oper_wrapper {
         width: 300px;
+
         .oper_list {
             min-height: 200px;
+
             .oper_item {
                 width: 100%;
                 height: 40px;
@@ -14,6 +17,7 @@
                 margin-bottom: 10px;
                 border: 1px solid @primary-color;
                 background-color: @white-color;
+
                 .icon_item {
                     width: 22px;
                     height: 22px;
@@ -22,94 +26,16 @@
                     background-position: center center;
                     background-size: contain;
                 }
-                // .notice_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnnote.png');
-                // }
-                // .apply_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnapply.png');
-                // }
-                // .print_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnprint.png');
-                // }
-                // .inside_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnpass.png');
-                // }
-                // .interview_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnmessage.png');
-                // }
-                // .result_search_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnresult.png');
-                // }
-                // .healthy_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnbody.png');
-                // }
-                // .employment_results_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnuse.png');
-                // }
 
                 .oper_item_name {
                     color: @primary-color;
                 }
 
-                // &:hover {
-                    // background-color: @primary-color;
-                    
-                    // .notice_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnnote_mouseover.png');
-                    // }
-                    // .apply_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnapply_mouseover.png');
-                    // }
-                    // .print_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnprint_mouseover.png');
-                    // }
-                    // .inside_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnpass_mouseover.png');
-                    // }
-                    // .interview_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnmessage_mouseover.png');
-                    // }
-                    // .result_search_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnresult_mouseover.png');
-                    // }
-                    // .healthy_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnbody_mouseover.png');
-                    // }
-                    // .employment_results_icon {
-                    //     background-image: url('/assets/imgs/icon/icon_btnuse_mouseover.png');
-                    // }
-                    // .oper_item_name {
-                    //     color: @white-color;
-                    // }
-                // }
             }
+
             .current_status_active {
                 background-color: @primary-color;
-                
-                // .notice_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnnote_mouseover.png');
-                // }
-                // .apply_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnapply_mouseover.png');
-                // }
-                // .print_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnprint_mouseover.png');
-                // }
-                // .inside_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnpass_mouseover.png');
-                // }
-                // .interview_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnmessage_mouseover.png');
-                // }
-                // .result_search_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnresult_mouseover.png');
-                // }
-                // .healthy_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnbody_mouseover.png');
-                // }
-                // .employment_results_icon {
-                //     background-image: url('/assets/imgs/icon/icon_btnuse_mouseover.png');
-                // }
+
                 .oper_item_name {
                     color: @white-color;
                 }
@@ -123,8 +49,30 @@
                 margin-top: 20px;
                 min-height: 120px;
             }
+
+            .flow_steps {
+                .step_item {
+                    padding-left: 10px;
+                    height: 40px;
+                    line-height: 40px;
+                    border-bottom: 1px solid #F0F0F0;
+
+                    &:nth-last-child(1) {
+                        border: 0;
+                    }
+
+                    .step_item_icon {
+                        font-size: 20px;
+                    }
+
+                    .step_item_text {
+                        margin-left: 12px;
+                    }
+                }
+            }
         }
     }
+
     .details_content_wrapper {
         width: 940px;
         min-height: 300px;
@@ -135,7 +83,7 @@
                 max-width: 100%;
             }
         }
-        
+
     }
 }
 
@@ -143,8 +91,8 @@
 :host ::ng-deep {
     .status_body {
         .ant-card-body {
-            padding: 10px;
-            padding-bottom: 0;
+            // padding: 10px;
+            padding: 0;
         }
     }
 
@@ -152,6 +100,7 @@
         width: 250px;
         height: 36px;
         min-height: 36px;
+
         .ant-steps-item-description {
             height: 0;
             padding: 0;
@@ -159,13 +108,15 @@
     }
 
     .ant-steps-item {
-        & > .ant-steps-item-container > .ant-steps-item-tail::after {
+        &>.ant-steps-item-container>.ant-steps-item-tail::after {
             background-color: #BFC1C4;
         }
-        & >.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
+
+        &>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
             color: #808E9A;
             margin-top: -4px;
         }
+
         &>.ant-steps-item-container {
             margin-bottom: 10px;
             border-bottom: 1px solid #f0f0f0;
@@ -173,23 +124,27 @@
             margin-right: -10px;
             padding-left: 10px;
         }
+
         &:last-child {
             &>.ant-steps-item-container {
                 margin-bottom: 0;
-            } 
+            }
         }
     }
+
     .ant-steps-item-finish,
     .ant-steps-item-process {
-        & >.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
+        &>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
             color: @primary-color;
         }
     }
+
     .ant-steps-item-finish {
-        & > .ant-steps-item-container > .ant-steps-item-tail::after {
-            background-color:  @primary-color!important;
+        &>.ant-steps-item-container>.ant-steps-item-tail::after {
+            background-color: @primary-color  !important;
         }
     }
+
     .ant-steps-vertical.ant-steps-dot .ant-steps-item-icon {
         margin-top: 2px;
     }
@@ -202,9 +157,10 @@
         height: 16px;
     }
 
-    .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+    .ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon .ant-steps-icon-dot {
         background-color: #BFC1C4;
     }
+
     .ant-steps-vertical.ant-steps-dot .ant-steps-item-process .ant-steps-icon-dot {
         left: 0;
         top: 0;
