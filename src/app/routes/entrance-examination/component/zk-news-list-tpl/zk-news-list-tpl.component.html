@@ -1,0 +1,37 @@
+<div class="advert_modal_wrapper">
+    <div class="body__content_box mt-sm mb-lg">
+        <div nz-row [nzGutter]="14">
+            <div nz-col nzSpan="10">
+                <app-sub-title-show [title]="'公告公示'" [url]="'/entrance/promulgate'" [isBold]="false">
+                </app-sub-title-show>
+                <div class="mt-md">
+                    <ng-container *ngFor="let item of listNotice">
+                        <div class="d-flex align-items-center item_box_wrapper text-md">
+                            <span class="item_style_circle text-grey mr-sm">·</span>
+                            <a [routerLink]="['/entrance/apply/details', item.exam_id]" [queryParams]="{ id: item.id }"
+                                target="_blank" class="item_title text-truncate flex-1">{{ item.title }}</a>
+                            <div class="d-block item_update_time text-grey-dark clearfix">
+                                <div class="float-right">{{ item.release_time1 }}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div nz-col nzSpan="10" nzOffset="4">
+                <app-sub-title-show [title]="'新闻中心'" [url]="'/entrance/news'" [isBold]="false"></app-sub-title-show>
+                <div class="mt-md">
+                    <ng-container *ngFor="let item of listNews">
+                        <div class="d-flex align-items-center item_box_wrapper text-md">
+                            <span class="item_style_circle text-grey mr-sm">·</span>
+                            <a [routerLink]="['/entrance/news/details', item.id]" target="_blank"
+                                class="item_title text-truncate flex-1">{{ item.name }}</a>
+                            <div class="d-block item_update_time text-grey-dark clearfix">
+                                <div class="float-right">{{ item.release_time1 }}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

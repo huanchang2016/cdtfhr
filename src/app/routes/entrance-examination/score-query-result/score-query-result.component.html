@@ -1,0 +1,143 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box bg-white py-lg border-raidus-xs">
+        <div class="title mt-lg py-sm px-md text-center Noprint">
+            <h3 class="text-primary text-lg">{{ examInfo?.name }}</h3>
+        </div>
+        <div class="form_wrapper Noprint">
+            <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <input formControlName="username" nz-input placeholder="请输入用户姓名" nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <input formControlName="id_card" nz-input placeholder="请输入身份证号码" nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="mb-lg">
+                    <nz-form-control>
+                        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                            <input #captchaInput formControlName="captcha" type="text" nz-input placeholder="请填写验证码" />
+                          </nz-input-group>
+                          <ng-template #suffixButton>
+                            <div class="captcha_img_box text-center">
+                                <img *ngIf="!captchaLoading" (click)="changeCaptcha()" [src]="imgSrc" alt="">
+                                <nz-spin *ngIf="captchaLoading" nzSimple></nz-spin>
+                            </div>
+                          </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="submit_btn">
+                    <nz-form-control>
+                        <button nz-button nzBlock nzType="primary" [disabled]="!validateForm.valid"
+                            [nzLoading]="loading" nzSize="large">查询</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <ng-container *ngIf="result && !loading">
+            <div class="search_result_wrapper mt-lg py-lg bg-white" id="print_wrapper">
+                <div class="text-center text-lg px-lg">
+                    <p class="mb-sm">{{ result.score.exam_name }}</p>
+                </div>
+                <div class="result_body py-lg">
+                    <div class="result_item_box pb-lg" *ngIf="result.score">
+                        <p class="text-center text-md mb-md">笔试成绩</p>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                            <div class="float-left">{{ result.score.name }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+                            <div class="float-left">{{ result.score.sex }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">准考证号：</div>
+                            <div class="float-left">{{ result.score.number }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">身份证号：</div>
+                            <div class="float-left">{{ result.score.id_number }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考部门：</div>
+                            <div class="float-left">{{ result.score.department }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考职位：</div>
+                            <div class="float-left">{{ result.score.position }}</div>
+                        </div>
+                        <ng-container *ngFor="let score of result.score.score_data">
+                            <div class="result_item clearfix">
+                                <div class="text-right float-left" style="min-width: 80px;">{{ score.score_name }}：</div>
+                                <div class="float-left">{{ score.score }}</div>
+                            </div>
+                        </ng-container>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">笔试排名：</div>
+                            <div class="float-left">{{ result.score.ranking }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">是否进入面试：</div>
+                            <div class="float-left">
+                                <span [class.text-green]=" result.score.enter === '是'" [class.text-danger]=" result.score.enter === '否'">{{ result.score.enter }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="result_item_box pt-lg" *ngIf="result.interview">
+                        <p class="text-center text-md mb-md">面试成绩</p>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                            <div class="float-left">{{ result.interview.name }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+                            <div class="float-left">{{ result.interview.sex }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">准考证号：</div>
+                            <div class="float-left">{{ result.interview.number }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">身份证号：</div>
+                            <div class="float-left">{{ result.interview.id_number }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考部门：</div>
+                            <div class="float-left">{{ result.interview.department }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">报考职位：</div>
+                            <div class="float-left">{{ result.interview.position }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">面试成绩：</div>
+                            <div class="float-left">{{ result.interview.score }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">面试排名：</div>
+                            <div class="float-left">{{ result.interview.ranking }}</div>
+                        </div>
+                        <div class="result_item clearfix">
+                            <div class="text-right float-left">进入体检：</div>
+                            <div class="float-left">
+                                <span [class.text-green]=" result.interview.enter === '是'" [class.text-danger]="result.interview.enter === '否'">{{ result.interview.enter }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="result_item_reffer">
+                        <div class="text-center py-md">通知事项</div>
+                        <p class="pb-sm">1、如果考生对成绩有疑问，可以拨打电话详询工作人员。</p>
+                    </div> -->
+                </div>
+            </div>
+        </ng-container>
+        <div class="loading_box text-center" *ngIf="!result && !loading && isEmpty">
+            暂无更多信息
+        </div>
+        <div class="loading_box text-center" *ngIf="!result && loading">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+    </div>
+</div>

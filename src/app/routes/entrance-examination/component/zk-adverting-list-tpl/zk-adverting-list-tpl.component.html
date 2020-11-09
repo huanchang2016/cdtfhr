@@ -1,0 +1,13 @@
+<div class="advert_modal_wrapper">
+    <div class="body__content_box pt-sm pb-lg">
+        <ng-container *ngFor="let item of list">
+            <div class="advert_list_box mt-md">
+                <a (click)="goTo(item.to_url)">
+                    <img [src]="item.url" [alt]="item.name">
+                </a>
+            </div>
+        </ng-container>
+        
+    </div>
+</div>
+

@@ -1,0 +1,34 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="questions_content_wrapper bg-white border-radiu">
+            <div class="text-grey text-md d-flex header_title_wrapper">
+                <div class="flex-1 text-center">公告名</div>
+                <div class="update_time">发布时间</div>
+            </div>
+            <div class="questions_wrapper_body">
+                <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
+                    <ng-container *ngIf="list.length !== 0; else emptyListTpl">
+                        <ng-container *ngFor="let data of list">
+                            <div class="list_item d-flex text-md">
+                                <a [routerLink]="['/entrance/apply/details', data.exam_id]"
+                                    [queryParams]="{ id: data.id }" target="_blank"
+                                    class="flex-1 text-truncate mr-md">{{ data.title }}</a>
+                                <div class="update_time text-666">{{ data.release_time }}</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #emptyListTpl>
+                        <div class="null_image_box">
+                            <img src="./assets/imgs/icon/img_nullnote.png" alt="">
+                        </div>
+                    </ng-template>
+                </nz-spin>
+            </div>
+        </div>
+
+        <div class="pagination_wrapper mt-lg" *ngIf="total">
+            <app-pagination-item [total]="total" [limit]="limit" [currentPage]="pageIndex"
+                (pageIndexEmit)="pageIndexChange($event)"></app-pagination-item>
+        </div>
+    </div>
+</div>

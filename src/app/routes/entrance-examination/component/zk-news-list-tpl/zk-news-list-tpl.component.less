@@ -1,0 +1,18 @@
+@import './../../../../../styles/base-color.less';
+.item_box_wrapper {
+    line-height: 30px;
+    .item_title {
+        color: @grey-color;
+        &:hover {
+            color: @primary-color;
+        }
+    }
+    .item_update_time {
+        width: 80px;
+        &>div {
+            border-left: 2px solid @grey-dark-color;
+            line-height: 16px;
+            padding-left:8px;
+        }
+    }
+}

@@ -35,7 +35,6 @@ export class OperSaveModalComponent implements OnInit {
       return;
     }
 
-
     this.submitLoading = true;
     let url: string = '';
     let headers: HttpHeaders;
@@ -62,8 +61,8 @@ export class OperSaveModalComponent implements OnInit {
       this.submitLoading = false;
       this.downloadFile(resp);
     }, err => this.submitLoading = false);
-
   }
+
 
   downloadFile(data): void {
     const blob = new Blob([data]);

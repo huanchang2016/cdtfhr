@@ -1,0 +1,107 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box bg-white py-lg border-raidus-xs">
+        <div class="title mt-lg py-sm px-md text-center Noprint">
+            <h3 class="text-primary text-lg">{{ examInfo?.name }}</h3>
+        </div>
+        <div class="form_wrapper Noprint">
+            <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+                <nz-form-item class="flex-1 mb-lg">
+                    <nz-form-control>
+                        <input formControlName="id_card" nz-input placeholder="请输入身份证号码" nzSize="large" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="submit_btn">
+                    <nz-form-control>
+                        <button nz-button nzBlock nzType="primary" [disabled]="!validateForm.valid"
+                            [nzLoading]="loading" nzSize="large">查询</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <ng-container *ngIf="result && !loading">
+            <div class="search_result_wrapper mt-lg py-lg bg-white" id="print_wrapper">
+                <!-- <div class="text-center text-lg px-lg">
+                    <p class="mb-sm">{{ result.exam_name }}</p>
+                    <p>准考证</p>
+                </div> -->
+                <div class="result_body py-lg">
+                    <div class="resulet_item__wrapper">
+                        <div nz-row>
+                            <div nz-col nzSpan="24" class="text-center text-lg mb-lg exam_name">{{ result.exam_name }}</div>
+                            <div nz-col nzSpan="24" class="text-center text-lg exam_sub_title">准考证</div>
+                            <div nz-col nzSpan="20" class="text-md">
+                                <div nz-row>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+                                        <span>{{ result.name }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                                        <span>{{ result.sex }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>准考证号：</span>
+                                        <span>{{ result.number }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>报考部门：</span>
+                                        <span>{{ result.department }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>身份证号：</span>
+                                        <span>{{ result.id_number }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>报考职位：</span>
+                                        <span>{{ result.position }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>考&nbsp;&nbsp;场&nbsp;&nbsp;号：</span>
+                                        <span>{{ result.room }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>考试科目：</span>
+                                        <span>{{ result.subject }}</span>
+                                    </div>
+                                    <div nz-col nzSpan="12" class="mb-sm">
+                                        <span>座&nbsp;&nbsp;位&nbsp;&nbsp;号：</span>
+                                        <span>{{ result.seat_number }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div nz-col nzSpan="4" class="text-center">
+                                <div nz-row>
+                                    <div nz-col nzSpan="24"></div>
+                                </div>
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-sm text-md">
+                                <span>考试地点：</span>
+                                <span>{{ result.address }}</span>
+
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-lg text-md">
+                                <span>考试时间：</span>
+                                <span>{{ result.time }}</span>
+                            </div>
+                            <div nz-col nzSpan="24" class="mb-sm text-md">
+                                <div class="result_item_reffer">
+                                    <div class="text-center py-md">注意事项</div>
+                                    <div [innerHTML]="result.exam_note | safeHtml"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-lg text-center Noprint">
+                <button nz-button nzType="primary" nzSize="large" (click)="print()" class="px-md">打印</button>
+            </div>
+        </ng-container>
+        <div class="loading_box text-center" *ngIf="!result && !loading && isEmpty">
+            <div class="text-md text-warning">未查询到结果</div>
+        </div>
+        <div class="loading_box text-center" *ngIf="!result && loading">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+    </div>
+</div>

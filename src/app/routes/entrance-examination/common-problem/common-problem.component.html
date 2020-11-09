@@ -1,0 +1,25 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="questions_content_wrapper bg-white border-radius-sm">
+            <h2 class="text-center text-grey text-md">常见问题</h2>
+            <div class="questions_wrapper_body">
+                <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
+                    <ng-container *ngFor="let data of list">
+                        <div class="list_item text-md">
+                            <div class="list_item_title text-666">Q：{{ data.desc }}</div>
+                            <div class="list_item_answer d-flex text-grey">
+                                <div class="aswer_title">A：</div>
+                                <div class="aswer_content" [innerHTML]="data.content"></div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </nz-spin>
+            </div>
+        </div>
+
+        <div class="pagination_wrapper mt-lg" *ngIf="total">
+            <app-pagination-item [total]="total" [limit]="limit" [currentPage]="pageIndex"
+                (pageIndexEmit)="pageIndexChange($event)"></app-pagination-item>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="question_modal_wrapper">
+    <div class="body__content_box">
+        <div class="questions_content_wrapper bg-white border-radiu">
+            <div class="text-grey text-md header_title_wrapper">
+                <!-- <div class="flex-1 text-center">公告名</div>
+                <div class="update_time">发布时间</div> -->
+                <div nz-row nzGutter="24" class="text-grey text-center text-md">
+                    <div nz-col nzSpan="13">发布名称</div>
+                    <div nz-col nzSpan="3">报名时间</div>
+                    <div nz-col nzSpan="4">报名结束时间</div>
+                    <div nz-col nzSpan="4">准考证打印时间</div>
+                </div>
+            </div>
+            <div class="questions_wrapper_body">
+                <nz-spin [nzSpinning]="loading" [class.mt-lg]="loading">
+                    <div nz-row>
+                        <div nz-col nzSpan="24" class="list_item_title text-green text-center text-md">正报名中</div>
+                    </div>
+                    <ng-container *ngIf="listIng.length !== 0;else emptyTpl">
+                        <ng-container *ngFor="let data of listIng">
+                            <div nz-row nzGutter="24" class="list_item text-grey text-md px-md">
+                                <div nz-col nzSpan="13" class="text-primary text-truncate item_name">
+                                    <a [routerLink]="['/entrance/apply/details', data.id]"
+                                        target="_blank">{{ data.name }}</a>
+                                </div>
+                                <div nz-col nzSpan="3" class="text-666 text-center">{{ data.start_time }}</div>
+                                <div nz-col nzSpan="4" class="text-666 text-center">距结束还有<span
+                                        class="text-danger">{{ data.end_time }}</span>天</div>
+                                <div nz-col nzSpan="4" class="text-666 text-center">{{ data.print_time }}</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="listIng.length < limit">
+                        <div nz-row>
+                            <div nz-col nzSpan="24" class="list_item_title text-center text-danger text-md">报名已结束，数据处理中
+                            </div>
+                        </div>
+                        <ng-container *ngIf="listEnd.length !== 0;else emptyTpl">
+                            <div *ngFor="let data of listEnd" nz-row nzGutter="24"
+                                class="list_item text-grey text-md px-md">
+                                <div nz-col nzSpan="13" class="text-primary text-center text-truncate item_name">
+                                    <a [routerLink]="['/entrance/apply/details', data.id]"
+                                        target="_blank">{{ data.name }}</a>
+                                </div>
+                                <div nz-col nzSpan="3" class="text-666 text-center">{{ data.start_time }}</div>
+                                <div nz-col nzSpan="4" class="text-666 text-center">
+                                    <span class="text-danger">{{ data.is_end ? '已结束' : data.end_time }}</span>
+                                </div>
+                                <div nz-col nzSpan="4" class="text-666 text-center">{{ data.print_time }}</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </nz-spin>
+
+                <ng-template #emptyTpl>
+                    <div class="empty_wrapper list_item_title d-flex align-items-center justify-content-center">
+                        <div class="null_image_box">
+                            <img src="./assets/imgs/icon/img_nullnote.png" alt="">
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="pagination_wrapper mt-lg" *ngIf="total">
+            <app-pagination-item [total]="total" [limit]="limit" [currentPage]="pageIndex"
+                (pageIndexEmit)="pageIndexChange($event)"></app-pagination-item>
+        </div>
+    </div>
+</div>

@@ -106,8 +106,11 @@ export class DefaultInterceptor implements HttpInterceptor {
         if (ev instanceof HttpErrorResponse) {
           // console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
           const errors = ev.error.errors;
-          const errorText:string = errors[Object.keys(errors)[0]];
-          this.msg.error(errorText);
+          if(errors) {
+            const errorText:string = errors[Object.keys(errors)[0]];
+            this.msg.error(errorText);
+          }
+          
         }
         break;
     }
@@ -163,8 +166,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 忘记密码验证码发送
     '/v1/web/send_reset_code',
     '/v1/web/find_account',
-    // 其余为首页相关请求
-    '/v1/web/index/'
+    // 其余为招聘首页相关请求
+    '/v1/web/index/',
+    // 招考模块部分功能接口  
+    '/v1/web/exam'
   ];
   // 判断当前接口是否需要携带token, 如果存在，则返回false， 不存在则返回true
   isNotNeedTokenRequest(url:string):boolean{
