@@ -9,16 +9,20 @@ nz-carousel {
     .list {
         background-repeat: no-repeat;
         background-position: center center;
-        // background-size: cover;
-        background-size: 100% 100%;
+        background-size: cover;
+
+        // background-size: 100% 100%;
         .carousel_content_wrap {
             margin-top: 160px;
+
             .carousel_content_title {
                 font-size: 60px;
             }
+
             .carousel_content_subTitle {
                 font-size: 30px;
             }
+
             .view-button {
                 .entrance_box {
                     width: 200px;
@@ -39,7 +43,7 @@ nz-carousel {
                     }
                 }
 
-                & > a.default-btn {
+                &>a.default-btn {
                     width: 220px;
                     height: 44px;
                     line-height: 44px;
@@ -51,19 +55,21 @@ nz-carousel {
 
 ::ng-deep {
     .ant-carousel .slick-dots li {
-        width: 10px!important;
-        height: 10px!important;
+        width: 10px !important;
+        height: 10px !important;
         border-radius: 50%;
+
         button {
             height: 100%;
             border-radius: 50%;
             background-color: #466380;
         }
+
         &.slick-active {
             button {
                 background-color: @primary-color;
             }
         }
     }
-    
+
 }
