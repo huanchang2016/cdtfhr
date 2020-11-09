@@ -35,7 +35,7 @@ export class PromulgateComponent implements OnInit {
       }else {
         this.list = [];
       }
-    })
+    }, err => this.loading = false)
   }
 
   pageIndexChange({ page }): void {

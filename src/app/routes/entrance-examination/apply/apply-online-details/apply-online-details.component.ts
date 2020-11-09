@@ -24,7 +24,7 @@ export class ApplyOnlineDetailsComponent implements OnInit {
     private settingService: GlobalSettingsService
   ) {
     this.activatedRoute.params.subscribe((params:Params) => {
-      if(params) {
+      if(params['id']) {
         this.exam_id = +params['id'];
         this.getData();
       }
@@ -51,6 +51,12 @@ export class ApplyOnlineDetailsComponent implements OnInit {
         this.menus = res.data;
         if(this.menus.length === 0) {
           this.loading = false
+        }else {
+          
+          // 如果当前无选中的公告，则默认取第一个
+          if(!this.status_menu) {
+            this.viewStatus(this.menus[0].id);
+          }
         }
       }
     });

@@ -106,8 +106,11 @@ export class DefaultInterceptor implements HttpInterceptor {
         if (ev instanceof HttpErrorResponse) {
           // console.warn('未可知错误，大部分是由于后端不支持CORS或无效配置引起', ev);
           const errors = ev.error.errors;
-          const errorText:string = errors[Object.keys(errors)[0]];
-          this.msg.error(errorText);
+          if(errors) {
+            const errorText:string = errors[Object.keys(errors)[0]];
+            this.msg.error(errorText);
+          }
+          
         }
         break;
     }

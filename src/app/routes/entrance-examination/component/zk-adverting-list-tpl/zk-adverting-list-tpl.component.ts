@@ -30,7 +30,8 @@ export class ZkAdvertingListTplComponent implements OnInit {
   }
 
   goTo(url: string):void {
-    window.open(url);
+    const _url:string = url || '/';
+    window.open(_url);
   }
   
 }
