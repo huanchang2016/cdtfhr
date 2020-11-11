@@ -44,6 +44,29 @@ export class ScoreQueryResultComponent implements OnInit {
     });
 
     this.changeCaptcha();
+
+    // this.loading = true;
+    // this.result = null;
+    // this.isEmpty = false;
+    // setTimeout(() => {
+    //   this.loading = false;
+    //   this.result = {
+    //     avatar: './assets/imgs/test/img_adv1.png',
+    //     username: '将二狗',
+    //     sex: '男',
+    //     number: '202003402005',
+    //     id_number: '510802199011071419',
+    //     department: '天府新区社会事业保障局规划部',
+    //     position: '办公文员',
+
+    //     score: {
+    //       subject:
+    //     },
+    //     interview: {
+
+    //     }
+    //   }
+    // }, 1500);
   }
 
   getExamInfo():void {
