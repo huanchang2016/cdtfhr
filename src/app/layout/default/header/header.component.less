@@ -1,9 +1,10 @@
 .alain-default__header {
     width: 100%;
-    height: 102px;
+    height: 100px;
 
     .alain-default__header-logo {
         padding-top: 10px;
+
         .alain-default__header-logo-link {
             display: block;
             text-align: center;
@@ -12,10 +13,11 @@
 
         }
     }
+
     .flex-reverse {
         flex-direction: row-reverse;
     }
-    
+
     .alain-default__nav-wrap {
         display: flex;
         flex: 1;
@@ -23,52 +25,66 @@
         height: 100%;
 
         .alain-default__nav {
+            height: 100px;
             padding: 0 68px;
 
-            li .nav__title_box {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 98px;
-                .default__nav_icon {
-                    display: block;
-                    width: 30px;
-                    height: 30px;
-                    overflow: hidden;
-                    background-repeat: no-repeat;
-                    background-position: left top;
-                    background-size: 100% 100%;
-                    border-radius: 50%;
-                }
-                .nav__icon1 {
-                    background-image: url('/assets/imgs/icon/icon_recruit.png')
-                }
-                .nav__icon2 {
-                    background-image: url('/assets/imgs/icon/icon_exam.png')
+            li {
+                height: 100px;
+                box-sizing: border-box;
+
+                .nav__title_box {
+                    display: inline-block;
+                    display: flex;
+                    // align-items: center;
+                    justify-content: center;
+                    height: 96px;
+                    padding-top: 45px;
+                    line-height: 30px;
+
+                    .default__nav_icon {
+                        display: block;
+                        width: 30px;
+                        height: 30px;
+                        overflow: hidden;
+                        background-repeat: no-repeat;
+                        background-position: left top;
+                        background-size: 100% 100%;
+                        border-radius: 50%;
+                    }
+
+                    .nav__icon1 {
+                        width: 33px;
+                        background-image: url('/assets/imgs/icon/icon_recruit.png')
+                    }
+
+                    .nav__icon2 {
+                        background-image: url('/assets/imgs/icon/icon_exam.png')
+                    }
                 }
             }
         }
     }
 
-    
-    
+
+
 }
 
-:host ::ng-deep  {
+:host ::ng-deep {
     .ant-menu-horizontal {
         border-bottom: 0;
-        & > .ant-menu-item,
-        & > .ant-menu-submenu,
-        & > .ant-menu-item:hover,
-        & > .ant-menu-submenu:hover,
-        & > .ant-menu-item-active,
-        & > .ant-menu-submenu-active,
-        & > .ant-menu-item-open,
-        & > .ant-menu-submenu-open,
-        & > .ant-menu-item-selected,
-        & > .ant-menu-submenu-selected {
+
+        &>.ant-menu-item,
+        &>.ant-menu-submenu,
+        &>.ant-menu-item:hover,
+        &>.ant-menu-submenu:hover,
+        &>.ant-menu-item-active,
+        &>.ant-menu-submenu-active,
+        &>.ant-menu-item-open,
+        &>.ant-menu-submenu-open,
+        &>.ant-menu-item-selected,
+        &>.ant-menu-submenu-selected {
             // height: 100%;
-            border-bottom-width: 4px!important;
+            border-bottom-width: 4px !important;
         }
     }
 }
