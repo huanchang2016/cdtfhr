@@ -9,11 +9,11 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ApplyOnlineListComponent implements OnInit {
 
-  total: number = 500;
+  total: number = 0;
   limit: number = 10;
   pageIndex: number = 1;
 
-  loading:boolean = true;
+  loading: boolean = true;
   listIng: any[] = [];
   listEnd: any[] = [];
 
@@ -25,37 +25,25 @@ export class ApplyOnlineListComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loading = true;
-    // this.list1 = [];
-    // this.list2 = [];
-    // /v1/web/exam/exams
     this.loading = true;
-    this.settingService.post('/v1/web/exam/exams', { page: this.pageIndex }).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/exam/exams', { page: this.pageIndex }).subscribe((res: ApiData) => {
       this.loading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.total = res.meta.pagination.total;
         this.limit = res.meta.pagination.per_page;
 
-        const _list:any[] = res.data;
-        this.listIng = _list.filter( v => !v.is_end );
-        this.listEnd = _list.filter( v => v.is_end );
-        // this.list = res.data;
-      }else {
-        // this.list = [];
+        const _list: any[] = res.data;
+        this.listIng = _list.filter(v => !v.is_end);
+        this.listEnd = _list.filter(v => v.is_end);
+      } else {
         this.listIng = this.listEnd = [];
       }
-    })
-
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   this.list1 = [1, 2, 3, 4, 5, 6, 7];
-    //   this.list2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    // }, 2000);
+    }, err => this.loading = false)
   }
 
   pageIndexChange({ page }): void {
-    console.log(page, 'page changes');
     this.pageIndex = page;
     this.getDataList();
   }

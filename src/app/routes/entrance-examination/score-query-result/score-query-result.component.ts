@@ -12,15 +12,15 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ScoreQueryResultComponent implements OnInit {
   exam_id: number;
-  examInfo:any;
+  examInfo: any;
 
   validateForm!: FormGroup;
 
   loading: boolean = false;
   result: any = null;
 
-  captchaLoading:boolean = false;
-  imgSrc:string = '';
+  captchaLoading: boolean = false;
+  imgSrc: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,36 +44,13 @@ export class ScoreQueryResultComponent implements OnInit {
     });
 
     this.changeCaptcha();
-
-    // this.loading = true;
-    // this.result = null;
-    // this.isEmpty = false;
-    // setTimeout(() => {
-    //   this.loading = false;
-    //   this.result = {
-    //     avatar: './assets/imgs/test/img_adv1.png',
-    //     username: '将二狗',
-    //     sex: '男',
-    //     number: '202003402005',
-    //     id_number: '510802199011071419',
-    //     department: '天府新区社会事业保障局规划部',
-    //     position: '办公文员',
-
-    //     score: {
-    //       subject:
-    //     },
-    //     interview: {
-
-    //     }
-    //   }
-    // }, 1500);
   }
 
-  getExamInfo():void {
-    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res:ApiData) => {
+  getExamInfo(): void {
+    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res: ApiData) => {
       this.loading = false;
       console.log('examInfo ', res)
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.examInfo = res.data;
       }
     });
@@ -101,19 +78,19 @@ export class ScoreQueryResultComponent implements OnInit {
     this.loading = true;
     this.result = null;
     this.isEmpty = false;
-    this.settingService.post(`/v1/web/exam/exam_score/${this.exam_id}`, opt).subscribe((res:ApiData) => {
-        this.loading = false;
-        console.log('result ', res)
-        if(res.code === 200) {
-          this.result = res.data;
-          if(!this.result) {
-            this.isEmpty = true;
-          }
-        }else {
-          this.msg.error(res.message);
+    this.settingService.post(`/v1/web/exam/exam_score/${this.exam_id}`, opt).subscribe((res: ApiData) => {
+      this.loading = false;
+      console.log('result ', res)
+      if (res.code === 200) {
+        this.result = res.data;
+        if (!this.result) {
+          this.isEmpty = true;
         }
-        this.changeCaptcha();
-      },
+      } else {
+        this.msg.error(res.message);
+      }
+      this.changeCaptcha();
+    },
       err => {
         this.loading = false;
         this.changeCaptcha();
@@ -125,7 +102,7 @@ export class ScoreQueryResultComponent implements OnInit {
 
   @ViewChild('captchaInput', { static: false }) captchaInput: ElementRef;
 
-  changeCaptcha():void {
+  changeCaptcha(): void {
     this.captchaLoading = true;
     this.imgSrc = '';
     this.code_id = '';
@@ -133,18 +110,18 @@ export class ScoreQueryResultComponent implements OnInit {
     this.validateForm.patchValue({
       captcha: ''
     });
-    if(this.captchaInput) {
+    if (this.captchaInput) {
       this.captchaInput.nativeElement.focus();
     }
-    
-    this.settingService.get(`/v1/web/exam/get_captcha`).subscribe((res:ApiData) => {
-        console.log('captchaLoading ', res)
-        this.captchaLoading = false;
-        if(res.code === 200) {
-          this.imgSrc = res.data.img;
-          this.code_id = res.data.code_id;
-        }
-      },
+
+    this.settingService.get(`/v1/web/exam/get_captcha`).subscribe((res: ApiData) => {
+      console.log('captchaLoading ', res)
+      this.captchaLoading = false;
+      if (res.code === 200) {
+        this.imgSrc = res.data.img;
+        this.code_id = res.data.code_id;
+      }
+    },
       err => this.captchaLoading = false
     );
   }

@@ -9,11 +9,11 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class NewsCenterComponent implements OnInit {
 
-  total: number = 500;
+  total: number = 0;
   limit: number = 10;
   pageIndex: number = 1;
 
-  loading:boolean = true;
+  loading: boolean = true;
   list: any[] = [];
 
   constructor(
@@ -24,16 +24,16 @@ export class NewsCenterComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
-    
+  getDataList(): void {
+
     this.loading = true;
-    this.settingService.post('/v1/web/exam/news', { page: this.pageIndex }).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/exam/news', { page: this.pageIndex }).subscribe((res: ApiData) => {
       this.loading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.total = res.meta.pagination.total;
         this.limit = res.meta.pagination.per_page;
         this.list = res.data;
-      }else {
+      } else {
         this.list = [];
       }
     })
