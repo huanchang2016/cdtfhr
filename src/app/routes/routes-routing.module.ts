@@ -5,11 +5,6 @@ import { environment } from '@env/environment';
 import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
-// dashboard pages
-// passport pages
-import { LoginComponent } from './passport/login/login.component';
-import { UserRegisterComponent } from './passport/register/user/user.component';
-import { CompanyRegisterComponent } from './passport/register/company/company.component';
 // single pages
 // import { UserLockComponent } from './passport/lock/lock.component';
 import { HomePageComponent } from './home-page/home-page.component';

@@ -8,9 +8,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
 
-  @Input() isMenu?:boolean = true;
+  @Input() isMenu?: boolean = true;
+  @Input() isEntranceModal?: boolean = false;
 
-  constructor( ) {}
+  constructor() { }
+
 
 
 }
