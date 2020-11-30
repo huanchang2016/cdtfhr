@@ -7,5 +7,5 @@ export class TransferService {
 
   constructor() { }
 
-  companyRegisterOption:any = {};
+  companyRegisterOption: any = {};
 }

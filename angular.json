@@ -54,7 +54,10 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery.ripples/dist/jquery.ripples-min.js"
+            ]
           },
           "configurations": {
             "production": {

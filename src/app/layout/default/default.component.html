@@ -1,14 +1,25 @@
-<app-layout-header [isEntranceModal]="isEntranceModal"></app-layout-header>
+<div class="bg-white">
+  <nz-affix>
+    <app-layout-header [isEntranceModal]="isEntranceModal" [sourceTarget]="'recruit'"></app-layout-header>
+  </nz-affix>
+  <section class="alain-default__content">
+    <router-outlet></router-outlet>
+  </section>
 
-<section class="alain-default__content">
-  <router-outlet></router-outlet>
-</section>
+  <app-layout-footer></app-layout-footer>
+</div>
 
-<app-layout-footer></app-layout-footer>
+<!-- 返回顶部 -->
+<nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100">
+  <ng-template #tpl>
+    <div class="ant-back-top-inner">返回顶部</div>
+  </ng-template>
+</nz-back-top>
 
 <!-- 用户首次登录网站首页时，选择即将访问的是招聘还是招考站点 -->
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible" [nzTitle]="''" [nzFooter]="null"
-  [nzClosable]="false" [nzBodyStyle]="{ padding: '30px'}" nzWidth="555">
+<nz-modal nzWrapClassName="vertical-center-modal" [nzClassName]="'nav_modal_wrapper'" [(nzVisible)]="isVisible"
+  [nzTitle]="''" [nzFooter]="null" [nzBodyStyle]="{ padding: '30px'}" nzWidth="555" (nzOnCancel)="close()"
+  [nzMaskClosable]="false">
   <div>
     <p class="text-grey pb-md text-lg">您即将跳转到...</p>
 

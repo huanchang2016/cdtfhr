@@ -25,12 +25,19 @@ nz-carousel {
 
         .carousel_content_wrap {
             width: 100%;
+
             .inner-box {
                 height: 218px;
                 overflow: hidden;
                 position: relative;
                 left: 0;
                 top: 0;
+                border-radius: 4px;
+                transition: all 0.8s;
+
+                &:hover {
+                    box-shadow: 1px 1px 8px #333;
+                }
 
                 img {
                     width: auto;
@@ -44,12 +51,13 @@ nz-carousel {
                     position: absolute;
                     left: 0;
                     top: 0;
-                    background: rgba(0, 0, 0, 0.8);
+                    background: rgba(0, 0, 0, 0.4);
 
                     opacity: 0;
                     filter: Alpha(opacity=0);
 
                     transition: opacity 0.8s;
+
                     &:hover {
                         opacity: 1;
                         filter: Alpha(opacity=100);

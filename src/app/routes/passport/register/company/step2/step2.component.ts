@@ -13,14 +13,14 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./step2.component.less']
 })
 export class Step2Component implements OnChanges, OnInit {
-  @Input() companyInfo:any;
+  @Input() companyInfo: any;
 
-  @Output() companyInfoChange:EventEmitter<any> = new EventEmitter();
-  
+  @Output() companyInfoChange: EventEmitter<any> = new EventEmitter();
+
   validateForm!: FormGroup;
-  loading:boolean = false;
+  loading: boolean = false;
 
-  isGetCode:boolean = false; // 获取验证码
+  isGetCode: boolean = false; // 获取验证码
 
   constructor(
     private fb: FormBuilder,
@@ -28,51 +28,47 @@ export class Step2Component implements OnChanges, OnInit {
     public transferSrv: TransferService,
     public settingService: GlobalSettingsService
   ) {
-   this.settingService.setTitle('企业用户信息完善-天府菁英网');
+    this.settingService.setTitle('企业用户信息完善-天府菁英网');
   }
 
-  ngOnChanges():void {
-    // console.log(22222222222222222, this.companyInfo, this.validateForm)
-    // if(this.companyInfo && this.validateForm) {
-    //   console.log(11111111111)
-    //   this.resetForm();
-    // }
+  ngOnChanges(): void {
+
   }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       companyname: [null, Validators.required],
-      or_code: [null, [Validators.required, Validators.maxLength(18)] ],
+      or_code: [null, [Validators.required, Validators.maxLength(18)]],
       end_date: [null, [Validators.required]],
       is_not_end: [false], // 选择营业执照是 是否为永久期限
-      cascader: [null, Validators.required ],
-      address: [null, Validators.required ],
-      nature: [null, Validators.required ],
-      scale: [null, Validators.required ],
-      industry: [null, Validators.required ],
-      license_photo: [null, Validators.required ],
-      logo: [null, Validators.required ],
-      description: [null, [Validators.required, Validators.maxLength(2000)] ],
+      cascader: [null, Validators.required],
+      address: [null, Validators.required],
+      nature: [null, Validators.required],
+      scale: [null, Validators.required],
+      industry: [null, Validators.required],
+      license_photo: [null, Validators.required],
+      logo: [null, Validators.required],
+      description: [null, [Validators.required, Validators.maxLength(2000)]],
       // 公司联系人
-      user_name: [null, Validators.required ],
-      user_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)] ],
-      check_number: [null, Validators.required ],
-      zj_tel: [null ],
-      user_email: [null, Validators.email ]
+      user_name: [null, Validators.required],
+      user_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
+      check_number: [null, Validators.required],
+      zj_tel: [null],
+      user_email: [null, Validators.email]
     });
 
-    this.validateForm.get('end_date').valueChanges.subscribe( date => {
-      if(date && this.validateForm.get('is_not_end').value) {
+    this.validateForm.get('end_date').valueChanges.subscribe(date => {
+      if (date && this.validateForm.get('is_not_end').value) {
         this.validateForm.patchValue({
           is_not_end: false
         });
       }
     });
 
-    if(this.companyInfo && this.companyInfo.name) {
+    if (this.companyInfo && this.companyInfo.name) {
       this.resetForm();
     }
-    
+
   }
 
 
@@ -84,11 +80,11 @@ export class Step2Component implements OnChanges, OnInit {
     }
 
     console.log(this.validateForm, 'steps2');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
 
       const value = this.validateForm.value;
 
-      let obj:FormData = new FormData();
+      let obj: FormData = new FormData();
       obj.append('name', value.companyname);
       obj.append('code', value.or_code);
       obj.append('expires_date', value.is_not_end ? '' : value.end_date);
@@ -99,13 +95,13 @@ export class Step2Component implements OnChanges, OnInit {
       obj.append('type_id', value.nature);
       obj.append('scale_id', value.scale);
       obj.append('industry_id', value.industry);
-      if((typeof value.license_photo) !== 'string') {
+      if ((typeof value.license_photo) !== 'string') {
         obj.append('license', value.license_photo);
       }
-      if((typeof value.logo) !== 'string') {
+      if ((typeof value.logo) !== 'string') {
         obj.append('logo', value.logo);
       }
-      
+
       // obj.append('logo', value.logo);
       obj.append('description', value.description);
       obj.append('full_name', value.user_name);
@@ -115,43 +111,43 @@ export class Step2Component implements OnChanges, OnInit {
       obj.append('email', value.user_email ? value.user_email : '');
 
       this.loading = true;
-      if(this.companyInfo && this.companyInfo.name) {
+      if (this.companyInfo && this.companyInfo.name) {
         this.editInfo(obj);
-      }else {
+      } else {
         this.createInfo(obj);
       }
     }
   }
-  createInfo(obj:any):void {
+  createInfo(obj: any): void {
     this.settingService.post('/v1/web/com/info', obj).subscribe((res: ApiData) => {
-        console.log(res, '/v1/web/com/info company info create  post');
-        this.loading = false;
-        if(res.code === 200) {
-          // 资料填写后，直接跳转到下一步，进行公司信息展示
-          this.companyInfoChange.emit(res.data);
-          // ++this.transferSrv.step;
-        } else {
-          this.msg.error(res.message);
-        }
-        
-      }, err => this.loading = false);
+      console.log(res, '/v1/web/com/info company info create  post');
+      this.loading = false;
+      if (res.code === 200) {
+        // 资料填写后，直接跳转到下一步，进行公司信息展示
+        this.companyInfoChange.emit(res.data);
+        // ++this.transferSrv.step;
+      } else {
+        this.msg.error(res.message);
+      }
+
+    }, err => this.loading = false);
   }
-  editInfo(obj:any):void {
+  editInfo(obj: any): void {
     this.settingService.post('/v1/web/com/update_info', obj).subscribe((res: ApiData) => {
-        console.log(res, '/v1/web/com/info company info edit    patch');
-        this.loading = false;
-        if(res.code === 200) {
-          // 资料填写后，直接跳转到下一步，进行公司信息展示
-          this.companyInfoChange.emit(res.data);
-          // ++this.transferSrv.step;
-        } else {
-          this.msg.error(res.message);
-        }
-      }, err => this.loading = false);
+      console.log(res, '/v1/web/com/info company info edit    patch');
+      this.loading = false;
+      if (res.code === 200) {
+        // 资料填写后，直接跳转到下一步，进行公司信息展示
+        this.companyInfoChange.emit(res.data);
+        // ++this.transferSrv.step;
+      } else {
+        this.msg.error(res.message);
+      }
+    }, err => this.loading = false);
   }
 
-  get getTextareaLength():number {
-    if(this.validateForm.get('description').value) {
+  get getTextareaLength(): number {
+    if (this.validateForm.get('description').value) {
       return this.validateForm.get('description').value.length;
     }
     return 0;
@@ -161,7 +157,7 @@ export class Step2Component implements OnChanges, OnInit {
     console.log('reset form value', this.companyInfo);
     this.settingService.setTitle(`${this.companyInfo.name}-企业用户信息完善-天府菁英网`);
 
-    const cascader:number[] = [this.companyInfo.province.id, this.companyInfo.city.id, this.companyInfo.area.id ]
+    const cascader: number[] = [this.companyInfo.province.id, this.companyInfo.city.id, this.companyInfo.area.id]
     this.validateForm.patchValue({
       companyname: this.companyInfo.name,
       or_code: this.companyInfo.code,
@@ -200,7 +196,7 @@ export class Step2Component implements OnChanges, OnInit {
   }
 
   count: number = 60;
-  get_captcha_loading:boolean = false;
+  get_captcha_loading: boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const user_phone = this.validateForm.get('user_phone');
@@ -211,19 +207,19 @@ export class Step2Component implements OnChanges, OnInit {
     // if (this.isGetCode) {
     //   return;
     // } else {
-      console.log('send code');
-      this.get_captcha_loading = true;
-      this.settingService.post('/v1/web/com/send_vcode', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.get_captcha_loading = false;
-        if(res.code === 200) {
-          this.isGetCode = true;
-          this.msg.success('发送成功');
-          this.counter();
-        }else {
-          this.msg.error(res.message);
-        }
-        
-      }, err => this.get_captcha_loading = false)
+    console.log('send code');
+    this.get_captcha_loading = true;
+    this.settingService.post('/v1/web/com/send_vcode', { phone: user_phone.value }).subscribe((res: ApiData) => {
+      this.get_captcha_loading = false;
+      if (res.code === 200) {
+        this.isGetCode = true;
+        this.msg.success('发送成功');
+        this.counter();
+      } else {
+        this.msg.error(res.message);
+      }
+
+    }, err => this.get_captcha_loading = false)
     // }
   }
 

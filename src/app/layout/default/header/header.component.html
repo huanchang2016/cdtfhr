@@ -9,30 +9,31 @@
         <div class="alain-default__nav-wrap" [class.flex-reverse]="!isMenu">
             <ul nz-menu nzMode="horizontal" class="alain-default__nav flex-1" *ngIf="isMenu">
                 <li nz-menu-item [nzMatchRouter]="true" *ngIf="isEntranceModal">
-                    <a [routerLink]="['/recruit']" class="nav__title_box text-lg" title="前往招聘站点">
+                    <a [routerLink]="['/recruit']"
+                        class="nav__title_box d-flex align-items-center justify-content-center text-lg" title="前往招聘站点">
                         <span class="default__nav_icon nav__icon1 mr-sm"></span>
                         招聘
                     </a>
                 </li>
                 <li nz-menu-item [nzMatchRouter]="true" *ngIf="!isEntranceModal">
-                    <a [routerLink]="['/entrance']" class="nav__title_box text-lg" title="前往招考站点">
+                    <a [routerLink]="['/entrance']"
+                        class="nav__title_box d-flex align-items-center justify-content-center text-lg" title="前往招考站点">
                         <span class="default__nav_icon nav__icon2 mr-sm"></span>
                         招考
                     </a>
                 </li>
             </ul>
 
-            <!-- <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search> -->
-            <ul class="d-flex">
-                <!-- Task -->
-                <!-- <li>
-                <app-header-task></app-header-task>
-            </li> -->
-                <!-- User info -->
+            <div class="header_affix_search_box" *ngIf="sourceTarget === 'recruit' && !isEntranceModal">
+                <div class="header_search_body d-flex align-items-center" *ngIf="searchBoxVisible">
+                    <app-layout-full-search (searchOptionChange)="searchOptionChange($event)"></app-layout-full-search>
+                </div>
+            </div>
+            <ul class="d-flex header_user_info_wrapper align-items-center">
                 <li>
                     <app-header-user></app-header-user>
                 </li>
-                <li>
+                <li *ngIf="!searchBoxVisible">
                     <app-wechat-office-account></app-wechat-office-account>
                 </li>
             </ul>

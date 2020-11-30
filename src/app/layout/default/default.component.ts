@@ -41,6 +41,8 @@ export class LayoutDefaultComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         if (/^\/entrance/.test(event.url)) {
           this.isEntranceModal = true;
+        } else {
+          this.isEntranceModal = false;
         }
       }
     });
