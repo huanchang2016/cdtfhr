@@ -1,12 +1,15 @@
 <div class="carousel__wrapper">
     <nz-carousel nzAutoPlay nzEffect="scrollx">
         <ng-container *ngFor="let item of list">
-            <div class="list d-flex justify-content-center"
-                nz-carousel-content
+            <div class="list d-flex justify-content-center" nz-carousel-content
                 style="background-image: url({{item.img}});">
                 <div class="carousel_content_wrap">
-                    <div class="text-center text-white carousel_content_title">{{ item.h1 }}</div>
-                    <div class="text-center text-white carousel_content_subTitle my-lg">{{ item.h2 }}</div>
+                    <div *ngIf="item.h1" class="text-center text-white carousel_content_title">
+                        {{ item.h1 }}
+                    </div>
+                    <div *ngIf="item.h2" class="text-center text-white carousel_content_subTitle my-lg">
+                        {{ item.h2 }}
+                    </div>
                     <div class="text-center pt-md view-button">
                         <!-- <ng-container *ngIf="item.type === 'zk'">
                             <a [routerLink]="[item.link]" target="_blank" class="entrance_box point d-flex justify-content-around align-items-center">

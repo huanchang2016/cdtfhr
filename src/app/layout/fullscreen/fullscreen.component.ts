@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './fullscreen.component.html'
 })
 export class LayoutFullScreenComponent {
-  
+
   constructor() {
     document.querySelector('body').style.backgroundColor = "#FFFFFF";
   }

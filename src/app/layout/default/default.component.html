@@ -1,33 +1,111 @@
-<app-layout-header [isEntranceModal]="isEntranceModal"></app-layout-header>
+<div class="bg-white">
+  <nz-affix>
+    <app-layout-header [isEntranceModal]="isEntranceModal" [sourceTarget]="'recruit'"></app-layout-header>
+  </nz-affix>
+  <section class="alain-default__content">
+    <router-outlet></router-outlet>
+  </section>
 
-<section class="alain-default__content">
-  <router-outlet></router-outlet>
-</section>
+  <app-layout-footer></app-layout-footer>
+</div>
 
-<app-layout-footer></app-layout-footer>
+<!-- 右侧快捷导航 -->
+<ng-template #qrCodeTemplate>
+  <div class="wechat-image-box">
+    <div class="wechat-image-qr">
+      <img src="/assets/imgs/test/qr_code.jpg" alt="微信公众号">
+    </div>
+    <p class="text-center text-xs">扫码二维码</p>
+    <p class="text-center text-xs">关注天府菁英公众号</p>
+  </div>
+</ng-template>
+
+<ng-template #linkTemplate>
+  <div>
+    <p class="text-lg">
+      <i nz-icon nzType="phone" nzTheme="outline"></i>
+      <span class="text-primary ml-sm">400-061-6661</span>
+    </p>
+  </div>
+</ng-template>
+
+<nz-affix>
+  <div class="side_bar_link_right bg-primary border-radius-sm">
+    <div class="side_bar_link_item point d-flex align-items-center justify-content-center" nz-popover
+      [nzPopoverTitle]="''" [nzPopoverContent]="qrCodeTemplate" nzPopoverTrigger="hover" nzPopoverPlacement="left">
+      <i class="text-white" nz-icon nzType="qrcode" nzTheme="outline"></i>
+    </div>
+    <div class="side_bar_link_item point d-flex align-items-center justify-content-center" nz-popover
+      [nzPopoverTitle]="'联系电话'" [nzPopoverContent]="linkTemplate" nzPopoverTrigger="hover" nzPopoverPlacement="left">
+      <i class="text-white" nz-icon nzType="phone" nzTheme="outline"></i>
+    </div>
+  </div>
+</nz-affix>
+
+<!-- 返回顶部 -->
+<nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100">
+  <ng-template #tpl>
+    <div class="ant-back-top-inner">返回顶部</div>
+  </ng-template>
+</nz-back-top>
 
 <!-- 用户首次登录网站首页时，选择即将访问的是招聘还是招考站点 -->
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible" [nzTitle]="''" [nzFooter]="null"
-  [nzClosable]="false" [nzBodyStyle]="{ padding: '30px'}" nzWidth="555">
+<nz-modal nzWrapClassName="vertical-center-modal" [nzClassName]="'nav_modal_wrapper'" [(nzVisible)]="isVisible"
+  [nzTitle]="''" [nzFooter]="null" [nzBodyStyle]="{ padding: '30px'}" nzWidth="555" (nzOnCancel)="close()"
+  [nzMaskClosable]="false">
   <div>
-    <p class="text-grey pb-md text-lg">您即将跳转到...</p>
+    <p class="text-primary pb-md text-lg">请点击...</p>
 
     <div class="clearfix">
-      <div (click)="toZp()" class="nav_box_item point border-radius-sm float-left">
-        <div class="nav_box_item_title">
+      <div (click)="toZp()" class="nav_box_item d-flex align-items-center point border-radius-sm float-left">
+        <!-- <div class="nav_box_item_title">
           <img src="./assets/imgs/icon/text_recruit.png" alt="">
         </div>
         <div class="nav_box_item_icon_zp">
           <img src="./assets/imgs/icon/icon_recruit85.png" alt="">
+        </div> -->
+
+        <div class="nav_item_content d-flex align-items-center">
+          <div class="nav_item_icon">
+            <i nz-icon nzType="double-left" nzTheme="outline"></i>
+          </div>
+          <div class="nav_item_des_body">
+            <h3 class="nav_dir_title mb-sm">企业招聘</h3>
+            <div class="nav_dir_sub_box">
+              <div class="nav_dir_sub_title">社会招聘</div>
+              <div class="nav_dir_sub_title">校园招聘</div>
+              <div class="nav_dir_sub_title">实习生</div>
+              <div class="nav_dir_sub_title">兼职</div>
+            </div>
+
+          </div>
         </div>
+
       </div>
-      <div (click)="toZk()" class="nav_box_item point border-radius-sm float-right">
-        <div class="nav_box_item_title">
+      <div (click)="toZk()"
+        class="nav_box_item d-flex align-items-center justify-content-end point border-radius-sm float-right">
+        <!-- <div class="nav_box_item_title">
           <img src="./assets/imgs/icon/text_exam.png" alt="">
         </div>
         <div class="nav_box_item_icon_zk">
           <img src="./assets/imgs/icon/icon_exam85.png" alt="">
+        </div> -->
+
+        <div class="nav_item_content d-flex align-items-center">
+          <div class="nav_item_des_body">
+            <h3 class="nav_dir_title mb-sm">编外人员招聘</h3>
+            <div class="nav_dir_sub_box">
+              <div class="nav_dir_sub_title">在线报名</div>
+              <div class="nav_dir_sub_title">招考公告</div>
+              <div class="nav_dir_sub_title">准考证打印</div>
+              <div class="nav_dir_sub_title">成绩查询</div>
+            </div>
+          </div>
+          <div class="nav_item_icon">
+            <i nz-icon nzType="double-right" nzTheme="outline"></i>
+          </div>
         </div>
+
       </div>
     </div>
   </div>

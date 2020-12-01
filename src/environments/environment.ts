@@ -4,7 +4,7 @@
 
 export const environment = {
   // SERVER_URL: `http://172.16.71.50`,
-  SERVER_URL: `http://172.16.71.89`,
+  SERVER_URL: `http://172.16.71.89:5000`,
   production: false,
   useHash: false
 };

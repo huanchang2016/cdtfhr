@@ -2,9 +2,15 @@
 
 .register-box {
     width: 600px;
+    // height: 600px;
     margin: 0 auto;
-    padding-top: 40px;
+    // padding-top: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 60px 60px 30px;
+    border-radius: 8px;
     overflow: hidden;
+    // overflow-x: hidden;
+    // overflow-y: auto;
 
     .steps-content {
         width: 100%;
@@ -20,6 +26,7 @@
     background-color: @grey-dark-color;
     border: 2px solid @grey-dark-color;
 }
+
 :host ::ng-deep {
     .sub-title {
         font-weight: 600;
@@ -27,22 +34,30 @@
 }
 
 :host ::ng-deep nz-steps {
-    .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+    .ant-steps {
+        margin-left: -45px;
+    }
+
+    .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
         color: @primary-color;
     }
+
     .ant-steps-item-title {
         font-size: 12px;
     }
+
     .ant-steps-dot .ant-steps-item-icon,
     .ant-steps-dot.ant-steps-small .ant-steps-item-icon {
         margin-left: 60px;
     }
+
     .ant-steps-item-active {
         .steps_status {
             background-color: @white-color;
             border-color: @primary-color;
         }
     }
+
     .ant-steps-item-finish {
         .steps_status {
             background-color: @primary-color;

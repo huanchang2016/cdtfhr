@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+
+import * as $ from 'jquery';
+import 'jquery.ripples';
+
 
 @Component({
   selector: 'layout-passport',
   templateUrl: './passport.component.html',
   styleUrls: ['./passport.component.less'],
 })
-export class LayoutPassportComponent implements OnInit {
+export class LayoutPassportComponent implements OnInit, AfterViewInit {
   links = [
     {
       title: '帮助',
@@ -20,9 +24,19 @@ export class LayoutPassportComponent implements OnInit {
       href: '',
     },
   ];
-  
+
+
+  ngAfterViewInit() {
+    ($('#ripples_show_body') as any).ripples({
+      resolution: 512,
+      dropRadius: 20,
+      perturbance: 0.04
+    });
+
+  }
+
   ngOnInit(): void {
     document.querySelector('body').style.backgroundColor = "#FFFFFF";
   }
-  
+
 }

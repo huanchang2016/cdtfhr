@@ -8,16 +8,16 @@ import { environment } from '@env/environment';
   styleUrls: ['./step3.component.less']
 })
 export class Step3Component implements OnInit {
-  @Input() companyInfo:any;
+  @Input() companyInfo: any;
 
   environment = environment;
 
   constructor(
     public transferSrv: TransferService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if(this.companyInfo && this.companyInfo.status === 1) {
+    if (this.companyInfo && this.companyInfo.status === 1) {
       this.transferSrv.step = 3;
     }
   }
