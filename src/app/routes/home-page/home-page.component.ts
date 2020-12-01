@@ -8,7 +8,7 @@ import { GlobalSettingsService } from '@core';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
-  employList:any[] = [
+  employList: any[] = [
     {
       title: '名企热招',
       sub_title: '100万+名企在线',
@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
       icon: './assets/imgs/icon/icon_item4.png'
     }
   ];
-  
+
 
   constructor(
     private router: Router,
@@ -41,9 +41,9 @@ export class HomePageComponent implements OnInit {
     this.settingService.setTitle('天府菁英网');
   }
 
-  searchOptionChange(option:any):void {
+  searchOptionChange(option: any): void {
     let url: string = `/recruit/home?type=${option.type}&city_id=${option.city_id}`;
-    if(option.keywords && option.keywords.trim()) {
+    if (option.keywords && option.keywords.trim()) {
       url = url + '&keywords=' + option.keywords.trim();
     }
     this.router.navigateByUrl(url);
