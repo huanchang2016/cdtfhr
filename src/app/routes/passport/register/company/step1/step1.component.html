@@ -4,7 +4,7 @@
         <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-sm"></nz-alert>
         <nz-form-item>
             <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">账号名称</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorUsernameTpl">
+            <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorUsernameTpl">
                 <input nz-input formControlName="username" id="username" placeholder="输入账号名称" nzSize="large" />
                 <ng-template #errorUsernameTpl let-control>
                     <ng-container *ngIf="control.hasError('required')">
@@ -18,7 +18,7 @@
         </nz-form-item>
         <nz-form-item>
             <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>账号密码</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="密码由8~12位字符构成，含数字和字母">
+            <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="密码由8~12位字符构成，含数字和字母">
                 <input nz-input type="password" id="password" formControlName="password"
                     (ngModelChange)="updateConfirmValidator()" placeholder="密码由8~12位字符构成，含数字和字母" nzSize="large" />
             </nz-form-control>
@@ -26,7 +26,7 @@
         <nz-form-item>
             <nz-form-label class="text-left" [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码
             </nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+            <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorTpl">
                 <input nz-input type="password" formControlName="checkPassword" id="checkPassword" placeholder="请再次输入密码"
                     nzSize="large" />
                 <ng-template #errorTpl let-control>
