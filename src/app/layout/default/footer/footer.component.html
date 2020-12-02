@@ -15,8 +15,16 @@
                 <div class="footer-category-title text-white text-lg">用户帮助</div>
                 <div class="footer-category-list text-md"><a [routerLink]="['/about/privacy']"
                         class="text-white">隐私政策</a></div>
-                <div class="footer-category-list text-md"><a [routerLink]="['/about/agreement']"
-                        class="text-white">用户服务协议</a></div>
+                <div class="footer-category-list text-md">
+                    <ng-container
+                        *ngIf="settingService.user && settingService.user.type === 'company';else userAgreeTpl">
+                        <a [routerLink]="['/about/agreement-c']" class="text-white" target="_blank">用户服务协议</a>
+                    </ng-container>
+                    <ng-template #userAgreeTpl>
+                        <a [routerLink]="['/about/agreement-u']" class="text-white" target="_blank">用户服务协议</a>
+                    </ng-template>
+
+                </div>
             </li>
         </ul>
 

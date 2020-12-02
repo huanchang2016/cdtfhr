@@ -112,6 +112,17 @@
 // 导航模态框样式
 ::ng-deep {
     .nav_modal_wrapper>.ant-modal-content {
-        background: rgba(255, 255, 255, 0.8)
+        background: rgba(255, 255, 255, 0.9)
+    }
+
+    .header_affix_search_box {
+        .ant-input-group-addon:last-child {
+            width: auto;
+        }
+
+        .ant-input-group-addon:last-child .after-select,
+        .ant-input-group-addon:last-child .search-btn {
+            width: 100px;
+        }
     }
 }

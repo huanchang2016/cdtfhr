@@ -38,7 +38,7 @@
                         <ng-container *ngIf="listEnd.length !== 0;else emptyTpl">
                             <div *ngFor="let data of listEnd" nz-row nzGutter="24"
                                 class="list_item text-grey text-md px-md">
-                                <div nz-col nzSpan="13" class="text-primary text-center text-truncate item_name">
+                                <div nz-col nzSpan="13" class="text-primary text-truncate item_name">
                                     <a [routerLink]="['/entrance/apply/details', data.id]"
                                         target="_blank">{{ data.name }}</a>
                                 </div>
