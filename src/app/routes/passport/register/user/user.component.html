@@ -16,28 +16,31 @@
                     </nz-input-group>
                     <ng-template #suffixCode>
                         <div class="code-btn-box text-center">
-                            <a *ngIf="!isGetCode" (click)="getCaptcha($event)" [disabled]="get_captcha_loading || isGetCode" nz-button nzType="link" class="btn_code_link">获取验证码</a>
+                            <a *ngIf="!isGetCode" (click)="getCaptcha($event)"
+                                [disabled]="get_captcha_loading || isGetCode" nz-button nzType="link"
+                                class="btn_code_link">获取验证码</a>
                             <!-- <span *ngIf="!isGetCode" (click)="getCaptcha($event)" class="text-primary text-md point">获取验证码</span> -->
                             <span *ngIf="isGetCode" class="text-primary text-md">{{ count }}s</span>
                         </div>
                     </ng-template>
-    
+
                 </nz-form-control>
             </nz-form-item>
             <div nz-row class="login-form-remember">
                 <div nz-col [nzSpan]="24" class="text-md">
-                  <label nz-checkbox formControlName="agree" class="checkbox_24">
-                    <span>我接受</span>
-                  </label>
-                  <span class="text-sm">
-                    <a [routerLink]="['/about/agreement']" target="_blank">用户协议 </a>
-                    <span>和</span>
-                    <a [routerLink]="['/about/privacy']" target="_blank"> 隐私政策</a>
-                  </span>
-                    
+                    <label nz-checkbox formControlName="agree" class="checkbox_24">
+                        <span>我接受</span>
+                    </label>
+                    <span class="text-sm">
+                        <a [routerLink]="['/about/agreement-u']" target="_blank">用户协议 </a>
+                        <span>和</span>
+                        <a [routerLink]="['/about/privacy']" target="_blank"> 隐私政策</a>
+                    </span>
+
                 </div>
             </div>
-            <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="loading" nzSize="large">提交注册</button>
+            <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="loading"
+                nzSize="large">提交注册</button>
         </form>
     </div>
 </div>

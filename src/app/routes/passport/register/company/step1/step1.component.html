@@ -45,15 +45,16 @@
                     <span>我接受</span>
                 </label>
                 <span class="text-sm">
-                  <a [routerLink]="['/about/agreement']" target="_blank">用户协议&nbsp;</a>
-                  <span>和</span>
-                  <a [routerLink]="['/about/privacy']" target="_blank">&nbsp;隐私政策</a>
+                    <a [routerLink]="['/about/agreement-c']" target="_blank">用户协议&nbsp;</a>
+                    <span>和</span>
+                    <a [routerLink]="['/about/privacy']" target="_blank">&nbsp;隐私政策</a>
                 </span>
             </div>
         </div>
         <nz-form-item nz-row>
             <nz-form-control [nzSpan]="24" class="text-center">
-                <button nz-button nzType="primary" class="login-form-button" nzSize="large" [nzLoading]="loading">下一步</button>
+                <button nz-button nzType="primary" class="login-form-button" nzSize="large"
+                    [nzLoading]="loading">下一步</button>
             </nz-form-control>
         </nz-form-item>
     </form>
