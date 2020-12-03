@@ -31,7 +31,7 @@
                         [nzLoading]="loading" nzSize="large">登
                         &nbsp;&nbsp;&nbsp;录</button>
 
-                    <div><a [routerLink]="['/passport/register/user']">没有账号，立即注册</a></div>
+                    <div><a [routerLink]="['/passport/register/user']" class="text-white">没有账号，立即注册</a></div>
                 </nz-form-item>
             </nz-tab>
             <nz-tab nzTitle="企业登录">
@@ -50,14 +50,14 @@
                 <nz-form-item>
                     <div nz-row class="login-form-margin">
                         <div nz-col [nzSpan]="24" class="text-right">
-                            <a class="login-form-forgot" (click)="fogetPassword()">忘记密码?</a>
+                            <a class="login-form-forgot text-white" (click)="fogetPassword()">忘记密码?</a>
                         </div>
                     </div>
                     <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
                         [nzLoading]="loading" nzSize="large">登
                         &nbsp;&nbsp;&nbsp;录</button>
 
-                    <p class="text-center"><a [routerLink]="['/passport/register/company']">没有账号，立即注册</a></p>
+                    <p class="text-center"><a [routerLink]="['/passport/register/company']" class="text-white">没有账号，立即注册</a></p>
                 </nz-form-item>
             </nz-tab>
         </nz-tabset>

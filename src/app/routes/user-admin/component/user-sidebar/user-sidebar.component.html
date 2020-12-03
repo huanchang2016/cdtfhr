@@ -1,8 +1,7 @@
 <div class="sidebar__wrapper">
     <div class="sidebar_top_wrap">
         <div class="logo_box border-radius-half bg-grey-dark d-flex justify-content-center align-items-center">
-            <!-- <div class="user_logo_icon text-white"><i nz-icon nzType="user" nzTheme="outline"></i></div> -->
-            <!-- <img src="./assets/imgs/test/img_adv1.png" alt="用户姓名"> -->
+            
             <ng-container *ngIf="userDataService.userProfile && userDataService.userProfile.avatar;else notLogoTpl">
                 <img [src]="environment.SERVER_URL + '/' + userDataService.userProfile.avatar" alt="">
             </ng-container>
