@@ -20,7 +20,6 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomePageComponent },
-      // tslint:disable-next-line: max-line-length
       {
         path: 'company',
         canActivate: [LoginAccountGuard],
