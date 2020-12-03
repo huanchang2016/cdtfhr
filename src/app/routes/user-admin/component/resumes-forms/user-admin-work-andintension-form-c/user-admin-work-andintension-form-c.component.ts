@@ -16,8 +16,8 @@ import { format } from 'date-fns';
 })
 export class UserAdminWorkAndintensionFormCComponent implements OnInit {
   @Input() resumeUserInfo: any;
-  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
-  @Output() resumeInfoChange:EventEmitter<any> = new EventEmitter();
+  @Output() valueChanges: EventEmitter<any> = new EventEmitter();
+  @Output() resumeInfoChange: EventEmitter<any> = new EventEmitter();
   @Output() stepsChange: EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
@@ -76,11 +76,11 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
       ])
     });
 
-    if(this.resumeUserInfo) {
+    if (this.resumeUserInfo) {
       this.resetForm();
     }
 
-    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe(_ => this.valueChanges.emit(true));
 
     this.validateForm.get('is_work').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidWorkExp('is_work');
@@ -92,13 +92,12 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
 
   }
 
-  job_nature:any[] = [];
+  job_nature: any[] = [];
   resetForm() {
-    console.log(this.resumeUserInfo, 'resetForm 工作与求职');
 
     // 求职意向 赋值 target
-    const target:any = this.resumeUserInfo.target;
-    if(target && target.city.length !== 0) {
+    const target: any = this.resumeUserInfo.target;
+    if (target && target.city.length !== 0) {
       const work_address = this.resumeUserInfo.target.city.map(v => v.id);
       const industry = this.resumeUserInfo.target.industry.map(v => v.id);
       const job_position = this.resumeUserInfo.target.job_type.map(v => v.id);
@@ -113,18 +112,18 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
       });
     }
     // 工作经历赋值 workExp
-    const workExp:any[] = this.validateForm.get('workExp').value;
-    const workList:any[] = this.resumeUserInfo.work.data;
-    if(this.resumeUserInfo.work_date) {
-      if(workList && workList.length !== 0) {
-        workList.forEach( (el, index) => {
-          if(index > 0 && workExp.length < workList.length) {
+    const workExp: any[] = this.validateForm.get('workExp').value;
+    const workList: any[] = this.resumeUserInfo.work.data;
+    if (this.resumeUserInfo.work_date) {
+      if (workList && workList.length !== 0) {
+        workList.forEach((el, index) => {
+          if (index > 0 && workExp.length < workList.length) {
             // 表单组元素长度 小于 数据长度时新增
             this.add('workExp');
           }
         });
         this.validateForm.patchValue({
-          workExp: workList.map( v => {
+          workExp: workList.map(v => {
             return {
               company_name: v.name,
               company_industry: v.industry ? v.industry.id : null,
@@ -138,25 +137,25 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
           })
         })
       }
-    }else {
+    } else {
       this.validateForm.patchValue({
         is_work: false
       })
     }
 
     // 实习经历赋值 workExp
-    const internshipExp:any[] = this.validateForm.get('internshipExp').value;
-    const practiceList:any[] = this.resumeUserInfo.practice.data;
-    if(practiceList && practiceList.length !== 0) {
-      
-      practiceList.forEach( (el, index) => {
-        if(index > 0 && internshipExp.length < practiceList.length) {
+    const internshipExp: any[] = this.validateForm.get('internshipExp').value;
+    const practiceList: any[] = this.resumeUserInfo.practice.data;
+    if (practiceList && practiceList.length !== 0) {
+
+      practiceList.forEach((el, index) => {
+        if (index > 0 && internshipExp.length < practiceList.length) {
           // 表单组元素长度 小于 数据长度时新增
           this.add('internshipExp');
         }
       });
       this.validateForm.patchValue({
-        internshipExp: practiceList.map( v => {
+        internshipExp: practiceList.map(v => {
           return {
             company_name: v.name,
             company_industry: v.industry ? v.industry.id : null,
@@ -169,7 +168,7 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
           }
         })
       })
-    }else {
+    } else {
       this.validateForm.patchValue({
         is_internship: false
       })
@@ -258,7 +257,6 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
       for (const i in element.controls) {
         if (is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          // element.controls[i]!.markAsDirty();
         } else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
@@ -301,7 +299,6 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
     }
 
 
-    console.log(this.validateForm, '简历 其它信息');
 
     if (this.validateForm.valid) {
       let option: any = {};
@@ -363,19 +360,17 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
         resume_id: this.resumeUserInfo.id
       });
 
-      console.log(option, 'submit 工作与求职 Info')
 
       this.submitLoading = true;
 
-      this.globalService.post('/v1/web/user/resume/work_intent', option).subscribe((res:ApiData) => {
+      this.globalService.post('/v1/web/user/resume/work_intent', option).subscribe((res: ApiData) => {
         this.submitLoading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.msg.success('保存成功');
-          // this.resumeUserInfo = res.data;
           this.resumeInfoChange.emit(res.data);
           this.userDataService.getProfile().then();
           this.steps('next');
-        }else {
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.submitLoading = false)
@@ -401,24 +396,18 @@ export class UserAdminWorkAndintensionFormCComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: ResumeSectionDeletedModalComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '400px',
       nzBodyStyle: {
         padding: '24px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
 
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
       if (result === true) {
         this.deleted(index, type);
       }

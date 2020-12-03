@@ -33,7 +33,7 @@ export class UserLanguageFormTplComponent implements OnInit {
       languageListen: [null, [Validators.required]]
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -48,13 +48,12 @@ export class UserLanguageFormTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 其它语言能力');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
 
@@ -96,7 +95,7 @@ export class UserLanguageFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

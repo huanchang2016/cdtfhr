@@ -16,7 +16,7 @@ import { UserDataService } from 'src/app/routes/user-admin/service/user-data.ser
 })
 export class UserLoginComponent {
 
-  isGetCode:boolean = false;
+  isGetCode: boolean = false;
 
   validateForm: FormGroup;
   error: string = '';
@@ -31,7 +31,7 @@ export class UserLoginComponent {
     private startupSrv: StartupService,
     private router: Router,
     private userDataService: UserDataService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -46,60 +46,52 @@ export class UserLoginComponent {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm);
 
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       // 判断个人用户是否重新登录   清空缓存的变量数据
       this.userDataService.userProfile = null;
 
-      console.log(this.validateForm.value, 'login Info');
       this.loading = true;
-      this.settingService.post('/v1/web/login', this.validateForm.value).subscribe((res:ApiData) => {
+      this.settingService.post('/v1/web/login', this.validateForm.value).subscribe((res: ApiData) => {
         this.loading = false;
-        console.log(res, 'login ');
         // this.router.navigateByUrl('/admin/user');
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.settingService.setToken(res.data);
           // 登录后， 重新获取用户信息
-          this.startupSrv.load().then( _ => {
-            this.destroyModal({ type: 'success'});
+          this.startupSrv.load().then(_ => {
+            this.destroyModal({ type: 'success' });
             this.router.navigateByUrl('/admin/user');
           })
-        }else {
+        } else {
           this.msg.error(res.message);
         }
-        
+
       }, err => this.loading = false);
 
     }
   }
 
-  count:number = 60;
+  count: number = 60;
 
-  get_captcha_loading:boolean = false;
+  get_captcha_loading: boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const phone = this.validateForm.get('phone');
-    if(!phone.valid) {
+    if (!phone.valid) {
       this.msg.error('手机号码未填写');
       return;
     }
-    // if(this.isGetCode) {
-    //   return;
-    // }else {
-      console.log('send code');
-      this.get_captcha_loading = true;
-      this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res:ApiData) => {
-        this.get_captcha_loading = false;
-        if(res.code === 200) {
-          this.isGetCode = true;
-          this.msg.success('发送成功');
-          this.counter();
-        }else {
-          this.msg.error(res.message);
-        }
-      }, err => this.get_captcha_loading = false)
-    // }
+    this.get_captcha_loading = true;
+    this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res: ApiData) => {
+      this.get_captcha_loading = false;
+      if (res.code === 200) {
+        this.isGetCode = true;
+        this.msg.success('发送成功');
+        this.counter();
+      } else {
+        this.msg.error(res.message);
+      }
+    }, err => this.get_captcha_loading = false)
   }
 
   counter() {
@@ -110,13 +102,13 @@ export class UserLoginComponent {
       x => {
         this.count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.isGetCode = false;
       });
   }
 
-  destroyModal(opt?:any): void {
+  destroyModal(opt?: any): void {
     this.modal.destroy(opt);
   }
 }

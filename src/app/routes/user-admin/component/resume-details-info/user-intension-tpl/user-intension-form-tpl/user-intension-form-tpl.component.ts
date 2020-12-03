@@ -12,11 +12,11 @@ import { UserDataService } from 'src/app/routes/user-admin/service/user-data.ser
   styleUrls: ['./user-intension-form-tpl.component.less']
 })
 export class UserIntensionFormTplComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
@@ -24,7 +24,7 @@ export class UserIntensionFormTplComponent implements OnInit {
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
     private userDataService: UserDataService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -37,12 +37,12 @@ export class UserIntensionFormTplComponent implements OnInit {
       job_nature: [null, [Validators.required]]
     });
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
 
-  job_nature:any[] = [];
+  job_nature: any[] = [];
   setForm() {
     const work_address = this.data.target.city.map(v => v.id);
     const industry = this.data.target.industry.map(v => v.id);
@@ -60,21 +60,19 @@ export class UserIntensionFormTplComponent implements OnInit {
   }
 
   log(value: string[]): void {
-    console.log(value , 'valuevaluevaluevalue');
     this.validateForm.patchValue({
       job_nature: value
     });
   }
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 个人信息');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
-      const form:any = this.validateForm.value;
+      const form: any = this.validateForm.value;
       const option = {
         city: form.work_address,
         industry: form.industry,
@@ -85,19 +83,18 @@ export class UserIntensionFormTplComponent implements OnInit {
         resume_id: this.data.id
       };
 
-      this.globalService.post(`/v1/web/user/resume_target/${this.data.id}`, option).subscribe((res:ApiData) => {
-        console.log(res);
+      this.globalService.post(`/v1/web/user/resume_target/${this.data.id}`, option).subscribe((res: ApiData) => {
         this.loading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.destroyModal(res.data);
           this.userDataService.getProfile().then();
           this.msg.success('修改成功');
-        }else {
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.loading = false)
     }
-    
+
   }
 
   cancel(e: MouseEvent): void {
@@ -105,7 +102,7 @@ export class UserIntensionFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

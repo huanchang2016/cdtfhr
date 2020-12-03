@@ -10,30 +10,26 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class CarouselIndexComponent implements OnInit {
 
-  list:any[] = [];
-  
+  list: any[] = [];
+
   constructor(
     private router: Router,
     public settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
-    this.settingService.get('/v1/web/index/rotation').subscribe( (res:ApiData) => {
-      // console.log(res, 'index rotation works');
-      if(res.code === 200) {
+    this.settingService.get('/v1/web/index/rotation').subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.list = res.data;
       }
     })
   }
 
-  navTo(url:string):void {
-    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
-    //   url = 'http://' + url;
-    // }
+  navTo(url: string): void {
     window.open(url);
   }
 
-  goTo(url: string):void {
+  goTo(url: string): void {
     this.router.navigateByUrl(url);
   }
 

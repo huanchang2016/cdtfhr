@@ -79,7 +79,6 @@ export class Step2Component implements OnChanges, OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm, 'steps2');
     if (this.validateForm.valid) {
 
       const value = this.validateForm.value;
@@ -120,7 +119,6 @@ export class Step2Component implements OnChanges, OnInit {
   }
   createInfo(obj: any): void {
     this.settingService.post('/v1/web/com/info', obj).subscribe((res: ApiData) => {
-      console.log(res, '/v1/web/com/info company info create  post');
       this.loading = false;
       if (res.code === 200) {
         // 资料填写后，直接跳转到下一步，进行公司信息展示
@@ -134,7 +132,6 @@ export class Step2Component implements OnChanges, OnInit {
   }
   editInfo(obj: any): void {
     this.settingService.post('/v1/web/com/update_info', obj).subscribe((res: ApiData) => {
-      console.log(res, '/v1/web/com/info company info edit    patch');
       this.loading = false;
       if (res.code === 200) {
         // 资料填写后，直接跳转到下一步，进行公司信息展示
@@ -154,7 +151,6 @@ export class Step2Component implements OnChanges, OnInit {
   }
 
   resetForm() {
-    console.log('reset form value', this.companyInfo);
     this.settingService.setTitle(`${this.companyInfo.name}-企业用户信息完善-天府菁英网`);
 
     const cascader: number[] = [this.companyInfo.province.id, this.companyInfo.city.id, this.companyInfo.area.id]
@@ -207,7 +203,6 @@ export class Step2Component implements OnChanges, OnInit {
     // if (this.isGetCode) {
     //   return;
     // } else {
-    console.log('send code');
     this.get_captcha_loading = true;
     this.settingService.post('/v1/web/com/send_vcode', { phone: user_phone.value }).subscribe((res: ApiData) => {
       this.get_captcha_loading = false;

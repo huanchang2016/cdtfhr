@@ -18,35 +18,34 @@ export class ListItemsCComponent implements OnChanges, OnInit {
   /**
    * status  positionId  itemType  归类到 Config
    * ***/
-  @Input() Config:any;
-  @Input() loadingData:boolean;
-  @Input() listOfData:any[];
-  @Input() pageOption:any;
-  @Input() Params:string;
+  @Input() Config: any;
+  @Input() loadingData: boolean;
+  @Input() listOfData: any[];
+  @Input() pageOption: any;
+  @Input() Params: string;
 
-  @Output() totalConfigChange:EventEmitter<any> = new EventEmitter();
+  @Output() totalConfigChange: EventEmitter<any> = new EventEmitter();
 
-  @Output() paginationChanges:EventEmitter<any> = new EventEmitter();
+  @Output() paginationChanges: EventEmitter<any> = new EventEmitter();
 
   environment = environment;
 
-  params:any = {
+  params: any = {
     origin: 'handle',
     posId: null
   };
-  
+
   constructor(
     private msg: NzMessageService,
     public settingService: GlobalSettingsService
   ) { }
 
-  ngOnChanges():void {
-    console.log('On Changes', this.Config, this.loadingData, this.pageOption, this.listOfData, this.Params);
-    if(!this.loadingData) {
+  ngOnChanges(): void {
+    if (!this.loadingData) {
       this.setOfCheckedId.clear();
-      if(this.listOfData.length !== 0) {
+      if (this.listOfData.length !== 0) {
         this.refreshCheckedStatus();
-      }else {
+      } else {
         this.checked = false;
       }
 
@@ -54,22 +53,21 @@ export class ListItemsCComponent implements OnChanges, OnInit {
         ...this.params,
         params: this.Params
       }
-      console.log(this.params_config, 'params_config');
     }
   }
 
-  params_config:any = {};
+  params_config: any = {};
 
   ngOnInit() {
     this.params.posId = this.Config.positionId;
   }
   // pageIndex
-  pageIndexChange(page:number):void {
+  pageIndexChange(page: number): void {
     this.pageOption.page = page;
-    this.paginationChanges.emit({pageSize: this.pageOption.limit, pageIndex: page})
+    this.paginationChanges.emit({ pageSize: this.pageOption.limit, pageIndex: page })
   }
-  pageSizeChange(pageSize:number):void {
-    this.paginationChanges.emit({pageSize: pageSize, pageIndex: this.pageOption.page})
+  pageSizeChange(pageSize: number): void {
+    this.paginationChanges.emit({ pageSize: pageSize, pageIndex: this.pageOption.page })
   }
 
   checked = false;
@@ -82,7 +80,6 @@ export class ListItemsCComponent implements OnChanges, OnInit {
     } else {
       this.setOfCheckedId.delete(id);
     }
-    console.log(id, checked, '...', this.setOfCheckedId)
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -100,33 +97,33 @@ export class ListItemsCComponent implements OnChanges, OnInit {
     this.indeterminate = this.listOfData.some(item => this.setOfCheckedId.has(item.resume.id)) && !this.checked;
   }
 
-  
-  countYears(t:string):string {
-    let work_date:string = '';
-    if(t) {
-      const today:Date = new Date();
+
+  countYears(t: string): string {
+    let work_date: string = '';
+    if (t) {
+      const today: Date = new Date();
       const year = differenceInYears(today, new Date(t));
       work_date = year > 1 ? `${year}年工作经验` : '工作经验不足一年';
-    }else {
+    } else {
       work_date = '暂无工作经验'
     }
     return work_date;
   }
-  
-  countAge(t:string):number { // 计算 t  至今的时间段（多少年）
-    const today:Date = new Date();
-    const year:number = differenceInYears(today, new Date(t));
+
+  countAge(t: string): number { // 计算 t  至今的时间段（多少年）
+    const today: Date = new Date();
+    const year: number = differenceInYears(today, new Date(t));
     return year;
   }
 
   // 简历处理  方法 调用   淘汰   不合适  offer  下一阶段等
-  submitLoading:boolean = false;
-  dealResume():void {
-    if(this.setOfCheckedId.size === 0) {
+  submitLoading: boolean = false;
+  dealResume(): void {
+    if (this.setOfCheckedId.size === 0) {
       this.msg.error('选择简历不能为空');
       return;
     }
-    if(this.submitLoading) {
+    if (this.submitLoading) {
       return;
     }
     const option = {
@@ -134,23 +131,23 @@ export class ListItemsCComponent implements OnChanges, OnInit {
       ids: [...this.setOfCheckedId]
     };
     this.submitLoading = true;
-    this.settingService.post('/v1/web/com/resume/refuse/muti', option).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/resume/refuse/muti', option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('操作成功');
         this.emit();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
-  
-  nextStepsIn():void {
-    if(this.setOfCheckedId.size === 0) {
+
+  nextStepsIn(): void {
+    if (this.setOfCheckedId.size === 0) {
       this.msg.error('选择简历不能为空');
       return;
     }
-    if(this.submitLoading) {
+    if (this.submitLoading) {
       return;
     }
     const option = {
@@ -159,20 +156,19 @@ export class ListItemsCComponent implements OnChanges, OnInit {
       ids: [...this.setOfCheckedId]
     };
     this.submitLoading = true;
-    this.settingService.post('/v1/web/com/resume/status/muti', option).subscribe((res:ApiData) => {
-      console.log(res);
+    this.settingService.post('/v1/web/com/resume/status/muti', option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('操作成功');
         // this.getDataList();
         this.emit();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
 
-  emit():void { // 更新父组件 各个状态下简历的数量
+  emit(): void { // 更新父组件 各个状态下简历的数量
     this.totalConfigChange.emit();
   }
 }

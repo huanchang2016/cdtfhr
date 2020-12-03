@@ -24,14 +24,13 @@ export class RightSidebarJobHistoryComponent implements OnInit {
      * 
      * ****/
     this.getDataList();
-    
+
   }
 
   getDataList() {
-    if(this.settingService.user && this.settingService.user.type === 'user' && this.settingService.getToken()) {
+    if (this.settingService.user && this.settingService.user.type === 'user' && this.settingService.getToken()) {
       this.loadingData = true;
-      this.settingService.get('/v1/web/user/view_jobs').subscribe((res:ApiData) => {
-        console.log(res, 'view jobs')
+      this.settingService.get('/v1/web/user/view_jobs').subscribe((res: ApiData) => {
         this.loadingData = false;
         this.list = res.data;
       }, err => this.loadingData = false);

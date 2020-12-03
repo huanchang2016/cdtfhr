@@ -9,9 +9,9 @@ import { GlobalSettingsService } from '@core';
   styleUrls: ['./resumes-list-cols-c.component.less']
 })
 export class ResumesListColsCComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
 
-  styleOption:any = { width: '300px', height: '400px', 'text-align': 'left' };
+  styleOption: any = { width: '300px', height: '400px', 'text-align': 'left' };
 
   list: TransferItem[] = [
     { key: 'username', title: `姓名`, description: `用户姓名全称`, direction: 'left' },
@@ -29,60 +29,49 @@ export class ResumesListColsCComponent implements OnInit {
   constructor(
     private settingService: GlobalSettingsService,
     private modal: NzModalRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if(this.settingService.get('col_select')) {
-      let selects:any[] = this.settingService.getItem('col_select');
-      this.list = this.list.map( v => {
+    if (this.settingService.get('col_select')) {
+      let selects: any[] = this.settingService.getItem('col_select');
+      this.list = this.list.map(v => {
 
         let dir = { direction: 'left' };
-        if(this.hasCol(v.key, selects)) {
+        if (this.hasCol(v.key, selects)) {
           dir = { direction: 'right' };
         }
         return Object.assign(v, dir);
       })
     }
-    console.log(this.list);
   }
 
-  hasCol(key:string, data:any[]):boolean {
-    const items:any[] = data.filter( v => v.key === key);
+  hasCol(key: string, data: any[]): boolean {
+    const items: any[] = data.filter(v => v.key === key);
     return items.length > 0;
   }
 
-  // tslint:disable-next-line:no-any
   filterOption(inputValue: string, item: any): boolean {
     return item.description.indexOf(inputValue) > -1;
   }
 
   search(ret: {}): void {
-    console.log('nzSearchChange', ret);
   }
 
   select(ret: {}): void {
-    console.log('nzSelectChange', ret);
   }
-
-  // change(ret: {}): void {
-  //   console.log('nzChange', ret);
-  // }
-
-  save():void {
-    console.log(this.list, 'save');
-    const selects:any[] = this.list.filter(v => v.direction === 'right');
-    console.log('selectes : ', selects);
+  save(): void {
+    const selects: any[] = this.list.filter(v => v.direction === 'right');
     this.settingService.setItem('col_select', selects);
     setTimeout(() => {
       this.destroyModal({ save: true })
     }, 300);
   }
 
-  cancel():void {
+  cancel(): void {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

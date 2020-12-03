@@ -30,7 +30,6 @@ export class ApplyOnlineDetailsComponent implements OnInit {
       }
     })
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log('params', params)
       if (params['id']) {
         this.status_menu = +params['id'];
         this.getInfo();
@@ -46,7 +45,6 @@ export class ApplyOnlineDetailsComponent implements OnInit {
   getData(): void {
     // 获取招考 左侧 菜单项
     this.settingService.post(`/v1/web/exam/exam_announces/${this.exam_id}`).subscribe((res: ApiData) => {
-      console.log('menu', res)
       if (res.code === 200) {
         const data: any[] = res.data;
         this.menus = data.sort((a: any, b: any) => a.sort - b.sort);
@@ -75,7 +73,6 @@ export class ApplyOnlineDetailsComponent implements OnInit {
     this.loading = true;
     this.settingService.get(`/v1/web/exam/announce/${this.status_menu}`).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log('dataInfo', res)
       if (res.code === 200) {
         this.dataInfo = res.data;
       } else {

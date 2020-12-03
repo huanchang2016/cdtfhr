@@ -10,34 +10,34 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ResumesGetListComponent implements OnInit {
 
-  is_more:boolean = false; // 展开更多搜索条件
+  is_more: boolean = false; // 展开更多搜索条件
 
-  keywords:string = '';
+  keywords: string = '';
 
-  itemType:'simple' | 'card' = 'card';
+  itemType: 'simple' | 'card' = 'card';
 
-  positionId:number;
+  positionId: number;
 
-  searchOption:{ [key:string]: any } = {};
+  searchOption: { [key: string]: any } = {};
 
-  status:number = 0;
+  status: number = 0;
 
   total: number = 0; // 所有状态对应的 简历 总数
 
-  pageOption:any = {
+  pageOption: any = {
     total: 1,
     limit: 10,
     page: 1
   }
 
-  positionInfo:any = null;
+  positionInfo: any = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public settingService: GlobalSettingsService
   ) {
     // 获取当前的职位 id
-    this.activatedRoute.params.subscribe((parmas:Params) => {
+    this.activatedRoute.params.subscribe((parmas: Params) => {
       this.positionId = +parmas['positionId'];
       this.getPositionInfo();
       this.getTotalConfig();
@@ -47,56 +47,53 @@ export class ResumesGetListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  getPositionInfo():void {
-    this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res:ApiData) => {
-      console.log(res, '职位详细情况');
-      if(res.code === 200) {
+  getPositionInfo(): void {
+    this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.positionInfo = res.data;
         this.settingService.setTitle(`收到的简历-${this.positionInfo.name}-天府菁英网`);
       }
     });
   }
 
-  totalConfig:any = null;
-  getTotalConfig():void {
-    this.settingService.post(`/v1/web/com/delivery/resume_status_count`, { job_id: this.positionId }).subscribe((res:ApiData) => {
-      console.log(res, '简历数据统计情况');
-      if(res.code === 200) {
+  totalConfig: any = null;
+  getTotalConfig(): void {
+    this.settingService.post(`/v1/web/com/delivery/resume_status_count`, { job_id: this.positionId }).subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.totalConfig = res.data;
-        this.total = (Object.values(this.totalConfig) as Array<number>).reduce( (a:any, b:any) => a + b , 0);
+        this.total = (Object.values(this.totalConfig) as Array<number>).reduce((a: any, b: any) => a + b, 0);
       }
-      console.log(this.total, this.totalConfig)
     });
   }
 
-  totalConfigChange():void {
+  totalConfigChange(): void {
     this.getTotalConfig();
     this.searchOptionConfig(); // 简历操作成功后，需要重新获取数据
   }
-  
-  search():void { // 回车事件
+
+  search(): void { // 回车事件
     this.searchOptionConfig();
   }
 
-  searchValueChange(data:any):void { // 更多 搜索条件发生变化
+  searchValueChange(data: any): void { // 更多 搜索条件发生变化
     this.searchOption = { ...data.data };
-    if(data.isReset) {
+    if (data.isReset) {
       this.keywords = '';
     }
-    
+
     this.searchOptionConfig();
   }
 
-  tabIndexChange(status:number):void {
+  tabIndexChange(status: number): void {
     this.status = status;
     this.searchOptionConfig();
   }
 
   // 合并后的搜索条件
-  searchOptionConfig():void {
+  searchOptionConfig(): void {
     const obj = {
       name: this.keywords,
       status: this.status + 1,
@@ -107,44 +104,43 @@ export class ResumesGetListComponent implements OnInit {
     this.getDataList(obj);
   }
 
-  listOfData:any[] = [];
-  loadingData:boolean = false;
+  listOfData: any[] = [];
+  loadingData: boolean = false;
 
-  getDataList(option:any) {
+  getDataList(option: any) {
     this.loadingData = true;
     this.listOfData = [];
-    this.settingService.post(`/v1/web/com/delivery/resume`, option).subscribe( (res:ApiData) => {
+    this.settingService.post(`/v1/web/com/delivery/resume`, option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.listOfData = res.data;
         this.pageOption.total = res.meta.pagination.total;
         this.dealSearchRecord();
       }
     }, err => this.loadingData = false);
   }
-  params:any = {};
-  dealSearchRecord():void {
-    let opt:any = {};
+  params: any = {};
+  dealSearchRecord(): void {
+    let opt: any = {};
     for (const item in this.searchOption) {
       if (Object.prototype.hasOwnProperty.call(this.searchOption, item)) {
         const element = this.searchOption[item];
-        if(element) {
+        if (element) {
           opt[item] = element;
         }
       }
     }
     this.params = JSON.stringify({ ...opt, name: this.keywords, status: this.status + 1, job_id: this.positionId, });
-    console.log(this.params, 'paramsparamsparamsparams')
   }
 
-  paginationChanges({ pageSize, pageIndex }):void {
+  paginationChanges({ pageSize, pageIndex }): void {
     this.pageOption.limit = pageSize;
     this.pageOption.page = pageIndex;
 
     this.searchOptionConfig();
   }
 
-  showMoreSearch():void {
+  showMoreSearch(): void {
     this.is_more = !this.is_more;
   }
 }

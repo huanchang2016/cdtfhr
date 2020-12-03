@@ -33,23 +33,21 @@ export class CollectResumeListCComponent implements OnInit {
   }
   getDataList(): void {
     this.loadingData = true;
-    this.settingService.get('/v1/web/com/collect_tag').subscribe((res:ApiData) => {
-      console.log('简历库 收藏夹 文件夹', res);
+    this.settingService.get('/v1/web/com/collect_tag').subscribe((res: ApiData) => {
       this.loadingData = false;
-      // this.listOfData = res.data;
-      const list:any[] = res.data;
-      this.listOfData = list.sort((a:any, b:any) => b.default - a.default );
+      const list: any[] = res.data;
+      this.listOfData = list.sort((a: any, b: any) => b.default - a.default);
     }, err => this.loadingData = false)
   }
 
-  editCollectFileName(data:any):void {
+  editCollectFileName(data: any): void {
     this.createModal(data);
   }
 
-  addCollectFile():void {
+  addCollectFile(): void {
     this.createModal();
   }
-  createModal(data?:any):void {
+  createModal(data?: any): void {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: CollectFileFormTplComponent,
@@ -60,29 +58,26 @@ export class CollectResumeListCComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 新建/编辑 简历库 收藏夹] The result is:', result)
-      if(result) {
+      if (result) {
         this.getDataList();
       }
     });
 
   }
 
-  navTo(id:number):void {
+  navTo(id: number): void {
     this.router.navigateByUrl(`/admin/company/resumes/history/collect/${id ? id : 0}`);
   }
 
-  deleted(id:number):void {
-    this.settingService.delete(`/v1/web/com/collect_tag/${id}`).subscribe((res:ApiData) => {
-      if(res.code === 200) {
+  deleted(id: number): void {
+    this.settingService.delete(`/v1/web/com/collect_tag/${id}`).subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.msg.success('删除成功');
-        this.listOfData = this.listOfData.filter( v => v.id !== id);
+        this.listOfData = this.listOfData.filter(v => v.id !== id);
         this.getDataList();
       }
     })
   }
-  cancel():void {}
+  cancel(): void { }
 }

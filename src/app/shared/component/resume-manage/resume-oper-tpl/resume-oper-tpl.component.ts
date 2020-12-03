@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { OperDownloadModalComponent } from './oper-download-modal/oper-download-modal.component';
 import { OperSendModalComponent } from './oper-send-modal/oper-send-modal.component';
@@ -17,17 +17,16 @@ import { GlobalSettingsService } from '@core';
   styleUrls: ['./resume-oper-tpl.component.less']
 })
 export class ResumeOperTplComponent implements OnInit {
-  @Input() resumeInfo:any;
-  @Input() params?:any;
-  @Input() configs:any;
+  @Input() resumeInfo: any;
+  @Input() params?: any;
+  @Input() configs: any;
 
-  @Output() configEmitChange:EventEmitter<any> = new EventEmitter();
-  @Output() downLoadSuccessChange:EventEmitter<any> = new EventEmitter();
-  
+  @Output() configEmitChange: EventEmitter<any> = new EventEmitter();
+  @Output() downLoadSuccessChange: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private modal: NzModalService,
     private iconService: NzIconService,
-    // private viewContainerRef: ViewContainerRef,
     public settingService: GlobalSettingsService
   ) {
     this.iconService.fetchFromIconfont({
@@ -36,61 +35,42 @@ export class ResumeOperTplComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('resumeInfo oper component works!', this.resumeInfo);
   }
 
-  logs:any[] = null; // 操作日志
-  
+  logs: any[] = null; // 操作日志
 
-  viewOperRecord():void {
-    console.info('查看当前简历的操作记录');
+
+  viewOperRecord(): void {
     const modal = this.modal.create({
       nzTitle: '操作记录',
       nzContent: OperRecordListTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
-      // nzBodyStyle: {
-      //   padding: '24px 100px 30px'
-      // },
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // modal.afterClose.subscribe(result => console.log('[afterClose 简历操作记录] The result is:', result));
 
   }
-  viewRemarks():void {
-    console.info('查看当前简历的 更多备注记录');
+  viewRemarks(): void {
     const modal = this.modal.create({
       nzTitle: '备注记录',
       nzContent: OperRemarkListTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
-      // nzBodyStyle: {
-      //   padding: '24px 100px 30px'
-      // },
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // modal.afterClose.subscribe(result => console.log('[afterClose 简历备注记录] The result is:', result));
 
   }
-  // 简历操作按钮功能（弹出框）
 
   download(): void { // 下载
     const modal = this.modal.create({
       nzTitle: '下载简历',
       nzContent: OperDownloadModalComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 0'
@@ -101,12 +81,9 @@ export class ResumeOperTplComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 转发modal] The result is:', result);
-      if(result && result.type === 'success') {
-        // 操作成功后，需要重新获取 记录等信息
+      if (result && result.type === 'success') {
         this.resetConfigs();
         this.downLoadSuccessChange.emit();
       }
@@ -118,39 +95,27 @@ export class ResumeOperTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '投递记录',
       nzContent: OperDeliverListTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
-      // nzBodyStyle: {
-      //   padding: '24px 100px 30px'
-      // },
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // modal.afterClose.subscribe(result => console.log('[afterClose 简历投递记录] The result is:', result));
-
   }
 
   send(): void { // 转发
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: OperSendModalComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzMaskClosable: false,
       nzComponentParams: {
         resumeInfo: this.resumeInfo
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 转发modal] The result is:', result);
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录等信息
         this.resetConfigs();
       }
@@ -169,11 +134,9 @@ export class ResumeOperTplComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 保存modal] The result is:', result);
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录等信息
         this.resetConfigs();
       }
@@ -192,11 +155,9 @@ export class ResumeOperTplComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 收藏modal] The result is:', result);
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录等信息
         this.resetConfigs();
       }
@@ -219,11 +180,9 @@ export class ResumeOperTplComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 备注modal] The result is:', result)
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录等信息
         this.resetConfigs();
       }
@@ -231,7 +190,7 @@ export class ResumeOperTplComponent implements OnInit {
 
   }
 
-  resetConfigs():void {
+  resetConfigs(): void {
     this.configEmitChange.emit();
   }
 }

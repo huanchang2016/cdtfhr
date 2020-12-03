@@ -39,7 +39,6 @@ export class UserRecommendPositionsComponent implements OnInit {
   getDataList(): void {
     this.loadingData = true;
     this.settingService.get(`/v1/web/user/recommend_jobs?limit=6&page=${this.pageIndex}`).subscribe((res: ApiData) => {
-      console.log(res, '获取推荐职位');
       this.loadingData = false;
       if (res.code === 200) {
         this.list = res.data;
@@ -85,7 +84,6 @@ export class UserRecommendPositionsComponent implements OnInit {
   }
 
   selectedChange(checked: any, data: any) {
-    console.log('checkbox change', checked, data);
     this.updateCheckedSet(data.id, checked);
     this.refreshCheckedStatus();
   }
@@ -111,22 +109,13 @@ export class UserRecommendPositionsComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
-        // positionId: this.positionId,
         ids: ids
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.resumeModal.getContentComponent();
-    // this.resumeModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     resumeModal.afterClose.subscribe(result => {
-      console.log(result, 'close modal')
       if (result && result.type === 'success') {
-        // 投递成功后， 更新  投递记录数据统计
         this.userDataService.getProfile().then();
         this.postSuccess();
         this.getDataList();
@@ -136,7 +125,6 @@ export class UserRecommendPositionsComponent implements OnInit {
   }
 
   successModal: any = null;
-  // 简历投递成功
   postSuccess() {
     this.successModal = this.modal.create({
       nzTitle: null,
@@ -144,19 +132,9 @@ export class UserRecommendPositionsComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
 
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.successModal.getContentComponent();
-    // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // this.successModal.afterClose.subscribe(result => {
-    //   if (result && result.type === 'success') {
 
-    //   }
-    // });
   }
 }

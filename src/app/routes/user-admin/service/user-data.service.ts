@@ -7,24 +7,21 @@ import { ApiData, userProfile } from 'src/app/data/interface';
 })
 export class UserDataService {
 
-  userProfile:userProfile;
+  userProfile: userProfile;
 
 
   constructor(
     private settingService: GlobalSettingsService
-  ) {
-    console.log('UserDataService works!')
-  }
+  ) { }
 
-  getProfile():Promise<any> {
+  getProfile(): Promise<any> {
     return new Promise((resolve) => {
-      this.settingService.get('/v1/web/user/profile').subscribe((res:ApiData) => {
-        console.log('UserDataService get Data', res.data);
+      this.settingService.get('/v1/web/user/profile').subscribe((res: ApiData) => {
         this.userProfile = res.data;
         resolve(this.userProfile);
       })
     })
   }
 
-  
+
 }

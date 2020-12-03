@@ -41,9 +41,8 @@ export class Step1Component implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm, 'steps1', this.validateForm.get('agree').value);
-    if(this.validateForm.valid) {
-      if(!this.validateForm.get('agree').value) {
+    if (this.validateForm.valid) {
+      if (!this.validateForm.get('agree').value) {
         this.msg.error('请选择接受用户服务协议');
         return;
       }
@@ -57,7 +56,6 @@ export class Step1Component implements OnInit {
       };
       this.loading = true;
       this.settingService.post('/v1/web/com/register', option).subscribe((res: ApiData) => {
-        console.log(res, 'register company account');
         this.loading = false;
         // 注册成功后，直接跳转到下一步，进行信息填写
         this.settingService.setToken(res.data);

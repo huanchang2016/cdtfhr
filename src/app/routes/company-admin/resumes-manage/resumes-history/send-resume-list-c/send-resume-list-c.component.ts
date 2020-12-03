@@ -6,31 +6,30 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
   styleUrls: ['./send-resume-list-c.component.less']
 })
 export class SendResumeListCComponent implements OnChanges, OnInit {
-  @Input() colsChange:boolean;
-  
-  loadingData:boolean = true;
+  @Input() colsChange: boolean;
 
-  listOfData:any[] = [];
+  loadingData: boolean = true;
+
+  listOfData: any[] = [];
 
   constructor() { }
 
   ngOnChanges() {
-    if(this.listOfData.length !== 0) {
-      console.log('cols changes', this.colsChange);
+    if (this.listOfData.length !== 0) {
+      // console.log('cols changes', this.colsChange);
     }
   }
   ngOnInit(): void {
-    console.log('collect list c');
     this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loadingData = true;
     const total = Math.ceil(Math.random() * 200);
     setTimeout(() => {
       this.loadingData = false;
 
-      this.listOfData = Array.from(new Array(total).keys()).map( v => {
+      this.listOfData = Array.from(new Array(total).keys()).map(v => {
         return {
           id: v + 1,
           name: '产品经理-用户增长',

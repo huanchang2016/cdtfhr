@@ -12,11 +12,11 @@ import { Title } from '@angular/platform-browser';
 })
 export class GlobalSettingsService {
 
-  user:AccountInfo = null;
+  user: AccountInfo = null;
 
-  hotCities:any[] = []; // 热门城市
+  hotCities: any[] = []; // 热门城市
 
-  globalConfigOptions:{ [key:string]: any[]} = {
+  globalConfigOptions: { [key: string]: any[] } = {
     province: [], // 省
     city: [],
     positionType: [], // 职位类别，第一层级
@@ -24,8 +24,8 @@ export class GlobalSettingsService {
     industry: [] // 行业配置项
   };
 
-  
-  resumeConfigOptions:{[key:string]: Config[]} = {
+
+  resumeConfigOptions: { [key: string]: Config[] } = {
     marriage: [], // 婚姻状况
     target_type: [], // 工作性质 全职/兼职
     status: [],  // 求职状态
@@ -38,7 +38,7 @@ export class GlobalSettingsService {
     //   "sort": 1
     // }
   };
-  companyConfigOptions:{[key:string]: Config[]} = {
+  companyConfigOptions: { [key: string]: Config[] } = {
     company_type: [], // 公司性质： 国企/ 外资
     company_scale: [], // 公司规模 少于 50
     company_work_experience: []  // 职位发布    工作经验要求
@@ -50,16 +50,16 @@ export class GlobalSettingsService {
   };
 
   // 简历状态 
-  resumeStatus:Config[] = [
-    {id: 1, key: '待处理', value: '待处理' },
-    {id: 2, key: '合适', value: '合适' },
-    {id: 3, key: '面试', value: '面试' },
-    {id: 4, key: 'offer', value: 'offer' },
-    {id: 5, key: '入职', value: '入职' },
-    {id: 6, key: '淘汰', value: '淘汰' }
+  resumeStatus: Config[] = [
+    { id: 1, key: '待处理', value: '待处理' },
+    { id: 2, key: '合适', value: '合适' },
+    { id: 3, key: '面试', value: '面试' },
+    { id: 4, key: 'offer', value: 'offer' },
+    { id: 5, key: '入职', value: '入职' },
+    { id: 6, key: '淘汰', value: '淘汰' }
   ];
   // 简历更新 时间配置
-  updatedTimeOptions:any[] = [
+  updatedTimeOptions: any[] = [
     { id: 1, key: '更新时间（不限）', value: 0 },
     { id: 2, key: '最近一周', value: 7 },
     { id: 3, key: '最近两周', value: 14 },
@@ -78,52 +78,52 @@ export class GlobalSettingsService {
     this.getConfigs();
   }
 
-  get province():Array<any> {
+  get province(): Array<any> {
     return this.globalConfigOptions.province;
   }
-  get cities():Array<any> {
+  get cities(): Array<any> {
     return this.globalConfigOptions.city;
   }
-  get positionType():Array<any> {
+  get positionType(): Array<any> {
     return this.globalConfigOptions.positionType;
   }
-  get positionTypeAll():Array<any> {
+  get positionTypeAll(): Array<any> {
     return this.globalConfigOptions.positionTypeAll;
   }
-  get industry():Array<any> {
+  get industry(): Array<any> {
     return this.globalConfigOptions.industry;
   }
 
-  get(url:string, option?:any):Observable<any> {
-    let _url:string = url;
-    if(option) {
-      let keys:string = '';
+  get(url: string, option?: any): Observable<any> {
+    let _url: string = url;
+    if (option) {
+      let keys: string = '';
       for (const item in option) {
         const element = option[item];
         if (element || element === 0) {
           keys += `${item}=${element}&`;
         }
       }
-      
+
       _url = _url + '?' + keys;
       _url = _url.substr(0, _url.length - 1);
     }
     return this.httpClient.get(_url);
   }
-  
-  post(url:string, option?:any):Observable<any> {
+
+  post(url: string, option?: any): Observable<any> {
     return this.httpClient.post(url, option);
   }
 
-  patch(url:string, option?:any):Observable<any> {
+  patch(url: string, option?: any): Observable<any> {
     return this.httpClient.patch(url, option);
   }
 
-  delete(url:string, option?:any):Observable<any> {
+  delete(url: string, option?: any): Observable<any> {
     return this.httpClient.delete(url, option);
   }
-  
-  setTitle(title:string):void {
+
+  setTitle(title: string): void {
     this.title.setTitle(title);
   }
 
@@ -131,28 +131,28 @@ export class GlobalSettingsService {
     this.setItem('cdtfhr_token', token);
   }
 
-  getToken():string {
-    const token:any = JSON.parse(localStorage.getItem('cdtfhr_token'));
-    if(token) {
+  getToken(): string {
+    const token: any = JSON.parse(localStorage.getItem('cdtfhr_token'));
+    if (token) {
       return token.access_token;
-    }else {
+    } else {
       return null;
     }
   }
 
-  setItem(key:string, value:any):void {
+  setItem(key: string, value: any): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
-  
-  getItem(key:string):any {
+
+  getItem(key: string): any {
     return JSON.parse(localStorage.getItem(key));
   }
-  
+
   clearUser(): void {
     localStorage.removeItem('cdtfhr_token');
   }
-  
-  getConfigs():void {
+
+  getConfigs(): void {
     zip(
       this.get(`/v1/web/setting/city`),
       this.get(`/v1/web/setting/city/all`),
@@ -162,8 +162,8 @@ export class GlobalSettingsService {
       this.get('/v1/web/setting/resume'),
       this.get('/v1/web/setting/company')
     ).pipe(
-      map(([ province, city, positionType, type, industry, resume, companyConfig]) => [ province.data, city.data, positionType.data, type.data, industry.data, resume.data, companyConfig.data])
-    ).subscribe(([ province, city, positionType, type, industry, resume, companyConfig]) => {
+      map(([province, city, positionType, type, industry, resume, companyConfig]) => [province.data, city.data, positionType.data, type.data, industry.data, resume.data, companyConfig.data])
+    ).subscribe(([province, city, positionType, type, industry, resume, companyConfig]) => {
       this.globalConfigOptions.province = province;
       this.globalConfigOptions.city = city;
       this.globalConfigOptions.positionType = positionType; // 第一层职位类别
@@ -176,11 +176,10 @@ export class GlobalSettingsService {
   }
 
   // 获取一些常用的全局配置项
-  getGlobalConfigs():void {
-    this.httpClient.get(`/v1/web/setting/city`).subscribe( (res:ApiData) => {
-      console.log(res, 'province ');
-      if(res.code === 200) {
-        this.globalConfigOptions.city = res.data.map( v => {
+  getGlobalConfigs(): void {
+    this.httpClient.get(`/v1/web/setting/city`).subscribe((res: ApiData) => {
+      if (res.code === 200) {
+        this.globalConfigOptions.city = res.data.map(v => {
           return {
             // value: v.id,
             // label: v.name
@@ -193,17 +192,17 @@ export class GlobalSettingsService {
     this.getHotCities();
   }
 
-  getCities(pid:number): Observable<any> {
+  getCities(pid: number): Observable<any> {
     return this.get(`/v1/web/setting/city?pid=${pid}`);
   }
 
-  getPositionType(pid:number): Observable<any> {
+  getPositionType(pid: number): Observable<any> {
     return this.get(`/v1/web/setting/type?pid=${pid}`);
   }
 
-  getHotCities():Promise<any> {
+  getHotCities(): Promise<any> {
     return new Promise((resolve) => {
-      this.get('/v1/web/index/city').subscribe((res:ApiData) => {
+      this.get('/v1/web/index/city').subscribe((res: ApiData) => {
         this.hotCities = res.data;
         resolve(this.hotCities);
       })

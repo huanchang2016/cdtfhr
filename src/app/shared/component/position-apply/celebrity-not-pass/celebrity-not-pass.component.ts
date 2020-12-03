@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,6 @@ export class CelebrityNotPassComponent {
   }
 
   celebrity() {
-    console.log('前往个人中心 进行实名认证');
     this.router.navigateByUrl('/admin/user/certification');
   }
 

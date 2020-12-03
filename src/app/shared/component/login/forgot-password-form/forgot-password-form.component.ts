@@ -6,7 +6,6 @@ import { take } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
-import { CompanyDataService } from 'src/app/routes/company-admin/service/company-data.service';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -15,7 +14,7 @@ import { CompanyDataService } from 'src/app/routes/company-admin/service/company
 })
 export class ForgotPasswordFormComponent implements OnInit {
 
-  isGetCode:boolean = false;
+  isGetCode: boolean = false;
 
   validateForm: FormGroup;
   error: string = '';
@@ -26,14 +25,12 @@ export class ForgotPasswordFormComponent implements OnInit {
     private modal: NzModalRef,
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private settingService: GlobalSettingsService,
-    private companyDataService: CompanyDataService
-  ) {}
+    private settingService: GlobalSettingsService
+  ) { }
 
   phone: string = '';
   ngOnInit(): void {
-    if(this.settingService.user) {
-      console.log(this.settingService.user, '重置密码，查看是否已有用户登录信息');
+    if (this.settingService.user) {
       this.phone = this.settingService.user.phone;
     }
     this.validateForm = this.fb.group({
@@ -64,24 +61,23 @@ export class ForgotPasswordFormComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm);
 
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       const value = this.validateForm.value;
       const phone = this.validateForm.controls['phone'].value;
-      const option:any = {
+      const option: any = {
         phone: phone,
         code: value.code,
         password: value.new_password,
         password_con: value.checkPassword,
       };
       this.loading = true;
-      this.settingService.post('/v1/web/find_account', option).subscribe((res:ApiData) => {
+      this.settingService.post('/v1/web/find_account', option).subscribe((res: ApiData) => {
         this.loading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.msg.success('密码重置成功');
-          this.modal.destroy({ type: 'success'});
-        }else {
+          this.modal.destroy({ type: 'success' });
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.loading = false);
@@ -89,32 +85,27 @@ export class ForgotPasswordFormComponent implements OnInit {
     }
   }
 
-  count:number = 60;
-  get_captcha_loading:boolean = false;
+  count: number = 60;
+  get_captcha_loading: boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const phone = this.validateForm.controls['phone'].value;
-    if(!phone) {
+    if (!phone) {
       this.msg.error('手机号码未填写');
       return;
     }
-    // if(this.isGetCode) {
-    //   return;
-    // }else {
-      this.get_captcha_loading = true;
-      console.log('send code');
-      this.settingService.post('/v1/web/send_reset_code', { phone: phone }).subscribe((res:ApiData) => {
-        this.get_captcha_loading = false;
-        if(res.code === 200) {
-          this.isGetCode = true;
-          this.msg.success('发送成功');
-          this.counter();
-        }else {
-          this.isGetCode = false;
-          this.msg.error(res.message);
-        }
-      }, err => this.get_captcha_loading = false)
-    // }
+    this.get_captcha_loading = true;
+    this.settingService.post('/v1/web/send_reset_code', { phone: phone }).subscribe((res: ApiData) => {
+      this.get_captcha_loading = false;
+      if (res.code === 200) {
+        this.isGetCode = true;
+        this.msg.success('发送成功');
+        this.counter();
+      } else {
+        this.isGetCode = false;
+        this.msg.error(res.message);
+      }
+    }, err => this.get_captcha_loading = false)
   }
 
   counter() {
@@ -125,17 +116,17 @@ export class ForgotPasswordFormComponent implements OnInit {
       x => {
         this.count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.isGetCode = false;
       });
   }
 
-  destroyModal(opt?:any): void {
+  destroyModal(opt?: any): void {
     this.modal.destroy(opt);
   }
 
-  cancel(e:Event):void {
+  cancel(e: Event): void {
     e.preventDefault();
     this.loading = false;
     this.destroyModal();

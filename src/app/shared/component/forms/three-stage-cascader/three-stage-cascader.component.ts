@@ -40,8 +40,7 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
   writeValue(obj: any[]): void {
     if (obj) {
       this.values = obj;
-      console.log('this.values', obj)
-    }else {
+    } else {
       this.values = [];
     }
   }
@@ -56,7 +55,6 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
   }
 
   onChanges(values: string[]): void {
-    console.log(values, this.values, '省市区级联选择');
     this.propagateChange(this.values);
   }
 
@@ -83,7 +81,6 @@ export class ThreeStageCascaderComponent implements ControlValueAccessor {
             }
           });
           node.children = children;
-          // console.log(children);
           resolve();
         })
       }

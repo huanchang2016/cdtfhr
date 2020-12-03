@@ -6,12 +6,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./pagination-item.component.less']
 })
 export class PaginationItemComponent implements OnInit {
-  
-  @Input() total:number;
-  @Input() limit:number;
-  @Input() currentPage:number;
 
-  @Output() pageIndexEmit:EventEmitter<any> = new EventEmitter();
+  @Input() total: number;
+  @Input() limit: number;
+  @Input() currentPage: number;
+
+  @Output() pageIndexEmit: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -19,10 +19,8 @@ export class PaginationItemComponent implements OnInit {
   }
 
   // 翻页
-  pageIndexChange(page:number) {
-    console.log('page Index change', page, this.currentPage);
-    // this.currentPage = page;
-    this.pageIndexEmit.emit({page: page});
+  pageIndexChange(page: number) {
+    this.pageIndexEmit.emit({ page: page });
   }
 
 }

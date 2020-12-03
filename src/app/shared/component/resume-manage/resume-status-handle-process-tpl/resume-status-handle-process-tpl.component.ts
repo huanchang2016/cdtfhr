@@ -22,16 +22,13 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    // private viewContainerRef: ViewContainerRef,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
-    console.log('status change', this.positionId, this.resumeInfo, 'configs', this.configs);
     // 获取当前简历所投递的职位的信息
-    this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res:ApiData) => {
-      console.log(res, 'get Position details Data');
+    this.settingService.get(`/v1/web/jobs/${this.positionId}`).subscribe((res: ApiData) => {
       this.positionInfo = res.data;
     });
   }
@@ -43,14 +40,13 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       job_id: this.positionId,
       ids: [this.resumeInfo.id]
     };
-    if(this.submitLoading) {
+    if (this.submitLoading) {
       return;
     }
 
     this.submitLoading = true;
 
     this.settingService.post('/v1/web/com/resume/refuse/muti', option).subscribe((res: ApiData) => {
-      console.log(res);
       this.submitLoading = false;
       if (res.code === 200) {
         this.msg.success('操作成功');
@@ -67,12 +63,8 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       status: this.configs.status,
       ids: [this.resumeInfo.id]
     };
-    // if(this.submitLoading) {
-    //   return;
-    // }
     this.submitLoading = true;
     this.settingService.post('/v1/web/com/resume/status/muti', option).subscribe((res: ApiData) => {
-      console.log(res);
       this.submitLoading = false;
       if (res.code === 200) {
         this.msg.success('操作成功');
@@ -88,7 +80,6 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       nzTitle: '通知面试',
       nzContent: InterviewMessageSendTplComponent,
       nzMaskClosable: false,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzComponentParams: {
         resumeInfo: this.resumeInfo,
@@ -97,11 +88,8 @@ export class ResumeStatusHandleProcessTplComponent implements OnInit {
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 转发modal] The result is:', result)
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         // 操作成功后，需要重新获取 记录 状态等信息
         this.resetConfigs();
       }

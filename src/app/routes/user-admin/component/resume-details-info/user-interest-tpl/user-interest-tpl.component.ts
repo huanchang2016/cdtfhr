@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserInterestFormTplComponent } from './user-interest-form-tpl/user-interest-form-tpl.component';
 
@@ -9,12 +9,11 @@ import { UserInterestFormTplComponent } from './user-interest-form-tpl/user-inte
 })
 export class UserInterestTplComponent implements OnInit {
 
-  @Input() resumeInfo:any;
+  @Input() resumeInfo: any;
 
   constructor(
-    private modal: NzModalService,
-    // private viewContainerRef: ViewContainerRef
-  ) {}
+    private modal: NzModalService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,24 +22,17 @@ export class UserInterestTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '编辑兴趣爱好',
       nzContent: UserInterestFormTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: this.resumeInfo
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: null
     });
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      if(result && result.data) {
+      if (result && result.data) {
         this.resumeInfo = Object.assign(this.resumeInfo, result.data);
       }
     });

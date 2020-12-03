@@ -20,9 +20,9 @@ export class InProgressRecruitComponent implements OnInit {
 
   list: any[] = []; // 数据列表
   loadingData: boolean = true;
-  total:number = 0;
-  limit:number = 10;
-  pageIndex:number = 1;
+  total: number = 0;
+  limit: number = 10;
+  pageIndex: number = 1;
 
   constructor(
     private modal: NzModalService,
@@ -36,45 +36,44 @@ export class InProgressRecruitComponent implements OnInit {
   ngOnInit(): void {
     this.getDataList();
   }
-  
+
   @ViewChild('historyRecordC', { static: false }) historyRecordC: RightSidebarJobHistoryComponent;
 
-  viewPosition(id:number) {
-    const url:string = `/recruit/details/${id}`;
+  viewPosition(id: number) {
+    const url: string = `/recruit/details/${id}`;
     window.open(url, '_blank');
     setTimeout(() => {
       this.historyRecordC.getDataList();
     }, 3000);
   }
-  
-  searchOption:any = {
+
+  searchOption: any = {
     name: null,
     city_id: null
   };
-  searchOptionChange(option:any):void {
-   this.searchOption = option;
-   this.pageIndex = 1;
-   this.getDataList();
+  searchOptionChange(option: any): void {
+    this.searchOption = option;
+    this.pageIndex = 1;
+    this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loadingData = true;
 
-    const option:any = {
+    const option: any = {
       name: this.searchOption['keywords'] ? this.searchOption['keywords'] : null,
       city_id: +this.searchOption['city_id'],
       limit: this.limit,
       page: this.pageIndex
     };
-    this.settingService.get(`/v1/web/jobs`, option).subscribe( (res:ApiData) => {
-      console.log(res, 'index 正在招聘列表 works');
+    this.settingService.get(`/v1/web/jobs`, option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.list = res.data;
-        if(this.total === 0) {
+        if (this.total === 0) {
           this.total = res.meta.pagination.total;
         }
-        
+
         this.pageIndex = res.meta.pagination.current_page;
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
@@ -83,8 +82,7 @@ export class InProgressRecruitComponent implements OnInit {
     }, err => this.loadingData = false)
   }
 
-  pageIndexChange({page}):void {
-    console.log(page, 'page changes');
+  pageIndexChange({ page }): void {
     this.pageIndex = page;
     this.getDataList();
   }
@@ -113,8 +111,7 @@ export class InProgressRecruitComponent implements OnInit {
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
   }
 
-  selectedChange(checked:any, data:any) {
-    console.log('checkbox change', checked, data);
+  selectedChange(checked: any, data: any) {
     this.updateCheckedSet(data.id, checked);
     this.refreshCheckedStatus();
   }
@@ -125,45 +122,41 @@ export class InProgressRecruitComponent implements OnInit {
   }
 
   sendRequest(): void {
-    if(this.settingService.user) {
-      if(this.settingService.user.type === 'user') {
+    if (this.settingService.user) {
+      if (this.settingService.user.type === 'user') {
         this.checkCelebrity();
-      }else {
+      } else {
         this.msg.error('企业用户不能投递岗位');
       }
-    }else {
+    } else {
       // 未登录，弹出登录框
       this.createUserModal();
     }
   }
-  checkCelebrity():void { // 验证用户是否已实名审核
-    if(this.userDataService.userProfile) {
-      if(this.userDataService.userProfile.status !== 1) {
+  checkCelebrity(): void { // 验证用户是否已实名审核
+    if (this.userDataService.userProfile) {
+      if (this.userDataService.userProfile.status !== 1) {
         // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user xxxxxxxxxxxx')
         this.celebrityNotPass();
-      }else {
-        console.log('yi denglu ,  jinru toudi jianli liucheng');
+      } else {
         this.chooseResumePost();
       }
-    }else {
-      this.userDataService.getProfile().then( data => {
-        if(data.status !== 1) {
+    } else {
+      this.userDataService.getProfile().then(data => {
+        if (data.status !== 1) {
           // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user uyyyyyyyyyyyyyyyyyy')
 
           this.celebrityNotPass();
-        }else {
-          console.log('yi denglu ,  jinru toudi jianli liucheng..............');
+        } else {
           this.chooseResumePost();
         }
       })
     }
-    
+
   }
   chooseResumePost() {
-    const ids:number[] = this.list.filter(data => this.setOfCheckedId.has(data.id)).map( v => v.id );
-    if(ids.length === 0) {
+    const ids: number[] = this.list.filter(data => this.setOfCheckedId.has(data.id)).map(v => v.id);
+    if (ids.length === 0) {
       this.msg.warning('未选择职位');
       return;
     }
@@ -173,47 +166,32 @@ export class InProgressRecruitComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         ids: ids
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.resumeModal.getContentComponent();
-    // this.resumeModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    resumeModal.afterClose.subscribe( result => {
-      console.log(result, 'close modal')
-      if(result && result.type === 'success') {
+    resumeModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
         this.postSuccess();
         this.getDataList();
       }
     });
 
   }
-  
-  loginModal:any = null;
-  successModal:any = null;
-  userCelebrityModal:any = null;
-  createUserModal () {
+
+  loginModal: any = null;
+  successModal: any = null;
+  userCelebrityModal: any = null;
+  createUserModal() {
     this.loginModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.loginModal.getContentComponent();
-    // this.loginModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // this.loginModal.afterClose.subscribe( result =>  console.log(result, 'close modal') );
 
   }
   // 简历投递成功
@@ -224,18 +202,12 @@ export class InProgressRecruitComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.successModal.getContentComponent();
-    // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.successModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-       
+    this.successModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
+
       }
     });
   }
@@ -248,20 +220,8 @@ export class InProgressRecruitComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.userCelebrityModal.getContentComponent();
-    // this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // this.userCelebrityModal.afterClose.subscribe( result => {
-    //   if(result && result.type === 'success') {
-    //     // nothing to do .
-    //   }
-    // });
   }
-  
+
 }

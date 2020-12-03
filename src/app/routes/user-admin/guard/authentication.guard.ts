@@ -12,22 +12,21 @@ export class AuthenticationGuard implements CanActivate {
     private router: Router,
     private userDataService: UserDataService
   ) { }
-  
+
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.userDataService.userProfile) {
-      if(this.userDataService.userProfile.status !== 1) {
+    if (this.userDataService.userProfile) {
+      if (this.userDataService.userProfile.status !== 1) {
         this.router.navigateByUrl('/admin/user/certification');
       }
       return this.userDataService.userProfile.status === 1;
-    }else {
+    } else {
       return this.userDataService.getProfile().then(data => {
-        console.log('AuthenticationGuard get Data', data);
-        if(data.status !== 1) {
+        if (data.status !== 1) {
           this.router.navigateByUrl('/admin/user/certification');
         }
         return data.status === 1;
       })
     }
   }
-  
+
 }

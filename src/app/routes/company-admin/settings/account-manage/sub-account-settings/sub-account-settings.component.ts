@@ -14,8 +14,8 @@ export class SubAccountSettingsComponent implements OnInit {
   listOfData: any[] = [];
   loading: boolean = true;
 
-  defaultItemOption: {[key:number]: boolean} = {};
-  powerOption: {[key:number]: boolean} = {};
+  defaultItemOption: { [key: number]: boolean } = {};
+  powerOption: { [key: number]: boolean } = {};
 
   tplModal?: NzModalRef;
 
@@ -34,11 +34,10 @@ export class SubAccountSettingsComponent implements OnInit {
 
   getDataList(): void {
     this.loading = true;
-    this.settingService.get('/v1/web/com/account').subscribe((res:ApiData) => {
+    this.settingService.get('/v1/web/com/account').subscribe((res: ApiData) => {
       this.loading = false;
-      console.log(res, '获取子账号列表数据');
       this.listOfData = res.data;
-      if(this.listOfData.length !== 0) {
+      if (this.listOfData.length !== 0) {
         this.listOfData.forEach(item => {
           this.defaultItemOption[item.id] = false;
           this.powerOption[item.id] = false;
@@ -47,21 +46,20 @@ export class SubAccountSettingsComponent implements OnInit {
     }, err => this.loading = false);
   }
 
-  setDefaultStatus(data:any):void {
+  setDefaultStatus(data: any): void {
     this.defaultItemOption[data.id] = true;
 
-    this.settingService.post(`/v1/web/com/account/status/${data.id}`).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/account/status/${data.id}`).subscribe((res: ApiData) => {
       this.defaultItemOption[data.id] = false;
       let msg: string = '';
-      if(data.status === 1) {
+      if (data.status === 1) {
         msg = '冻结成功';
-      }else {
+      } else {
         msg = '激活成功';
       }
       this.msg.success(msg);
-      // this.resetListDefault(res.data);
-      this.listOfData = this.listOfData.map( v => {
-        if(v.id === res.data.id) {
+      this.listOfData = this.listOfData.map(v => {
+        if (v.id === res.data.id) {
           v.status = res.data.status;
         }
         return v;
@@ -69,15 +67,14 @@ export class SubAccountSettingsComponent implements OnInit {
     }, err => this.defaultItemOption[data.id] = false)
   }
 
-  setPowerAuth(data:any):void {
+  setPowerAuth(data: any): void {
     this.powerOption[data.id] = true;
 
-    this.settingService.post(`/v1/web/com/account/job_power/${data.id}`).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/account/job_power/${data.id}`).subscribe((res: ApiData) => {
       this.powerOption[data.id] = false;
       this.msg.success('操作成功');
-      // this.resetListDefault(res.data);
-      this.listOfData = this.listOfData.map( v => {
-        if(v.id === res.data.id) {
+      this.listOfData = this.listOfData.map(v => {
+        if (v.id === res.data.id) {
           v.job_power = res.data.job_power;
         }
         return v;
@@ -85,9 +82,9 @@ export class SubAccountSettingsComponent implements OnInit {
     }, err => this.powerOption[data.id] = false)
   }
 
-  resetListDefault(data:any):void {
-    this.listOfData = this.listOfData.map( v => {
-      if(v.id === data.id) {
+  resetListDefault(data: any): void {
+    this.listOfData = this.listOfData.map(v => {
+      if (v.id === data.id) {
         v = data;
       }
       return v;
@@ -102,7 +99,7 @@ export class SubAccountSettingsComponent implements OnInit {
     this.createModal();
   }
 
-  createModal(data:any = null):void {
+  createModal(data: any = null): void {
     this.tplModal = this.modal.create({
       nzTitle: (data ? '编辑' : '新建') + '子账号',
       nzContent: SubAccountFormCComponent,
@@ -117,12 +114,9 @@ export class SubAccountSettingsComponent implements OnInit {
       nzFooter: null
     });
 
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     this.tplModal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
-      if(result && result.type === 'success') {
+      if (result && result.type === 'success') {
         this.getDataList();
       }
     });

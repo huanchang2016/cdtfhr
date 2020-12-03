@@ -7,12 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class InterviewMessageViewTplComponent implements OnInit {
 
-  @Input() data:any;
+  @Input() data: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.data);
+
   }
 
 }

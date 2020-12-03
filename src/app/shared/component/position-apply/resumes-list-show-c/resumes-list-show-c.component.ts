@@ -13,14 +13,14 @@ import { CelebrityNotPassComponent } from '../celebrity-not-pass/celebrity-not-p
   styleUrls: ['./resumes-list-show-c.component.less']
 })
 export class ResumesListShowCComponent implements OnInit {
-  @Input() positionId?:number;
-  @Input() ids?:number[];
+  @Input() positionId?: number;
+  @Input() ids?: number[];
 
   validateForm!: FormGroup;
-  loadingData:boolean = true;
-  loading:boolean = false;
-  
-  resumes:any[] = [];
+  loadingData: boolean = true;
+  loading: boolean = false;
+
+  resumes: any[] = [];
 
   constructor(
     private modal: NzModalRef,
@@ -31,9 +31,9 @@ export class ResumesListShowCComponent implements OnInit {
     private userDataService: UserDataService
   ) {
     this.loadingData = true;
-    this.globalService.get('/v1/web/user/resumes').subscribe((res:ApiData) => {
+    this.globalService.get('/v1/web/user/resumes').subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code ===200) {
+      if (res.code === 200) {
         this.resumes = res.data;
       }
     }, err => this.loadingData = false)
@@ -45,46 +45,43 @@ export class ResumesListShowCComponent implements OnInit {
     });
   }
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历投递');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
-      let option:any = {
+      let option: any = {
         resume_id: object.resume_id
       };
-      let url:string = '';
-      if(this.ids && this.ids.length !== 0) {
+      let url: string = '';
+      if (this.ids && this.ids.length !== 0) {
         // 表示批量投递
         option['ids'] = this.ids;
         url = '/v1/web/user/create_lot_delivery';
-      }else {
+      } else {
         option['job_id'] = this.positionId;
         url = '/v1/web/user/create_delivery';
       }
 
-      this.globalService.post(url, option).subscribe((res:ApiData) => {
+      this.globalService.post(url, option).subscribe((res: ApiData) => {
         this.loading = false
-        if(res.code === 200) {
-          // this.msg.success('投递成功');
-          
+        if (res.code === 200) {
           // 刷新简历投递记录
           this.userDataService.getProfile().then();
-          this.destroyModal({type: 'success' });
-        }else if(res.code === 999) { // 未通过实名认证
+          this.destroyModal({ type: 'success' });
+        } else if (res.code === 999) { // 未通过实名认证
           this.celebrityNotPass();
-        }else {
+        } else {
           this.msg.warning(res.message);
         }
       }, err => this.loading = false)
     }
   }
-  
-  userCelebrityModal:any = null;
+
+  userCelebrityModal: any = null;
   // 未通过实名认证
   celebrityNotPass() {
     this.userCelebrityModal = this.modalSrv.create({
@@ -93,18 +90,11 @@ export class ResumesListShowCComponent implements OnInit {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+
       nzFooter: null
     });
-    // const instance = this.userCelebrityModal.getContentComponent();
-    // this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    this.userCelebrityModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-        // nothing to do .
+    this.userCelebrityModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
       }
     });
   }
@@ -114,7 +104,7 @@ export class ResumesListShowCComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data?:any):void {
+  destroyModal(data?: any): void {
     this.modal.destroy(data);
   }
 }

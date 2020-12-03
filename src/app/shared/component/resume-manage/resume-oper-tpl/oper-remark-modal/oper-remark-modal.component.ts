@@ -10,22 +10,22 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./oper-remark-modal.component.less']
 })
 export class OperRemarkModalComponent implements OnInit {
-  @Input() resumeInfo:any;
+  @Input() resumeInfo: any;
 
-  list:number[] = [];
-  
-  remark:string = null;
-  
+  list: number[] = [];
+
+  remark: string = null;
+
   constructor(
     private modal: NzModalRef,
     private msg: NzMessageService,
     private settingService: GlobalSettingsService
-  ) {}
+  ) { }
 
-  submitLoading:boolean = false;
-  loading:boolean = false;
+  submitLoading: boolean = false;
+  loading: boolean = false;
 
-  emitData:any = null;
+  emitData: any = null;
 
   handleCancel() {
     this.submitLoading = false;
@@ -34,28 +34,28 @@ export class OperRemarkModalComponent implements OnInit {
   }
 
   handleOk() {
-    let _remark:string = '';
-    if(this.remark && this.remark.trim()) {
+    let _remark: string = '';
+    if (this.remark && this.remark.trim()) {
       _remark = this.remark.trim();
     }
-    if(!_remark) {
+    if (!_remark) {
       this.msg.warning('备注信息内容未填写或不能为空格');
       return;
     }
-    const option:any = {
+    const option: any = {
       resume_id: this.resumeInfo.id,
       note: _remark
     }
 
     this.submitLoading = true;
-    this.settingService.post(`/v1/web/com/note/create`, option).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/note/create`, option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('备注信息添加成功');
         this.emitData = { type: 'success' };
         // this.getDataList();
         this.destroyModal();
-      }else {
+      } else {
         this.msg.error(res.message);
         this.emitData = null;
       }
@@ -70,10 +70,9 @@ export class OperRemarkModalComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loading = true;
     this.settingService.get(`/v1/web/com/note?resume_id=${this.resumeInfo.id}`).subscribe((res: ApiData) => {
-      console.log('获取简历备注记录列表', res);
       this.loading = false;
       this.list = res.data;
     }, err => this.loading = false);

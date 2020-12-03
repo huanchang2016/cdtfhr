@@ -32,7 +32,7 @@ export class UserTrainExpFormTplComponent implements OnInit {
       trainRangeDate: [null, [Validators.required]]
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -47,13 +47,12 @@ export class UserTrainExpFormTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 培训经历');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
 
@@ -64,7 +63,6 @@ export class UserTrainExpFormTplComponent implements OnInit {
         description: object.trainContent
       };
 
-      console.log(option, 'project exp submit');
 
       this.loading = true;
       if (this.data) {
@@ -98,7 +96,7 @@ export class UserTrainExpFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

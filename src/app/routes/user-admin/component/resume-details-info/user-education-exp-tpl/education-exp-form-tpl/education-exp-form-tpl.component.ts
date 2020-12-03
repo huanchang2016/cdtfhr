@@ -11,7 +11,7 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./education-exp-form-tpl.component.less']
 })
 export class EducationExpFormTplComponent implements OnInit {
-  
+
   @Input() data: any;
   @Input() resume_id: number;
 
@@ -36,21 +36,20 @@ export class EducationExpFormTplComponent implements OnInit {
       is_not_end: [false] // 根据 是否毕业 确定  毕业时间是否为必填项
     })
 
-    this.validateForm.get('edu_end_time').valueChanges.subscribe( date => {
-      if(date && this.validateForm.get('is_not_end').value) {
+    this.validateForm.get('edu_end_time').valueChanges.subscribe(date => {
+      if (date && this.validateForm.get('is_not_end').value) {
         this.validateForm.patchValue({
           is_not_end: false
         });
       }
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
 
   setForm() {
-    console.log(this.data, 'setForm');
     // 设置表单值
     this.validateForm.patchValue({
       school_name: this.data.name,
@@ -65,13 +64,12 @@ export class EducationExpFormTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 教育经历');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
 
@@ -83,7 +81,6 @@ export class EducationExpFormTplComponent implements OnInit {
         end_time: object.is_not_end ? '' : object.edu_end_time
       };
 
-      console.log(option, 'project exp submit');
 
       this.loading = true;
       if (this.data) {
@@ -112,7 +109,7 @@ export class EducationExpFormTplComponent implements OnInit {
     }, err => this.loading = false)
   }
 
-  
+
   isNotEndChange(required: boolean): void {
     if (required) {
       this.validateForm.patchValue({
@@ -132,7 +129,7 @@ export class EducationExpFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

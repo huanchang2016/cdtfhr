@@ -21,28 +21,27 @@ import { format } from 'date-fns';
 })
 export class RangeDatePickerComponent implements ControlValueAccessor {
 
-  @Input() placeholder?:string = '请选择日期';
-  @Input() size?:string = 'large';
+  @Input() placeholder?: string = '请选择日期';
+  @Input() size?: string = 'large';
 
-  dateFormat:string = 'yyyy/MM/dd';
+  dateFormat: string = 'yyyy/MM/dd';
 
   private propagateChange = (_: any) => { };
-  
-  date:Date[];
+
+  date: Date[];
 
   writeValue(obj: string[]): void {
-    if(obj) {
+    if (obj) {
       this.date = [new Date(obj[0]), new Date(obj[1])];
-    }else {
+    } else {
       this.date = [];
     }
   }
 
-  datePickerChange(date:Date[]):void {
+  datePickerChange(date: Date[]): void {
     this.date = date;
-    console.log(date, 'date change');
-    let opt:any[] = [];
-    if(date.length !== 0) {
+    let opt: any[] = [];
+    if (date.length !== 0) {
       opt = [format(this.date[0], 'yyyy-MM-dd'), format(this.date[1], 'yyyy-MM-dd')];
     }
     this.propagateChange(opt);
@@ -52,20 +51,20 @@ export class RangeDatePickerComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
-  isDisabled:boolean = false;
+  isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
   registerOnTouched(fn: any): void { }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if(control.errors && control.errors.required) {
+    if (control.errors && control.errors.required) {
       return this.date && this.date.length !== 2 ? null : {
         isInvalid: {
           valid: false
         }
       }
-    }else {
+    } else {
       return null;
     }
   }

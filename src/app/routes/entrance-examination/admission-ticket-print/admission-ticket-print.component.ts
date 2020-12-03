@@ -11,13 +11,13 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class AdmissionTicketPrintComponent implements OnInit {
   exam_id: number;
-  examInfo:any;
+  examInfo: any;
 
   validateForm!: FormGroup;
 
   loading: boolean = false;
   result: any = null;
-  isEmpty:boolean = false;
+  isEmpty: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,12 +37,11 @@ export class AdmissionTicketPrintComponent implements OnInit {
       id_card: [null, [Validators.required]]
     });
   }
-  
-  getExamInfo():void {
-    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res:ApiData) => {
+
+  getExamInfo(): void {
+    this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log('examInfo ', res)
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.examInfo = res.data;
       }
     });
@@ -59,27 +58,26 @@ export class AdmissionTicketPrintComponent implements OnInit {
     }
   }
 
-  search(opt:any): void {
+  search(opt: any): void {
     this.loading = true;
     this.result = null;
     this.isEmpty = false;
 
-    this.settingService.post(`/v1/web/exam/exam_card/${this.exam_id}`, opt).subscribe((res:ApiData) => {
-        this.loading = false;
-        if(res.code === 200) {
-          this.result = res.data;
-          if(!this.result) {
-            this.isEmpty = true;
-          }
+    this.settingService.post(`/v1/web/exam/exam_card/${this.exam_id}`, opt).subscribe((res: ApiData) => {
+      this.loading = false;
+      if (res.code === 200) {
+        this.result = res.data;
+        if (!this.result) {
+          this.isEmpty = true;
         }
-      },
+      }
+    },
       err => this.loading = false
     );
-    
+
   }
 
   print(): void {
-    console.log('print info');
     document.body.style.height = '800px';
     window.print();
     document.body.style.height = 'auto';

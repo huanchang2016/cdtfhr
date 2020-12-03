@@ -9,15 +9,15 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./oper-deliver-list-tpl.component.less']
 })
 export class OperDeliverListTplComponent implements OnInit {
-  @Input() resumeInfo:any;
-  loading:boolean = true;
+  @Input() resumeInfo: any;
+  loading: boolean = true;
 
-  list:any[] = [];
+  list: any[] = [];
 
   constructor(
     private modal: NzModalRef,
     private settingService: GlobalSettingsService
-  ) {}
+  ) { }
 
 
   handleCancel() {
@@ -31,9 +31,7 @@ export class OperDeliverListTplComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // /v1/web/com/resume/post_jobs/{id}
     this.settingService.get(`/v1/web/com/resume/post_jobs/${this.resumeInfo.id}`).subscribe((res: ApiData) => {
-      console.log('简历投递的记录   职位列表', res);
       this.loading = false;
       this.list = res.data;
     }, err => this.loading = false);

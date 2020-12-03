@@ -9,12 +9,11 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./download-resume-list-c.component.less']
 })
 export class DownloadResumeListCComponent implements OnInit {
-  // @Input() colsChange:boolean;
-  @Input() downloadPage:number;
-  
-  loadingData:boolean = true;
+  @Input() downloadPage: number;
 
-  listOfData:any[] = [];
+  loadingData: boolean = true;
+
+  listOfData: any[] = [];
 
   constructor(
     private settingService: GlobalSettingsService
@@ -22,45 +21,35 @@ export class DownloadResumeListCComponent implements OnInit {
     this.settingService.setTitle('简历下载列表-简历库-天府菁英网');
   }
 
-  // ngOnChanges() {
-  //   if(this.listOfData.length !== 0) {
-  //     console.log('cols changes', this.colsChange);
-  //   }
-  // }
-
-  pageOption:any = {
+  pageOption: any = {
     total: null,
     pageIndex: 1,
     pageSize: 10
   };
-  
-  
+
+
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
     this.pageOption.pageIndex = pageIndex;
     this.pageOption.pageSize = pageSize;
-    console.log(params, this.pageOption);
     this.getDataList();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  getDataList():void {
-    const page_size:number = this.pageOption.pageSize;
-    const pageIndex:number = this.pageOption.pageIndex;
+  getDataList(): void {
+    const page_size: number = this.pageOption.pageSize;
+    const pageIndex: number = this.pageOption.pageIndex;
 
-    const option:any = {
+    const option: any = {
       page: pageIndex,
       limit: page_size
     }
 
-    console.log('option by searchs', option);
 
     this.loadingData = true;
-    this.settingService.get('/v1/web/com/download_resume_jobs', option).subscribe((res:ApiData) => {
-      console.log('简历库 下载记录 职位列表', res);
+    this.settingService.get('/v1/web/com/download_resume_jobs', option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      // this.listOfData = res.data;
       this.listOfData = res.data;
       this.pageOption.total = res.meta.pagination.total;
     }, err => this.loadingData = false)

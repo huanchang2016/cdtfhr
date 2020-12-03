@@ -15,20 +15,20 @@ import { CompanyDataService } from '../../../service/company-data.service';
 export class PositionListCComponent implements OnChanges {
   // @Input() listOfData:any[] = [];
   // @Input() paginationOption:any;
-  @Input() searchOption:any;
-  @Input() status:string;
+  @Input() searchOption: any;
+  @Input() status: string;
 
-  loadingData:boolean = false;
+  loadingData: boolean = false;
 
-  freshLoadingOption:{[key:number]: boolean} = {};
+  freshLoadingOption: { [key: number]: boolean } = {};
 
   confirmModal?: NzModalRef; // For testing by now
-  
+
   tplModal?: NzModalRef;
 
-  listOfData:any[] = [];
+  listOfData: any[] = [];
 
-  pageConfig:any = {
+  pageConfig: any = {
     total: 0,
     page_size: 10,
     page: 1
@@ -45,11 +45,10 @@ export class PositionListCComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    if(this.searchOption) {
-      console.log(this.searchOption, 'this. search options')
+    if (this.searchOption) {
       this.getDataList();
     }
-    
+
   }
 
   getDataList() {
@@ -64,7 +63,6 @@ export class PositionListCComponent implements OnChanges {
     };
 
     this.settingService.get('/v1/web/com/job', option).subscribe((res: ApiData) => {
-      console.log('getDataList', res);
       this.loadingData = false;
       this.listOfData = res.data;
       this.pageConfig.total = res.meta.pagination.total;
@@ -75,7 +73,7 @@ export class PositionListCComponent implements OnChanges {
   checked = false;
   loading = false;
   indeterminate = false;
-  listOfCurrentPageData:any[] = [];
+  listOfCurrentPageData: any[] = [];
   setOfCheckedId = new Set<number>();
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -84,7 +82,6 @@ export class PositionListCComponent implements OnChanges {
     } else {
       this.setOfCheckedId.delete(id);
     }
-    console.log(this.setOfCheckedId);
   }
 
   onCurrentPageDataChange(listOfCurrentPageData: any[]): void {
@@ -94,9 +91,8 @@ export class PositionListCComponent implements OnChanges {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params, 'params');
     const { pageSize, pageIndex } = params;
-    
+
     this.pageConfig['page_size'] = pageSize;
     this.pageConfig['page'] = pageIndex;
 
@@ -110,8 +106,7 @@ export class PositionListCComponent implements OnChanges {
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
   }
 
-  selectedChange(checked:any, data:any) {
-    console.log('checkbox change', checked, data);
+  selectedChange(checked: any, data: any) {
     this.updateCheckedSet(data.id, checked);
     this.refreshCheckedStatus();
   }
@@ -122,46 +117,38 @@ export class PositionListCComponent implements OnChanges {
   }
 
 
-  edit(data:any): void {
-    console.log('create position');
+  edit(data: any): void {
     const modal = this.modal.create({
       nzTitle: '修改职位信息',
       nzContent: PositionFormComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: data
       },
       nzFooter: null
     });
 
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('result', result);
-      if(result) {
+      if (result) {
         this.getDataList();
       }
     });
   }
 
 
-  refreshItem(data:any):void {
+  refreshItem(data: any): void {
     // 刷新职位
     this.freshLoadingOption[data.id] = true;
-    this.settingService.post(`/v1/web/com/resume/update_jobs`, { ids: [data.id] }).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/resume/update_jobs`, { ids: [data.id] }).subscribe((res: ApiData) => {
       this.freshLoadingOption[data.id] = false
-      console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('刷新成功');
         this.getDataList();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.freshLoadingOption[data.id] = false);
@@ -170,55 +157,50 @@ export class PositionListCComponent implements OnChanges {
   refreshAll() { // 批量刷新 /v1/web/com/job/online_muti
     this.loading = true;
     const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-    console.log('selected item data: 批量刷新', requestData);
-    const ids:any = requestData.map( v => v.id);
-    this.settingService.post(`/v1/web/com/resume/update_jobs`, { ids: ids }).subscribe((res:ApiData) => {
+    const ids: any = requestData.map(v => v.id);
+    this.settingService.post(`/v1/web/com/resume/update_jobs`, { ids: ids }).subscribe((res: ApiData) => {
       this.loading = false
-      console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('刷新成功');
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.loading = false);
   }
 
-  uplineItem(id:number):void {
-    this.uplinePositions({ids: [id]});
+  uplineItem(id: number): void {
+    this.uplinePositions({ ids: [id] });
   }
 
   upLineSubmit() {
     const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-    const ids:any = requestData.map( v => v.id);
-    this.uplinePositions({ids: ids});
+    const ids: any = requestData.map(v => v.id);
+    this.uplinePositions({ ids: ids });
   }
-  uplinePositions(opt:any):void {
+  uplinePositions(opt: any): void {
     this.loading = true;
-    this.settingService.post(`/v1/web/com/resume/online_jobs`, opt).subscribe((res:ApiData) => {
-      console.log(res);
+    this.settingService.post(`/v1/web/com/resume/online_jobs`, opt).subscribe((res: ApiData) => {
       this.loading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('职位上线成功');
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.loading = false);
   }
 
-  deletedPositions(opt:any):void {
-    console.log('批量删除职位');
+  deletedPositions(opt: any): void {
     this.deletedLoading = true;
-    this.settingService.post(`/v1/web/com/resume/delete_jobs`, opt).subscribe((res:ApiData) => {
-      console.log(res);
+    this.settingService.post(`/v1/web/com/resume/delete_jobs`, opt).subscribe((res: ApiData) => {
       this.deletedLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('职位删除成功');
         this.isVisible = false;
         this.delPositionId = null;
@@ -226,82 +208,61 @@ export class PositionListCComponent implements OnChanges {
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.deletedLoading = false);
   }
 
-  disabled(id:number):void {
-    console.log('下线职位 id', id);
-    this.disabledPositions({ids: [id]});
+  disabled(id: number): void {
+    this.disabledPositions({ ids: [id] });
   }
-  disabledAll():void {
+  disabledAll(): void {
     const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-    const ids:any = requestData.map( v => v.id);
-    this.disabledPositions({ids: ids});
+    const ids: any = requestData.map(v => v.id);
+    this.disabledPositions({ ids: ids });
   }
 
-  disabledPositions(opt:any):void {
-    console.log('批量下线职位');
-    this.settingService.post(`/v1/web/com/resume/offline_jobs`, opt).subscribe((res:ApiData) => {
-      console.log(res);
-      if(res.code === 200) {
+  disabledPositions(opt: any): void {
+    this.settingService.post(`/v1/web/com/resume/offline_jobs`, opt).subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.msg.success('职位下线成功');
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.getDataList();
         this.companyDataService.getPositionConfig().then();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     });
   }
 
-  isVisible:boolean = false;
-  delPositionId:any = null;
+  isVisible: boolean = false;
+  delPositionId: any = null;
 
-  showModal(id?:number): void {
+  showModal(id?: number): void {
     this.isVisible = true;
-    if(id) {
+    if (id) {
       this.delPositionId = id;
     }
   }
 
   handleOk(): void {
     // 删除职位
-    if(this.isVisible && this.delPositionId) {
+    if (this.isVisible && this.delPositionId) {
       this.deletedPositions({ ids: [this.delPositionId] });
-    }else {
+    } else {
       const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-      const ids:any = requestData.map( v => v.id);
-      this.deletedPositions({ids: ids});
+      const ids: any = requestData.map(v => v.id);
+      this.deletedPositions({ ids: ids });
     }
   }
-  
-  // showConfirm(id?:number): void {
-  //   this.confirmModal = this.modal.confirm({
-  //     nzTitle: '是否将此招聘信息删除？',
-  //     nzContent: '删除后，职位下对应接收的简历也会被删除。加入收藏夹的除外',
-  //     nzOkType: 'danger',
-  //     nzOnOk: () => {
-  //       if(id) {
-  //         this.deletedPositions({ ids: [id]});
-  //       }else {
-  //         const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-  //         const ids:any = requestData.map( v => v.id);
-  //         this.deletedPositions({ids: ids});
-  //       }
-  //     },
-  //     nzOnCancel: () => {}
-  //   });
-  // }
 
-  deletedLoading:boolean = false;
+  deletedLoading: boolean = false;
 
   handleCancel(): void {
     this.isVisible = false;
     this.delPositionId = null;
   }
-  cancel():void {}
+  cancel(): void { }
 }

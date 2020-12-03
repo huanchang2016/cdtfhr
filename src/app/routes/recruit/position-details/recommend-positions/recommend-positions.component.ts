@@ -17,16 +17,16 @@ import { UserDataService } from 'src/app/routes/user-admin/service/user-data.ser
   styleUrls: ['./recommend-positions.component.less']
 })
 export class RecommendPositionsComponent implements OnChanges {
-  @Input() positionId:number;
+  @Input() positionId: number;
 
-  list:any[] = [];
+  list: any[] = [];
 
-  loadingData:boolean = false; // 更新状态（换一批）
+  loadingData: boolean = false; // 更新状态（换一批）
 
-  requestLoading:boolean = false; // 投递状态
-  
-  pageIndex:number = 1;
-  totalPage:number = 1;
+  requestLoading: boolean = false; // 投递状态
+
+  pageIndex: number = 1;
+  totalPage: number = 1;
 
   constructor(
     private modal: NzModalService,
@@ -36,36 +36,35 @@ export class RecommendPositionsComponent implements OnChanges {
   ) { }
 
   ngOnChanges(): void {
-    if(this.positionId) {
+    if (this.positionId) {
       this.getDataList();
     }
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loadingData = true;
-    this.settingService.get(`/v1/web/jobs/recommend/${this.positionId}?limit=6&page=${this.pageIndex}`).subscribe((res:ApiData) => {
-      console.log(res, '获取推荐职位');
+    this.settingService.get(`/v1/web/jobs/recommend/${this.positionId}?limit=6&page=${this.pageIndex}`).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.list = res.data;
         this.totalPage = res.meta.pagination.total_pages;
         this.setOfCheckedId.clear();
         this.refreshCheckedStatus();
         this.requestLoading = false;
       }
-      
+
     }, err => this.loadingData = false);
   }
 
-  updateList():void {
-    if(this.pageIndex < this.totalPage) {
+  updateList(): void {
+    if (this.pageIndex < this.totalPage) {
       this.pageIndex++;
-    }else {
+    } else {
       this.pageIndex = 1;
     }
     this.getDataList();
   }
-  
+
   checked = false;
   indeterminate = false;
   setOfCheckedId = new Set<number>();
@@ -76,7 +75,6 @@ export class RecommendPositionsComponent implements OnChanges {
     } else {
       this.setOfCheckedId.delete(id);
     }
-    console.log(this.setOfCheckedId);
   }
 
   onCurrentPageDataChange(): void {
@@ -90,8 +88,7 @@ export class RecommendPositionsComponent implements OnChanges {
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
   }
 
-  selectedChange(checked:any, data:any) {
-    console.log('checkbox change', checked, data);
+  selectedChange(checked: any, data: any) {
     this.updateCheckedSet(data.id, checked);
     this.refreshCheckedStatus();
   }
@@ -102,66 +99,41 @@ export class RecommendPositionsComponent implements OnChanges {
   }
 
   sendRequest(): void {
-    if(this.settingService.user) {
-      if(this.settingService.user.type === 'user') {
+    if (this.settingService.user) {
+      if (this.settingService.user.type === 'user') {
         this.checkCelebrity();
-      }else {
+      } else {
         this.msg.error('企业用户不能投递岗位');
       }
-    }else {
+    } else {
       // 未登录，弹出登录框
       this.createUserModal();
     }
-    
-    
-    
-    // this.requestLoading = true;
-    // const requestData = this.list.filter(data => this.setOfCheckedId.has(data.id));
-    // console.log('selected item data: ', requestData);
-    // const option:any = {
 
-    // };
-    // this.settingService.post('/v1/web/user/create_delivery').subscribe((res:ApiData) => {
-
-    // })
-    
-    // setTimeout(() => {
-    //   this.setOfCheckedId.clear();
-    //   this.refreshCheckedStatus();
-    //   this.requestLoading = false;
-    //   // 重新获取 其他数据
-
-    // }, 1000);
   }
 
-  checkCelebrity():void { // 验证用户是否已实名审核
-    if(this.userDataService.userProfile) {
-      if(this.userDataService.userProfile.status !== 1) {
-        // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user xxxxxxxxxxxx')
+  checkCelebrity(): void { // 验证用户是否已实名审核
+    if (this.userDataService.userProfile) {
+      if (this.userDataService.userProfile.status !== 1) {
         this.celebrityNotPass();
-      }else {
-        console.log('yi denglu ,  jinru toudi jianli liucheng');
+      } else {
         this.chooseResumePost();
       }
-    }else {
-      this.userDataService.getProfile().then( data => {
-        if(data.status !== 1) {
-          // this.msg.warning('您还未通过实名认证，请前往个人中心完善实名认证信息');
-        console.log('user uyyyyyyyyyyyyyyyyyy')
+    } else {
+      this.userDataService.getProfile().then(data => {
+        if (data.status !== 1) {
 
           this.celebrityNotPass();
-        }else {
-          console.log('yi denglu ,  jinru toudi jianli liucheng..............');
+        } else {
           this.chooseResumePost();
         }
       })
     }
-    
+
   }
   chooseResumePost() {
-    const ids:number[] = this.list.filter(data => this.setOfCheckedId.has(data.id)).map( v => v.id );
-    if(ids.length === 0) {
+    const ids: number[] = this.list.filter(data => this.setOfCheckedId.has(data.id)).map(v => v.id);
+    if (ids.length === 0) {
       this.msg.warning('未选择职位');
       return;
     }
@@ -171,51 +143,38 @@ export class RecommendPositionsComponent implements OnChanges {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         positionId: this.positionId,
         ids: ids
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.resumeModal.getContentComponent();
-    // this.resumeModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    resumeModal.afterClose.subscribe( result => {
-      console.log(result, 'close modal')
-      if(result && result.type === 'success') {
+    resumeModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
         this.postSuccess();
         this.getDataList();
       }
-    } );
+    });
 
   }
-  
-  createUserModal () {
+
+  createUserModal() {
     this.loginModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.loginModal.getContentComponent();
-    // this.loginModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    this.loginModal.afterClose.subscribe( result =>  console.log(result, 'close modal') );
 
   }
 
-  loginModal:any = null;
-  successModal:any = null;
-  userCelebrityModal:any = null;
+  loginModal: any = null;
+  successModal: any = null;
+  userCelebrityModal: any = null;
   // 简历投递成功
   postSuccess() {
     this.successModal = this.modal.create({
@@ -224,18 +183,13 @@ export class RecommendPositionsComponent implements OnChanges {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.successModal.getContentComponent();
-    this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    this.successModal.afterOpen.subscribe(() => { });
     // Return a result when closed
-    this.successModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
-       
+    this.successModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
+
       }
     });
   }
@@ -248,17 +202,12 @@ export class RecommendPositionsComponent implements OnChanges {
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.userCelebrityModal.getContentComponent();
-    this.userCelebrityModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    this.userCelebrityModal.afterOpen.subscribe(() => { });
     // Return a result when closed
-    this.userCelebrityModal.afterClose.subscribe( result => {
-      if(result && result.type === 'success') {
+    this.userCelebrityModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
         // nothing to do .
       }
     });

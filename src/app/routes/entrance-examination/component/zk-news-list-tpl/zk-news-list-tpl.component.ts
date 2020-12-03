@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalSettingsService } from '@core';
-import { Observable, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 export class ZkNewsListTplComponent implements OnInit {
 
 
-  listNotice:any[] = [];
-  listNews:any[] = [];
+  listNotice: any[] = [];
+  listNews: any[] = [];
 
   constructor(
     private settingService: GlobalSettingsService
@@ -24,14 +24,13 @@ export class ZkNewsListTplComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     zip(
       this.settingService.post('/v1/web/exam/news', { page: 1, limit: 5 }),
       this.settingService.post('/v1/web/exam/announce', { page: 1, limit: 5 })
     ).pipe(
-      map(([ news, notice]) => [ news.data, notice.data ])
-    ).subscribe(([ news, notice ]) => {
-      console.log(news, notice);
+      map(([news, notice]) => [news.data, notice.data])
+    ).subscribe(([news, notice]) => {
       this.listNews = news;
       this.listNotice = notice;
     })

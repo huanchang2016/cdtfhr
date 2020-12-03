@@ -83,7 +83,7 @@ export class DeliveryViewedListComponent implements OnInit {
   loadingData: boolean = true;
   listOfData: any[] = [];
 
-  search():void {
+  search(): void {
     this.getDataList();
   }
 
@@ -92,7 +92,7 @@ export class DeliveryViewedListComponent implements OnInit {
     this.getDataList();
   }
 
-  resetForm(e:MouseEvent): void {
+  resetForm(e: MouseEvent): void {
     e.preventDefault();
     this.validateForm.reset();
     this.search_text = '';
@@ -111,15 +111,14 @@ export class DeliveryViewedListComponent implements OnInit {
   };
 
   getDataList(total: number = 10) {
-    console.log(this.pageConfig, this.validateForm.value, 'get data list works!', this.search_text);
-    const value:any = this.validateForm.value;
+    const value: any = this.validateForm.value;
 
     this.loadingData = true;
     // const date:any[] = value.rangeDate;
     const start: string = this.startTimeValue ? format(this.startTimeValue, 'yyyy-MM-dd') : null;
     const end: string = this.endTimeValue ? format(this.endTimeValue, 'yyyy-MM-dd') : null;
-    const cascader:any[] = value.work_address;
-    const option:any = {
+    const cascader: any[] = value.work_address;
+    const option: any = {
       // 分页参数
       limit: this.pageConfig.limit,
       page: this.pageConfig.page,
@@ -134,20 +133,17 @@ export class DeliveryViewedListComponent implements OnInit {
       city_id: cascader && cascader.length !== 0 ? cascader[1] : '',
       area_id: cascader && cascader.length !== 0 ? cascader[2] : '',
     };
-    console.log('option', option);
-    this.settingService.post(`/v1/web/user/view_resume_company`, option).subscribe((res:ApiData) => {
-      console.log(res, 'data list');
+    this.settingService.post(`/v1/web/user/view_resume_company`, option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.listOfData = res.data;
         this.pageConfig.total = res.meta.pagination.total;
       }
     }, err => this.loadingData = false);
-    
+
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const { pageSize, pageIndex } = params;
     this.pageConfig['limit'] = pageSize;
     this.pageConfig['page'] = pageIndex;
@@ -163,7 +159,7 @@ export class DeliveryViewedListComponent implements OnInit {
   get startTimeValue(): Date | null {
     return this.validateForm.controls.start.value;
   }
-  
+
   disabledStartDate = (startValue: Date): boolean => {
     if (!startValue || !this.endTimeValue) {
       return false;

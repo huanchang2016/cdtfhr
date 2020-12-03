@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { format } from 'date-fns';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
@@ -22,73 +22,72 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 })
 export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
 
-  @Input() placeholder?:string[] = ['请选择开始日期', '请选择结束日期'];
-  @Input() size?:string = 'large';
-  @Input() isNow?:boolean = false;
+  @Input() placeholder?: string[] = ['请选择开始日期', '请选择结束日期'];
+  @Input() size?: string = 'large';
+  @Input() isNow?: boolean = false;
 
-  monthFormat:string = 'yyyy/MM';
+  monthFormat: string = 'yyyy/MM';
 
-  start_month:Date;
-  end_month:any;
+  start_month: Date;
+  end_month: any;
 
-  values:string[] = [];
+  values: string[] = [];
 
-  is_now:boolean = false;
+  is_now: boolean = false;
 
   private propagateChange = (_: any) => { };
 
   ngOnInit() {
-    if(!this.isNow) {
+    if (!this.isNow) {
       this.is_now = false;
     }
   }
 
   writeValue(obj: string[]): void {
-    if(obj) {
+    if (obj) {
       this.start_month = new Date(obj[0]);
-      if(obj[1] === '至今') {
+      if (obj[1] === '至今') {
         this.is_now = true;
         this.end_month = null;
-      }else {
+      } else {
         this.end_month = new Date(obj[1]);
       }
       this.values = obj;
-    }else {
+    } else {
       this.values = [];
     }
   }
 
-  valueChanges():void {
-    let start:string = null;
-    let end:string = null;
+  valueChanges(): void {
+    let start: string = null;
+    let end: string = null;
     this.values = [];
-    if(this.start_month) {
+    if (this.start_month) {
       start = format(this.start_month, 'yyyy-MM-dd');
       this.values[0] = start;
-      if(this.is_now) {
+      if (this.is_now) {
         end = '至今';
         this.end_month = null;
         this.values[1] = end;
       }
-      if(!this.is_now && this.end_month) {
+      if (!this.is_now && this.end_month) {
         end = format(this.end_month, 'yyyy-MM-dd');
         this.values[1] = end;
       }
 
     }
 
-    console.log(start, end);
     this.propagateChange(this.values);
-    
+
   }
 
 
   disabledDateStart = (current: Date): boolean => {
     // Can not select days before today and today
-    let MaxMonth:Date;
-    if(this.end_month) {
+    let MaxMonth: Date;
+    if (this.end_month) {
       MaxMonth = this.end_month.getTime() < (new Date()).getTime() ? this.end_month : new Date();
-    }else {
+    } else {
       MaxMonth = new Date();
     }
     return differenceInCalendarDays(current, MaxMonth) > 0;
@@ -96,17 +95,17 @@ export class RangeMonthPickerComponent implements ControlValueAccessor, OnInit {
 
   disabledDateEnd = (current: Date): boolean => {
     // Can not select days before today and today
-    const startMonth:Date = this.start_month ? this.start_month : null;
-    
-    if(startMonth) {
+    const startMonth: Date = this.start_month ? this.start_month : null;
+
+    if (startMonth) {
       return differenceInCalendarDays(current, startMonth) < 0;
-    }else {
+    } else {
       return differenceInCalendarDays(current, new Date()) > 0;
     }
-    
+
   };
 
-  isDisabled:boolean = false;
+  isDisabled: boolean = false;
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }

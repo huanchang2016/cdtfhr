@@ -44,7 +44,6 @@ export class UserWorkExpFormTplComponent implements OnInit {
   }
 
   setForm() {
-    console.log(this.data, 'setForm');
     // 设置表单值
     this.validateForm.patchValue({
       company_name: this.data.name,
@@ -64,7 +63,6 @@ export class UserWorkExpFormTplComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 工作经历');
     if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
@@ -81,7 +79,6 @@ export class UserWorkExpFormTplComponent implements OnInit {
         description: object.work_description
       };
 
-      console.log(option, 'work exp submit')
 
       this.loading = true;
       if (this.data) {

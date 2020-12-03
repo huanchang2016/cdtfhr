@@ -26,12 +26,6 @@ export class UserLockComponent {
       this.f.controls[i].updateValueAndValidity();
     }
     if (this.f.valid) {
-      console.log('Valid!');
-      console.log(this.f.value);
-      // 暂存 token
-      // this.tokenService.set({
-      //   token: '123',
-      // });
       this.router.navigate(['dashboard']);
     }
   }

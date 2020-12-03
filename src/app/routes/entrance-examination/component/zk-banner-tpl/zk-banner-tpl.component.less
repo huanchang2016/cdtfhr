@@ -10,10 +10,16 @@ nz-carousel {
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;
+        &:hover {
+            .carousel_content_wrap {
+                display: block!important;
+            }
+        }
 
-        // background-size: 100% 100%;
         .carousel_content_wrap {
-            margin-top: 160px;
+            display: none;
+            position: absolute;
+            bottom: 60px;
 
             .carousel_content_title {
                 font-size: 60px;

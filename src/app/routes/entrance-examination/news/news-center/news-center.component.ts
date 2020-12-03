@@ -40,7 +40,6 @@ export class NewsCenterComponent implements OnInit {
   }
 
   pageIndexChange({ page }): void {
-    console.log(page, 'page changes');
     this.pageIndex = page;
     this.getDataList();
   }

@@ -31,7 +31,7 @@ export class CompanyLoginComponent {
     private router: Router,
     private msg: NzMessageService,
     private companyDataService: CompanyDataService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -46,10 +46,8 @@ export class CompanyLoginComponent {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm);
 
-    if(this.validateForm.valid) {
-      console.log(this.validateForm.value, 'login Info');
+    if (this.validateForm.valid) {
       const value = this.validateForm.value;
       this.loading = true;
       const option = {
@@ -59,54 +57,45 @@ export class CompanyLoginComponent {
       // 判断企业用户是否重新登录   清空缓存的变量数据
       this.companyDataService.companyInfo = null;
       this.companyDataService.positionConfig = null;
-      this.settingService.post('/v1/web/com/login', option).subscribe((res:ApiData) => {
+      this.settingService.post('/v1/web/com/login', option).subscribe((res: ApiData) => {
         this.loading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.settingService.setToken(res.data);
           // 登录后， 重新获取用户信息
-          this.startupSrv.load().then( _ => {
-            this.destroyModal({ type: 'success'});
-            // window.document.location.reload();
+          this.startupSrv.load().then(_ => {
+            this.destroyModal({ type: 'success' });
             this.router.navigateByUrl('/admin/company');
           })
-        }else {
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.loading = false);
     }
   }
 
-  userModal:any = null;
-  fogetPassword():void {
+  userModal: any = null;
+  fogetPassword(): void {
     // 忘记密码
-    console.log('忘记密码');
-      this.userModal = this.modalSrv.create({
-        nzTitle: '忘记密码',
-        nzContent: ForgotPasswordFormComponent,
-        nzMaskClosable: false,
-        nzWidth: '800px',
-        nzBodyStyle: {
-          padding: '24px 100px 30px'
-        },
-        nzComponentParams: {},
-        // nzViewContainerRef: this.viewContainerRef,
-        // nzGetContainer: () => document.body,
-        
-        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-        nzFooter: null
-      });
-      // const instance = this.userModal.getContentComponent();
-      // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-      // Return a result when closed
-      this.userModal.afterClose.subscribe( result => {
-        console.log(result, 'close modal， home page: nothing to do !')
-        if(result && result.type === 'success') {
-          this.settingService.user = null;
-        }
-      });
+    this.userModal = this.modalSrv.create({
+      nzTitle: '忘记密码',
+      nzContent: ForgotPasswordFormComponent,
+      nzMaskClosable: false,
+      nzWidth: '800px',
+      nzBodyStyle: {
+        padding: '24px 100px 30px'
+      },
+      nzComponentParams: {},
+
+      nzFooter: null
+    });
+    this.userModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
+        this.settingService.user = null;
+      }
+    });
   }
 
-  destroyModal(opt?:any): void {
+  destroyModal(opt?: any): void {
     this.modal.destroy(opt);
   }
 }

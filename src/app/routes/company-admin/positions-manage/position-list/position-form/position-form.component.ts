@@ -12,9 +12,9 @@ import { CompanyDataService } from '../../../service/company-data.service';
   styleUrls: ['./position-form.component.less']
 })
 export class PositionFormComponent implements OnInit {
-  @Input() data:any;
-  
-  config:any = {
+  @Input() data: any;
+
+  config: any = {
     duration_time: [
       { key: '15天', value: 15 },
       { key: '30天', value: 30 },
@@ -22,8 +22,8 @@ export class PositionFormComponent implements OnInit {
     ]
   };
 
-  submitLoading:boolean = false;
-  error:string = '';
+  submitLoading: boolean = false;
+  error: string = '';
 
   validateForm!: FormGroup;
 
@@ -38,21 +38,21 @@ export class PositionFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.validateForm = this.fb.group({
-      position_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, Validators.required ],
-      recruiters: [ null, [ Validators.pattern(/^[0-9]{1,}/), Validators.required] ],
-      job_category: [{ value: this.data ? [this.data.jobType1.id, this.data.jobType2.id, this.data.jobType3.id] : null, disabled: this.data }, Validators.required ],
-      cascader: [{ value: this.data ? [this.data.province.id, this.data.city.id, this.data.area.id] : null, disabled: this.data }, Validators.required ],
-      address: [{ value: this.data ? this.data.address : null, disabled: this.data }, Validators.required ],
-      nature: [{ value: this.data ? this.data.type.id : null, disabled: this.data }, Validators.required ],
-      salary: [null, Validators.required ],
-      education: [null, Validators.required ],
-      work_exp: [null, Validators.required ],
-      description: [null, [Validators.required] ],
-      user_email: [null ],
-      duration_time: [null, Validators.required ]
+      position_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, Validators.required],
+      recruiters: [null, [Validators.pattern(/^[0-9]{1,}/), Validators.required]],
+      job_category: [{ value: this.data ? [this.data.jobType1.id, this.data.jobType2.id, this.data.jobType3.id] : null, disabled: this.data }, Validators.required],
+      cascader: [{ value: this.data ? [this.data.province.id, this.data.city.id, this.data.area.id] : null, disabled: this.data }, Validators.required],
+      address: [{ value: this.data ? this.data.address : null, disabled: this.data }, Validators.required],
+      nature: [{ value: this.data ? this.data.type.id : null, disabled: this.data }, Validators.required],
+      salary: [null, Validators.required],
+      education: [null, Validators.required],
+      work_exp: [null, Validators.required],
+      description: [null, [Validators.required]],
+      user_email: [null],
+      duration_time: [null, Validators.required]
     });
 
-    if(this.data) {
+    if (this.data) {
       this.setFormValue();
     }
   }
@@ -62,10 +62,9 @@ export class PositionFormComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log('validate form value', this.validateForm)
-    if(this.validateForm.valid) {
-      const value:any = this.validateForm.value;
-      if(!this.data) {
+    if (this.validateForm.valid) {
+      const value: any = this.validateForm.value;
+      if (!this.data) {
         const option = {
           name: value.position_name,
           number: +value.recruiters,
@@ -86,7 +85,7 @@ export class PositionFormComponent implements OnInit {
         };
         this.create(option);
 
-      }else {
+      } else {
         const obj = {
           // name: value.position_name,
           number: +value.recruiters,
@@ -111,39 +110,36 @@ export class PositionFormComponent implements OnInit {
     }
   }
 
-  create(opt:any):void {
+  create(opt: any): void {
     this.submitLoading = true;
-    this.globalService.post('/v1/web/com/job', opt).subscribe((res:ApiData) => {
+    this.globalService.post('/v1/web/com/job', opt).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('添加成功');
         this.companyDataService.getPositionConfig().then();
         this.destoryModal(res.data)
-      }else {
+      } else {
         this.error = res.message;
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
 
-  edit(opt:any):void {
+  edit(opt: any): void {
     this.submitLoading = true;
-    this.globalService.patch(`/v1/web/com/job/${this.data.id}`, opt).subscribe((res:ApiData) => {
+    this.globalService.patch(`/v1/web/com/job/${this.data.id}`, opt).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      console.log(res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('更新成功');
         this.destoryModal(res.data)
-      }else {
+      } else {
         this.error = res.message;
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
 
-  setFormValue():void {
-    console.log('edit position form', this.data);
+  setFormValue(): void {
     this.validateForm.patchValue({
       recruiters: this.data.number,
       salary: this.data.salary.id,
@@ -155,12 +151,12 @@ export class PositionFormComponent implements OnInit {
     });
   }
 
-  cancel(e:Event):void {
+  cancel(e: Event): void {
     e.preventDefault();
     this.destoryModal();
   }
 
-  destoryModal(data?:any):void {
+  destoryModal(data?: any): void {
     this.modal.destroy(data);
   }
 

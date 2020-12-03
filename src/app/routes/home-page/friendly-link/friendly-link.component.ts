@@ -8,23 +8,22 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./friendly-link.component.less']
 })
 export class FriendlyLinkComponent implements OnInit {
-  
-  links:any[] = [];
+
+  links: any[] = [];
 
   constructor(
     public settingService: GlobalSettingsService
   ) { }
 
   ngOnInit(): void {
-    this.settingService.get('/v1/web/index/link').subscribe( (res:ApiData) => {
-      // console.log(res, 'index friend links works');
-      if(res.code === 200) {
+    this.settingService.get('/v1/web/index/link').subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.links = res.data;
       }
     })
   }
 
-  navTo(url:string):void {
+  navTo(url: string): void {
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
       url = 'http://' + url;
     }

@@ -19,7 +19,6 @@ export class CompanyDataService {
   getProfile(): Promise<any> {
     return new Promise((resolve) => {
       this.settingService.get('/v1/web/com/info').subscribe((res: ApiData) => {
-        console.log('Company DataService get Data', res.data);
         this.companyInfo = res.data;
         resolve(this.companyInfo);
       })
@@ -27,12 +26,11 @@ export class CompanyDataService {
   }
   getPositionConfig(): Promise<any> {
     return new Promise((resolve) => {
-      this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe( (res:ApiData) => {
-        console.log(res, '获取在招，已下线职位数量统计');
-         this.positionConfig = res.data;
-         resolve(this.positionConfig)
+      this.settingService.post(`/v1/web/com/resume/config_jobs`).subscribe((res: ApiData) => {
+        this.positionConfig = res.data;
+        resolve(this.positionConfig)
       })
     })
   }
-  
+
 }

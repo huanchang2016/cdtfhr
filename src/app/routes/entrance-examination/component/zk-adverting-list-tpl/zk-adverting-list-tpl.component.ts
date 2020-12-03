@@ -9,7 +9,7 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class ZkAdvertingListTplComponent implements OnInit {
 
-  list:any[] = [];
+  list: any[] = [];
 
   constructor(
     private settingService: GlobalSettingsService
@@ -20,18 +20,17 @@ export class ZkAdvertingListTplComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
-    this.settingService.get('/v1/web/exam/ads').subscribe( (res:ApiData) => {
-      console.log(res, 'xam/ads');
-      if(res.code === 200) {
+  getDataList(): void {
+    this.settingService.get('/v1/web/exam/ads').subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.list = res.data;
       }
     })
   }
 
-  goTo(url: string):void {
-    const _url:string = url || '/';
+  goTo(url: string): void {
+    const _url: string = url || '/';
     window.open(_url);
   }
-  
+
 }

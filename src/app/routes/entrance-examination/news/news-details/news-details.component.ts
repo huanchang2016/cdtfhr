@@ -10,16 +10,16 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class NewsDetailsComponent implements OnInit {
 
-  dataInfo:any = null;
-  loading:boolean = true;
-  newsId:number;
+  dataInfo: any = null;
+  loading: boolean = true;
+  newsId: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private settingService: GlobalSettingsService
   ) {
-    this.activatedRoute.params.subscribe((params:Params) => {
-      if(params) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      if (params) {
         this.newsId = +params['id'];
         this.getData();
       }
@@ -27,21 +27,19 @@ export class NewsDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  getData():void {
-    
-    console.log('this.current news Id', this.newsId);
+  getData(): void {
     this.loading = true;
-    this.settingService.get(`/v1/web/exam/news/${this.newsId}`).subscribe((res:ApiData) => {
+    this.settingService.get(`/v1/web/exam/news/${this.newsId}`).subscribe((res: ApiData) => {
       this.loading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.dataInfo = res.data;
-      }else {
+      } else {
         this.dataInfo = null;
       }
     })
-    
+
   }
 }

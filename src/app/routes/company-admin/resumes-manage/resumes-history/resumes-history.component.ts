@@ -9,9 +9,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./resumes-history.component.less']
 })
 export class ResumesHistoryComponent implements OnInit {
-  tabIndex:number = 0; // | 2 | 3 | 4 
+  tabIndex: number = 0; // | 2 | 3 | 4 
 
-  search_text:string = '';
+  search_text: string = '';
   searchLoading: boolean = false;
 
   // colsChange:boolean = false;
@@ -22,7 +22,7 @@ export class ResumesHistoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
-      if(params['tabIndex']) {
+      if (params['tabIndex']) {
         this.tabIndex = +params['tabIndex'];
       }
     });
@@ -32,8 +32,7 @@ export class ResumesHistoryComponent implements OnInit {
     // this.createComponentModal();
   }
 
-  settingCols():void {
-    console.log('settings cols');
+  settingCols(): void {
     this.createComponentModal();
   }
 
@@ -44,35 +43,25 @@ export class ResumesHistoryComponent implements OnInit {
       nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzMaskClosable: false,
-      // nzBodyStyle: {
-      //   padding: '24px 100px 30px'
-      // },
       nzComponentParams: {
         data: null
       },
       nzFooter: null
     });
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
-      if(result && result.data.save) {
-        // this.colsChange = !this.colsChange;
+      if (result && result.data.save) {
       }
     });
 
   }
 
-  
-  changeTab({index}):void {
-    console.log(index, 'change tabs, status changed!');
+
+  changeTab({ index }): void {
     this.tabIndex = index;
   }
 
-  
+
   search(): void {
-    console.log(this.search_text, 'search_ text info');
 
     this.searchLoading = true;
     setTimeout(() => {

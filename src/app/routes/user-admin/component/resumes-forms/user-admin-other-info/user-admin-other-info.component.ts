@@ -17,10 +17,10 @@ import { format } from 'date-fns';
   styleUrls: ['./user-admin-other-info.component.less']
 })
 export class UserAdminOtherInfoComponent implements OnInit {
-  @Input() resumeUserInfo:any;
-  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
-  @Output() resumeInfoChange:EventEmitter<any> = new EventEmitter();
-  @Output() stepsChange:EventEmitter<any> = new EventEmitter();
+  @Input() resumeUserInfo: any;
+  @Output() valueChanges: EventEmitter<any> = new EventEmitter();
+  @Output() resumeInfoChange: EventEmitter<any> = new EventEmitter();
+  @Output() stepsChange: EventEmitter<any> = new EventEmitter();
 
   validateForm!: FormGroup;
 
@@ -66,48 +66,44 @@ export class UserAdminOtherInfoComponent implements OnInit {
           languageListen: [null, [Validators.required]]
         })
       ]),
-      // is_internship: [true, [Validators.required]],
 
       self_comment: [null, Validators.maxLength(300)],
       self_interest: [null, Validators.maxLength(300)]
     });
 
-    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe(_ => this.valueChanges.emit(true));
 
-    this.validateForm.get('is_projectExp').valueChanges.subscribe( (is_exp:boolean) => {
+    this.validateForm.get('is_projectExp').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidProjectExp('is_projectExp');
     });
-    this.validateForm.get('is_trainExp').valueChanges.subscribe( (is_exp:boolean) => {
+    this.validateForm.get('is_trainExp').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidTrainExp('is_trainExp');
     });
-    this.validateForm.get('is_certificate').valueChanges.subscribe( (is_exp:boolean) => {
+    this.validateForm.get('is_certificate').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidCertificateExp('is_certificate');
     });
-    this.validateForm.get('is_language').valueChanges.subscribe( (is_exp:boolean) => {
+    this.validateForm.get('is_language').valueChanges.subscribe((is_exp: boolean) => {
       this.resetValidLanguageExp('is_language');
     });
-    
-    if(this.resumeUserInfo) {
+
+    if (this.resumeUserInfo) {
       this.resetForm();
     }
   }
 
   resetForm() {
-    console.log(this.resumeUserInfo, 'resetForm 其他信息');
 
-    // 项目经历经历赋值 projectExp
-    const projectExp:any[] = this.validateForm.get('projectExp').value;
-    const projectList:any[] = this.resumeUserInfo.project.data;
-    if(projectList && projectList.length !== 0) {
-      
-      projectList.forEach( (el, index) => {
-        if(index > 0 && projectExp.length < projectList.length) {
-          // 表单组元素长度 小于 数据长度时新增
+    const projectExp: any[] = this.validateForm.get('projectExp').value;
+    const projectList: any[] = this.resumeUserInfo.project.data;
+    if (projectList && projectList.length !== 0) {
+
+      projectList.forEach((el, index) => {
+        if (index > 0 && projectExp.length < projectList.length) {
           this.add('projectExp');
         }
       });
       this.validateForm.patchValue({
-        projectExp: projectList.map( v => {
+        projectExp: projectList.map(v => {
           return {
             projectName: v.name,
             projectRangeDate: [v.start_time, v.end_time],
@@ -115,23 +111,18 @@ export class UserAdminOtherInfoComponent implements OnInit {
           }
         })
       })
-    }else {
-      // this.validateForm.patchValue({
-      //   is_projectExp: false
-      // })
+    } else {
     }
-    // 培训经历赋值 trainExp
-    const trainExp:any[] = this.validateForm.get('trainExp').value;
-    const trainList:any[] = this.resumeUserInfo.training.data;
-    if(trainList && trainList.length !== 0) {
-      trainList.forEach( (el, index) => {
-        if(index > 0 && trainExp.length < trainList.length) {
-          // 表单组元素长度 小于 数据长度时新增
+    const trainExp: any[] = this.validateForm.get('trainExp').value;
+    const trainList: any[] = this.resumeUserInfo.training.data;
+    if (trainList && trainList.length !== 0) {
+      trainList.forEach((el, index) => {
+        if (index > 0 && trainExp.length < trainList.length) {
           this.add('trainExp');
         }
       });
       this.validateForm.patchValue({
-        trainExp: trainList.map( v => {
+        trainExp: trainList.map(v => {
           return {
             trainContent: v.description,
             trainOrganization: v.name,
@@ -139,46 +130,36 @@ export class UserAdminOtherInfoComponent implements OnInit {
           }
         })
       })
-    }else {
-      // this.validateForm.patchValue({
-      //   is_trainExp: false
-      // })
+    } else {
     }
-    // 证书列表赋值 certificates
-    const certificates:any[] = this.validateForm.get('certificates').value;
-    const certificateList:any[] = this.resumeUserInfo.certificate.data;
-    if(certificateList && certificateList.length !== 0) {
-      certificateList.forEach( (el, index) => {
-        if(index > 0 && certificates.length < certificateList.length) {
-          // 表单组元素长度 小于 数据长度时新增
+    const certificates: any[] = this.validateForm.get('certificates').value;
+    const certificateList: any[] = this.resumeUserInfo.certificate.data;
+    if (certificateList && certificateList.length !== 0) {
+      certificateList.forEach((el, index) => {
+        if (index > 0 && certificates.length < certificateList.length) {
           this.add('certificates');
         }
       });
       this.validateForm.patchValue({
-        certificates: certificateList.map( v => {
+        certificates: certificateList.map(v => {
           return {
             certificateName: v.name,
             certificateDate: v.time
           }
         })
       })
-    }else {
-      // this.validateForm.patchValue({
-      //   is_certificate: false
-      // })
+    } else {
     }
-    // 语言赋值 languages
-    const languages:any[] = this.validateForm.get('languages').value;
-    const languageList:any[] = this.resumeUserInfo.language.data;
-    if(languageList && languageList.length !== 0) {
-      languageList.forEach( (el, index) => {
-        if(index > 0 && languages.length < languageList.length) {
-          // 表单组元素长度 小于 数据长度时新增
+    const languages: any[] = this.validateForm.get('languages').value;
+    const languageList: any[] = this.resumeUserInfo.language.data;
+    if (languageList && languageList.length !== 0) {
+      languageList.forEach((el, index) => {
+        if (index > 0 && languages.length < languageList.length) {
           this.add('languages');
         }
       });
       this.validateForm.patchValue({
-        languages: languageList.map( v => {
+        languages: languageList.map(v => {
           return {
             languageType: v.language.id,
             languageWrite: v.reading_writing,
@@ -186,15 +167,11 @@ export class UserAdminOtherInfoComponent implements OnInit {
           }
         })
       })
-    }else {
-      // this.validateForm.patchValue({
-      //   is_language: false
-      // })
+    } else {
     }
 
   }
 
-  // 获取表单中 formArray 的所有项
   get projectExpArrayControls() {
     const group = this.validateForm.get('projectExp') as FormArray;
     return group.controls;
@@ -215,8 +192,8 @@ export class UserAdminOtherInfoComponent implements OnInit {
     return group.controls;
   }
 
-  add(type:string) {
-    const groupArray:FormArray = this.validateForm.get(type) as FormArray;
+  add(type: string) {
+    const groupArray: FormArray = this.validateForm.get(type) as FormArray;
     if (type === 'projectExp') {
       groupArray.push(
         this.fb.group({
@@ -255,28 +232,27 @@ export class UserAdminOtherInfoComponent implements OnInit {
 
   }
 
-  deleted(index: number, type:string): void {
-    const groupArray:FormArray = this.validateForm.get(type) as FormArray;
+  deleted(index: number, type: string): void {
+    const groupArray: FormArray = this.validateForm.get(type) as FormArray;
 
     groupArray.removeAt(index);
   }
 
-  cancel() {}
+  cancel() { }
 
-  
+
   /****
    *  根据是否有项目经历 \ 培训经历 / 证书  其它语言能力
    *    重置（初始化）formArray -> formGroup 中的每个元素的验证规则
    * ****/
-  resetValidProjectExp(type:string):void {
-    const is_exp:boolean = this.validateForm.get(type).value;
+  resetValidProjectExp(type: string): void {
+    const is_exp: boolean = this.validateForm.get(type).value;
     for (let i = 0; i < this.projectExpArrayControls.length; i++) {
-      const element:any = this.projectExpArrayControls[i];
+      const element: any = this.projectExpArrayControls[i];
       for (const i in element.controls) {
-        if(is_exp) {
+        if (is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          // element.controls[i]!.markAsDirty();
-        }else {
+        } else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
         }
@@ -284,15 +260,14 @@ export class UserAdminOtherInfoComponent implements OnInit {
       }
     }
   }
-  resetValidTrainExp(type:string):void {
-    const is_exp:boolean = this.validateForm.get(type).value;
+  resetValidTrainExp(type: string): void {
+    const is_exp: boolean = this.validateForm.get(type).value;
     for (let i = 0; i < this.trainExpArrayControls.length; i++) {
-      const element:any = this.trainExpArrayControls[i];
+      const element: any = this.trainExpArrayControls[i];
       for (const i in element.controls) {
-        if(is_exp) {
+        if (is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          // element.controls[i]!.markAsDirty();
-        }else {
+        } else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
         }
@@ -300,15 +275,14 @@ export class UserAdminOtherInfoComponent implements OnInit {
       }
     }
   }
-  resetValidCertificateExp(type:string):void {
-    const is_exp:boolean = this.validateForm.get(type).value;
+  resetValidCertificateExp(type: string): void {
+    const is_exp: boolean = this.validateForm.get(type).value;
     for (let i = 0; i < this.certificatesArrayControls.length; i++) {
-      const element:any = this.certificatesArrayControls[i];
+      const element: any = this.certificatesArrayControls[i];
       for (const i in element.controls) {
-        if(is_exp) {
+        if (is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          // element.controls[i]!.markAsDirty();
-        }else {
+        } else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
         }
@@ -316,15 +290,14 @@ export class UserAdminOtherInfoComponent implements OnInit {
       }
     }
   }
-  resetValidLanguageExp(type:string):void {
-    const is_exp:boolean = this.validateForm.get(type).value;
+  resetValidLanguageExp(type: string): void {
+    const is_exp: boolean = this.validateForm.get(type).value;
     for (let i = 0; i < this.languagesArrayControls.length; i++) {
-      const element:any = this.languagesArrayControls[i];
+      const element: any = this.languagesArrayControls[i];
       for (const i in element.controls) {
-        if(is_exp) {
+        if (is_exp) {
           element.controls[i]!.setValidators(Validators.required);
-          // element.controls[i]!.markAsDirty();
-        }else {
+        } else {
           element.controls[i]!.clearValidators();
           element.controls[i]!.markAsPristine();
         }
@@ -333,7 +306,7 @@ export class UserAdminOtherInfoComponent implements OnInit {
     }
   }
 
-  
+
   steps(type: string) {
     this.stepsChange.emit(type);
   }
@@ -344,57 +317,50 @@ export class UserAdminOtherInfoComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log('projct controls', this.projectExpArrayControls);
-    // 验证 formArray -> formGroup -> formControl 元素
-    if(this.validateForm.get('is_projectExp').value) {
+    if (this.validateForm.get('is_projectExp').value) {
       for (let i = 0; i < this.projectExpArrayControls.length; i++) {
-        const element:any = this.projectExpArrayControls[i];
+        const element: any = this.projectExpArrayControls[i];
         for (const i in element.controls) {
           element.controls[i].markAsDirty();
           element.controls[i].updateValueAndValidity();
         }
       }
     }
-    if(this.validateForm.get('is_trainExp').value) {
+    if (this.validateForm.get('is_trainExp').value) {
       for (let i = 0; i < this.projectExpArrayControls.length; i++) {
-        const element:any = this.projectExpArrayControls[i];
+        const element: any = this.projectExpArrayControls[i];
         for (const i in element.controls) {
           element.controls[i].markAsDirty();
           element.controls[i].updateValueAndValidity();
         }
       }
     }
-    if(this.validateForm.get('is_certificate').value) {
+    if (this.validateForm.get('is_certificate').value) {
       for (let i = 0; i < this.projectExpArrayControls.length; i++) {
-        const element:any = this.projectExpArrayControls[i];
+        const element: any = this.projectExpArrayControls[i];
         for (const i in element.controls) {
           element.controls[i].markAsDirty();
           element.controls[i].updateValueAndValidity();
         }
       }
     }
-    if(this.validateForm.get('is_language').value) {
+    if (this.validateForm.get('is_language').value) {
       for (let i = 0; i < this.projectExpArrayControls.length; i++) {
-        const element:any = this.projectExpArrayControls[i];
+        const element: any = this.projectExpArrayControls[i];
         for (const i in element.controls) {
           element.controls[i].markAsDirty();
           element.controls[i].updateValueAndValidity();
         }
       }
     }
-    
-    console.log(this.validateForm, '简历 其它信息');
 
-    if(this.validateForm.valid) {
-      let option:any = {};
-      // let project:any[] = [];
-      // let training:any[] = [];
-      // let certificate:any[] = [];
-      // let language:any[] = [];
 
-      if(this.validateForm.get('is_projectExp').value) {
-        const projectExp:any[] = this.validateForm.get('projectExp').value;
-        const project:any[] = projectExp.map( v => {
+    if (this.validateForm.valid) {
+      let option: any = {};
+
+      if (this.validateForm.get('is_projectExp').value) {
+        const projectExp: any[] = this.validateForm.get('projectExp').value;
+        const project: any[] = projectExp.map(v => {
           const start_time = format(new Date(v.projectRangeDate[0]), 'yyyy-MM-dd');
           const end_time = format(new Date(v.projectRangeDate[1]), 'yyyy-MM-dd');
           return {
@@ -406,9 +372,9 @@ export class UserAdminOtherInfoComponent implements OnInit {
         });
         option = Object.assign(option, { project });
       }
-      if(this.validateForm.get('is_trainExp').value) {
-        const trainExp:any[] = this.validateForm.get('trainExp').value;
-        const training:any[] = trainExp.map( v => {
+      if (this.validateForm.get('is_trainExp').value) {
+        const trainExp: any[] = this.validateForm.get('trainExp').value;
+        const training: any[] = trainExp.map(v => {
           const start_time = format(new Date(v.trainRangeDate[0]), 'yyyy-MM-dd');
           const end_time = format(new Date(v.trainRangeDate[1]), 'yyyy-MM-dd');
           return {
@@ -420,9 +386,9 @@ export class UserAdminOtherInfoComponent implements OnInit {
         });
         option = Object.assign(option, { training });
       }
-      if(this.validateForm.get('is_certificate').value) {
-        const certificates:any[] = this.validateForm.get('certificates').value;
-        const certificate:any[] = certificates.map( v => {
+      if (this.validateForm.get('is_certificate').value) {
+        const certificates: any[] = this.validateForm.get('certificates').value;
+        const certificate: any[] = certificates.map(v => {
           const time = format(new Date(v.certificateDate), 'yyyy-MM-dd');
           return {
             name: v.certificateName,
@@ -431,9 +397,9 @@ export class UserAdminOtherInfoComponent implements OnInit {
         });
         option = Object.assign(option, { certificate });
       }
-      if(this.validateForm.get('is_language').value) {
-        const languages:any[] = this.validateForm.get('languages').value;
-        const language:any[] = languages.map( v => {
+      if (this.validateForm.get('is_language').value) {
+        const languages: any[] = this.validateForm.get('languages').value;
+        const language: any[] = languages.map(v => {
           return {
             language_id: v.languageType,
             reading_writing: v.languageWrite,
@@ -448,90 +414,72 @@ export class UserAdminOtherInfoComponent implements OnInit {
         self_evalution: this.validateForm.get('self_comment').value,
         hobby: this.validateForm.get('self_interest').value
       });
-      console.log(option, 'submit Other Info')
 
-        this.submitLoading = true;
-        this.globalService.post('/v1/web/user/resume/other', option).subscribe((res:ApiData) => {
-          this.submitLoading = false;
-          if(res.code === 200) {
-            this.userDataService.getProfile().then();
-            // 新增完成简历创建成功的提示弹窗框
-            this.valueChanges.emit(false);
-            this.referSuccessModal();
-          }else {
-            this.msg.error(res.message);
-          }
-          
-        }, err => this.submitLoading = false)
-      
+      this.submitLoading = true;
+      this.globalService.post('/v1/web/user/resume/other', option).subscribe((res: ApiData) => {
+        this.submitLoading = false;
+        if (res.code === 200) {
+          this.userDataService.getProfile().then();
+          this.valueChanges.emit(false);
+          this.referSuccessModal();
+        } else {
+          this.msg.error(res.message);
+        }
+
+      }, err => this.submitLoading = false)
+
     }
-    
-  }
-  
-  successModal:NzModalRef = null;
-  referSuccessModal():void {
-      this.successModal = this.modal.create({
-        nzTitle: null,
-        nzContent: UserResumesCreateSuccessTplComponent,
-        nzMaskClosable: false,
-        nzWidth: 455,
-        nzStyle: { top: '250px' },
-        // nzViewContainerRef: this.viewContainerRef,
-        // // nzGetContainer: () => document.body,
-        
-        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-        nzFooter: null
-      });
-      // const instance = this.successModal.getContentComponent();
-      // this.successModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-      // Return a result when closed
-      // this.successModal.afterClose.subscribe( result => {
-      //   this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
-      // });
 
-      setTimeout(() => {
-        this.successModal.close();
-        this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
-      }, 2000);
   }
-  
-  get getSelfCommentLength():number {
-    if(this.validateForm.get('self_comment').value) {
+
+  successModal: NzModalRef = null;
+  referSuccessModal(): void {
+    this.successModal = this.modal.create({
+      nzTitle: null,
+      nzContent: UserResumesCreateSuccessTplComponent,
+      nzMaskClosable: false,
+      nzWidth: 455,
+      nzStyle: { top: '250px' },
+
+      nzFooter: null
+    });
+
+    setTimeout(() => {
+      this.successModal.close();
+      this.route.navigateByUrl(`/admin/user/resumes/edit/${this.resumeUserInfo.id}`);
+    }, 2000);
+  }
+
+  get getSelfCommentLength(): number {
+    if (this.validateForm.get('self_comment').value) {
       return this.validateForm.get('self_comment').value.length;
     }
     return 0;
   }
-  
-  get getSelfInterestLength():number {
-    if(this.validateForm.get('self_interest').value) {
+
+  get getSelfInterestLength(): number {
+    if (this.validateForm.get('self_interest').value) {
       return this.validateForm.get('self_interest').value.length;
     }
     return 0;
   }
 
-  deletedModal(index: number, type:string):void {
+  deletedModal(index: number, type: string): void {
     const modal = this.modal.create({
       nzTitle: '提示',
       nzContent: ResumeSectionDeletedModalComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '400px',
       nzBodyStyle: {
         padding: '24px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
-        
+
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
-      if(result ===  true) {
+      if (result === true) {
         this.deleted(index, type);
       }
     });

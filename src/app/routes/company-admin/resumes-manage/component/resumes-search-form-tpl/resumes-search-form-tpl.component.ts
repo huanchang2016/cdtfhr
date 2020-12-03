@@ -11,11 +11,11 @@ import { Config } from 'src/app/data/interface';
 })
 export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
 
-  @Input() resetSearchOption:any;
+  @Input() resetSearchOption: any;
 
-  @Output() searchValueChange:EventEmitter<any> = new EventEmitter();
- 
-  workExpOptions:Config[] = [
+  @Output() searchValueChange: EventEmitter<any> = new EventEmitter();
+
+  workExpOptions: Config[] = [
     { id: 1, key: '不限', value: null },
     { id: 2, key: '应届生', value: '0-1' },
     { id: 3, key: '1-3年', value: '1-3' },
@@ -24,20 +24,19 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     { id: 6, key: '10年以上', value: '10-0' }
   ];
 
-  isCustomer:boolean = false; // 是否自定义查询
+  isCustomer: boolean = false; // 是否自定义查询
 
   validateForm!: FormGroup;
-  
+
   constructor(
     public globalService: GlobalSettingsService,
     private msg: NzMessageService,
     private fb: FormBuilder
   ) {
-    console.log(this.globalService.globalConfigOptions, 'configs');
   }
 
-  ngOnChanges():void {
-    if(this.resetSearchOption && this.validateForm) {
+  ngOnChanges(): void {
+    if (this.resetSearchOption && this.validateForm) {
       this.patchFormValue(this.resetSearchOption);
     }
   }
@@ -69,11 +68,11 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     });
   }
 
-  patchFormValue(item:any):void {
-    if(item.work) {
-      const _work:any[] = this.workExpOptions.filter(v => v.value === item.work);
-      if(_work.length === 0) {
-        const lastEl:Config = this.workExpOptions[this.workExpOptions.length - 1];
+  patchFormValue(item: any): void {
+    if (item.work) {
+      const _work: any[] = this.workExpOptions.filter(v => v.value === item.work);
+      if (_work.length === 0) {
+        const lastEl: Config = this.workExpOptions[this.workExpOptions.length - 1];
         this.workExpOptions.push({
           id: lastEl.id + 1,
           key: `${item.work}年`,
@@ -109,21 +108,20 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     this.emit();
   }
 
-  customerExpSettings():void {
-    console.log('自定义工作经验', this.validateForm);
+  customerExpSettings(): void {
     this.isCustomer = true;
     this.validateForm.patchValue({
       customer_exp_start: null,
       customer_exp_end: null
     });
   }
-  confirm(e:MouseEvent):void {
+  confirm(e: MouseEvent): void {
     e.preventDefault();
     // 确认自定义起始值，自动判断大小
-    const customerExp:number[] = [+this.validateForm.value.customer_exp_start, +this.validateForm.value.customer_exp_end];
+    const customerExp: number[] = [+this.validateForm.value.customer_exp_start, +this.validateForm.value.customer_exp_end];
     const _min = Math.min(...customerExp);
     const _max = Math.max(...customerExp);
-    const lastEl:Config = this.workExpOptions[this.workExpOptions.length - 1];
+    const lastEl: Config = this.workExpOptions[this.workExpOptions.length - 1];
     this.workExpOptions.push({
       id: lastEl.id + 1,
       key: `${_min}-${_max}年`,
@@ -136,9 +134,8 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
       customer_exp_end: _max
     });
     this.isCustomer = false;
-    console.log('确认 自定义工作经验', this.validateForm);
   }
-  cancel(e:MouseEvent):void {
+  cancel(e: MouseEvent): void {
     e.preventDefault();
     this.isCustomer = false;
     this.validateForm.patchValue({
@@ -147,7 +144,7 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     });
   }
 
-  resetForm(e:MouseEvent): void {
+  resetForm(e: MouseEvent): void {
     e.preventDefault();
     this.validateForm.patchValue({
       keywords: null,
@@ -182,13 +179,12 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     //   this.validateForm.controls[i].updateValueAndValidity();
     // }
 
-    console.log(this.validateForm, 'validateForm');
-    const keywords:string = this.validateForm.get('keywords').value;
-    if(!keywords || !keywords.trim()) {
+    const keywords: string = this.validateForm.get('keywords').value;
+    if (!keywords || !keywords.trim()) {
       this.msg.error('搜索简历时，关键字为必填项！');
       return;
-    }else {
-      if(this.validateForm.value.age_start && this.validateForm.value.age_end) {
+    } else {
+      if (this.validateForm.value.age_start && this.validateForm.value.age_end) {
         this.validateForm.patchValue({
           age_start: Math.min(this.validateForm.value.age_start, this.validateForm.value.age_end),
           age_end: Math.max(this.validateForm.value.age_start, this.validateForm.value.age_end)
@@ -198,10 +194,10 @@ export class ResumesSearchFormTplComponent implements OnChanges, OnInit {
     }
   }
 
-  emit():void {
-    const value:any = this.validateForm.value;
+  emit(): void {
+    const value: any = this.validateForm.value;
 
-    const option:any = {
+    const option: any = {
       name: value.keywords,
       is_any_key: value.is_any_key,
       city_id: value.work_address ? value.work_address[1] : null,

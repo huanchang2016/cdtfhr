@@ -1,13 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserDataService } from '../../service/user-data.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserAdminInfoFormCComponent } from '../../component/resumes-forms/user-admin-info-form-c/user-admin-info-form-c.component';
 import { ResumeLeaveComponentModalComponent } from '../../component/resume-leave-component-modal/resume-leave-component-modal.component';
-import { ActivatedRoute, Params } from '@angular/router';
 import { format } from 'date-fns';
 
 @Component({
@@ -23,47 +22,29 @@ export class ResumeCreateComponent implements OnInit {
 
   // 先获取信息，根据信息判断当前用户的实名认证 进行到了哪一步？
   resumeUserInfo: any = null;
-  resumeId:number;
+  resumeId: number;
 
   constructor(
-    // private activatedRoute: ActivatedRoute,
     private settingService: GlobalSettingsService,
     private msg: NzMessageService,
     private modalService: NzModalService,
     private userDataService: UserDataService
   ) {
     this.settingService.setTitle('新增简历-我的简历-个人中心-天府菁英网');
-    // this.activatedRoute.queryParams.subscribe(params => {
-    //   this.resumeId = +params['id'];
-    //   console.log('id', 'current create resume', this.resumeId)
-    //   if(this.resumeId) {
-    //     this.getResumeInfo(this.resumeId);
-    //   }
-    // })
-    // this.getResumeInfo(52);
   }
-
-  // getResumeInfo(id:number):void {
-  //   this.settingService.get(`/v1/web/user/resume/${id}`).subscribe((res:ApiData) => {
-  //     console.log('resumeInfo works!', res.data);
-  //     if(res.code === 200) {
-  //       this.resumeUserInfo = res.data;
-  //     }
-  //   }, err => this.resumeUserInfo = null);
-  // }
 
   ngOnInit(): void { }
 
   @ViewChild('userInfoTpl', { static: false }) userInfoTpl: UserAdminInfoFormCComponent;
 
   submitInfo() {
-    if(!this.userInfoTpl.submitForm()) {
+    if (!this.userInfoTpl.submitForm()) {
       return;
     }
     this.userInfoTpl.submitForm().then(object => {
 
       let userInfo: FormData = new FormData();
-      
+
       for (const key in object) {
         // 参加工作时间  work_date  和 暂未参加工作 is_not_work 有一个 一定会有值
         if (key === 'registered_residence') {
@@ -76,16 +57,16 @@ export class ResumeCreateComponent implements OnInit {
         } else if (key === 'birthday') {
           userInfo.append('birthday', format(new Date(object[key]), 'yyyy-MM-dd'));
         } else if (key === 'work_date') {
-          const work_date:string = object['is_not_work'] ? '' : object[key];
+          const work_date: string = object['is_not_work'] ? '' : object[key];
           userInfo.append('work_date', work_date ? format(new Date(work_date), 'yyyy-MM-dd') : '');
         } else if (key === 'avatar') {
-          if(typeof object[key] === 'string') {
+          if (typeof object[key] === 'string') {
             continue
-          }else {
-            const avatar:string = object['avatar'] ? object[key] : '';
+          } else {
+            const avatar: string = object['avatar'] ? object[key] : '';
             userInfo.append('avatar', avatar);
           }
-        }else if(key === 'is_not_work') {
+        } else if (key === 'is_not_work') {
           continue;
         } else {
           userInfo.append(key, object[key]);
@@ -94,12 +75,11 @@ export class ResumeCreateComponent implements OnInit {
 
       this.submitLoading = true;
 
-      if(this.resumeUserInfo) {
+      if (this.resumeUserInfo) {
         userInfo.append('resume_id', this.resumeUserInfo.id);
       }
 
       this.settingService.post('/v1/web/user/resume/info', userInfo).subscribe((res: ApiData) => {
-        console.log(res);
         this.submitLoading = false;
         if (res.code === 200) {
           this.resumeUserInfo = res.data;
@@ -123,37 +103,36 @@ export class ResumeCreateComponent implements OnInit {
     }
   }
 
-  isChanged:boolean = false;
-  valueChanges(changed:boolean) {
+  isChanged: boolean = false;
+  valueChanges(changed: boolean) {
     this.isChanged = changed;
   }
 
-  resumeInfoChange(data:any):void {
+  resumeInfoChange(data: any): void {
     this.resumeUserInfo = data;
   }
 
-  leaveTip():Observable<any> {
-    
+  leaveTip(): Observable<any> {
+
     return new Observable((observer) => {
-      if(this.isChanged){
-        let message:string = '';
-        if(this.step === 0) { // 在第一步时，需要提示用户 当前数据未提交保存
+      if (this.isChanged) {
+        let message: string = '';
+        if (this.step === 0) { // 在第一步时，需要提示用户 当前数据未提交保存
           message = '简历个人信息未保存，离开页面会丢失当前数据。';
-        }else {
+        } else {
           message = '当前简历已存为草稿。';
         }
         return this.showLeaveActiveModal(observer, message);
-        
-      }else {
+
+      } else {
         observer.next(true);
       }
     });
   }
 
-  showLeaveActiveModal(observer, message:string):void {
+  showLeaveActiveModal(observer, message: string): void {
     const modal = this.modalService.create({
       nzTitle: '提示',
-      // nzContent: '<p class="text-center text-lg text-666">是否离开页面？</p><p class="text-center text-grey">当前简历已存为草稿</p>',
       nzMaskClosable: false,
       nzContent: ResumeLeaveComponentModalComponent,
       nzComponentParams: {
@@ -162,9 +141,9 @@ export class ResumeCreateComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe(result => {
-      if(result) {
+      if (result) {
         observer.next(true);
-      }else {
+      } else {
         observer.next(false);
       }
     });

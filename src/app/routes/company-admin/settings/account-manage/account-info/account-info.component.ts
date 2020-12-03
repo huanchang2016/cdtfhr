@@ -16,9 +16,9 @@ export class AccountInfoComponent implements OnInit {
 
   tplModal?: NzModalRef;
 
-  sourceInfo:any;
+  sourceInfo: any;
 
-  accountInfo:any;
+  accountInfo: any;
 
   constructor(
     private modal: NzModalService,
@@ -31,40 +31,34 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     // 企业 主账号才可以获取资源分配信息
-    // if(this.companyDataService.companyInfo.is_super) {
-      this.getDataInfo();
-    // }
+    this.getDataInfo();
 
     this.getAccountInfo();
   }
 
-  getAccountInfo():void {
-    this.settingService.get('/v1/web/com/account_info').subscribe((res:ApiData) => {
-      console.log('获取账号时效等信息', res);
-      if(res.code === 200) {
+  getAccountInfo(): void {
+    this.settingService.get('/v1/web/com/account_info').subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.accountInfo = res.data;
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     });
   }
-  getDataInfo():void {
-    this.settingService.get('/v1/web/com/account_source').subscribe((res:ApiData) => {
-      console.log('获取资源分配信息', res);
-      if(res.code === 200) {
+  getDataInfo(): void {
+    this.settingService.get('/v1/web/com/account_source').subscribe((res: ApiData) => {
+      if (res.code === 200) {
         this.sourceInfo = res.data;
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     });
   }
 
-  sourceChange():void {
-    console.log('change source info');
+  sourceChange(): void {
 
     this.tplModal = this.modal.create({
       nzTitle: '资源分配设置',
-      // nzContent: SourceInfoFormComponent,
       nzContent: SourceSettingsFormTplComponent,
       nzWidth: '800px',
       nzBodyStyle: {
@@ -77,18 +71,13 @@ export class AccountInfoComponent implements OnInit {
       nzFooter: null
     });
 
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     this.tplModal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
       this.getDataInfo();
     });
   }
 
-  updateAccountInfo():void {
-    console.log('updateAccountInfo 更新账户信息');
+  updateAccountInfo(): void {
     this.getDataInfo();
   }
-  
+
 }

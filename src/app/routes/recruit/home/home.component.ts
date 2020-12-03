@@ -9,19 +9,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.less']
 })
 export class RecruitHomeComponent implements OnInit {
-  
-  searchOption:any = {
+
+  searchOption: any = {
     sort: 'default',
     salary_id: null,
     type_id: null
   };
-  
 
-  list:any[] = []; // 数据列表
-  loadingData:boolean = false;
-  total:number = 0;
-  limit:number = 10;
-  pageIndex:number = 1;
+
+  list: any[] = []; // 数据列表
+  loadingData: boolean = false;
+  total: number = 0;
+  limit: number = 10;
+  pageIndex: number = 1;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,29 +35,28 @@ export class RecruitHomeComponent implements OnInit {
     this.settingService.setTitle('职位搜索-职位列表-天府菁英网');
   }
 
-  paramsOption:any = {};
-  getParams():void {
+  paramsOption: any = {};
+  getParams(): void {
     // 获取 当前页面访问来源，单位处理简历时，从职位下访问过来还是其他路径，
     //  如果是从职位访问当前页面，需要展示当前简历在该职位下的投递处理进度及状态
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log('search params', params);
       this.paramsOption = params;
       this.getDataList();
     });
 
   }
-  searchOptionChange(option:any):void {
+  searchOptionChange(option: any): void {
     let url: string = `/recruit/home?type=${option.type}&city_id=${option.city_id}`;
-    if(option.keywords && option.keywords.trim()) {
+    if (option.keywords && option.keywords.trim()) {
       url = url + '&keywords=' + option.keywords.trim();
     }
     this.pageIndex = 1;
     this.router.navigateByUrl(url);
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loadingData = true;
-    const option:any = {
+    const option: any = {
       name: this.paramsOption['keywords'] ? this.paramsOption['keywords'] : null,
       type: this.paramsOption['type'] ? this.paramsOption['type'] : 'position',
       city_id: +this.paramsOption['city_id'],
@@ -65,28 +64,25 @@ export class RecruitHomeComponent implements OnInit {
       page: this.pageIndex,
       ...this.searchOption
     };
-    this.settingService.get(`/v1/web/jobs`, option).subscribe((res:ApiData) => {
-      console.log(res, 'index 招聘职位列表 works');
+    this.settingService.get(`/v1/web/jobs`, option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.list = res.data;
-        if(this.total === 0) {
+        if (this.total === 0) {
           this.total = res.meta.pagination.total;
         }
-        
+
         this.pageIndex = res.meta.pagination.current_page;
       }
     }, err => this.loadingData = false)
   }
 
-  pageIndexChange({page}):void {
-    console.log(page, 'page changes');
+  pageIndexChange({ page }): void {
     this.pageIndex = page;
     this.getDataList();
   }
 
   sortValueChange() {
-    console.log('sortValue change', this.searchOption);
     this.getDataList();
   }
 

@@ -3,7 +3,6 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInYears } from 'date-fns';
 import { GlobalSettingsService } from '@core';
 import { ApiData } from 'src/app/data/interface';
-import { worker } from 'cluster';
 
 @Component({
   selector: 'app-resumes-list',
@@ -14,25 +13,25 @@ export class ResumesListComponent implements OnInit {
 
   historyData = []; // 历史搜索记录
   historyLoading: boolean = true;
-  resetSearchOption:any = null;
+  resetSearchOption: any = null;
 
-  loadingData:boolean = false;
-  listOfData:any[] = [];
+  loadingData: boolean = false;
+  listOfData: any[] = [];
 
-  searchOptions:any = {
+  searchOptions: any = {
     pageIndex: 1,
     pageSize: 10,
     sort: 'newest'  // 最新 newest,  相关度 correlation
   };
-  total:number; // 总数
-  
+  total: number; // 总数
+
   constructor(
     private settingService: GlobalSettingsService
   ) {
     this.settingService.setTitle('简历搜索-简历管理-天府菁英网');
   }
 
-  searchConfigs:any = {};
+  searchConfigs: any = {};
 
   keywords: string = ''; // 关键字高亮显示： 是否含任一关键词
   params: any; //  记录当前搜索条件
@@ -41,24 +40,21 @@ export class ResumesListComponent implements OnInit {
     this.getHistoryRecord();
   }
 
-  getHistoryRecord():void {
+  getHistoryRecord(): void {
     this.historyLoading = true;
-    this.settingService.post('/v1/web/com/resume/search_log').subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/resume/search_log').subscribe((res: ApiData) => {
       this.historyLoading = false;
-      console.log('简历搜索历史记录', res);
       this.historyData = res.data;
     }, err => this.historyLoading = false)
   }
 
-  concatSearchValue(item:any):string {
-    // step 1  先过滤条件中 value 为空的值
-    const option:any = {};
-    let val:string = '';
+  concatSearchValue(item: any): string {
+    const option: any = {};
+    let val: string = '';
     for (const key in item) {
       if (Object.prototype.hasOwnProperty.call(item, key)) {
         const element = item[key];
-        if(element) {
-          // option[key] = item[key];
+        if (element) {
           switch (key) {
             case 'name':
               val += element;
@@ -82,16 +78,13 @@ export class ResumesListComponent implements OnInit {
               val += `+${this.selectRefreshReusmeKey(element)}`;
               break;
             case 'min_age':
-              if(item['max_age'] > 0) {
+              if (item['max_age'] > 0) {
                 val += `+${element}至${item['max_age']}岁`;
-              }else {
+              } else {
                 val += `+${element}岁以上`;
               }
-              
+
               break;
-            // case 'max_age':
-            //   val += `+${element}岁`;
-            //   break;
             case 'company_name':
               val += `+${element}`;
               break;
@@ -114,9 +107,9 @@ export class ResumesListComponent implements OnInit {
               val += `+${element.name}`;
               break;
             case 'work':
-              if(element === '10-0') {
+              if (element === '10-0') {
                 val += '10年以上';
-              }else {
+              } else {
                 val += `+${element}年`;
               }
               break;
@@ -124,9 +117,9 @@ export class ResumesListComponent implements OnInit {
               val += `+${element}`;
               break;
             case 'sort':
-              if(element === "newest") {
+              if (element === "newest") {
                 val += '+最新';
-              }else {
+              } else {
                 val += `+相关度`;
               }
               break;
@@ -138,36 +131,35 @@ export class ResumesListComponent implements OnInit {
       }
     }
 
-    if(val.length > 28) {
+    if (val.length > 28) {
       val = val.slice(0, 28) + '......';
     }
     return val;
   }
 
-  selectRefreshReusmeKey(day:number): string { // 匹配简历更新时间
-    return this.settingService.updatedTimeOptions.filter( v => v.value === day)[0].key;
+  selectRefreshReusmeKey(day: number): string { // 匹配简历更新时间
+    return this.settingService.updatedTimeOptions.filter(v => v.value === day)[0].key;
   }
 
   getDataList() {
     this.loadingData = true;
-    
-    const option:any = {
+
+    const option: any = {
       ...this.searchConfigs,
       sort: this.searchOptions.sort,
       limit: this.searchOptions.pageSize,
       page: this.searchOptions.pageIndex
     };
-    
+
     this.loadingData = true;
 
-    this.settingService.post(`/v1/web/com/resume/search`, option).subscribe( (res:ApiData) => {
-      console.log(res, '搜索简历', option);
+    this.settingService.post(`/v1/web/com/resume/search`, option).subscribe((res: ApiData) => {
       this.loadingData = false;
-      if(res.code === 200) {
-        const list:any[] = res.data;
-        if(this.searchOptions.sort === 'correlation') {
-          this.listOfData = list.sort((a:any, b:any) => b.correlation - a.correlation);
-        }else {
+      if (res.code === 200) {
+        const list: any[] = res.data;
+        if (this.searchOptions.sort === 'correlation') {
+          this.listOfData = list.sort((a: any, b: any) => b.correlation - a.correlation);
+        } else {
           this.listOfData = list;
         }
         this.total = res.meta.pagination.total;
@@ -179,12 +171,12 @@ export class ResumesListComponent implements OnInit {
     }, err => this.loadingData = false);
   }
 
-  dealSearchRecord():void {
-    let opt:any = {};
+  dealSearchRecord(): void {
+    let opt: any = {};
     for (const item in this.searchConfigs) {
       if (Object.prototype.hasOwnProperty.call(this.searchConfigs, item)) {
         const element = this.searchConfigs[item];
-        if(element && item !== 'is_any_key') {
+        if (element && item !== 'is_any_key') {
           opt[item] = element;
         }
       }
@@ -193,48 +185,44 @@ export class ResumesListComponent implements OnInit {
     this.params = JSON.stringify({ ...opt, sort: this.searchOptions.sort });
   }
 
-  searchValueChange(option:any):void {
-    console.log('search option change', option);
-    if(option.name) { // 关键字必填才可以搜索
+  searchValueChange(option: any): void {
+    if (option.name) { // 关键字必填才可以搜索
       this.searchConfigs = option;
-      let words:string;
-      if(this.searchConfigs.is_any_key) {
+      let words: string;
+      if (this.searchConfigs.is_any_key) {
         words = JSON.stringify(this.searchConfigs.name.split(' ').filter(v => v).map(v => v.trim()));
-      }else {
+      } else {
         words = JSON.stringify([this.searchConfigs.name.trim()]);
       }
       this.keywords = words;
       this.getDataList();
-    }else {
+    } else {
       this.listOfData = [];
       this.total = 0;
     }
-    
+
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params, 'params xxxxxxxxxxxxxx');
-    if(this.searchConfigs.name) {
+    if (this.searchConfigs.name) {
       this.getDataList();
     }
   }
 
-  sortChange():void {
-    console.log('%csort type changed!','color: #f00', this.searchOptions);
-    if(this.searchConfigs.name) {
+  sortChange(): void {
+    if (this.searchConfigs.name) {
       this.getDataList();
     }
   }
 
-  historyClick(data:any):void {
-    console.log('点击历史搜索jil ', data);
+  historyClick(data: any): void {
     this.resetSearchOption = { ...data };
     this.searchOptions.sort = data.sort;
   }
 
-  countYears(t:string):number { // 计算 t  至今的时间段（多少年）
-    const today:Date = new Date();
-    const year:number = differenceInYears(today, new Date(t));
+  countYears(t: string): number { // 计算 t  至今的时间段（多少年）
+    const today: Date = new Date();
+    const year: number = differenceInYears(today, new Date(t));
     return year;
   }
 

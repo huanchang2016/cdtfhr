@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleSearchInput() {
     this.searchBoxVisible = !this.searchBoxVisible;
-    console.log(' *ngIf="searchBoxVisible"', this.searchBoxVisible)
   }
 
   searchOptionChange(option: any): void {

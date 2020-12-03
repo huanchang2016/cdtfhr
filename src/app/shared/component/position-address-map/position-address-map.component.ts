@@ -11,7 +11,7 @@ export class PositionAddressMapComponent implements OnInit {
   @Input() city?: string = '成都市';
   @Input() address: string;
 
-  @Output() addressPositionChange?:EventEmitter<any> = new EventEmitter();
+  @Output() addressPositionChange?: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -26,15 +26,14 @@ export class PositionAddressMapComponent implements OnInit {
       const myGeo = new BMap.Geocoder();
       // 将地址解析结果显示在地图上，并调整地图视野    
       myGeo.getPoint(this.address, (point: any) => {
-        console.log(point, 'point')
         if (point) {
           // 将地址坐标传递到父组件去
           this.addressPositionChange.emit(point);
 
           map.centerAndZoom(point, 16);
 
-         const myIcon = new BMap.Icon("/assets/imgs/icon/address_map_bg.png", new BMap.Size(18, 36));
-	
+          const myIcon = new BMap.Icon("/assets/imgs/icon/address_map_bg.png", new BMap.Size(18, 36));
+
           let marker = new BMap.Marker(point, {
             icon: myIcon
           });  // 创建标注
@@ -49,9 +48,9 @@ export class PositionAddressMapComponent implements OnInit {
 
           map.openInfoWindow(infoWindow, map.getCenter());
 
-          marker.addEventListener("click", function(){          
+          marker.addEventListener("click", function () {
             map.openInfoWindow(infoWindow, point); //开启信息窗口
-          }); 
+          });
         }
       }, this.city);
     }

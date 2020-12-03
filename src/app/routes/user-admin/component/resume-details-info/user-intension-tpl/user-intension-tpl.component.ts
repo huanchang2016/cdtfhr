@@ -9,12 +9,11 @@ import { UserIntensionFormTplComponent } from './user-intension-form-tpl/user-in
 })
 export class UserIntensionTplComponent implements OnInit {
 
-  @Input() resumeInfo:any;
+  @Input() resumeInfo: any;
 
   constructor(
-    private modal: NzModalService,
-    // private viewContainerRef: ViewContainerRef
-  ) {}
+    private modal: NzModalService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -23,25 +22,19 @@ export class UserIntensionTplComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: '编辑求职意向',
       nzContent: UserIntensionFormTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: this.resumeInfo
       },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose] The result is:', result)
-      if(result && result.data) {
+      if (result && result.data) {
         this.resumeInfo = Object.assign(this.resumeInfo, result.data);
       }
     });

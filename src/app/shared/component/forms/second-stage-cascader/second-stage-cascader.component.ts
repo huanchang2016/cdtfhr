@@ -38,8 +38,7 @@ export class SecondStageCascaderComponent implements ControlValueAccessor {
   writeValue(obj: any[]): void {
     if (obj) {
       this.values = obj;
-      console.log('this.values', obj)
-    }else {
+    } else {
       this.values = [];
     }
   }
@@ -54,7 +53,6 @@ export class SecondStageCascaderComponent implements ControlValueAccessor {
   }
 
   onChanges(values: string[]): void {
-    console.log(values, this.values, '省市区级联选择');
     this.propagateChange(this.values);
   }
 
@@ -63,8 +61,7 @@ export class SecondStageCascaderComponent implements ControlValueAccessor {
 
     return new Promise(resolve => {
       if (index < 0) {
-        // node.children = [...this.globalService.secondLayerProvince];
-        this.globalService.get('/v1/web/setting/city').subscribe((res:ApiData) => {
+        this.globalService.get('/v1/web/setting/city').subscribe((res: ApiData) => {
           node.children = res.data;
           resolve();
         })
@@ -80,7 +77,6 @@ export class SecondStageCascaderComponent implements ControlValueAccessor {
             }
           });
           node.children = children;
-          // console.log(children);
           resolve();
         })
       }

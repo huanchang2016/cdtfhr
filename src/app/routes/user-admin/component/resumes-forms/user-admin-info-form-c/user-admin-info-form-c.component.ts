@@ -11,14 +11,14 @@ import { debounceTime } from 'rxjs/operators';
 export class UserAdminInfoFormCComponent implements OnInit {
   validateForm!: FormGroup;
 
-  @Input() resumeUserInfo:any;
+  @Input() resumeUserInfo: any;
 
-  @Output() valueChanges:EventEmitter<any> = new EventEmitter();
+  @Output() valueChanges: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
     public globalService: GlobalSettingsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -34,23 +34,21 @@ export class UserAdminInfoFormCComponent implements OnInit {
       avatar: [null]
     });
 
-    this.validateForm.get('work_date').valueChanges.subscribe( date => {
-      if(date && this.validateForm.get('is_not_work').value) {
+    this.validateForm.get('work_date').valueChanges.subscribe(date => {
+      if (date && this.validateForm.get('is_not_work').value) {
         this.validateForm.patchValue({
           is_not_work: false
         });
       }
     });
 
-    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe( _ => this.valueChanges.emit(true));
-    
-    console.log('start reset info', this.resumeUserInfo)
-    if(this.resumeUserInfo) {
+    this.validateForm.valueChanges.pipe(debounceTime(300)).subscribe(_ => this.valueChanges.emit(true));
+
+    if (this.resumeUserInfo) {
       this.resetForm();
     }
   }
-  resetForm():void {
-    console.log('resetForm 个人信息', this.resumeUserInfo);
+  resetForm(): void {
     this.validateForm.patchValue({
       name: this.resumeUserInfo.name,
       sex: this.resumeUserInfo.sex,
@@ -64,7 +62,7 @@ export class UserAdminInfoFormCComponent implements OnInit {
       avatar: this.resumeUserInfo.avatar
     });
     // 
-    if(!this.resumeUserInfo.work_date) {
+    if (!this.resumeUserInfo.work_date) {
       this.isNotWorkChange(!this.resumeUserInfo.work_date);
     }
   }
@@ -88,8 +86,7 @@ export class UserAdminInfoFormCComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 个人信息');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       return new Promise((resolve) => {
         resolve(this.validateForm.value);
       });

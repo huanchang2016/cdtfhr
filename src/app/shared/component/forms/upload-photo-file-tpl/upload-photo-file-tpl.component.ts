@@ -22,17 +22,17 @@ import { environment } from '@env/environment';
 })
 export class UploadPhotoFileTplComponent implements ControlValueAccessor {
 
-  @Input() placeHolder?:string = '图片大小2M以内，支持jpg，png，gif等格式';
-  @Input() Size?:string = 'large';
-  @Input() isPhoto?:boolean = true;
+  @Input() placeHolder?: string = '图片大小2M以内，支持jpg，png，gif等格式';
+  @Input() Size?: string = 'large';
+  @Input() isPhoto?: boolean = true;
 
   environment = environment;
 
   loading = false;
-  
+
   avatarUrl?: string;
 
-  constructor(private msg: NzMessageService) {}
+  constructor(private msg: NzMessageService) { }
 
   beforeUpload = (file: File) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
@@ -46,7 +46,7 @@ export class UploadPhotoFileTplComponent implements ControlValueAccessor {
       this.msg.error('图片大小不得超过2M');
       return;
     }
-    if(isJpgOrPng && isLt2M) {
+    if (isJpgOrPng && isLt2M) {
       // Get this url from response in real world.
       this.getBase64(file, (img: string) => {
         this.loading = false;
@@ -66,10 +66,9 @@ export class UploadPhotoFileTplComponent implements ControlValueAccessor {
   private propagateChange = (_: any) => { };
 
   writeValue(obj: string): void {
-    console.log(obj);
-    if(obj) {
+    if (obj) {
       this.avatarUrl = environment.SERVER_URL + '/' + obj;
-    }else {
+    } else {
       this.avatarUrl = '';
     }
   }
@@ -81,13 +80,13 @@ export class UploadPhotoFileTplComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void { }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if(control.errors && control.errors.required) {
+    if (control.errors && control.errors.required) {
       // return this.date ? null : {
       //   isInvalid: {
       //     valid: false
       //   }
       // }
-    }else {
+    } else {
       return null;
     }
   }

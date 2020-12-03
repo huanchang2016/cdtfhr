@@ -16,8 +16,8 @@ export class UserInternshipExpFormTplComponent implements OnInit {
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
-  
+  loading: boolean = false;
+
   constructor(
     private modal: NzModalRef,
     private fb: FormBuilder,
@@ -29,23 +29,22 @@ export class UserInternshipExpFormTplComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       company_name: [null, [Validators.required]],
-        company_industry: [null, [Validators.required]],
-        company_scale: [null, [Validators.required]],
-        company_nature: [null, [Validators.required]],
-        position_name: [null, [Validators.required]],
-        work_range_date: [null, [Validators.required]],
-        range_salary: [null, [Validators.required]],
-        work_description: [null, [Validators.required]]
+      company_industry: [null, [Validators.required]],
+      company_scale: [null, [Validators.required]],
+      company_nature: [null, [Validators.required]],
+      position_name: [null, [Validators.required]],
+      work_range_date: [null, [Validators.required]],
+      range_salary: [null, [Validators.required]],
+      work_description: [null, [Validators.required]]
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
 
   setForm() {
     // 设置表单值
-    console.log(this.data, 'setForm');
     this.validateForm.patchValue({
       company_name: this.data.name,
       company_industry: this.data.industry ? this.data.industry.id : null,
@@ -59,13 +58,12 @@ export class UserInternshipExpFormTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 实习经历');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
 
@@ -81,7 +79,6 @@ export class UserInternshipExpFormTplComponent implements OnInit {
         description: object.work_description
       };
 
-      console.log(option, 'work exp submit')
 
       this.loading = true;
       if (this.data) {
@@ -114,7 +111,7 @@ export class UserInternshipExpFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

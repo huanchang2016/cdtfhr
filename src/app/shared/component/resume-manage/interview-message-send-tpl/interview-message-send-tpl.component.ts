@@ -43,21 +43,21 @@ export class InterviewMessageSendTplComponent implements OnInit {
     });
   }
 
-  ngOnInit():void {
-    const placeholderContent:string = `如有疑问，请联系HR电话：${this.positionInfo ? this.positionInfo.telephone : '123456789' }。`;
+  ngOnInit(): void {
+    const placeholderContent: string = `如有疑问，请联系HR电话：${this.positionInfo ? this.positionInfo.telephone : '123456789'}。`;
     this.validateForm.patchValue({
       content: placeholderContent
     });
 
   }
 
-  errorMsg:string = '';
+  errorMsg: string = '';
 
-  typeChange():void {
-    if(!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
+  typeChange(): void {
+    if (!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
       this.errorMsg = '请选择面试通知方式';
       return;
-    }else {
+    } else {
       this.errorMsg = '';
     }
   }
@@ -66,19 +66,18 @@ export class InterviewMessageSendTplComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     }
-    console.log(this.validateForm, '......发送通知');
 
-    if(!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
+    if (!this.validateForm.value.is_email && !this.validateForm.value.is_phone) {
       this.errorMsg = '请选择面试通知方式';
       return;
-    }else {
+    } else {
       this.errorMsg = '';
     }
 
 
-    if(this.validateForm.valid) {
-      const value:any = this.validateForm.value;
-      
+    if (this.validateForm.valid) {
+      const value: any = this.validateForm.value;
+
       /****
        * 通知面试方式
        * 1. 邮件
@@ -87,26 +86,22 @@ export class InterviewMessageSendTplComponent implements OnInit {
        ******/
       const type: 1 | 2 | 3 = (value.is_email && value.is_phone) ? 3 : (value.is_email ? 1 : 2);
 
-      const option:any = {
+      const option: any = {
         resume_id: this.resumeInfo.id,
         job_id: this.positionInfo.id,
         site: value.address,
         time: format(value.time, 'yyyy-MM-dd HH:mm:ss'),
         content: value.content,
         type: type
-        // email: value.is_email ? this.resumeInfo.email : null,
-        // phone: value.is_phone ? this.resumeInfo.phone : null
       };
 
-      console.log('option, 面试邀请信息', option);
       this.submitLoading = true;
-      this.settingService.post('/v1/web/com/resume/invite_interview', option).subscribe((res:ApiData) => {
-        console.log(res, '面试通知');
+      this.settingService.post('/v1/web/com/resume/invite_interview', option).subscribe((res: ApiData) => {
         this.submitLoading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.msg.success(res.message);
           this.destroyModal({ type: 'success' });
-        }else {
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.submitLoading = false)
@@ -119,7 +114,6 @@ export class InterviewMessageSendTplComponent implements OnInit {
   }
 
   view(): void { // 保存
-    console.log('预览通知信息, 表单填写验证通过可以预览', this.validateForm, this.positionInfo);
     if (!this.validateForm.valid) {
       this.msg.error('通知信息填写不完整，不能预览');
       return;
@@ -129,7 +123,6 @@ export class InterviewMessageSendTplComponent implements OnInit {
     const modal = this.modalSrv.create({
       nzTitle: '',
       nzContent: InterviewMessageViewTplComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWrapClassName: 'view_modal',
       nzWidth: '360px',
       nzBodyStyle: {
@@ -145,15 +138,9 @@ export class InterviewMessageSendTplComponent implements OnInit {
           您好！天府菁英网提醒您，
           您已通过${this.positionInfo.company.name}-${this.positionInfo.name}岗位的简历初筛，
           进入面试环节，面试时间：${interview_time}，面试地址：${interview_addr}，请您合理安排时间准时参加面试。${this.validateForm.value.content}`
-        // data: `
-        //   【天府菁英网】${this.validateForm.value.content}，面试时间：${interview_time}，面试地址：${interview_addr}。`
-        // // data: this.validateForm.value.content
       },
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // modal.afterClose.subscribe(result => console.log('[afterClose 转发modal] The result is:', result));
   }
 
   destroyModal(data?: any): void {
@@ -171,7 +158,7 @@ export class InterviewMessageSendTplComponent implements OnInit {
     }
     return work_date;
   }
-  
+
   disabledDate = (current: Date): boolean => {
     // Can not select days before today and today
     const tomorrow = addDays(new Date(), 1);

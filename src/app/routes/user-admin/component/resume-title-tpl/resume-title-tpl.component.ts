@@ -11,18 +11,18 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./resume-title-tpl.component.less']
 })
 export class ResumeTitleTplComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
     private fb: FormBuilder,
     private settingService: GlobalSettingsService,
     private msg: NzMessageService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class ResumeTitleTplComponent implements OnInit {
       title: [null, [Validators.required]]
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -43,22 +43,21 @@ export class ResumeTitleTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 证书信息');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       this.settingService.post(`/v1/web/user/resume/set_title/${this.data.id}`, this.validateForm.value).subscribe((res: ApiData) => {
         this.loading = false;
         this.destroyModal(res.data);
         this.msg.success(res.message);
-  
+
       }, err => this.loading = false)
     }
-    
+
   }
 
   cancel(e: MouseEvent): void {
@@ -66,7 +65,7 @@ export class ResumeTitleTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

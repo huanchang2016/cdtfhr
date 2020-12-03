@@ -23,8 +23,8 @@ export class UserBindAccountFormTplComponent implements OnInit {
 
   validateForm: FormGroup;
 
-  submitLoading:boolean = false;
-  
+  submitLoading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private modalSrv: NzModalRef,
@@ -38,7 +38,7 @@ export class UserBindAccountFormTplComponent implements OnInit {
     this.createForm();
   }
 
-  createForm():void {
+  createForm(): void {
     this.validateForm = this.fb.group({
       old_phone: [{ value: this.userDataService.userProfile.phone, disabled: true }],
       old_code: [null, [Validators.required]],
@@ -53,7 +53,6 @@ export class UserBindAccountFormTplComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm);
 
     if (this.validateForm.get('phone').value === this.validateForm.get('old_phone').value) {
       this.msg.error('修改手机号码不能与原号码相同');
@@ -61,14 +60,13 @@ export class UserBindAccountFormTplComponent implements OnInit {
     }
 
     if (this.validateForm.valid) {
-      console.log(this.validateForm.value, 'rebind Info');
       this.submitLoading = true;
       this.settingService.post('/v1/web/user/binding', this.validateForm.value).subscribe((res: ApiData) => {
         this.submitLoading = false;
         if (res.code === 200) {
           this.msg.success(res.message);
           this.userDataService.getProfile().then();
-          this.destroyModal({ type: 'success'});
+          this.destroyModal({ type: 'success' });
         } else {
           this.msg.error(res.message);
         }
@@ -77,18 +75,18 @@ export class UserBindAccountFormTplComponent implements OnInit {
     }
   }
 
-  handleOk():void {
+  handleOk(): void {
     this.submitForm();
   }
 
-  handleCancel(e:Event) {
+  handleCancel(e: Event) {
     e.preventDefault();
     this.submitLoading = false;
     this.destroyModal();
   }
 
-  
-  destroyModal(data?:any): void {
+
+  destroyModal(data?: any): void {
     this.modalSrv.destroy(data);
   }
 
@@ -101,18 +99,18 @@ export class UserBindAccountFormTplComponent implements OnInit {
     //   this.msg.success('验证码已发送');
     //   return;
     // } else {
-      this.get_old_captcha_loading = true;
-      this.settingService.post('/v1/web/send_binding_old_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.get_old_captcha_loading = false;
-        if(res.code === 200) {
-          this.is_get_old_captcha = true;
-          this.msg.success('发送成功');
-          this.counterOld();
-        }else {
-          this.msg.error(res.message);
-        }
-        
-      }, err => this.get_old_captcha_loading = false)
+    this.get_old_captcha_loading = true;
+    this.settingService.post('/v1/web/send_binding_old_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
+      this.get_old_captcha_loading = false;
+      if (res.code === 200) {
+        this.is_get_old_captcha = true;
+        this.msg.success('发送成功');
+        this.counterOld();
+      } else {
+        this.msg.error(res.message);
+      }
+
+    }, err => this.get_old_captcha_loading = false)
     // }
   }
 
@@ -135,7 +133,6 @@ export class UserBindAccountFormTplComponent implements OnInit {
   getNewCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const user_phone = this.validateForm.get('phone');
-    console.log('user_phone, new', user_phone);
     this.validateForm.controls['phone'].markAsDirty();
     this.validateForm.controls['phone'].updateValueAndValidity();
 
@@ -151,18 +148,18 @@ export class UserBindAccountFormTplComponent implements OnInit {
     //   return;
     // } else {
     this.get_new_captcha_loading = true;
-      this.settingService.post('/v1/web/send_binding_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
-        this.get_new_captcha_loading = false;
-        if (res.code === 200) {
-          this.is_get_new_captcha = true;
-          this.msg.success('发送成功');
-          this.counterNew();
-        } else {
-          this.msg.error(res.message)
-          this.is_get_new_captcha = false;
-        }
+    this.settingService.post('/v1/web/send_binding_code', { phone: user_phone.value }).subscribe((res: ApiData) => {
+      this.get_new_captcha_loading = false;
+      if (res.code === 200) {
+        this.is_get_new_captcha = true;
+        this.msg.success('发送成功');
+        this.counterNew();
+      } else {
+        this.msg.error(res.message)
+        this.is_get_new_captcha = false;
+      }
 
-      }, err => this.get_new_captcha_loading = false)
+    }, err => this.get_new_captcha_loading = false)
     // }
   }
 

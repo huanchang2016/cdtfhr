@@ -17,8 +17,8 @@ import { UserDataService } from '../../user-admin/service/user-data.service';
   styleUrls: ['./login.component.less'],
 })
 export class LoginComponent implements OnInit {
-  
-  isGetCode:boolean = false;
+
+  isGetCode: boolean = false;
 
   form: FormGroup;
   type = 0;
@@ -93,9 +93,8 @@ export class LoginComponent implements OnInit {
 
   }
 
-  loginUser():void {
-    console.log('user login');
-    const opt:any = {
+  loginUser(): void {
+    const opt: any = {
       phone: this.phone.value,
       code: this.code.value
     };
@@ -103,51 +102,49 @@ export class LoginComponent implements OnInit {
     this.userDataService.userProfile = null;
 
     this.loading = true;
-    this.settingService.post('/v1/web/login', opt).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/login', opt).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log(res, 'login ');
-      if(res.code === 200) {
+      if (res.code === 200) {
         // 登录后， 重新获取用户信息
         this.settingService.setToken(res.data);
         this.startupSrv.load().then(_ => {
           this.router.navigateByUrl('/admin/user');
         })
-      }else {
+      } else {
         this.msg.error(res.message);
       }
-      
+
     }, err => this.loading = false);
   }
 
-  loginCompany():void {
-    
+  loginCompany(): void {
+
     // 判断企业用户是否重新登录   清空缓存的变量数据
     this.companyDataService.companyInfo = null;
     this.companyDataService.positionConfig = null;
 
-    const opt:any = {
+    const opt: any = {
       name: this.userName.value,
       password: this.password.value
     };
     this.loading = true;
-    this.settingService.post('/v1/web/com/login', opt).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/login', opt).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log(res, 'login ');
-      if(res.code === 200) {
+      if (res.code === 200) {
         // 登录后， 重新获取用户信息
         this.settingService.setToken(res.data);
         this.startupSrv.load().then(_ => {
           this.router.navigateByUrl('/admin/company');
         })
-      }else {
+      } else {
         this.msg.error(res.message);
       }
-      
+
     }, err => this.loading = false);
   }
 
-  count:number = 60;
-  get_captcha_loading:boolean = false;
+  count: number = 60;
+  get_captcha_loading: boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     if (this.phone.invalid) {
@@ -155,28 +152,23 @@ export class LoginComponent implements OnInit {
       this.phone.updateValueAndValidity({ onlySelf: true });
       return;
     }
-    
+
     const phone = this.form.get('phone');
-    if(!phone.valid) {
+    if (!phone.valid) {
       this.msg.error('手机号码未填写');
       return;
     }
-    // if(this.isGetCode) {
-    //   return;
-    // }else {
-    //   console.log('send code');
     this.get_captcha_loading = true;
-      this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res:ApiData) => {
-        if(res.code === 200) {
-          this.isGetCode = true;
-          this.msg.success('发送成功');
-          this.counter();
-        }else {
-          this.msg.error(res.message);
-        }
-          
-      }, err => this.get_captcha_loading = false)
-    // }
+    this.settingService.post('/v1/web/send_login_code', { phone: phone.value }).subscribe((res: ApiData) => {
+      if (res.code === 200) {
+        this.isGetCode = true;
+        this.msg.success('发送成功');
+        this.counter();
+      } else {
+        this.msg.error(res.message);
+      }
+
+    }, err => this.get_captcha_loading = false)
   }
 
   counter() {
@@ -187,7 +179,7 @@ export class LoginComponent implements OnInit {
       x => {
         this.count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.isGetCode = false;
       });
@@ -203,33 +195,26 @@ export class LoginComponent implements OnInit {
     this.type = ret.index;
   }
 
-  userModal:any = null;
-  fogetPassword():void {
+  userModal: any = null;
+  fogetPassword(): void {
     // 忘记密码
-    console.log('忘记密码');
-      this.userModal = this.modalSrv.create({
-        nzTitle: '忘记密码',
-        nzContent: ForgotPasswordFormComponent,
-        nzMaskClosable: false,
-        nzWidth: '800px',
-        nzBodyStyle: {
-          padding: '24px 100px 30px'
-        },
-        nzComponentParams: {},
-        // nzViewContainerRef: this.viewContainerRef,
-        // nzGetContainer: () => document.body,
-        
-        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-        nzFooter: null
-      });
-      // const instance = this.userModal.getContentComponent();
-      // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-      // Return a result when closed
-      this.userModal.afterClose.subscribe( result => {
-        console.log(result, 'close modal， home page: nothing to do !')
-        if(result && result.type === 'success') {
-          this.settingService.user = null;
-        }
-      });
+    this.userModal = this.modalSrv.create({
+      nzTitle: '忘记密码',
+      nzContent: ForgotPasswordFormComponent,
+      nzMaskClosable: false,
+      nzWidth: '800px',
+      nzBodyStyle: {
+        padding: '24px 100px 30px'
+      },
+      nzComponentParams: {},
+      nzFooter: null
+    });
+
+    // Return a result when closed
+    this.userModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
+        this.settingService.user = null;
+      }
+    });
   }
 }

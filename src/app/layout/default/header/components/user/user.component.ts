@@ -21,56 +21,39 @@ export class UserComponent implements OnInit, OnDestroy {
     private modal: NzModalService,
     private msg: NzMessageService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
 
-  companyModal:any = null;
-  userModal:any = null;
+  companyModal: any = null;
+  userModal: any = null;
 
-  createCompanyModal () {
+  createCompanyModal() {
     this.companyModal = this.modal.create({
       nzTitle: null,
       nzContent: CompanyLoginComponent,
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.companyModal.getContentComponent();
-    // this.companyModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // this.companyModal.afterClose.subscribe( result => console.log(result, 'close modal'));
   }
 
-  createUserModal () {
+  createUserModal() {
     this.userModal = this.modal.create({
       nzTitle: null,
       nzContent: UserLoginComponent,
       nzMaskClosable: false,
       nzWidth: 455,
       nzStyle: { top: '250px' },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzGetContainer: () => document.body,
-      
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
-    // const instance = this.userModal.getContentComponent();
-    // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
-    // this.userModal.afterClose.subscribe( result => {});
-
   }
 
-  toCenter():void {
+  toCenter(): void {
     let path: string = '';
-    if(this.settingService.user.type === 'user') {
+    if (this.settingService.user.type === 'user') {
       path = '/admin/user';
     } else {
       path = '/admin/company';
@@ -79,31 +62,28 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   editpwd() {
-    console.log('修改密码');
     // 只有企业用户可以修改密码   
     this.router.navigateByUrl('/admin/company/settings/account/change-password');
   }
 
   logout() {
     let url: string = '';
-    console.log(this.settingService.user, 'user');
-    if(this.settingService.user.type === 'user') {
+    if (this.settingService.user.type === 'user') {
       url = '/v1/web/logout';
     } else {
       url = '/v1/web/com/logout';
     }
-    this.settingService.delete(url).subscribe( res => {
+    this.settingService.delete(url).subscribe(res => {
       this.msg.success(res.message);
       this.settingService.user = null;
       this.settingService.clearUser();
-      const href:string = window.location.href;
-      console.log(href, 'href', href.indexOf('/admin/') !== -1)
+      const href: string = window.location.href;
       this.router.navigateByUrl('/');
-      
-    }, err => console.log(err));
+
+    }, err => { });
   }
 
   ngOnDestroy() {
-   this.modal.closeAll();
+    this.modal.closeAll();
   }
 }

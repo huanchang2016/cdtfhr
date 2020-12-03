@@ -9,12 +9,12 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./recruit-positions.component.less']
 })
 export class RecruitPositionsComponent implements OnInit {
-  @Input() companyId:number;
+  @Input() companyId: number;
 
-  list:any[] = []; // 数据列表
-  loadingData:boolean = true;
+  list: any[] = []; // 数据列表
+  loadingData: boolean = true;
 
-  pageConfig:any = {
+  pageConfig: any = {
     total: 0,
     page_size: 10,
     page: 1
@@ -26,7 +26,7 @@ export class RecruitPositionsComponent implements OnInit {
 
   ngOnInit(): void {
     // if(this.companyId) {
-      // this.getDataList();
+    // this.getDataList();
     // }
   }
 
@@ -41,7 +41,6 @@ export class RecruitPositionsComponent implements OnInit {
     };
 
     this.settingService.get(`/v1/web/com/get_info_job/${this.companyId}`, option).subscribe((res: ApiData) => {
-      console.log('getDataList', res);
       this.loadingData = false;
       this.list = res.data.data;
       this.pageConfig.total = res.data.meta.pagination.total;
@@ -50,9 +49,8 @@ export class RecruitPositionsComponent implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params, 'params');
     const { pageSize, pageIndex } = params;
-    
+
     this.pageConfig['page_size'] = pageSize;
     this.pageConfig['page'] = pageIndex;
 

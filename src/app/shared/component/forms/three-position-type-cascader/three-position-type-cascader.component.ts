@@ -38,8 +38,7 @@ export class ThreePositionTypeCascaderComponent implements ControlValueAccessor 
   writeValue(obj: any[]): void {
     if (obj) {
       this.values = obj;
-      console.log('this.values', obj)
-    }else {
+    } else {
       this.values = [];
     }
   }
@@ -54,7 +53,6 @@ export class ThreePositionTypeCascaderComponent implements ControlValueAccessor 
   }
 
   onChanges(values: string[]): void {
-    console.log(values, this.values, '职位类别  级联选择');
     this.propagateChange(this.values);
   }
 
@@ -81,7 +79,6 @@ export class ThreePositionTypeCascaderComponent implements ControlValueAccessor 
             }
           });
           node.children = children;
-          // console.log(children);
           resolve();
         })
       }

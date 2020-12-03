@@ -9,15 +9,15 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./oper-record-list-tpl.component.less']
 })
 export class OperRecordListTplComponent implements OnInit {
-  @Input() resumeInfo:any;
-  
-  logs:any[] = [];
+  @Input() resumeInfo: any;
+
+  logs: any[] = [];
   loading: boolean = true;
 
   constructor(
     private modal: NzModalRef,
     private settingService: GlobalSettingsService
-  ) {}
+  ) { }
 
 
   handleCancel() {
@@ -30,9 +30,8 @@ export class OperRecordListTplComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.settingService.post('/v1/web/com/resume/get_resume_log', { resume_id: this.resumeInfo.id }).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/resume/get_resume_log', { resume_id: this.resumeInfo.id }).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log('简历操作记录： get_resume_log works!', res.data);
       this.logs = res.data;
     }, err => this.loading = false);
   }

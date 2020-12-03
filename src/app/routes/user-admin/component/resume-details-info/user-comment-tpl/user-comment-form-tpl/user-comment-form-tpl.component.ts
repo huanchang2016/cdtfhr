@@ -12,11 +12,11 @@ import { UserDataService } from 'src/app/routes/user-admin/service/user-data.ser
   styleUrls: ['./user-comment-form-tpl.component.less']
 })
 export class UserCommentFormTplComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
@@ -24,7 +24,7 @@ export class UserCommentFormTplComponent implements OnInit {
     private settingService: GlobalSettingsService,
     private msg: NzMessageService,
     private userDataService: UserDataService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class UserCommentFormTplComponent implements OnInit {
       self_evalution: [null, Validators.maxLength(300)]
     });
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -44,27 +44,25 @@ export class UserCommentFormTplComponent implements OnInit {
     })
   }
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 自我评价');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
-      this.settingService.post(`/v1/web/user/resume_self_evalution/${this.data.id}`, this.validateForm.value).subscribe((res:ApiData) => {
-        console.log(res);
+      this.settingService.post(`/v1/web/user/resume_self_evalution/${this.data.id}`, this.validateForm.value).subscribe((res: ApiData) => {
         this.loading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           this.destroyModal(res.data);
           this.userDataService.getProfile().then();
           this.msg.success('修改成功');
-        }else {
+        } else {
           this.msg.error(res.message);
         }
       }, err => this.loading = false)
     }
-    
+
   }
 
   cancel(e: MouseEvent): void {
@@ -72,12 +70,12 @@ export class UserCommentFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 
-  get getSelfCommentLength():number {
-    if(this.validateForm.get('self_evalution').value) {
+  get getSelfCommentLength(): number {
+    if (this.validateForm.get('self_evalution').value) {
       return this.validateForm.get('self_evalution').value.length;
     }
     return 0;

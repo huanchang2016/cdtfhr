@@ -22,8 +22,8 @@ export class ChangePasswordComponent implements OnInit {
 
   validateForm!: FormGroup;
 
-  is_get_old_captcha:boolean = false;
-  is_get_new_captcha:boolean = false;
+  is_get_old_captcha: boolean = false;
+  is_get_new_captcha: boolean = false;
 
   constructor(
     private modal: NzModalService,
@@ -69,11 +69,10 @@ export class ChangePasswordComponent implements OnInit {
       nzContent: tplContent,
       nzFooter: null,
       nzMaskClosable: false,
-      // nzOnOk: () => console.log('Click ok')
     });
   }
 
-  cancel(e:Event):void {
+  cancel(e: Event): void {
     e.preventDefault();
     this.submitLoading = false;
     this.tplModal!.destroy();
@@ -84,61 +83,52 @@ export class ChangePasswordComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.destroyTplModal();
     }
   }
 
   destroyTplModal(): void {
     this.submitLoading = true;
-    const value:any = this.validateForm.value;
-    const option:any = {
+    const value: any = this.validateForm.value;
+    const option: any = {
       old_password: value.old_password,
       password: value.new_password,
       password_confirmation: value.checkPassword
     };
-    this.settingService.post('/v1/web/com/reset_password', option).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/reset_password', option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('修改成功');
         this.resetPasswordSuccess();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
 
-  userModal:any = null;
-  fogetPassword():void {
+  userModal: any = null;
+  fogetPassword(): void {
     // 忘记密码
-    console.log('忘记密码');
-      this.userModal = this.modal.create({
-        nzTitle: '忘记密码',
-        nzContent: ForgotPasswordFormComponent,
-        nzMaskClosable: false,
-        nzWidth: '800px',
-        nzBodyStyle: {
-          padding: '24px 100px 30px'
-        },
-        nzComponentParams: {},
-        // nzViewContainerRef: this.viewContainerRef,
-        // nzGetContainer: () => document.body,
-        
-        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-        nzFooter: null
-      });
-      // const instance = this.userModal.getContentComponent();
-      // this.userModal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-      // Return a result when closed
-      this.userModal.afterClose.subscribe( result => {
-        console.log(result, 'close modal')
-        if(result && result.type === 'success') {
-          this.resetPasswordSuccess();
-        }
-      });
+    this.userModal = this.modal.create({
+      nzTitle: '忘记密码',
+      nzContent: ForgotPasswordFormComponent,
+      nzMaskClosable: false,
+      nzWidth: '800px',
+      nzBodyStyle: {
+        padding: '24px 100px 30px'
+      },
+      nzComponentParams: {},
+      nzFooter: null
+    });
+    this.userModal.afterClose.subscribe(result => {
+      if (result && result.type === 'success') {
+        this.resetPasswordSuccess();
+      }
+    });
   }
 
-  resetPasswordSuccess():void {
+  resetPasswordSuccess(): void {
     this.modal.closeAll();
     this.settingService.clearUser();
     this.settingService.user = null;

@@ -49,7 +49,6 @@ export class ScoreQueryResultComponent implements OnInit {
   getExamInfo(): void {
     this.settingService.post(`/v1/web/exam/exams/${this.exam_id}`).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log('examInfo ', res)
       if (res.code === 200) {
         this.examInfo = res.data;
       }
@@ -80,7 +79,6 @@ export class ScoreQueryResultComponent implements OnInit {
     this.isEmpty = false;
     this.settingService.post(`/v1/web/exam/exam_score/${this.exam_id}`, opt).subscribe((res: ApiData) => {
       this.loading = false;
-      console.log('result ', res)
       if (res.code === 200) {
         this.result = res.data;
         if (!this.result) {
@@ -115,7 +113,6 @@ export class ScoreQueryResultComponent implements OnInit {
     }
 
     this.settingService.get(`/v1/web/exam/get_captcha`).subscribe((res: ApiData) => {
-      console.log('captchaLoading ', res)
       this.captchaLoading = false;
       if (res.code === 200) {
         this.imgSrc = res.data.img;

@@ -44,13 +44,11 @@ export class UserRegisterComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm);
     if (!this.validateForm.get('agree').valid) {
       this.msg.warning('请阅读《用户协议》和《隐私政策》');
     }
 
     if (this.validateForm.valid) {
-      console.log(this.validateForm.value, 'register Info');
       // this.httpClient.post('')
       this.loading = true;
       const opt: any = {
@@ -59,24 +57,23 @@ export class UserRegisterComponent implements OnInit {
       };
 
       this.settingService.post('/v1/web/register', this.validateForm.value).subscribe((res: ApiData) => {
-        console.log(res, 'register');
         this.loading = false;
-        if(res.code === 200) {
+        if (res.code === 200) {
           // 注册成功后，处理用户数据及token，并前往实名认证页面 完成实名认证
           this.settingService.setToken(res.data);
           this.startupSrv.load().then(_ => {
             this.router.navigateByUrl('/admin/user/certification');
           });
-        }else {
+        } else {
           this.msg.error(res.message);
         }
-        
+
       }, err => this.loading = false)
     }
   }
 
   count: number = 60;
-  get_captcha_loading:boolean = false;
+  get_captcha_loading: boolean = false;
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const phone = this.validateForm.get('phone');
@@ -84,23 +81,18 @@ export class UserRegisterComponent implements OnInit {
       this.msg.error('手机号码未填写');
       return;
     }
-    // if (this.isGetCode) {
-    //   return;
-    // } else {
-      console.log('send code');
-      this.get_captcha_loading = true;
-      this.settingService.post('/v1/web/send_reg_code', { phone: phone.value }).subscribe((res: ApiData) => {
-        this.get_captcha_loading = false;
-        if(res.code === 200) {
-          this.isGetCode = true;
-          this.msg.success('发送成功');
-          this.counter();
-        }else {
-          this.msg.error(res.message);
-        }
-        
-      }, err => this.get_captcha_loading = false)
-    // }
+    this.get_captcha_loading = true;
+    this.settingService.post('/v1/web/send_reg_code', { phone: phone.value }).subscribe((res: ApiData) => {
+      this.get_captcha_loading = false;
+      if (res.code === 200) {
+        this.isGetCode = true;
+        this.msg.success('发送成功');
+        this.counter();
+      } else {
+        this.msg.error(res.message);
+      }
+
+    }, err => this.get_captcha_loading = false)
   }
 
   counter() {

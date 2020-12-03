@@ -14,13 +14,13 @@ import { format } from 'date-fns';
   styleUrls: ['./user-info-form-tpl.component.less']
 })
 export class UserInfoFormTplComponent implements OnInit {
-  @Input() data:any;
-  
+  @Input() data: any;
+
   environment = environment;
 
   validateForm!: FormGroup;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private modal: NzModalRef,
@@ -28,7 +28,7 @@ export class UserInfoFormTplComponent implements OnInit {
     private userDataService: UserDataService,
     public settingService: GlobalSettingsService,
     private msg: NzMessageService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -45,15 +45,15 @@ export class UserInfoFormTplComponent implements OnInit {
       avatar: [null]
     });
 
-    this.validateForm.get('work_date').valueChanges.subscribe( date => {
-      if(date && this.validateForm.get('is_not_work').value) {
+    this.validateForm.get('work_date').valueChanges.subscribe(date => {
+      if (date && this.validateForm.get('is_not_work').value) {
         this.validateForm.patchValue({
           is_not_work: false
         });
       }
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -73,7 +73,7 @@ export class UserInfoFormTplComponent implements OnInit {
       avatar: this.data.avatar
     });
     // 
-    if(!this.data.work_date) {
+    if (!this.data.work_date) {
       this.isNotWorkChange(!this.data.work_date);
     }
   }
@@ -92,55 +92,53 @@ export class UserInfoFormTplComponent implements OnInit {
     this.validateForm.get('work_date')!.updateValueAndValidity();
   }
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 个人信息');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
 
-        let userInfo:FormData = new FormData();
-        const object = this.validateForm.value;
-        for (const key in object) {
-            if(key === 'registered_residence') {
-              userInfo.append('registered_province_id', object[key][0]);
-              userInfo.append('registered_city_id', object[key][1]);
-            }else if(key === 'address_city') {
-              userInfo.append('work_province_id', object[key][0]);
-              userInfo.append('work_city_id', object[key][1]);
-              userInfo.append('work_area_id', object[key][2]);
-            } else if (key === 'work_date') {
-              const work_date:string = object['is_not_work'] ? '' : object[key];
-              userInfo.append('work_date', work_date);
-            }else if(key === 'is_not_work') {
-              continue;
-            } else if(key === 'avatar') {
-              if(typeof object[key] === 'string') {
-                continue
-              }else {
-                const avatar:string = object['avatar'] ? object[key] : '';
-                userInfo.append('avatar', avatar);
-              }
-            } else {
-              userInfo.append(key, object[key]);
-            }
-        }
-
-        this.settingService.post(`/v1/web/user/resume_info/${this.data.id}`, userInfo).subscribe((res:ApiData) => {
-          console.log(res);
-          this.loading = false;
-          if(res.code === 200) {
-            this.destroyModal(res.data);
-            this.userDataService.getProfile().then();
-            this.msg.success('修改成功');
-          }else {
-            this.msg.error(res.message);
+      let userInfo: FormData = new FormData();
+      const object = this.validateForm.value;
+      for (const key in object) {
+        if (key === 'registered_residence') {
+          userInfo.append('registered_province_id', object[key][0]);
+          userInfo.append('registered_city_id', object[key][1]);
+        } else if (key === 'address_city') {
+          userInfo.append('work_province_id', object[key][0]);
+          userInfo.append('work_city_id', object[key][1]);
+          userInfo.append('work_area_id', object[key][2]);
+        } else if (key === 'work_date') {
+          const work_date: string = object['is_not_work'] ? '' : object[key];
+          userInfo.append('work_date', work_date);
+        } else if (key === 'is_not_work') {
+          continue;
+        } else if (key === 'avatar') {
+          if (typeof object[key] === 'string') {
+            continue
+          } else {
+            const avatar: string = object['avatar'] ? object[key] : '';
+            userInfo.append('avatar', avatar);
           }
-        }, err => this.loading = false)
+        } else {
+          userInfo.append(key, object[key]);
+        }
+      }
+
+      this.settingService.post(`/v1/web/user/resume_info/${this.data.id}`, userInfo).subscribe((res: ApiData) => {
+        this.loading = false;
+        if (res.code === 200) {
+          this.destroyModal(res.data);
+          this.userDataService.getProfile().then();
+          this.msg.success('修改成功');
+        } else {
+          this.msg.error(res.message);
+        }
+      }, err => this.loading = false)
     }
-    
+
   }
 
   cancel(e: MouseEvent): void {
@@ -148,7 +146,7 @@ export class UserInfoFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

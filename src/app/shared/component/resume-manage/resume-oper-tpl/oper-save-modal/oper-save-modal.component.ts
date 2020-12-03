@@ -12,7 +12,7 @@ import { environment } from '@env/environment';
 })
 export class OperSaveModalComponent implements OnInit {
   @Input() resumeInfo: any;
-  environment:any = environment;
+  environment: any = environment;
 
   constructor(
     private modal: NzModalRef,
@@ -46,7 +46,7 @@ export class OperSaveModalComponent implements OnInit {
       // this.submitLoading = false;
       // this.destroyModal({ type: 'success' });
       // window.open(url, '_blank');
-      
+
     } else {
       url = '/v1/web/com/resume/save_word';
       headers = new HttpHeaders().append("Content-Type", "application/json");
@@ -85,7 +85,6 @@ export class OperSaveModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('保存简历 works: 可以对应的选择当前简历的保存格式，如：PDF，word等等')
   }
 
 }

@@ -11,10 +11,10 @@ import { ApiData } from 'src/app/data/interface';
   styleUrls: ['./sub-account-form-c.component.less']
 })
 export class SubAccountFormCComponent implements OnInit {
-  @Input() data:any;
+  @Input() data: any;
 
   validateForm!: FormGroup;
-  submitLoading:boolean = false;
+  submitLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,15 +26,15 @@ export class SubAccountFormCComponent implements OnInit {
   ngOnInit(): void {
 
     this.validateForm = this.fb.group({
-      account_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, [Validators.required, this.usernameValidator] ],
+      account_name: [{ value: this.data ? this.data.name : null, disabled: this.data }, [Validators.required, this.usernameValidator]],
       password: [null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      user_member_name: [null, Validators.required ],
-      user_member_phone: [null, Validators.required ],
-      email: [null ]
+      user_member_name: [null, Validators.required],
+      user_member_phone: [null, Validators.required],
+      email: [null]
     });
 
-    if(this.data) {
+    if (this.data) {
       this.validateForm.get('password')!.clearValidators();
       this.validateForm.get('password')!.markAsPristine();
       this.validateForm.get('checkPassword')!.clearValidators();
@@ -44,9 +44,9 @@ export class SubAccountFormCComponent implements OnInit {
     }
     this.validateForm.get('password')!.updateValueAndValidity();
     this.validateForm.get('checkPassword')!.updateValueAndValidity();
-    
+
   }
-  
+
   usernameValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
@@ -55,7 +55,7 @@ export class SubAccountFormCComponent implements OnInit {
     }
     return {};
   };
-  
+
   updateConfirmValidator(): void {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
@@ -76,20 +76,19 @@ export class SubAccountFormCComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    console.log(this.validateForm, '账号设置 表单');
-    if(this.validateForm.valid) {
-      const value:any = this.validateForm.value;
+    if (this.validateForm.valid) {
+      const value: any = this.validateForm.value;
       this.submitLoading = true;
-      if(this.data) {
+      if (this.data) {
         this.edit(value);
-      }else {
+      } else {
         this.create(value);
       }
     }
   }
 
-  create(value:any):void {
-    const option:any = {
+  create(value: any): void {
+    const option: any = {
       name: value.account_name,
       full_name: value.user_member_name,
       password: value.password,
@@ -98,35 +97,34 @@ export class SubAccountFormCComponent implements OnInit {
       email: value.email
     };
 
-    this.settingService.post('/v1/web/com/account', option).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/account', option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('账号创建成功');
-        this.destoryModal({type: 'success'});
+        this.destoryModal({ type: 'success' });
       }
     }, err => this.submitLoading = false);
   }
 
-  edit(value:any):void {
-    const opt:any = {
+  edit(value: any): void {
+    const opt: any = {
       full_name: value.user_member_name,
       phone: value.user_member_phone,
       email: value.email
     };
 
-    this.settingService.patch(`/v1/web/com/account/${this.data.id}`, opt).subscribe((res:ApiData) => {
+    this.settingService.patch(`/v1/web/com/account/${this.data.id}`, opt).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.msg.success('编辑成功');
-        this.destoryModal({type: 'success'});
-      }else {
+        this.destoryModal({ type: 'success' });
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);
   }
 
-  setFormValue():void {
-    console.log('edit account form', this.data);
+  setFormValue(): void {
     this.validateForm.patchValue({
       user_member_name: this.data.full_name,
       user_member_phone: this.data.phone,
@@ -134,34 +132,33 @@ export class SubAccountFormCComponent implements OnInit {
     });
   }
 
-  cancel(e:Event):void {
+  cancel(e: Event): void {
     e.preventDefault();
     this.destoryModal();
   }
 
-  destoryModal(data?:any):void {
+  destoryModal(data?: any): void {
     this.modal.destroy(data);
   }
 
 
-  resetPassword():void {
-    console.log('重置密码');
+  resetPassword(): void {
     this.resetLoading = true;
 
-    this.settingService.post(`/v1/web/com/account_reset`, { id: this.data.id}).subscribe((res:ApiData) => {
+    this.settingService.post(`/v1/web/com/account_reset`, { id: this.data.id }).subscribe((res: ApiData) => {
       this.resetLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.isVisible = false;
         this.msg.success('密码重置成功');
-      }else{
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.resetLoading = false);
   }
 
-  
-  isVisible:boolean = false;
-  resetLoading:boolean = false;
+
+  isVisible: boolean = false;
+  resetLoading: boolean = false;
 
   showResetModal(): void {
     this.isVisible = true;

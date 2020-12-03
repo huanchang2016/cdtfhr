@@ -27,7 +27,7 @@ export class UserAdminBindAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   rebind(): void { // 保存
@@ -39,20 +39,10 @@ export class UserAdminBindAccountComponent implements OnInit {
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzComponentParams: {
-        
-      // },
+
       nzFooter: null
     });
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('[afterClose 更换手机验证码] The result is:', result);
-      // if(result && result.type === 'success') {
-        // 操作成功后，需要重新获取 记录等信息
-        // this.resetConfigs();
-      // }
     });
 
   }

@@ -31,7 +31,7 @@ export class UserCertificateFormTplComponent implements OnInit {
       certificateDate: [null, [Validators.required]]
     })
 
-    if(this.data) {
+    if (this.data) {
       this.setForm();
     }
   }
@@ -45,13 +45,12 @@ export class UserCertificateFormTplComponent implements OnInit {
   }
 
 
-  submitForm():any {
+  submitForm(): any {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, '简历 证书信息');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.loading = true;
       const object: any = this.validateForm.value;
 
@@ -92,7 +91,7 @@ export class UserCertificateFormTplComponent implements OnInit {
     this.destroyModal();
   }
 
-  destroyModal(data:any = null): void {
+  destroyModal(data: any = null): void {
     this.modal.destroy({ data: data });
   }
 }

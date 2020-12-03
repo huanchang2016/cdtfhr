@@ -14,19 +14,19 @@ import { ApiData } from 'src/app/data/interface';
 })
 export class LinkUserInfoComponent implements OnInit {
 
-  linkInfo:any = null;
+  linkInfo: any = null;
 
   tplModal?: NzModalRef;
   submitLoading = false;
 
   validateForm!: FormGroup;
 
-  is_edit_phone_flag:boolean = false; // 是否编辑手机号码
-  is_get_old_captcha:boolean = false;
-  is_get_new_captcha:boolean = false;
+  is_edit_phone_flag: boolean = false; // 是否编辑手机号码
+  is_get_old_captcha: boolean = false;
+  is_get_new_captcha: boolean = false;
 
-  get_old_captcha_loading:boolean = false;
-  get_new_captcha_loading:boolean = false;
+  get_old_captcha_loading: boolean = false;
+  get_new_captcha_loading: boolean = false;
 
   constructor(
     private modal: NzModalService,
@@ -43,7 +43,7 @@ export class LinkUserInfoComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(is_edit:boolean = false):void {
+  initForm(is_edit: boolean = false): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       old_phone: [null, [Validators.required, Validators.pattern(/^1[3456789]\d{9}$/)]],
@@ -53,13 +53,12 @@ export class LinkUserInfoComponent implements OnInit {
       tel: [null],
       email: [null, [Validators.email]]
     });
-    if(is_edit) {
+    if (is_edit) {
       this.setFormValue();
     }
   }
-  
-  resetFormValid():void {
-    console.log('重置表单 必填验证规则')
+
+  resetFormValid(): void {
     // 启用 验证码及新手机号码填写
     this.validateForm.controls['old_captcha'].enable();
     this.validateForm.controls['new_phone'].enable();
@@ -70,23 +69,22 @@ export class LinkUserInfoComponent implements OnInit {
     this.validateForm.controls['new_captcha'].setValidators(Validators.required);
   }
 
-  loadingData:boolean = true;
+  loadingData: boolean = true;
 
-  getDataInfo():void {
+  getDataInfo(): void {
     this.loadingData = true;
-    this.settingService.get('/v1/web/com/contact').subscribe((res:ApiData) => {
+    this.settingService.get('/v1/web/com/contact').subscribe((res: ApiData) => {
       this.loadingData = false;
-      console.log('获取联系人信息', res);
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.linkInfo = res.data;
-      }else {
+      } else {
         this.msg.error(res.message);
       }
-    }, err=> this.loadingData = false);
+    }, err => this.loadingData = false);
   }
 
   edit(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>): void {
-    
+
     this.initForm(true); // 编辑时表单赋值
 
     this.tplModal = this.modal.create({
@@ -98,103 +96,90 @@ export class LinkUserInfoComponent implements OnInit {
       nzContent: tplContent,
       nzFooter: null,
       nzMaskClosable: false,
-      nzOnOk: () => console.log('Click ok')
     });
   }
 
-  old_count:number = 60;
+  old_count: number = 60;
 
   getOldCaptcha(e: MouseEvent): void {
     e.preventDefault();
     const user_phone = this.validateForm.get('old_phone');
     this.validateForm.controls['old_phone'].markAsDirty();
     this.validateForm.controls['old_phone'].updateValueAndValidity();
-    if(!user_phone.valid) {
+    if (!user_phone.valid) {
       return;
     }
-    // if(this.is_get_old_captcha) {
-    //   this.msg.success('验证码已发送');
-    //   return;
-    // }else {
-      this.get_old_captcha_loading = true;
-      this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
+    this.get_old_captcha_loading = true;
+    this.settingService.post('/v1/web/com/send_old_phone', { phone: user_phone.value }).subscribe((res: ApiData) => {
+      this.get_old_captcha_loading = false;
+      if (res.code === 200) {
+        this.msg.success('发送成功');
+        this.is_get_old_captcha = true;
+        this.is_edit_phone_flag = true;
+        this.counterOld();
+        this.resetFormValid();
+      } else {
+        this.msg.error(res.message);
         this.get_old_captcha_loading = false;
-        if(res.code === 200) {
-          this.msg.success('发送成功');
-          this.is_get_old_captcha = true;
-          this.is_edit_phone_flag = true;
-          this.counterOld();
-          this.resetFormValid();
-        }else {
-          this.msg.error(res.message);
-          this.get_old_captcha_loading = false;
-        }
-      }, err => this.get_old_captcha_loading = false);  
-    // }
+      }
+    }, err => this.get_old_captcha_loading = false);
   }
 
 
   counterOld() {
-    console.log('counter old');
     const new_numbers = interval(1000);
     const new_takeFourNumbers = new_numbers.pipe(take(60));
     new_takeFourNumbers.subscribe(
       x => {
         this.old_count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.is_get_old_captcha = false;
       });
   }
 
-  new_count:number = 60;
+  new_count: number = 60;
 
   getNewCaptcha(e: MouseEvent): void {
     e.preventDefault();
-    if(!this.is_edit_phone_flag) {
+    if (!this.is_edit_phone_flag) {
       return;
     }
     const user_phone = this.validateForm.get('new_phone');
     this.validateForm.controls['new_phone'].markAsDirty();
     this.validateForm.controls['new_phone'].updateValueAndValidity();
-    
-    if(!user_phone.valid) {
+
+    if (!user_phone.valid) {
       return;
     }
-    // if(this.is_get_new_captcha) {
-    //   this.msg.success('验证码已发送');
-    //   return;
-    // }else {
-      this.get_new_captcha_loading = true;
-      this.settingService.post('/v1/web/com/send_new_phone', { phone: user_phone.value }).subscribe((res:ApiData) => {
-        this.get_new_captcha_loading = false;
-        if(res.code === 200) {
-          this.msg.success('发送成功');
-          this.is_get_new_captcha = true;
-          this.counterNew();
-        }else {
-          this.msg.error(res.message);
-        }
-      }, err => this.get_new_captcha_loading = false)
-    // }
+    this.get_new_captcha_loading = true;
+    this.settingService.post('/v1/web/com/send_new_phone', { phone: user_phone.value }).subscribe((res: ApiData) => {
+      this.get_new_captcha_loading = false;
+      if (res.code === 200) {
+        this.msg.success('发送成功');
+        this.is_get_new_captcha = true;
+        this.counterNew();
+      } else {
+        this.msg.error(res.message);
+      }
+    }, err => this.get_new_captcha_loading = false)
   }
 
   counterNew() {
-    console.log('counter new');
     const old_numbers = interval(1000);
     const old_takeFourNumbers = old_numbers.pipe(take(60));
     old_takeFourNumbers.subscribe(
       x => {
         this.new_count = 60 - x - 1;
       },
-      error => {},
+      error => { },
       () => {
         this.is_get_new_captcha = false;
       });
   }
 
-  setFormValue():void {
+  setFormValue(): void {
     this.validateForm.patchValue({
       username: this.linkInfo.full_name,
       old_phone: this.linkInfo.phone,
@@ -203,7 +188,7 @@ export class LinkUserInfoComponent implements OnInit {
     });
   }
 
-  cancel(e:Event):void {
+  cancel(e: Event): void {
     e.preventDefault();
     this.submitLoading = false;
     this.is_edit_phone_flag = false;
@@ -218,15 +203,14 @@ export class LinkUserInfoComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.validateForm, 'submit link info');
-    if(this.validateForm.valid) {
+    if (this.validateForm.valid) {
       this.destroyTplModal();
     }
   }
 
   destroyTplModal(): void {
-    const value:any = this.validateForm.value;
-    const option:any = {
+    const value: any = this.validateForm.value;
+    const option: any = {
       full_name: value.username,
       old_phone: value.old_phone,
       old_code: value.old_captcha,
@@ -237,14 +221,14 @@ export class LinkUserInfoComponent implements OnInit {
     };
     // is_edit_phone_flag  根据 标记 确定传值内容
     this.submitLoading = true;
-    this.settingService.post('/v1/web/com/contact', option).subscribe((res:ApiData) => {
+    this.settingService.post('/v1/web/com/contact', option).subscribe((res: ApiData) => {
       this.submitLoading = false;
-      if(res.code === 200) {
+      if (res.code === 200) {
         this.is_edit_phone_flag = false;
         this.msg.success('更新成功');
         this.getDataInfo();
         this.tplModal!.destroy();
-      }else {
+      } else {
         this.msg.error(res.message);
       }
     }, err => this.submitLoading = false);

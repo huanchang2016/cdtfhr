@@ -11,8 +11,8 @@ import { CompanyDataService } from '../../service/company-data.service';
 export class PositionListComponent implements OnInit {
   tabIndex: 0 | 1 = 0;
 
-  keywords:string;
-  searchOption:any = null;
+  keywords: string;
+  searchOption: any = null;
 
 
 
@@ -26,40 +26,30 @@ export class PositionListComponent implements OnInit {
   ngOnInit(): void { }
 
   search(): void {
-    console.log(this.searchOption, 'searchOption text info');
-    const obj:any = { name: this.keywords };
+    const obj: any = { name: this.keywords };
     this.searchOption = { ...obj };
   }
 
-  changeTab({index}):void {
-    console.log(index, 'change tabs, status changed!');
+  changeTab({ index }): void {
     this.tabIndex = index;
   }
 
   create(): void {
-    console.log('create position');
     const modal = this.modal.create({
       nzTitle: '发布新职位',
       nzContent: PositionFormComponent,
-      // nzViewContainerRef: this.viewContainerRef,
       nzWidth: '800px',
       nzBodyStyle: {
         padding: '24px 100px 30px'
       },
       nzMaskClosable: false,
-      // nzGetContainer: () => document.body,
       nzComponentParams: {
         data: null
       },
       nzFooter: null
     });
-
-    // const instance = modal.getContentComponent();
-    // modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // Return a result when closed
     modal.afterClose.subscribe(result => {
-      console.log('result', result);
-      if(result && this.tabIndex === 0) {
+      if (result && this.tabIndex === 0) {
         this.search();
       }
     });
