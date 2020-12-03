@@ -4,7 +4,7 @@
             <ng-container *ngIf="!loading; else loadingTpl">
                 <h2 class="details_title text-center text-666 text-lg py-sm">{{ dataInfo.name }}</h2>
                 <div nz-row nzGutter="24" class="mt-lg">
-                    <div nz-col nzSpan="6" class="text-grey-dark">来源：{{ dataInfo.author }}</div>
+                    <div nz-col nzSpan="6" class="text-grey-dark">来源：{{ dataInfo.source }}</div>
                     <div nz-col nzSpan="6" class="text-grey-dark">时间：{{ dataInfo.release_time }}</div>
                     <div nz-col nzSpan="6" class="text-grey-dark">作者：{{ dataInfo.author }}</div>
                     <div nz-col nzSpan="6" class="text-grey-dark">浏览量：{{ dataInfo.hits }}</div>
